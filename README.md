@@ -41,3 +41,11 @@ v0.4 sigue siendo un prototipo local. Los datos se guardan en el navegador. Las 
 - Registrar anilla guarda número y fecha de anillado.
 - Después del anillado se puede abrir la ficha completa en Mi Palomar.
 - La configuración se guarda en `colombaire_breeding_settings`, preparada para una futura pantalla Ajustes.
+
+
+### Navegación v0.4e
+- Los botones ‹ ahora funcionan como Atrás real.
+- COLOMBAIRE conserva el recorrido de pantallas realizado por el usuario.
+- Ejemplo: Mi Palomar → Palomo → Cría → ‹ vuelve al Palomo; otro ‹ vuelve a Mi Palomar.
+- El comportamiento se aplica de forma global para que los futuros módulos reutilicen la misma navegación.
+- La navegación principal inferior reinicia el recorrido, evitando volver accidentalmente a una rama antigua.

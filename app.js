@@ -8,6 +8,8 @@ let pigeons=JSON.parse(localStorage.getItem("colombaire_pigeons")||"null")||seed
 pigeons=pigeons.map(p=>({...p,id:p.id||makeId("p"),fatherId:p.fatherId||"",motherId:p.motherId||""}));
 let pairs=JSON.parse(localStorage.getItem("colombaire_pairs")||"[]");
 let currentId=null,currentPairId=null,currentClutchId=null,currentChickId=null;
+let currentPage="inicio";
+let navigationHistory=[];
 const breedingSettings=JSON.parse(localStorage.getItem("colombaire_breeding_settings")||"null")||{ringStartDay:6,ringCriticalDay:10};
 localStorage.setItem("colombaire_breeding_settings",JSON.stringify(breedingSettings));
 const pages=[...document.querySelectorAll(".page")],$=s=>document.querySelector(s);
@@ -19,8 +21,30 @@ function fmtDate(v){if(!v)return"Sin registrar";if(!/^\d{4}-\d{2}-\d{2}$/.test(v
 function addDays(v,n){const d=new Date(v+"T12:00:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
 function ageDays(v){if(!v)return null;return Math.floor((Date.now()-new Date(v+"T12:00:00"))/86400000)}
 function parentName(p,type){const id=p[type+"Id"];if(id&&byId(id))return byId(id).name;return p[type]||(type==="father"?"Desconocido":"Desconocida")}
-function go(id){pages.forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("selected",b.dataset.go===id));if(id==="cria")renderBreeding();window.scrollTo(0,0)}
-document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)go(g.dataset.go)});
+function showPage(id){
+ pages.forEach(p=>p.classList.toggle("active",p.id===id));
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("selected",b.dataset.go===id));
+ if(id==="cria")renderBreeding();
+ currentPage=id;
+ window.scrollTo(0,0);
+}
+function go(id,opts={}){
+ if(!id||id===currentPage)return;
+ if(!opts.replace&&!opts.fromBack)navigationHistory.push(currentPage);
+ showPage(id);
+}
+function goBack(){
+ const previous=navigationHistory.pop();
+ if(previous)showPage(previous);
+ else showPage("inicio");
+}
+document.addEventListener("click",e=>{
+ const back=e.target.closest(".app-back");
+ if(back){e.preventDefault();goBack();return;}
+ const g=e.target.closest("[data-go]");
+ if(g)go(g.dataset.go);
+});
+document.querySelectorAll("nav [data-go]").forEach(btn=>btn.addEventListener("click",()=>{navigationHistory=[];}));
 
 // MI PALOMAR
 function render(list=pigeons){const box=$("#pigeonList");$("#pigeonCount").textContent=`${pigeons.length} palomo${pigeons.length===1?"":"s"} registrado${pigeons.length===1?"":"s"}`;box.innerHTML=list.map(p=>{const sx=p.sex==="Macho"?"♂":p.sex==="Hembra"?"♀":"?";return`<div class="list-card" data-id="${p.id}"><div><b>${p.name||"Sin nombre"}</b><small>${p.ring||"Sin anilla"} · ${p.color||"Sin pelaje"}</small><small>Padre: ${parentName(p,"father")} · Madre: ${parentName(p,"mother")}</small><span class="status-pill">${p.status||"Activo"}</span></div><div class="sex">${sx}</div></div>`}).join("");box.querySelectorAll(".list-card").forEach(c=>c.onclick=()=>openPigeon(c.dataset.id))}

@@ -10,7 +10,7 @@
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.4d</b></small></div></div>
+    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.4e</b></small></div></div>
     <div class="head-actions"><button>☀ 23°</button><button>🔔</button></div>
   </header>
 
@@ -52,7 +52,7 @@
     </section>
 
     <section id="palomar" class="page">
-      <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>MI PALOMAR</h2><small id="pigeonCount">3 palomos registrados</small></div><button class="plus" id="addPigeon">＋</button></div>
+      <div class="title-row"><button class="back app-back" data-go="inicio">‹</button><div><h2>MI PALOMAR</h2><small id="pigeonCount">3 palomos registrados</small></div><button class="plus" id="addPigeon">＋</button></div>
       <div class="loft-tabs">
         <button class="selected">PALOMOS</button>
         <button data-go="cria">CRÍA</button>
@@ -63,7 +63,7 @@
     </section>
 
     <section id="ficha" class="page">
-      <div class="title-row"><button class="back" data-go="palomar">‹</button><div><h2 id="f-name">Toretto</h2><small id="f-ring">ESP-2024-01587</small></div><button id="editPigeon">✎</button></div>
+      <div class="title-row"><button class="back app-back" data-go="palomar">‹</button><div><h2 id="f-name">Toretto</h2><small id="f-ring">ESP-2024-01587</small></div><button id="editPigeon">✎</button></div>
       <div class="tabs"><button class="selected">Información</button><button data-go="cria">Cría</button><button data-go="salud">Salud</button><button data-go="concursos">Concursos</button><button>Genealogía</button></div>
       <section class="detail-card">
         <h3>DATOS DEL PALOMO</h3>
@@ -79,7 +79,7 @@
 
 
     <section id="palomoForm" class="page">
-      <div class="title-row"><button class="back" data-go="palomar">‹</button><div><h2 id="formTitle">NUEVO PALOMO</h2><small>Ficha de Mi Palomar</small></div></div>
+      <div class="title-row"><button class="back app-back" data-go="palomar">‹</button><div><h2 id="formTitle">NUEVO PALOMO</h2><small>Ficha de Mi Palomar</small></div></div>
       <form id="pigeonForm" class="detail-card form-card">
         <input type="hidden" id="p-index">
         <div class="form-grid">
@@ -103,7 +103,7 @@
     </section>
 
     <section id="cria" class="page">
-      <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>CRÍA</h2><small id="breedingSeason">Temporada 2026</small></div><button class="plus" id="addPair">＋</button></div>
+      <div class="title-row"><button class="back app-back" data-go="inicio">‹</button><div><h2>CRÍA</h2><small id="breedingSeason">Temporada 2026</small></div><button class="plus" id="addPair">＋</button></div>
       <div class="loft-tabs">
         <button data-go="palomar">PALOMOS</button>
         <button class="selected">CRÍA</button>
@@ -117,7 +117,7 @@
     </section>
 
     <section id="pairForm" class="page">
-      <div class="title-row"><button class="back" data-go="cria">‹</button><div><h2>NUEVA PAREJA</h2><small>Selecciona reproductores de Mi Palomar</small></div></div>
+      <div class="title-row"><button class="back app-back" data-go="cria">‹</button><div><h2>NUEVA PAREJA</h2><small>Selecciona reproductores de Mi Palomar</small></div></div>
       <form id="newPairForm" class="detail-card form-card">
         <div class="form-grid">
           <label><span>♂ Macho</span><select id="pairMale" required></select></label>
@@ -130,7 +130,7 @@
     </section>
 
     <section id="pairDetail" class="page">
-      <div class="title-row"><button class="back" data-go="cria">‹</button><div><h2 id="pairTitle">PAREJA</h2><small id="pairSubtitle"></small></div><button id="newClutchBtn" class="plus">＋ Puesta</button></div>
+      <div class="title-row"><button class="back app-back" data-go="cria">‹</button><div><h2 id="pairTitle">PAREJA</h2><small id="pairSubtitle"></small></div><button id="newClutchBtn" class="plus">＋ Puesta</button></div>
       <div id="pairParents" class="pair"></div>
       <div class="pair-actions"><button id="newClutchBtn2" class="primary">🥚 Registrar puesta</button><button id="finishPairBtn" class="secondary">Finalizar pareja</button></div>
       <h3>HISTORIAL DE PUESTAS</h3>
@@ -140,7 +140,7 @@
     </section>
 
     <section id="clutchForm" class="page">
-      <div class="title-row"><button class="back" data-go="pairDetail">‹</button><div><h2>NUEVA PUESTA</h2><small id="clutchPairName"></small></div></div>
+      <div class="title-row"><button class="back app-back" data-go="pairDetail">‹</button><div><h2>NUEVA PUESTA</h2><small id="clutchPairName"></small></div></div>
       <form id="newClutchForm" class="detail-card form-card">
         <div class="egg-entry">
           <h3>🥚 HUEVO 1</h3>
@@ -163,14 +163,14 @@
     </section>
 
     <section id="clutchDetail" class="page">
-      <div class="title-row"><button class="back" data-go="pairDetail">‹</button><div><h2>DETALLE DE PUESTA</h2><small id="clutchDetailSub"></small></div></div>
+      <div class="title-row"><button class="back app-back" data-go="pairDetail">‹</button><div><h2>DETALLE DE PUESTA</h2><small id="clutchDetailSub"></small></div></div>
       <div id="clutchInfo" class="detail-card"></div>
       <h3>HUEVOS</h3><div id="eggList"></div>
       <div class="pair-actions"><button id="registerBirthBtn" class="primary">🐣 Registrar nacimiento</button></div>
     </section>
 
     <section id="birthForm" class="page">
-      <div class="title-row"><button class="back" data-go="clutchDetail">‹</button><div><h2>REGISTRAR NACIMIENTO</h2><small>El pichón quedará vinculado a sus padres</small></div></div>
+      <div class="title-row"><button class="back app-back" data-go="clutchDetail">‹</button><div><h2>REGISTRAR NACIMIENTO</h2><small>El pichón quedará vinculado a sus padres</small></div></div>
       <form id="newBirthForm" class="detail-card form-card">
         <div class="form-grid">
           <label><span>Fecha de nacimiento</span><input id="birthDate" type="date" required></label>
@@ -185,14 +185,14 @@
     </section>
 
     <section id="chickDetail" class="page">
-      <div class="title-row"><button class="back" data-go="pairDetail">‹</button><div><h2>PICHÓN</h2><small id="chickDetailSub">Seguimiento de cría</small></div></div>
+      <div class="title-row"><button class="back app-back" data-go="pairDetail">‹</button><div><h2>PICHÓN</h2><small id="chickDetailSub">Seguimiento de cría</small></div></div>
       <div id="chickStatusCard" class="detail-card"></div>
       <div id="ringingAlertBox"></div>
       <div class="pair-actions"><button id="ringChickBtn" class="primary">💍 Registrar anilla</button><button id="openChickPigeonBtn" class="secondary">Ver ficha en Mi Palomar</button></div>
     </section>
 
     <section id="ringForm" class="page">
-      <div class="title-row"><button class="back" data-go="chickDetail">‹</button><div><h2>ANILLAR PICHÓN</h2><small id="ringFormSub"></small></div></div>
+      <div class="title-row"><button class="back app-back" data-go="chickDetail">‹</button><div><h2>ANILLAR PICHÓN</h2><small id="ringFormSub"></small></div></div>
       <form id="ringFormData" class="detail-card form-card">
         <div class="form-grid">
           <label><span>Número de anilla</span><input id="ringNumber" required placeholder="Ej. ESP-2026-01234"></label>
