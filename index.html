@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#164b3a">
+  <title>COLOMBAIRE v0.1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos</small></div></div>
+    <div class="head-actions"><button>☀ 23°</button><button>🔔</button></div>
+  </header>
+
+  <main>
+    <section id="inicio" class="page active">
+      <div class="hero-grid">
+        <button class="module" data-go="palomar"><span>🕊️</span><b>MI PALOMAR</b><small>Gestiona tus palomos</small></button>
+        <button class="module" data-go="genetica"><span>🧬</span><b>GENÉTICA</b><small>Cruces y pelajes</small></button>
+        <button class="module" data-go="salud"><span>🩺</span><b>SALUD</b><small>Control y enfermedades</small></button>
+        <button class="module" data-go="concursos"><span>🏆</span><b>CONCURSOS</b><small>Calendario y resultados</small></button>
+        <button class="module" data-go="guia"><span>📖</span><b>LA GUÍA</b><small>Todo sobre colombicultura</small></button>
+        <button class="module" data-go="calendario"><span>📅</span><b>CALENDARIO</b><small>Fechas y recordatorios</small></button>
+      </div>
+
+      <button class="ask" data-go="guia"><span>🔎</span><div><b>Pregúntale a la Guía</b><small>¿Qué quieres consultar?</small></div><strong>›</strong></button>
+
+      <h2>HOY EN TU PALOMAR <span>5 avisos</span></h2>
+      <div class="today">
+        <button><span>🥚</span><b>2</b><small>Huevos próximos<br>a eclosionar</small></button>
+        <button><span>🐣</span><b>3</b><small>Pichones próximos<br>a anillar</small></button>
+        <button><span>💊</span><b>1</b><small>Tratamiento<br>pendiente</small></button>
+        <button><span>🕊️</span><b>4</b><small>Parejas<br>criando</small></button>
+        <button><span>🏆</span><b>1</b><small>Próximo<br>concurso</small></button>
+      </div>
+
+      <div class="columns">
+        <section class="panel">
+          <h3>PALOMOS DESTACADOS</h3>
+          <div class="pigeon-row"><div class="avatar">T</div><div><b>Toretto</b><small>Rojo · Macho</small></div><span>Competidor</span></div>
+          <div class="pigeon-row"><div class="avatar">B</div><div><b>Bumblebee</b><small>Mascarado Plomes · Macho</small></div><span>Reproductor</span></div>
+        </section>
+        <section class="panel">
+          <h3>ÚLTIMAS ACTUALIZACIONES</h3>
+          <p>🐣 <b>Nacimiento registrado</b><br><small>Pichón de Toretto × Brisa</small></p>
+          <p>🏆 <b>Resultado de concurso</b><br><small>Toretto · 2.º clasificado</small></p>
+          <p>🩺 <b>Control sanitario</b><br><small>Revisión completada</small></p>
+        </section>
+      </div>
+    </section>
+
+    <section id="palomar" class="page">
+      <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>MI PALOMAR</h2><small>3 palomos registrados</small></div><button class="plus">＋</button></div>
+      <input id="search" class="search" placeholder="🔎 Buscar por nombre, anilla o pelaje...">
+      <div class="filters"><button class="selected">Todos</button><button>Machos</button><button>Hembras</button><button>Activos</button></div>
+      <div id="pigeonList"></div>
+    </section>
+
+    <section id="ficha" class="page">
+      <div class="title-row"><button class="back" data-go="palomar">‹</button><div><h2 id="f-name">Toretto</h2><small id="f-ring">ESP-2024-01587</small></div><button>⋮</button></div>
+      <div class="tabs"><button class="selected">Información</button><button data-go="cria">Cría</button><button data-go="salud">Salud</button><button data-go="concursos">Concursos</button><button>Genealogía</button></div>
+      <section class="detail-card">
+        <h3>DATOS DEL PALOMO</h3>
+        <div class="detail-grid">
+          <div><small>Anilla</small><b id="d-ring"></b></div><div><small>Propietario</small><b id="d-owner"></b></div>
+          <div><small>Pelaje</small><b id="d-color"></b></div><div><small>Sexo</small><b id="d-sex"></b></div>
+          <div><small>Fecha de nacimiento</small><b id="d-birth"></b></div><div><small>Estado</small><b>● Activo</b></div>
+        </div>
+        <hr><h3>PADRES</h3>
+        <div class="parents"><button><small>♂ PADRE</small><b id="d-father"></b></button><button><small>♀ MADRE</small><b id="d-mother"></b></button></div>
+      </section>
+    </section>
+
+    <section id="cria" class="page">
+      <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>CRÍA</h2><small>Temporada 2026</small></div><button class="plus">＋</button></div>
+      <div class="stats"><div><b>4</b><small>Parejas activas</small></div><div><b>6</b><small>Huevos</small></div><div><b>9</b><small>Pichones</small></div></div>
+      <h3>AVISOS DE CRÍA</h3>
+      <div class="alert urgent"><b>🐣 3 pichones próximos a anillar</b><small>Revisar hoy</small></div>
+      <div class="alert"><b>🥚 2 huevos próximos a eclosionar</b><small>Previsto en 2 días</small></div>
+      <h3>PAREJAS ACTIVAS</h3>
+      <div class="pair"><div><small>♂ MACHO</small><b>Toretto</b><small>Rojo</small></div><strong>×</strong><div><small>♀ HEMBRA</small><b>Brisa</b><small>Azul</small></div></div>
+      <div class="clutch"><b>Puesta actual</b><span>2 huevos · Día 16/18</span><div class="progress"><i style="width:89%"></i></div><small>Eclosión prevista: 7 oct 2026</small></div>
+      <h3>PICHONES</h3>
+      <div class="chick"><b>ESP-2026-00124</b><span class="badge">Momento de anillar</span><small>Toretto × Brisa · 7 días</small></div>
+      <div class="chick"><b>Sin anilla</b><span class="badge warn">Próximamente</span><small>Bumblebee × Luna · 5 días</small></div>
+    </section>
+
+    <section id="genetica" class="page placeholder"></section>
+    <section id="salud" class="page placeholder"></section>
+    <section id="concursos" class="page placeholder"></section>
+    <section id="guia" class="page placeholder"></section>
+    <section id="calendario" class="page placeholder"></section>
+  </main>
+
+  <nav>
+    <button data-go="inicio" class="selected">⌂<small>Inicio</small></button>
+    <button data-go="palomar">🕊<small>Mi palomar</small></button>
+    <button data-go="genetica">🧬<small>Genética</small></button>
+    <button data-go="salud">♡<small>Salud</small></button>
+    <button data-go="concursos">🏆<small>Concursos</small></button>
+    <button data-go="guia">▤<small>Guía</small></button>
+  </nav>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
