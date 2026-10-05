@@ -10,7 +10,7 @@
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.3</b></small></div></div>
+    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.4</b></small></div></div>
     <div class="head-actions"><button>☀ 23°</button><button>🔔</button></div>
   </header>
 
@@ -99,17 +99,70 @@
     </section>
 
     <section id="cria" class="page">
-      <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>CRÍA</h2><small>Temporada 2026</small></div><button class="plus">＋</button></div>
-      <div class="stats"><div><b>4</b><small>Parejas activas</small></div><div><b>6</b><small>Huevos</small></div><div><b>9</b><small>Pichones</small></div></div>
+      <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>CRÍA</h2><small id="breedingSeason">Temporada 2026</small></div><button class="plus" id="addPair">＋</button></div>
+      <div class="stats"><div><b id="pairCount">0</b><small>Parejas activas</small></div><div><b id="eggCount">0</b><small>Huevos</small></div><div><b id="chickCount">0</b><small>Pichones</small></div></div>
       <h3>AVISOS DE CRÍA</h3>
-      <div class="alert urgent"><b>🐣 3 pichones próximos a anillar</b><small>Revisar hoy</small></div>
-      <div class="alert"><b>🥚 2 huevos próximos a eclosionar</b><small>Previsto en 2 días</small></div>
+      <div id="breedingAlerts"></div>
       <h3>PAREJAS ACTIVAS</h3>
-      <div class="pair"><div><small>♂ MACHO</small><b>Toretto</b><small>Rojo</small></div><strong>×</strong><div><small>♀ HEMBRA</small><b>Brisa</b><small>Azul</small></div></div>
-      <div class="clutch"><b>Puesta actual</b><span>2 huevos · Día 16/18</span><div class="progress"><i style="width:89%"></i></div><small>Eclosión prevista: 7 oct 2026</small></div>
-      <h3>PICHONES</h3>
-      <div class="chick"><b>ESP-2026-00124</b><span class="badge">Momento de anillar</span><small>Toretto × Brisa · 7 días</small></div>
-      <div class="chick"><b>Sin anilla</b><span class="badge warn">Próximamente</span><small>Bumblebee × Luna · 5 días</small></div>
+      <div id="pairList"></div>
+      <div id="noPairs" class="empty-state"><span>🕊️</span><b>Aún no hay parejas de cría</b><small>Pulsa ＋ para seleccionar un macho y una hembra de Mi Palomar.</small></div>
+    </section>
+
+    <section id="pairForm" class="page">
+      <div class="title-row"><button class="back" data-go="cria">‹</button><div><h2>NUEVA PAREJA</h2><small>Selecciona reproductores de Mi Palomar</small></div></div>
+      <form id="newPairForm" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>♂ Macho</span><select id="pairMale" required></select></label>
+          <label><span>♀ Hembra</span><select id="pairFemale" required></select></label>
+          <label><span>Fecha de emparejamiento</span><input id="pairDate" type="date"></label>
+          <label><span>Estado</span><select id="pairStatus"><option>Activa</option><option>Descanso</option><option>Finalizada</option></select></label>
+        </div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="cria">Cancelar</button><button class="primary" type="submit">Crear pareja</button></div>
+      </form>
+    </section>
+
+    <section id="pairDetail" class="page">
+      <div class="title-row"><button class="back" data-go="cria">‹</button><div><h2 id="pairTitle">PAREJA</h2><small id="pairSubtitle"></small></div><button id="newClutchBtn" class="plus">＋ Puesta</button></div>
+      <div id="pairParents" class="pair"></div>
+      <div class="pair-actions"><button id="newClutchBtn2" class="primary">🥚 Registrar puesta</button><button id="finishPairBtn" class="secondary">Finalizar pareja</button></div>
+      <h3>HISTORIAL DE PUESTAS</h3>
+      <div id="clutchList"></div>
+      <h3>PICHONES DE ESTA PAREJA</h3>
+      <div id="pairChicks"></div>
+    </section>
+
+    <section id="clutchForm" class="page">
+      <div class="title-row"><button class="back" data-go="pairDetail">‹</button><div><h2>NUEVA PUESTA</h2><small id="clutchPairName"></small></div></div>
+      <form id="newClutchForm" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>Fecha del primer huevo</span><input id="clutchDate" type="date" required></label>
+          <label><span>Número de huevos</span><select id="clutchEggs"><option>1</option><option selected>2</option><option>3</option></select></label>
+        </div>
+        <div class="prediction" id="hatchPrediction">La app calculará la fecha orientativa de eclosión.</div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="pairDetail">Cancelar</button><button class="primary" type="submit">Guardar puesta</button></div>
+      </form>
+    </section>
+
+    <section id="clutchDetail" class="page">
+      <div class="title-row"><button class="back" data-go="pairDetail">‹</button><div><h2>DETALLE DE PUESTA</h2><small id="clutchDetailSub"></small></div></div>
+      <div id="clutchInfo" class="detail-card"></div>
+      <h3>HUEVOS</h3><div id="eggList"></div>
+      <div class="pair-actions"><button id="registerBirthBtn" class="primary">🐣 Registrar nacimiento</button></div>
+    </section>
+
+    <section id="birthForm" class="page">
+      <div class="title-row"><button class="back" data-go="clutchDetail">‹</button><div><h2>REGISTRAR NACIMIENTO</h2><small>El pichón quedará vinculado a sus padres</small></div></div>
+      <form id="newBirthForm" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>Fecha de nacimiento</span><input id="birthDate" type="date" required></label>
+          <label><span>Sexo</span><select id="birthSex"><option>Sin determinar</option><option>Macho</option><option>Hembra</option></select></label>
+          <label><span>Nombre provisional</span><input id="birthName" placeholder="Opcional"></label>
+          <label><span>Pelaje</span><input id="birthColor" placeholder="Si ya puede determinarse"></label>
+          <label><span>Anilla</span><input id="birthRing" placeholder="Puede añadirse después"></label>
+        </div>
+        <div class="prediction">Al guardar, se creará automáticamente su ficha en <b>Mi Palomar</b>.</div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="clutchDetail">Cancelar</button><button class="primary" type="submit">Guardar pichón</button></div>
+      </form>
     </section>
 
     <section id="genetica" class="page placeholder"></section>
