@@ -22,3 +22,10 @@ v0.4 sigue siendo un prototipo local. Los datos se guardan en el navegador. Las 
 - El botón + de Palomos sigue creando un palomo.
 - El botón + de Cría crea directamente una nueva pareja seleccionando macho y hembra.
 - La pestaña Cría dentro de la ficha individual queda conceptualmente reservada al historial reproductivo de ese ejemplar.
+
+### Ajuste de puestas v0.4c
+- Eliminado "Número de huevos".
+- Huevo 1: fecha propia + estado de fecundación.
+- Huevo 2: fecha propia + estado de fecundación; si no existe, se deja vacío.
+- Fecundación registrada individualmente como Pendiente / Sí / No.
+- El estado de fecundación puede actualizarse posteriormente desde el detalle de la puesta.

@@ -142,9 +142,20 @@
     <section id="clutchForm" class="page">
       <div class="title-row"><button class="back" data-go="pairDetail">‹</button><div><h2>NUEVA PUESTA</h2><small id="clutchPairName"></small></div></div>
       <form id="newClutchForm" class="detail-card form-card">
-        <div class="form-grid">
-          <label><span>Fecha del primer huevo</span><input id="clutchDate" type="date" required></label>
-          <label><span>Número de huevos</span><select id="clutchEggs"><option>1</option><option selected>2</option><option>3</option></select></label>
+        <div class="egg-entry">
+          <h3>🥚 HUEVO 1</h3>
+          <div class="form-grid">
+            <label><span>Fecha del primer huevo</span><input id="egg1Date" type="date" required></label>
+            <label><span>Fecundado</span><select id="egg1Fert"><option value="Pendiente">Pendiente</option><option value="Sí">Sí</option><option value="No">No</option></select></label>
+          </div>
+        </div>
+        <div class="egg-entry">
+          <h3>🥚 HUEVO 2</h3>
+          <div class="form-grid">
+            <label><span>Fecha del segundo huevo</span><input id="egg2Date" type="date"></label>
+            <label><span>Fecundado</span><select id="egg2Fert"><option value="Pendiente">Pendiente</option><option value="Sí">Sí</option><option value="No">No</option></select></label>
+          </div>
+          <small class="field-note">Si no hay segundo huevo, deja la fecha vacía.</small>
         </div>
         <div class="prediction" id="hatchPrediction">La app calculará la fecha orientativa de eclosión.</div>
         <div class="form-actions"><button type="button" class="secondary" data-go="pairDetail">Cancelar</button><button class="primary" type="submit">Guardar puesta</button></div>
