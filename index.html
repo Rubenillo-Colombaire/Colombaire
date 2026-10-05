@@ -10,7 +10,7 @@
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.4</b></small></div></div>
+    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.4d</b></small></div></div>
     <div class="head-actions"><button>☀ 23°</button><button>🔔</button></div>
   </header>
 
@@ -179,8 +179,30 @@
           <label><span>Pelaje</span><input id="birthColor" placeholder="Si ya puede determinarse"></label>
           <label><span>Anilla</span><input id="birthRing" placeholder="Puede añadirse después"></label>
         </div>
-        <div class="prediction">Al guardar, se creará automáticamente su ficha en <b>Mi Palomar</b>.</div>
+        <div class="prediction">Al guardar, quedará registrado como <b>pichón en seguimiento</b>. Al anillarlo completará su identidad en Mi Palomar.</div>
         <div class="form-actions"><button type="button" class="secondary" data-go="clutchDetail">Cancelar</button><button class="primary" type="submit">Guardar pichón</button></div>
+      </form>
+    </section>
+
+    <section id="chickDetail" class="page">
+      <div class="title-row"><button class="back" data-go="pairDetail">‹</button><div><h2>PICHÓN</h2><small id="chickDetailSub">Seguimiento de cría</small></div></div>
+      <div id="chickStatusCard" class="detail-card"></div>
+      <div id="ringingAlertBox"></div>
+      <div class="pair-actions"><button id="ringChickBtn" class="primary">💍 Registrar anilla</button><button id="openChickPigeonBtn" class="secondary">Ver ficha en Mi Palomar</button></div>
+    </section>
+
+    <section id="ringForm" class="page">
+      <div class="title-row"><button class="back" data-go="chickDetail">‹</button><div><h2>ANILLAR PICHÓN</h2><small id="ringFormSub"></small></div></div>
+      <form id="ringFormData" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>Número de anilla</span><input id="ringNumber" required placeholder="Ej. ESP-2026-01234"></label>
+          <label><span>Fecha de anillado</span><input id="ringDate" type="date" required></label>
+          <label><span>Nombre</span><input id="ringName" placeholder="Opcional"></label>
+          <label><span>Pelaje</span><input id="ringColor" placeholder="Si ya puede determinarse"></label>
+          <label><span>Sexo</span><select id="ringSex"><option>Sin determinar</option><option>Macho</option><option>Hembra</option></select></label>
+        </div>
+        <div class="prediction">Padre, madre y fecha de nacimiento ya están vinculados automáticamente.</div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="chickDetail">Cancelar</button><button class="primary" type="submit">Guardar anilla</button></div>
       </form>
     </section>
 

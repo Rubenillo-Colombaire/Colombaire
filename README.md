@@ -29,3 +29,15 @@ v0.4 sigue siendo un prototipo local. Los datos se guardan en el navegador. Las 
 - Huevo 2: fecha propia + estado de fecundación; si no existe, se deja vacío.
 - Fecundación registrada individualmente como Pendiente / Sí / No.
 - El estado de fecundación puede actualizarse posteriormente desde el detalle de la puesta.
+
+### Ciclo del pichón v0.4d
+- El nacimiento crea un pichón en seguimiento vinculado a pareja, puesta, padre y madre.
+- El contador de edad se calcula automáticamente desde la fecha de nacimiento.
+- Parámetros internos configurables: aviso desde día 6 y límite crítico día 10.
+- Día 6: próximo a anillar.
+- Días 7–9: anillado recomendado.
+- Día 10: anillado urgente.
+- Más de 10 días: revisar anillado.
+- Registrar anilla guarda número y fecha de anillado.
+- Después del anillado se puede abrir la ficha completa en Mi Palomar.
+- La configuración se guarda en `colombaire_breeding_settings`, preparada para una futura pantalla Ajustes.
