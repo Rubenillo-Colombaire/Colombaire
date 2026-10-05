@@ -1,13 +1,14 @@
-# COLOMBAIRE v0.1
+# COLOMBAIRE v0.2
 
-Primer prototipo funcional de COLOMBAIRE, una aplicación concebida desde cero para la colombicultura deportiva.
+Segundo prototipo funcional de COLOMBAIRE, concebido desde cero para la colombicultura deportiva.
 
-## Incluido en esta prueba
-- Pantalla Inicio
-- Mi Palomar con buscador
-- Ficha individual del palomo
-- Módulo Cría
-- Navegación funcional
-- Diseño adaptable a PC y móvil
+## Novedades de Mi Palomar
+- Alta de nuevos palomos
+- Edición de fichas existentes
+- Buscador
+- Filtros por sexo y estado
+- Nombre, anilla, propietario, pelaje, sexo, nacimiento, padre, madre y estado
+- Persistencia local en el navegador mediante localStorage
 
-Los módulos Genética, Salud, Concursos, Guía y Calendario aparecen como próximos módulos y se desarrollarán progresivamente.
+## Importante
+Esta sigue siendo una versión de prueba. Los datos añadidos se guardan solo en el navegador/dispositivo utilizado. No debe usarse todavía como única copia de datos reales importantes.

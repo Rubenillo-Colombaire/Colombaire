@@ -52,14 +52,14 @@
     </section>
 
     <section id="palomar" class="page">
-      <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>MI PALOMAR</h2><small>3 palomos registrados</small></div><button class="plus">＋</button></div>
+      <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>MI PALOMAR</h2><small id="pigeonCount">3 palomos registrados</small></div><button class="plus" id="addPigeon">＋</button></div>
       <input id="search" class="search" placeholder="🔎 Buscar por nombre, anilla o pelaje...">
       <div class="filters"><button class="selected">Todos</button><button>Machos</button><button>Hembras</button><button>Activos</button></div>
       <div id="pigeonList"></div>
     </section>
 
     <section id="ficha" class="page">
-      <div class="title-row"><button class="back" data-go="palomar">‹</button><div><h2 id="f-name">Toretto</h2><small id="f-ring">ESP-2024-01587</small></div><button>⋮</button></div>
+      <div class="title-row"><button class="back" data-go="palomar">‹</button><div><h2 id="f-name">Toretto</h2><small id="f-ring">ESP-2024-01587</small></div><button id="editPigeon">✎</button></div>
       <div class="tabs"><button class="selected">Información</button><button data-go="cria">Cría</button><button data-go="salud">Salud</button><button data-go="concursos">Concursos</button><button>Genealogía</button></div>
       <section class="detail-card">
         <h3>DATOS DEL PALOMO</h3>
@@ -71,6 +71,30 @@
         <hr><h3>PADRES</h3>
         <div class="parents"><button><small>♂ PADRE</small><b id="d-father"></b></button><button><small>♀ MADRE</small><b id="d-mother"></b></button></div>
       </section>
+    </section>
+
+
+    <section id="palomoForm" class="page">
+      <div class="title-row"><button class="back" data-go="palomar">‹</button><div><h2 id="formTitle">NUEVO PALOMO</h2><small>Ficha de Mi Palomar</small></div></div>
+      <form id="pigeonForm" class="detail-card form-card">
+        <input type="hidden" id="p-index">
+        <div class="form-grid">
+          <label><span>Nombre</span><input id="p-name" required placeholder="Ej. Toretto"></label>
+          <label><span>Anilla</span><input id="p-ring" required placeholder="Ej. ESP-2026-00124"></label>
+          <label><span>Propietario</span><input id="p-owner" placeholder="Nombre del propietario"></label>
+          <label><span>Pelaje</span><input id="p-color" required placeholder="Ej. Azul, Rojo, Bayo..."></label>
+          <label><span>Sexo</span><select id="p-sex" required><option value="">Seleccionar</option><option>Macho</option><option>Hembra</option><option>Sin determinar</option></select></label>
+          <label><span>Fecha de nacimiento</span><input id="p-birth" type="date"></label>
+          <label><span>Padre</span><input id="p-father" placeholder="Nombre o anilla"></label>
+          <label><span>Madre</span><input id="p-mother" placeholder="Nombre o anilla"></label>
+          <label><span>Estado</span><select id="p-status"><option>Activo</option><option>Cedido</option><option>Baja</option><option>Fallecido</option></select></label>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="secondary" data-go="palomar">Cancelar</button>
+          <button type="submit" class="primary">Guardar palomo</button>
+        </div>
+        <p class="storage-note">🔒 En esta versión de prueba los datos se guardan únicamente en este navegador.</p>
+      </form>
     </section>
 
     <section id="cria" class="page">
