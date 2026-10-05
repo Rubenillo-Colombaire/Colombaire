@@ -10,7 +10,7 @@
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos</small></div></div>
+    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.3</b></small></div></div>
     <div class="head-actions"><button>☀ 23°</button><button>🔔</button></div>
   </header>
 
@@ -85,13 +85,14 @@
           <label><span>Pelaje</span><input id="p-color" required placeholder="Ej. Azul, Rojo, Bayo..."></label>
           <label><span>Sexo</span><select id="p-sex" required><option value="">Seleccionar</option><option>Macho</option><option>Hembra</option><option>Sin determinar</option></select></label>
           <label><span>Fecha de nacimiento</span><input id="p-birth" type="date"></label>
-          <label><span>Padre</span><input id="p-father" placeholder="Nombre o anilla"></label>
-          <label><span>Madre</span><input id="p-mother" placeholder="Nombre o anilla"></label>
+          <label><span>Padre</span><select id="p-father"><option value="">Desconocido / no registrado</option></select><small class="field-help">Machos registrados en Mi Palomar</small></label>
+          <label><span>Madre</span><select id="p-mother"><option value="">Desconocida / no registrada</option></select><small class="field-help">Hembras registradas en Mi Palomar</small></label>
           <label><span>Estado</span><select id="p-status"><option>Activo</option><option>Cedido</option><option>Baja</option><option>Fallecido</option></select></label>
         </div>
         <div class="form-actions">
           <button type="button" class="secondary" data-go="palomar">Cancelar</button>
-          <button type="submit" class="primary">Guardar palomo</button>
+          <button type="button" class="danger" id="deletePigeon">🗑 Borrar palomo</button>
+          <button type="submit" class="primary">Guardar cambios</button>
         </div>
         <p class="storage-note">🔒 En esta versión de prueba los datos se guardan únicamente en este navegador.</p>
       </form>
@@ -117,6 +118,14 @@
     <section id="guia" class="page placeholder"></section>
     <section id="calendario" class="page placeholder"></section>
   </main>
+  <div id="deleteModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-icon">🗑️</div>
+      <h3 id="deleteTitle">¿Eliminar este palomo?</h3>
+      <p>Esta acción elimina la ficha creada en Mi Palomar. Si el palomo ha fallecido, ha sido cedido o ya no está activo, es mejor conservar su historial y cambiar su <b>Estado</b>.</p>
+      <div class="modal-actions"><button id="cancelDelete" class="secondary">Cancelar</button><button id="confirmDelete" class="danger">Eliminar definitivamente</button></div>
+    </div>
+  </div>
 
   <nav>
     <button data-go="inicio" class="selected">⌂<small>Inicio</small></button>

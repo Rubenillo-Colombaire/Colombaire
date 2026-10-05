@@ -1,14 +1,15 @@
-# COLOMBAIRE v0.2
+# COLOMBAIRE v0.3
 
-Segundo prototipo funcional de COLOMBAIRE, concebido desde cero para la colombicultura deportiva.
+Prototipo funcional concebido desde cero para la colombicultura deportiva.
 
-## Novedades de Mi Palomar
-- Alta de nuevos palomos
-- Edición de fichas existentes
-- Buscador
-- Filtros por sexo y estado
-- Nombre, anilla, propietario, pelaje, sexo, nacimiento, padre, madre y estado
-- Persistencia local en el navegador mediante localStorage
+## Novedades
+- Padre seleccionable entre machos registrados
+- Madre seleccionable entre hembras registradas
+- Relaciones familiares internas mediante identificadores
+- Conserva los registros creados en v0.2
+- Borrado seguro solo desde Editar
+- Confirmación antes de eliminar
+- Recordatorio de usar Estado para Fallecido/Cedido/Baja en vez de borrar
+- Indicador visible v0.3
 
-## Importante
-Esta sigue siendo una versión de prueba. Los datos añadidos se guardan solo en el navegador/dispositivo utilizado. No debe usarse todavía como única copia de datos reales importantes.
+Los datos siguen guardándose únicamente en el navegador mediante localStorage. Esta versión continúa siendo de prueba.
