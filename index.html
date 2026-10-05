@@ -53,6 +53,10 @@
 
     <section id="palomar" class="page">
       <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>MI PALOMAR</h2><small id="pigeonCount">3 palomos registrados</small></div><button class="plus" id="addPigeon">＋</button></div>
+      <div class="loft-tabs">
+        <button class="selected">PALOMOS</button>
+        <button data-go="cria">CRÍA</button>
+      </div>
       <input id="search" class="search" placeholder="🔎 Buscar por nombre, anilla o pelaje...">
       <div class="filters"><button class="selected">Todos</button><button>Machos</button><button>Hembras</button><button>Activos</button></div>
       <div id="pigeonList"></div>
@@ -100,6 +104,10 @@
 
     <section id="cria" class="page">
       <div class="title-row"><button class="back" data-go="inicio">‹</button><div><h2>CRÍA</h2><small id="breedingSeason">Temporada 2026</small></div><button class="plus" id="addPair">＋</button></div>
+      <div class="loft-tabs">
+        <button data-go="palomar">PALOMOS</button>
+        <button class="selected">CRÍA</button>
+      </div>
       <div class="stats"><div><b id="pairCount">0</b><small>Parejas activas</small></div><div><b id="eggCount">0</b><small>Huevos</small></div><div><b id="chickCount">0</b><small>Pichones</small></div></div>
       <h3>AVISOS DE CRÍA</h3>
       <div id="breedingAlerts"></div>

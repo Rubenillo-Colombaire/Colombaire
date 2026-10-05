@@ -14,3 +14,11 @@
 
 ## Importante
 v0.4 sigue siendo un prototipo local. Los datos se guardan en el navegador. Las fechas de eclosión son orientativas y no sustituyen el seguimiento real de incubación.
+
+
+### Ajuste de navegación v0.4b
+- Mi Palomar incorpora dos áreas hermanas: PALOMOS y CRÍA.
+- Desde Mi Palomar se entra a Cría con un solo toque, sin abrir antes la ficha de un ejemplar.
+- El botón + de Palomos sigue creando un palomo.
+- El botón + de Cría crea directamente una nueva pareja seleccionando macho y hembra.
+- La pestaña Cría dentro de la ficha individual queda conceptualmente reservada al historial reproductivo de ese ejemplar.
