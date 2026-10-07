@@ -202,14 +202,7 @@ function renderCoccidiosisMaster(d){
   <header class="poster-head">
    <div class="poster-guide">GUÍA DEL COLOMBAIRE · SALUD</div>
    <div class="poster-title-row">
-    <div class="poster-mark realistic-mark" aria-label="Símbolo Colombaire">
-<svg viewBox="0 0 130 130" aria-hidden="true">
-<circle cx="65" cy="65" r="56"/>
-<path class="mark-pigeon" d="M28 82c17-10 29-22 39-38 3-13 12-23 25-24 13-1 23 7 25 18 1 8-2 14-8 19l13 6-16 5c-8 14-23 19-41 14-10 8-22 13-37 14 7-5 12-10 16-16-6 2-11 3-16 2Z"/>
-<circle class="mark-eye" cx="99" cy="36" r="2.7"/>
-<path class="mark-wing" d="M48 78c16-5 29-14 40-28-4 16-13 27-27 34"/>
-</svg></div>
-<div class="poster-title"><h2>COCCIDIOSIS</h2><p>Eimeria spp.</p></div>
+    <div class="poster-title"><h2>COCCIDIOSIS</h2><p>Eimeria spp.</p></div>
    </div>
   </header>
   <section class="poster-quick">
@@ -222,8 +215,19 @@ function renderCoccidiosisMaster(d){
     <h3><span>${ico("exact")}</span> ¿QUÉ ES?</h3>
     <p>Enfermedad intestinal causada por protozoos del género <i>Eimeria</i>. Los parásitos se multiplican en el intestino y, cuando la carga es elevada, pueden alterar la digestión, la absorción de nutrientes y la condición del palomo.</p>
    </div>
-   <div class="poster-bird-body real-photo subject-photo"><img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Pigeon_takes_off.JPG" alt="Palomo doméstico"></div>
-   <div class="poster-organ-box"><h3>INTESTINO</h3><svg viewBox="0 0 120 110"><path d="M38 15c-17 9-16 26-4 33-15 8-15 26-2 34-8 14 5 24 20 17M82 15c17 9 16 26 4 33 15 8 15 26 2 34 8 14-5 24-20 17M53 16v80M67 16v80"/></svg><b>Órgano principal</b><span>${d.organ}</span></div>
+   <div class="poster-cocci-process">
+  <h4>¿QUÉ OCURRE?</h4>
+  <div class="process-step"><b>1</b><span>Ooquistes de <i>Eimeria</i></span></div>
+  <i class="process-arrow">↓</i>
+  <div class="process-step"><b>2</b><span>Invasión del epitelio intestinal</span></div>
+  <i class="process-arrow">↓</i>
+  <div class="process-step"><b>3</b><span>Multiplicación y lesión de vellosidades</span></div>
+  <i class="process-arrow">↓</i>
+  <div class="process-step final"><b>4</b><span>Inflamación y peor absorción</span></div>
+</div>
+   <div class="poster-organ-box real-intestine"><h3>INTESTINO</h3>
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Harnleiter-Taube.png" alt="Anatomía abdominal real de una paloma">
+<small>ANATOMÍA REAL DE PALOMA</small><b>Órgano principal</b><span>${d.organ}</span></div>
   </section>
   <section class="poster-three">
    <div class="poster-panel green"><h3>${ico("transmission")} TRANSMISIÓN</h3><p>${d.transmission}</p></div>
@@ -244,8 +248,10 @@ function renderCoccidiosisMaster(d){
 }
 function openDisease(id){
  const d=diseases.find(x=>x.id===id);if(!d)return;
+ $("#diseaseTitle").closest(".page-head")?.classList.remove("cocci-hide-generic");
  $("#diseaseTitle").textContent=d.name.toUpperCase();$("#diseaseSubtitle").textContent=d.agent;
  if(id==="coccidiosis"){
+   $("#diseaseTitle").closest(".page-head")?.classList.add("cocci-hide-generic");
    $("#diseaseDetailBody").innerHTML=renderCoccidiosisMaster(d);
    go("diseaseDetail");return;
  }

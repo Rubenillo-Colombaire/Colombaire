@@ -147,3 +147,30 @@
  .poster-panel.teal .micro-photo{height:190px}
  .poster-panel.blue .microscope-photo{height:150px}
 }
+
+/* v0.5h · correcciones a partir de la captura del usuario */
+.cocci-hide-generic #diseaseTitle,.cocci-hide-generic #diseaseSubtitle{display:none!important}
+.cocci-hide-generic{min-height:28px;padding-bottom:4px!important}
+.poster-title-row{display:block!important;min-height:auto!important;padding:23px 18px 22px}
+.poster-title{text-align:center!important;padding:0!important}
+.poster-title h2{font-family:Georgia,"Times New Roman",serif!important;font-size:58px!important;line-height:.95!important;letter-spacing:1.8px!important;font-weight:800!important;color:#f8f3e6!important}
+.poster-title p{font-family:Georgia,"Times New Roman",serif!important;font-size:27px!important;color:#f8f3e6!important;margin-top:10px!important}
+.poster-guide{font-size:22px!important;padding-top:5px}
+.poster-cocci-process{background:#f8f4e8;border:1px solid #d7c9aa;border-radius:12px;padding:13px 12px;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+.poster-cocci-process h4{margin:0 0 9px;text-align:center;font-family:Georgia,serif;font-size:17px;color:#20563a}
+.process-step{display:flex;align-items:center;gap:8px;background:#fffdf6;border-radius:8px;padding:7px 8px;font-size:11px;line-height:1.25}
+.process-step b{width:22px;height:22px;flex:0 0 22px;border-radius:50%;background:#245e3d;color:white;display:flex;align-items:center;justify-content:center}
+.process-step.final{background:#f1dfb5}
+.process-arrow{text-align:center;color:#b77617;font-style:normal;font-size:15px;line-height:14px}
+.real-intestine img{display:block;width:100%;height:125px;object-fit:cover;object-position:50% 68%;background:#e8e3d6}
+.real-intestine small{display:block;font-size:8px;letter-spacing:.7px;color:#6d756e;padding:5px 5px 2px}
+.real-intestine b{margin-top:3px!important}
+@media(max-width:650px){
+ .cocci-hide-generic{min-height:20px}
+ .poster-guide{font-size:16px!important}
+ .poster-title-row{padding:17px 8px 16px}
+ .poster-title h2{font-size:35px!important;letter-spacing:.8px!important}
+ .poster-title p{font-size:19px!important}
+ .poster-cocci-process{min-height:155px}
+ .real-intestine img{height:150px;object-position:50% 66%}
+}

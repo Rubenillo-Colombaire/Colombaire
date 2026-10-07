@@ -84,3 +84,12 @@ Coccidiosis: sustitución de varios dibujos provisionales por fotografía real. 
 
 ## v0.5g
 Coccidiosis: cabecera simplificada (sin fotografía derecha), nuevo emblema de palomo más natural y reencuadre individual de fotografías. La micrografía de ooquistes pasa a object-fit contain para no recortarla.
+
+## v0.5h
+Ajustes de la ficha madre Coccidiosis a partir de la captura del usuario:
+- eliminada la cabecera genérica duplicada;
+- cabecera verde convertida en cabecera única, con título mucho mayor;
+- eliminado el emblema/dibujo izquierdo;
+- eliminada la fotografía genérica del palomo en la zona central;
+- sustituida por un esquema textual del mecanismo intestinal de la coccidiosis;
+- el bloque Intestino usa una fotografía anatómica real de paloma (Uwe Gille, Wikimedia Commons, CC BY 4.0).
