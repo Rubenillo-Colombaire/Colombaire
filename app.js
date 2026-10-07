@@ -197,35 +197,47 @@ function healthIcon(kind){
  return icons[kind]||icons.exact;
 }
 function renderCoccidiosisMaster(d){
- const cards=[
-  ["transmission","TRANSMISIÓN",d.transmission],
-  ["young","MÁS SUSCEPTIBLE",d.susceptible],
-  ["carrier","PORTADORES",d.carriers],
-  ["feces","HECES",d.feces],
-  ["microscope","DETECCIÓN DOMÉSTICA",d.home],
-  ["sample","MUESTRA",d.sample],
-  ["microscope","MÉTODO IDEAL",d.method],
-  ["exact","QUÉ BUSCAMOS",d.target],
-  ["quantify","CUANTIFICACIÓN",d.quant],
-  ["exact","IDENTIFICACIÓN EXACTA",d.exact]
- ];
- return `<div class="master-health">
-   <header class="master-hero">
-    <div class="master-eyebrow">GUÍA DEL COLOMBAIRE · SALUD</div>
-    <div class="master-hero-grid">
-      <div class="master-bird" aria-hidden="true">
-       <svg viewBox="0 0 280 190"><path d="M48 126c26-46 78-64 125-38 12-31 44-39 61-17 9 12 8 27 0 38l28 11-29 9c-6 35-49 46-87 29-37 20-78 14-98-32Z"/><circle cx="213" cy="82" r="4"/><path d="M66 128c42 6 74-4 103-34M91 149c28-10 47-24 65-48"/></svg>
-      </div>
-      <div class="master-name"><span>PROTOZOO INTESTINAL</span><h2>COCCIDIOSIS</h2><p>${d.agent}</p></div>
-    </div>
-    <div class="master-organ"><span class="organ-drawing"><svg viewBox="0 0 70 70"><path d="M23 12c-8 5-8 13-2 17-8 4-8 14-1 18-4 8 3 14 11 10M47 12c8 5 8 13 2 17 8 4 8 14 1 18 4 8-3 14-11 10M31 12v45M39 12v45"/></svg></span><div><small>ÓRGANO PRINCIPAL</small><b>${d.organ}</b></div></div>
-   </header>
-   <div class="master-grid">${cards.map(c=>`<section class="master-card"><div class="master-icon">${healthIcon(c[0])}</div><div><h3>${c[1]}</h3><p>${c[2]}</p></div></section>`).join("")}</div>
-   <section class="master-wide master-symptoms"><div class="master-icon">${healthIcon("symptoms")}</div><div><h3>SÍNTOMAS Y PRESENTACIÓN</h3><p>${d.signs}</p></div></section>
-   <section class="master-wide master-diagnosis"><div class="master-icon">${healthIcon("diagnosis")}</div><div><h3>DIAGNÓSTICO</h3><p>${d.diagnosis}</p></div></section>
-   <section class="master-warning"><span>!</span><div><h3>IMPORTANTE</h3><p>${d.warning}</p></div></section>
-   <footer class="master-footer">FICHA ORIENTATIVA · COLOMBICULTURA DEPORTIVA · LA CONFIRMACIÓN PUEDE REQUERIR DIAGNÓSTICO VETERINARIO</footer>
- </div>`;
+ const ico=(k)=>healthIcon(k);
+ return `<article class="poster-health">
+  <header class="poster-head">
+   <div class="poster-guide">GUÍA DEL COLOMBAIRE · SALUD</div>
+   <div class="poster-title-row">
+    <div class="poster-mark" aria-label="Símbolo Colombaire"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="51"/><path d="M25 69c19-9 29-25 36-44 4 17 3 27-1 37 13-11 24-21 34-31-5 20-14 34-29 43 11 1 21 4 31 10-23 3-42-1-54-11-7 4-12 7-17 8Z"/></svg></div>
+    <div class="poster-title"><h2>COCCIDIOSIS</h2><p>Eimeria spp.</p></div>
+    <div class="poster-flying"><svg viewBox="0 0 260 180"><path d="M23 108c40-18 64-44 79-84 7 31 6 51-1 68 29-25 54-47 80-65-12 34-31 59-58 73 24 0 46 7 67 20-38 6-72 1-98-16-20 14-43 18-69 4Z"/><path d="M145 100c19-17 39-25 60-22 21 4 29 21 23 38l27 8-31 9c-17 25-51 18-79-2Z"/><circle cx="215" cy="96" r="3"/></svg></div>
+   </div>
+  </header>
+  <section class="poster-quick">
+   <div><span class="poster-qicon">${ico("exact")}</span><p><b>TIPO</b>${d.type}</p></div>
+   <div><span class="poster-qicon intestine">${ico("sample")}</span><p><b>ÓRGANO PRINCIPAL</b>${d.organ}</p></div>
+   <div><span class="poster-qicon">${ico("young")}</span><p><b>AFECTA MÁS A</b>${d.susceptible}</p></div>
+  </section>
+  <section class="poster-feature">
+   <div class="poster-what">
+    <h3><span>${ico("exact")}</span> ¿QUÉ ES?</h3>
+    <p>Enfermedad intestinal causada por protozoos del género <i>Eimeria</i>. Los parásitos se multiplican en el intestino y, cuando la carga es elevada, pueden alterar la digestión, la absorción de nutrientes y la condición del palomo.</p>
+   </div>
+   <div class="poster-bird-body">
+    <svg viewBox="0 0 230 250"><path class="bird" d="M40 190c20-65 72-108 123-83 4-33 36-52 58-31 13 12 11 32 1 44l17 8-20 8c-8 31-38 37-66 26-19 53-68 70-113 28Z"/><circle cx="203" cy="94" r="3"/><path class="gut" d="M111 145c-18-12-31 6-18 18 12 11 30-3 20-15-9-10-26 3-16 15 8 10 24 1 20-10"/></svg>
+   </div>
+   <div class="poster-organ-box"><h3>INTESTINO</h3><svg viewBox="0 0 120 110"><path d="M38 15c-17 9-16 26-4 33-15 8-15 26-2 34-8 14 5 24 20 17M82 15c17 9 16 26 4 33 15 8 15 26 2 34 8 14-5 24-20 17M53 16v80M67 16v80"/></svg><b>Órgano principal</b><span>${d.organ}</span></div>
+  </section>
+  <section class="poster-three">
+   <div class="poster-panel green"><h3>${ico("transmission")} TRANSMISIÓN</h3><p>${d.transmission}</p></div>
+   <div class="poster-panel rust"><h3>${ico("symptoms")} SÍNTOMAS</h3><p>${d.signs}</p></div>
+   <div class="poster-panel brown"><h3>${ico("feces")} HECES</h3><div class="feces-visual">${ico("feces")}</div><p>${d.feces}</p></div>
+  </section>
+  <section class="poster-two">
+   <div class="poster-panel blue"><h3>${ico("diagnosis")} DIAGNÓSTICO</h3><p>${d.diagnosis}</p></div>
+   <div class="poster-panel teal"><h3>${ico("microscope")} MICROSCOPÍA</h3><div class="micro-view"><i></i><i></i><i></i><i></i></div><p>${d.target}. ${d.quant}</p></div>
+  </section>
+  <section class="poster-two lower">
+   <div class="poster-panel green"><h3>${ico("sample")} DETECCIÓN / MUESTRA</h3><p><b>${d.sample}</b><br>${d.method}<br>${d.home}</p></div>
+   <div class="poster-panel amber"><h3><span class="bang">!</span> IMPORTANTE</h3><p>${d.warning}</p></div>
+  </section>
+  <section class="poster-performance"><h3>${ico("quantify")} IMPACTO EN EL RENDIMIENTO</h3><p>Una carga elevada puede reducir el aprovechamiento del alimento, retrasar el crecimiento de los pichones y deteriorar la condición física. La importancia real depende de la carga parasitaria y del estado general del palomo.</p></section>
+  <footer class="poster-note">FICHA ORIENTATIVA · COLOMBICULTURA DEPORTIVA · LA CONFIRMACIÓN PUEDE REQUERIR DIAGNÓSTICO VETERINARIO</footer>
+ </article>`;
 }
 function openDisease(id){
  const d=diseases.find(x=>x.id===id);if(!d)return;

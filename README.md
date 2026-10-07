@@ -72,3 +72,7 @@ Corrección de apertura de enfermedades. Se conserva el sistema funcional de v0.
 
 ## v0.5d
 Coccidiosis convertida en ficha madre experimental: color, jerarquía tipográfica, ilustración vectorial propia e iconografía sanitaria. Las demás enfermedades conservan temporalmente v0.5c.
+
+
+## v0.5e
+Coccidiosis reconstruida como infografía interactiva real inspirada en el concepto visual aprobado: cabecera, marca Colombaire, anatomía, bloques cromáticos e iconografía. El texto permanece HTML editable y adaptable a móvil.
