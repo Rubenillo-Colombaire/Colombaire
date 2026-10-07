@@ -181,7 +181,28 @@ function renderDiseases(){
  $("#diseaseList").innerHTML=list.map(d=>`<div class="disease-card" data-disease="${d.id}"><div><b>${d.name}</b><small>${d.agent}</small><small>Órgano principal: ${d.organ}</small></div><span class="disease-type">${d.type}</span></div>`).join("")||'<div class="empty-state"><b>Sin resultados</b><small>Prueba con otro término.</small></div>';
  document.querySelectorAll("[data-disease]").forEach(c=>c.onclick=()=>openDisease(c.dataset.disease));
 }
-function openDisease(id){const d=healthDiseases.find(x=>x.id===id);if(!d)return;const symptoms=d.symptoms||d.signs||"",diagnosis=d.diagnosis||"",warning=d.warning||d.important||"";const fields=[["TRANSMISIÓN",d.transmission],["MÁS SUSCEPTIBLE",d.susceptible],["PORTADORES ASINTOMÁTICOS",d.carriers],["HECES A SIMPLE VISTA",d.droppings],["DETECCIÓN DOMÉSTICA",d.homeDetection],["MUESTRA",d.sample],["MÉTODO IDEAL",d.idealMethod],["QUÉ BUSCAMOS",d.target],["CUANTIFICACIÓN",d.quantification],["IDENTIFICACIÓN EXACTA",d.identification]].filter(x=>x[1]);$("#diseaseSheet").innerHTML=`<header class="sheet-hero"><div class="sheet-kicker">GUÍA DEL COLOMBAIRE · SALUD</div><h2 class="sheet-title">${d.name}</h2><div class="sheet-subtitle">${d.agent||""} · ${d.type||""}</div><div class="sheet-visual"><div class="sheet-pigeon">🕊</div></div></header><div class="sheet-body"><div class="sheet-summary"><div class="sheet-stat"><b>TIPO</b><span>${d.type||"—"}</span></div><div class="sheet-stat"><b>ÓRGANO</b><span>${d.organ||"—"}</span></div><div class="sheet-stat"><b>DETECCIÓN</b><span>${d.homeDetection||"—"}</span></div><div class="sheet-stat"><b>MUESTRA</b><span>${d.sample||"—"}</span></div></div><div class="sheet-grid">${fields.map(x=>`<div class="sheet-cell"><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div>${symptoms?`<section class="sheet-section"><h3>SÍNTOMAS Y PRESENTACIÓN</h3><p>${symptoms}</p></section>`:""}${diagnosis?`<section class="sheet-section"><h3>DIAGNÓSTICO</h3><p>${diagnosis}</p></section>`:""}${warning?`<div class="sheet-highlight"><b>IMPORTANTE</b><span>${warning}</span></div>`:""}<div class="sheet-foot">Ficha orientativa · La confirmación puede requerir diagnóstico veterinario/laboratorial.</div></div>`;go("diseaseDetail");}
+function openDisease(id){
+ const d=diseases.find(x=>x.id===id);if(!d)return;
+ $("#diseaseTitle").textContent=d.name.toUpperCase();$("#diseaseSubtitle").textContent=d.agent;
+ const facts=[["TRANSMISIÓN",d.transmission],["MÁS SUSCEPTIBLE",d.susceptible],["PORTADORES ASINTOMÁTICOS",d.carriers],["HECES A SIMPLE VISTA",d.feces],["DETECCIÓN DOMÉSTICA",d.home],["MUESTRA",d.sample],["MÉTODO IDEAL",d.method],["QUÉ BUSCAMOS",d.target],["CUANTIFICACIÓN",d.quant],["IDENTIFICACIÓN EXACTA",d.exact]];
+ $("#diseaseDetailBody").innerHTML=`
+   <div class="sheet-cover">
+     <div class="sheet-kicker">GUÍA DEL COLOMBAIRE · SALUD</div>
+     <div class="sheet-agent">${d.agent}</div>
+     <div class="sheet-illustration"><span>🕊</span></div>
+     <div class="sheet-topline">
+       <div><small>TIPO</small><b>${d.type}</b></div>
+       <div><small>ÓRGANO PRINCIPAL</small><b>${d.organ}</b></div>
+     </div>
+   </div>
+   ${d.zoonosis?'<div class="sheet-alert"><b>⚠ ZOONOSIS</b><span>Puede afectar a personas. Extremar precauciones y buscar asesoramiento profesional.</span></div>':''}
+   <div class="sheet-facts">${facts.map(x=>`<div class="sheet-fact"><small>${x[0]}</small><b>${x[1]}</b></div>`).join("")}</div>
+   <div class="sheet-band"><b>SÍNTOMAS Y PRESENTACIÓN</b><p>${d.signs}</p></div>
+   <div class="sheet-band"><b>DIAGNÓSTICO</b><p>${d.diagnosis}</p></div>
+   <div class="sheet-important"><b>IMPORTANTE</b><p>${d.warning}</p></div>
+   <p class="sheet-disclaimer">Ficha orientativa para colombicultura deportiva · No sustituye la valoración ni el diagnóstico veterinario.</p>`;
+ go("diseaseDetail");
+}
 $("#healthSearch").addEventListener("input",renderDiseases);
 document.querySelectorAll(".health-actions button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".health-actions button").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");currentDiseaseType=b.textContent;renderDiseases()});
 renderDiseases();

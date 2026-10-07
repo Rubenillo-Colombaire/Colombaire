@@ -66,5 +66,5 @@ v0.4 sigue siendo un prototipo local. Los datos se guardan en el navegador. Las 
 - Ficha técnica uniforme preparada para alimentar la futura calculadora diferencial.
 
 
-## v0.5b
-Salud rediseñada como ficha visual única, centrada y continua. Coccidiosis sirve como ficha maestra de diseño.
+## v0.5c
+Corrección de apertura de enfermedades. Se conserva el sistema funcional de v0.5 y se aplica únicamente el nuevo diseño de ficha sanitaria continua.
