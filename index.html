@@ -222,7 +222,19 @@
     </section>
 
     <section id="genetica" class="page placeholder"></section>
-    <section id="salud" class="page placeholder"></section>
+    <section id="salud" class="page">
+      <div class="title-row"><button class="back app-back">‹</button><div><h2>SALUD</h2><small>Enfermedades y orientación sanitaria del palomar</small></div></div>
+      <div class="health-hero"><div><b>GUÍA DE ENFERMEDADES</b><small>Consulta fichas estructuradas por agente, transmisión, órganos, signos y diagnóstico.</small></div><span>🩺</span></div>
+      <input id="healthSearch" class="search" placeholder="Buscar enfermedad, agente, signo...">
+      <div class="health-actions"><button class="selected">Todas</button><button>Protozoos</button><button>Bacterianas</button><button>Víricas</button></div>
+      <div id="diseaseList" class="disease-list"></div>
+      <div class="health-next"><b>PRÓXIMAMENTE · CALCULADORA DIFERENCIAL</b><small>Síntomas + contexto → procesos compatibles → pruebas que ayudan a diferenciarlos. No sustituirá el diagnóstico veterinario.</small></div>
+    </section>
+
+    <section id="diseaseDetail" class="page">
+      <div class="title-row"><button class="back app-back">‹</button><div><h2 id="diseaseTitle">ENFERMEDAD</h2><small id="diseaseSubtitle"></small></div></div>
+      <div id="diseaseDetailBody"></div>
+    </section>
     <section id="concursos" class="page placeholder"></section>
     <section id="guia" class="page placeholder"></section>
     <section id="calendario" class="page placeholder"></section>

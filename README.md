@@ -51,10 +51,16 @@ v0.4 sigue siendo un prototipo local. Los datos se guardan en el navegador. Las 
 - La navegación principal inferior reinicia el recorrido, evitando volver accidentalmente a una rama antigua.
 
 
-## v0.4f — Observaciones
+## v0.5 — Observaciones
 - Nueva pestaña Observaciones en la ficha individual.
 - Características iniciales seleccionables: Perseguidor, Constante, Fuerte, Ágil, Inteligente, Buen cierre y Buen reproductor.
 - Posibilidad de añadir características personalizadas.
 - Campo libre de observaciones generales.
 - Características y notas se guardan por ejemplar en localStorage.
 - Concursos/Palmarés permanece separado para resultados deportivos estructurados.
+
+## v0.5 — Salud
+- Primera integración funcional del módulo Salud.
+- 11 fichas: Coccidiosis, Tricomoniasis, Salmonelosis, E. coli, Micoplasmosis, Ornitosis/Clamidiosis, PMV-1, Viruela/Pigota, Circovirus, Rotavirus y Adenovirus.
+- Buscador y filtros por tipo de agente.
+- Ficha técnica uniforme preparada para alimentar la futura calculadora diferencial.
