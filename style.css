@@ -60,3 +60,28 @@
  .sheet-band{padding:18px 18px}.sheet-important{margin:18px 16px 0}
  .health-sheet-page>.title-row>div{padding-right:34px}
 }
+
+/* v0.5d · Coccidiosis ficha madre visual */
+.master-health{background:#f7f3e8;color:#21382e}
+.master-hero{background:linear-gradient(135deg,#163e31 0%,#285b47 100%);color:#fff;padding:26px 28px 0}
+.master-eyebrow{text-align:center;font-size:9px;letter-spacing:2.1px;font-weight:900;color:#d8e7db}
+.master-hero-grid{display:grid;grid-template-columns:42% 58%;align-items:center;min-height:190px}
+.master-bird svg{width:100%;max-height:180px;fill:#f1ead8;stroke:#b7cdbd;stroke-width:2}
+.master-name{text-align:left}.master-name>span{display:inline-block;background:#d7a84b;color:#17372c;padding:5px 9px;border-radius:4px;font-size:9px;font-weight:950;letter-spacing:1.2px}
+.master-name h2{font-family:Georgia,serif;font-size:38px;line-height:1;margin:10px 0 6px;letter-spacing:.5px}.master-name p{margin:0;color:#dbe8df;font-size:14px;font-style:italic}
+.master-organ{margin:0 -28px;display:flex;justify-content:center;align-items:center;gap:12px;background:#102f26;padding:11px 20px}.master-organ small{display:block;font-size:8px;letter-spacing:1.2px;color:#a9c1b4}.master-organ b{font-size:15px}.organ-drawing{width:38px;height:38px}.organ-drawing svg{width:100%;height:100%;fill:none;stroke:#e2b557;stroke-width:3;stroke-linecap:round}
+.master-grid{display:grid;grid-template-columns:1fr 1fr;padding:10px 22px 0;gap:0 18px}
+.master-card{display:grid;grid-template-columns:52px 1fr;gap:11px;align-items:center;padding:17px 4px;border-bottom:1px solid #d8d9cf}
+.master-card:nth-child(odd){border-right:1px solid #d8d9cf;padding-right:18px}
+.master-icon{width:48px;height:48px;border-radius:50%;background:#dfe9dd;display:flex;align-items:center;justify-content:center;flex:0 0 auto}.master-icon svg{width:30px;height:30px;fill:none;stroke:#20513f;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.master-card h3,.master-wide h3,.master-warning h3{font-size:16px;line-height:1;margin:0 0 5px;color:#174735;letter-spacing:.3px}.master-card p,.master-wide p,.master-warning p{font-size:12px;line-height:1.5;margin:0;color:#56665e;font-weight:500}
+.master-wide{margin:18px 22px 0;border-radius:14px;padding:18px 20px;display:grid;grid-template-columns:58px 1fr;gap:14px;align-items:center}.master-wide .master-icon{background:#fff}
+.master-symptoms{background:#e2ebdc}.master-diagnosis{background:#dce8e7}
+.master-warning{margin:18px 22px 0;padding:17px 20px;background:#f3dfad;border-left:6px solid #b77b19;border-radius:10px;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:center}.master-warning>span{width:34px;height:34px;border-radius:50%;background:#b77b19;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}.master-warning h3{color:#754d0e}
+.master-footer{text-align:center;padding:21px 18px 24px;font-size:8px;font-weight:800;letter-spacing:.8px;color:#7a817a}
+@media(max-width:650px){
+ .master-hero{padding:22px 16px 0}.master-hero-grid{grid-template-columns:38% 62%;min-height:155px}.master-name h2{font-size:27px}.master-name p{font-size:12px}.master-organ{margin:0 -16px}
+ .master-grid{grid-template-columns:1fr;padding:8px 14px 0;gap:0}.master-card,.master-card:nth-child(odd){border-right:0;padding:15px 3px;grid-template-columns:48px 1fr}.master-icon{width:43px;height:43px}.master-icon svg{width:27px;height:27px}
+ .master-card h3,.master-wide h3,.master-warning h3{font-size:15px}.master-card p,.master-wide p,.master-warning p{font-size:11.5px}
+ .master-wide,.master-warning{margin-left:14px;margin-right:14px}.master-wide{grid-template-columns:48px 1fr;padding:16px}.master-bird svg{max-height:130px}
+}

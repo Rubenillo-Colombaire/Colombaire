@@ -68,3 +68,7 @@ v0.4 sigue siendo un prototipo local. Los datos se guardan en el navegador. Las 
 
 ## v0.5c
 Corrección de apertura de enfermedades. Se conserva el sistema funcional de v0.5 y se aplica únicamente el nuevo diseño de ficha sanitaria continua.
+
+
+## v0.5d
+Coccidiosis convertida en ficha madre experimental: color, jerarquía tipográfica, ilustración vectorial propia e iconografía sanitaria. Las demás enfermedades conservan temporalmente v0.5c.

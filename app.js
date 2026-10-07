@@ -181,26 +181,61 @@ function renderDiseases(){
  $("#diseaseList").innerHTML=list.map(d=>`<div class="disease-card" data-disease="${d.id}"><div><b>${d.name}</b><small>${d.agent}</small><small>Órgano principal: ${d.organ}</small></div><span class="disease-type">${d.type}</span></div>`).join("")||'<div class="empty-state"><b>Sin resultados</b><small>Prueba con otro término.</small></div>';
  document.querySelectorAll("[data-disease]").forEach(c=>c.onclick=()=>openDisease(c.dataset.disease));
 }
+function healthIcon(kind){
+ const icons={
+  transmission:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 25c8-8 17-8 25 0M25 17l14 8-9 13"/><circle cx="15" cy="42" r="7"/><circle cx="48" cy="42" r="7"/></svg>`,
+  young:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="31" cy="25" r="12"/><path d="M22 38c-7 6-7 15 2 18h18c7-5 5-15-2-19M43 22l10 4-10 4"/></svg>`,
+  carrier:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 42c8-19 30-24 40-7-4 15-20 20-40 7Z"/><circle cx="42" cy="31" r="2"/><path d="M49 34l8 3-8 3"/></svg>`,
+  feces:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 48c0-7 7-9 11-9-2-7 3-12 8-12 6 0 10 5 8 11 7 1 10 5 9 10H18Z"/><path d="M24 54h26"/></svg>`,
+  microscope:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M25 10h13v8H25zM29 18l-5 18M36 18l-5 19M19 38c1 10 8 15 18 15h13M38 45h12v8M14 56h42"/></svg>`,
+  sample:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M22 9h20M26 9v13L17 49c-1 4 2 7 6 7h18c4 0 7-3 6-7L38 22V9"/><path d="M22 41h21"/></svg>`,
+  quantify:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M11 52h44M16 47V31h8v16M29 47V21h8v26M42 47V12h8v35"/></svg>`,
+  exact:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="29" r="17"/><path d="M42 42l12 12M21 29h16M29 21v16"/></svg>`,
+  symptoms:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M13 43c7-20 30-26 40-7-4 15-21 20-40 7Z"/><circle cx="42" cy="32" r="2"/><path d="M50 35l7 3-7 3M23 48l-3 8M35 48l2 8"/></svg>`,
+  diagnosis:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="28" cy="27" r="16"/><path d="M40 39l14 14M20 27h16M28 19v16"/></svg>`
+ };
+ return icons[kind]||icons.exact;
+}
+function renderCoccidiosisMaster(d){
+ const cards=[
+  ["transmission","TRANSMISIÓN",d.transmission],
+  ["young","MÁS SUSCEPTIBLE",d.susceptible],
+  ["carrier","PORTADORES",d.carriers],
+  ["feces","HECES",d.feces],
+  ["microscope","DETECCIÓN DOMÉSTICA",d.home],
+  ["sample","MUESTRA",d.sample],
+  ["microscope","MÉTODO IDEAL",d.method],
+  ["exact","QUÉ BUSCAMOS",d.target],
+  ["quantify","CUANTIFICACIÓN",d.quant],
+  ["exact","IDENTIFICACIÓN EXACTA",d.exact]
+ ];
+ return `<div class="master-health">
+   <header class="master-hero">
+    <div class="master-eyebrow">GUÍA DEL COLOMBAIRE · SALUD</div>
+    <div class="master-hero-grid">
+      <div class="master-bird" aria-hidden="true">
+       <svg viewBox="0 0 280 190"><path d="M48 126c26-46 78-64 125-38 12-31 44-39 61-17 9 12 8 27 0 38l28 11-29 9c-6 35-49 46-87 29-37 20-78 14-98-32Z"/><circle cx="213" cy="82" r="4"/><path d="M66 128c42 6 74-4 103-34M91 149c28-10 47-24 65-48"/></svg>
+      </div>
+      <div class="master-name"><span>PROTOZOO INTESTINAL</span><h2>COCCIDIOSIS</h2><p>${d.agent}</p></div>
+    </div>
+    <div class="master-organ"><span class="organ-drawing"><svg viewBox="0 0 70 70"><path d="M23 12c-8 5-8 13-2 17-8 4-8 14-1 18-4 8 3 14 11 10M47 12c8 5 8 13 2 17 8 4 8 14 1 18 4 8-3 14-11 10M31 12v45M39 12v45"/></svg></span><div><small>ÓRGANO PRINCIPAL</small><b>${d.organ}</b></div></div>
+   </header>
+   <div class="master-grid">${cards.map(c=>`<section class="master-card"><div class="master-icon">${healthIcon(c[0])}</div><div><h3>${c[1]}</h3><p>${c[2]}</p></div></section>`).join("")}</div>
+   <section class="master-wide master-symptoms"><div class="master-icon">${healthIcon("symptoms")}</div><div><h3>SÍNTOMAS Y PRESENTACIÓN</h3><p>${d.signs}</p></div></section>
+   <section class="master-wide master-diagnosis"><div class="master-icon">${healthIcon("diagnosis")}</div><div><h3>DIAGNÓSTICO</h3><p>${d.diagnosis}</p></div></section>
+   <section class="master-warning"><span>!</span><div><h3>IMPORTANTE</h3><p>${d.warning}</p></div></section>
+   <footer class="master-footer">FICHA ORIENTATIVA · COLOMBICULTURA DEPORTIVA · LA CONFIRMACIÓN PUEDE REQUERIR DIAGNÓSTICO VETERINARIO</footer>
+ </div>`;
+}
 function openDisease(id){
  const d=diseases.find(x=>x.id===id);if(!d)return;
  $("#diseaseTitle").textContent=d.name.toUpperCase();$("#diseaseSubtitle").textContent=d.agent;
+ if(id==="coccidiosis"){
+   $("#diseaseDetailBody").innerHTML=renderCoccidiosisMaster(d);
+   go("diseaseDetail");return;
+ }
  const facts=[["TRANSMISIÓN",d.transmission],["MÁS SUSCEPTIBLE",d.susceptible],["PORTADORES ASINTOMÁTICOS",d.carriers],["HECES A SIMPLE VISTA",d.feces],["DETECCIÓN DOMÉSTICA",d.home],["MUESTRA",d.sample],["MÉTODO IDEAL",d.method],["QUÉ BUSCAMOS",d.target],["CUANTIFICACIÓN",d.quant],["IDENTIFICACIÓN EXACTA",d.exact]];
- $("#diseaseDetailBody").innerHTML=`
-   <div class="sheet-cover">
-     <div class="sheet-kicker">GUÍA DEL COLOMBAIRE · SALUD</div>
-     <div class="sheet-agent">${d.agent}</div>
-     <div class="sheet-illustration"><span>🕊</span></div>
-     <div class="sheet-topline">
-       <div><small>TIPO</small><b>${d.type}</b></div>
-       <div><small>ÓRGANO PRINCIPAL</small><b>${d.organ}</b></div>
-     </div>
-   </div>
-   ${d.zoonosis?'<div class="sheet-alert"><b>⚠ ZOONOSIS</b><span>Puede afectar a personas. Extremar precauciones y buscar asesoramiento profesional.</span></div>':''}
-   <div class="sheet-facts">${facts.map(x=>`<div class="sheet-fact"><small>${x[0]}</small><b>${x[1]}</b></div>`).join("")}</div>
-   <div class="sheet-band"><b>SÍNTOMAS Y PRESENTACIÓN</b><p>${d.signs}</p></div>
-   <div class="sheet-band"><b>DIAGNÓSTICO</b><p>${d.diagnosis}</p></div>
-   <div class="sheet-important"><b>IMPORTANTE</b><p>${d.warning}</p></div>
-   <p class="sheet-disclaimer">Ficha orientativa para colombicultura deportiva · No sustituye la valoración ni el diagnóstico veterinario.</p>`;
+ $("#diseaseDetailBody").innerHTML=`<div class="sheet-cover"><div class="sheet-kicker">GUÍA DEL COLOMBAIRE · SALUD</div><div class="sheet-agent">${d.agent}</div><div class="sheet-illustration"><span>🕊</span></div><div class="sheet-topline"><div><small>TIPO</small><b>${d.type}</b></div><div><small>ÓRGANO PRINCIPAL</small><b>${d.organ}</b></div></div></div>${d.zoonosis?'<div class="sheet-alert"><b>⚠ ZOONOSIS</b><span>Puede afectar a personas. Extremar precauciones y buscar asesoramiento profesional.</span></div>':''}<div class="sheet-facts">${facts.map(x=>`<div class="sheet-fact"><small>${x[0]}</small><b>${x[1]}</b></div>`).join("")}</div><div class="sheet-band"><b>SÍNTOMAS Y PRESENTACIÓN</b><p>${d.signs}</p></div><div class="sheet-band"><b>DIAGNÓSTICO</b><p>${d.diagnosis}</p></div><div class="sheet-important"><b>IMPORTANTE</b><p>${d.warning}</p></div><p class="sheet-disclaimer">Ficha orientativa para colombicultura deportiva · No sustituye la valoración ni el diagnóstico veterinario.</p>`;
  go("diseaseDetail");
 }
 $("#healthSearch").addEventListener("input",renderDiseases);
