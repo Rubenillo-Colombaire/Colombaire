@@ -109,3 +109,16 @@
  .poster-feature{grid-template-columns:1fr 1fr;padding:12px;gap:10px}.poster-what{grid-column:1/-1}.poster-what h3,.poster-organ-box h3{font-size:18px}.poster-what p{font-size:15px}.poster-bird-body svg{max-height:170px}.poster-organ-box svg{height:65px;width:70px}
  .poster-three,.poster-two{grid-template-columns:1fr;padding:0 12px 10px;gap:10px}.poster-panel h3,.poster-performance h3{font-size:17px}.poster-panel p,.poster-performance p{font-size:13px}.poster-performance{margin:0 12px 10px}
 }
+
+/* v0.5f · fotografía real en la ficha madre */
+.real-photo{overflow:hidden;border-radius:10px}
+.real-photo img,.panel-photo,.poster-qphoto img{width:100%;height:100%;object-fit:cover;display:block}
+.poster-flying.real-photo{height:132px;border:1px solid rgba(255,255,255,.18)}
+.poster-bird-body.real-photo{height:235px;align-self:center;box-shadow:0 3px 12px rgba(24,50,39,.16)}
+.poster-qphoto{width:48px;height:48px;border-radius:8px;overflow:hidden;flex:0 0 auto;border:2px solid #d7cdb5}
+.panel-photo{height:125px;object-fit:cover;border-bottom:1px solid #d9d0bc}
+.micro-photo{object-position:center}
+@media(max-width:650px){
+ .poster-flying.real-photo{height:82px}.poster-bird-body.real-photo{height:155px}
+ .panel-photo{height:145px}.poster-qphoto{width:44px;height:44px}
+}

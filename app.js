@@ -204,22 +204,20 @@ function renderCoccidiosisMaster(d){
    <div class="poster-title-row">
     <div class="poster-mark" aria-label="Símbolo Colombaire"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="51"/><path d="M25 69c19-9 29-25 36-44 4 17 3 27-1 37 13-11 24-21 34-31-5 20-14 34-29 43 11 1 21 4 31 10-23 3-42-1-54-11-7 4-12 7-17 8Z"/></svg></div>
     <div class="poster-title"><h2>COCCIDIOSIS</h2><p>Eimeria spp.</p></div>
-    <div class="poster-flying"><svg viewBox="0 0 260 180"><path d="M23 108c40-18 64-44 79-84 7 31 6 51-1 68 29-25 54-47 80-65-12 34-31 59-58 73 24 0 46 7 67 20-38 6-72 1-98-16-20 14-43 18-69 4Z"/><path d="M145 100c19-17 39-25 60-22 21 4 29 21 23 38l27 8-31 9c-17 25-51 18-79-2Z"/><circle cx="215" cy="96" r="3"/></svg></div>
+    <div class="poster-flying real-photo"><img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Pigeon_takes_off.JPG" alt="Palomo en vuelo"></div>
    </div>
   </header>
   <section class="poster-quick">
    <div><span class="poster-qicon">${ico("exact")}</span><p><b>TIPO</b>${d.type}</p></div>
    <div><span class="poster-qicon intestine">${ico("sample")}</span><p><b>ÓRGANO PRINCIPAL</b>${d.organ}</p></div>
-   <div><span class="poster-qicon">${ico("young")}</span><p><b>AFECTA MÁS A</b>${d.susceptible}</p></div>
+   <div><span class="poster-qphoto"><img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Piskl%C4%99_go%C5%82%C4%99bia_miejskiego_5_dni_po_wykluciu.jpg" alt="Pichón de palomo"></span><p><b>AFECTA MÁS A</b>${d.susceptible}</p></div>
   </section>
   <section class="poster-feature">
    <div class="poster-what">
     <h3><span>${ico("exact")}</span> ¿QUÉ ES?</h3>
     <p>Enfermedad intestinal causada por protozoos del género <i>Eimeria</i>. Los parásitos se multiplican en el intestino y, cuando la carga es elevada, pueden alterar la digestión, la absorción de nutrientes y la condición del palomo.</p>
    </div>
-   <div class="poster-bird-body">
-    <svg viewBox="0 0 230 250"><path class="bird" d="M40 190c20-65 72-108 123-83 4-33 36-52 58-31 13 12 11 32 1 44l17 8-20 8c-8 31-38 37-66 26-19 53-68 70-113 28Z"/><circle cx="203" cy="94" r="3"/><path class="gut" d="M111 145c-18-12-31 6-18 18 12 11 30-3 20-15-9-10-26 3-16 15 8 10 24 1 20-10"/></svg>
-   </div>
+   <div class="poster-bird-body real-photo"><img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Pigeon_takes_off.JPG" alt="Palomo doméstico"></div>
    <div class="poster-organ-box"><h3>INTESTINO</h3><svg viewBox="0 0 120 110"><path d="M38 15c-17 9-16 26-4 33-15 8-15 26-2 34-8 14 5 24 20 17M82 15c17 9 16 26 4 33 15 8 15 26 2 34 8 14-5 24-20 17M53 16v80M67 16v80"/></svg><b>Órgano principal</b><span>${d.organ}</span></div>
   </section>
   <section class="poster-three">
@@ -228,8 +226,8 @@ function renderCoccidiosisMaster(d){
    <div class="poster-panel brown"><h3>${ico("feces")} HECES</h3><div class="feces-visual">${ico("feces")}</div><p>${d.feces}</p></div>
   </section>
   <section class="poster-two">
-   <div class="poster-panel blue"><h3>${ico("diagnosis")} DIAGNÓSTICO</h3><p>${d.diagnosis}</p></div>
-   <div class="poster-panel teal"><h3>${ico("microscope")} MICROSCOPÍA</h3><div class="micro-view"><i></i><i></i><i></i><i></i></div><p>${d.target}. ${d.quant}</p></div>
+   <div class="poster-panel blue"><h3>${ico("diagnosis")} DIAGNÓSTICO</h3><img class="panel-photo" src="https://images.unsplash.com/photo-1727091506038-5451111dc2fb?auto=format&fit=crop&w=900&q=80" alt="Microscopio de laboratorio"><p>${d.diagnosis}</p></div>
+   <div class="poster-panel teal"><h3>${ico("microscope")} MICROSCOPÍA</h3><img class="panel-photo micro-photo" src="https://www.frontiersin.org/files/Articles/1392238/xml-images/fvets-11-1392238-g001.webp" alt="Ooquiste de Eimeria labbeana-like al microscopio"><p>${d.target}. ${d.quant}</p></div>
   </section>
   <section class="poster-two lower">
    <div class="poster-panel green"><h3>${ico("sample")} DETECCIÓN / MUESTRA</h3><p><b>${d.sample}</b><br>${d.method}<br>${d.home}</p></div>

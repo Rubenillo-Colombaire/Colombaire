@@ -76,3 +76,7 @@ Coccidiosis convertida en ficha madre experimental: color, jerarquía tipográfi
 
 ## v0.5e
 Coccidiosis reconstruida como infografía interactiva real inspirada en el concepto visual aprobado: cabecera, marca Colombaire, anatomía, bloques cromáticos e iconografía. El texto permanece HTML editable y adaptable a móvil.
+
+
+## v0.5f
+Coccidiosis: sustitución de varios dibujos provisionales por fotografía real. Se mantienen iconos funcionales; microscopía usa una micrografía científica real de Eimeria labbeana-like en Columba livia domestica (Frontiers in Veterinary Science, 2024).
