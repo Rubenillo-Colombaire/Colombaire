@@ -122,3 +122,28 @@
  .poster-flying.real-photo{height:82px}.poster-bird-body.real-photo{height:155px}
  .panel-photo{height:145px}.poster-qphoto{width:44px;height:44px}
 }
+
+/* v0.5g · cabecera limpia y reencuadre fotográfico */
+.poster-title-row{grid-template-columns:112px 1fr;gap:18px;min-height:132px}
+.poster-mark.realistic-mark{display:flex;align-items:center;justify-content:center}
+.poster-mark.realistic-mark svg{width:98px;height:98px;fill:none;stroke:#e8c26a;stroke-width:2.6}
+.poster-mark.realistic-mark .mark-pigeon{fill:#f3efe2;stroke:#d5decf;stroke-width:1.5}
+.poster-mark.realistic-mark .mark-eye{fill:#173e30;stroke:none}
+.poster-mark.realistic-mark .mark-wing{fill:none;stroke:#879d91;stroke-width:2.5;stroke-linecap:round}
+.poster-title{padding-right:16px}
+.poster-title h2{font-size:48px}
+.poster-title p{font-size:24px}
+.subject-photo img{object-fit:cover;object-position:50% 48%}
+.microscope-photo{object-fit:cover;object-position:50% 52%}
+.micro-photo{object-fit:contain!important;object-position:center!important;background:#e8e5d9;padding:7px;box-sizing:border-box}
+.poster-panel.teal .micro-photo{height:180px}
+.poster-panel.blue .microscope-photo{height:155px}
+@media(max-width:650px){
+ .poster-title-row{grid-template-columns:72px 1fr;gap:10px;min-height:104px}
+ .poster-mark.realistic-mark svg{width:66px;height:66px}
+ .poster-title h2{font-size:30px;letter-spacing:.3px}
+ .poster-title p{font-size:17px}
+ .subject-photo img{object-position:50% 45%}
+ .poster-panel.teal .micro-photo{height:190px}
+ .poster-panel.blue .microscope-photo{height:150px}
+}

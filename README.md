@@ -80,3 +80,7 @@ Coccidiosis reconstruida como infografía interactiva real inspirada en el conce
 
 ## v0.5f
 Coccidiosis: sustitución de varios dibujos provisionales por fotografía real. Se mantienen iconos funcionales; microscopía usa una micrografía científica real de Eimeria labbeana-like en Columba livia domestica (Frontiers in Veterinary Science, 2024).
+
+
+## v0.5g
+Coccidiosis: cabecera simplificada (sin fotografía derecha), nuevo emblema de palomo más natural y reencuadre individual de fotografías. La micrografía de ooquistes pasa a object-fit contain para no recortarla.
