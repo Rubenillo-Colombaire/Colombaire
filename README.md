@@ -64,3 +64,7 @@ v0.4 sigue siendo un prototipo local. Los datos se guardan en el navegador. Las 
 - 11 fichas: Coccidiosis, Tricomoniasis, Salmonelosis, E. coli, Micoplasmosis, Ornitosis/Clamidiosis, PMV-1, Viruela/Pigota, Circovirus, Rotavirus y Adenovirus.
 - Buscador y filtros por tipo de agente.
 - Ficha técnica uniforme preparada para alimentar la futura calculadora diferencial.
+
+
+## v0.5b
+Salud rediseñada como ficha visual única, centrada y continua. Coccidiosis sirve como ficha maestra de diseño.
