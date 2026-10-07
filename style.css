@@ -21,3 +21,10 @@
 .ring-status{display:flex;gap:14px;align-items:center;border-radius:12px;padding:16px;margin:14px 0;border:1px solid var(--line)}
 .ring-status>span{font-size:27px}.ring-status b,.ring-status small{display:block}.ring-status small{margin-top:4px}
 .ring-normal{background:#f4f6f2}.ring-soon{background:#f6f4e7;border-color:#d8cf9b}.ring-recommended{background:#fff1d9;border-color:#e2bc73}.ring-critical{background:#fde7e3;border-color:#d99186}.ring-critical b{color:#8c261d}.ring-ok{background:#e8f4eb;border-color:#a9ceb2}.ring-ok b{color:var(--green)}
+
+.trait-chips{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+.trait-chip{border:1px solid #b9c8bf;background:#f6f8f5;color:var(--green);border-radius:999px;padding:9px 13px;font-weight:700;cursor:pointer}
+.trait-chip.selected{background:var(--green);color:white;border-color:var(--green)}
+.obs-label{display:block;margin-top:18px}.obs-label>span{display:block;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:7px}
+.custom-trait-row{display:grid;grid-template-columns:1fr auto;gap:8px}.custom-trait-row input{min-width:0}
+.obs-textarea{width:100%;box-sizing:border-box;min-height:180px;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:13px;font:inherit;line-height:1.5;background:white}

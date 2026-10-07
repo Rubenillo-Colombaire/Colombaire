@@ -4,6 +4,7 @@ const seedPigeons=[
  {id:"p-brisa",name:"Brisa",ring:"ESP-2024-02111",owner:"Rubén Vila",color:"Azul",sex:"Hembra",birth:"2024-02-22",father:"Norte",mother:"Luna",fatherId:"",motherId:"",status:"Activo"}
 ];
 const makeId=(prefix="x")=>prefix+"-"+Date.now()+"-"+Math.random().toString(36).slice(2,7);
+const defaultTraits=["Perseguidor","Constante","Fuerte","Ágil","Inteligente","Buen cierre","Buen reproductor"];
 let pigeons=JSON.parse(localStorage.getItem("colombaire_pigeons")||"null")||seedPigeons;
 pigeons=pigeons.map(p=>({...p,id:p.id||makeId("p"),fatherId:p.fatherId||"",motherId:p.motherId||""}));
 let pairs=JSON.parse(localStorage.getItem("colombaire_pairs")||"[]");
@@ -127,4 +128,34 @@ $("#ringFormData").addEventListener("submit",e=>{
  save();render();renderBreeding();openChick(p.id);
 });
 $("#openChickPigeonBtn").onclick=()=>openPigeon(currentChickId);
+
+// OBSERVACIONES
+function openObservations(){
+ const p=byId(currentId); if(!p)return;
+ $("#obsPigeonName").textContent=`OBSERVACIONES · ${p.name||"Sin nombre"}`;
+ $("#observationText").value=p.observations||"";
+ renderTraitChips(); go("observations");
+}
+function renderTraitChips(){
+ const p=byId(currentId); if(!p)return;
+ const traits=[...new Set([...defaultTraits,...(p.customTraits||[]),...(p.traits||[])])];
+ const selected=new Set(p.traits||[]);
+ $("#traitChips").innerHTML=traits.map((t,i)=>`<button type="button" class="trait-chip ${selected.has(t)?"selected":""}" data-trait-index="${i}">${t}</button>`).join("");
+ [...document.querySelectorAll("#traitChips .trait-chip")].forEach((b,i)=>b.onclick=()=>b.classList.toggle("selected"));
+}
+$("#observationsTab").onclick=openObservations;
+$("#addTraitBtn").onclick=()=>{
+ const value=$("#customTrait").value.trim(),p=byId(currentId); if(!value||!p)return;
+ p.customTraits=[...new Set([...(p.customTraits||[]),value])];
+ p.traits=[...new Set([...(p.traits||[]),value])];
+ $("#customTrait").value=""; save(); renderTraitChips();
+};
+$("#saveObservations").onclick=()=>{
+ const p=byId(currentId); if(!p)return;
+ const all=[...new Set([...defaultTraits,...(p.customTraits||[]),...(p.traits||[])])];
+ p.observations=$("#observationText").value.trim();
+ p.traits=[...document.querySelectorAll("#traitChips .trait-chip.selected")].map(b=>all[Number(b.dataset.traitIndex)]);
+ save(); openPigeon(currentId);
+};
+
 render();renderBreeding();

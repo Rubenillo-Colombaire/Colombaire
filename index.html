@@ -64,7 +64,7 @@
 
     <section id="ficha" class="page">
       <div class="title-row"><button class="back app-back" data-go="palomar">‹</button><div><h2 id="f-name">Toretto</h2><small id="f-ring">ESP-2024-01587</small></div><button id="editPigeon">✎</button></div>
-      <div class="tabs"><button class="selected">Información</button><button data-go="cria">Cría</button><button data-go="salud">Salud</button><button data-go="concursos">Concursos</button><button>Genealogía</button></div>
+      <div class="tabs"><button class="selected">Información</button><button data-go="cria">Cría</button><button data-go="salud">Salud</button><button data-go="concursos">Concursos</button><button id="observationsTab">Observaciones</button><button>Genealogía</button></div>
       <section class="detail-card">
         <h3>DATOS DEL PALOMO</h3>
         <div class="detail-grid">
@@ -77,6 +77,21 @@
       </section>
     </section>
 
+
+    <section id="observations" class="page">
+      <div class="title-row"><button class="back app-back">‹</button><div><h2 id="obsPigeonName">OBSERVACIONES</h2><small>Características y notas del ejemplar</small></div></div>
+      <div class="detail-card">
+        <h3>CARACTERÍSTICAS</h3>
+        <p class="field-note">Selecciona las que describan al palomo. Puedes añadir las tuyas.</p>
+        <div id="traitChips" class="trait-chips"></div>
+        <label class="obs-label"><span>Otra característica</span><div class="custom-trait-row"><input id="customTrait" placeholder="Ej. Muy trabajador"><button id="addTraitBtn" type="button" class="secondary">Añadir</button></div></label>
+      </div>
+      <div class="detail-card">
+        <h3>OBSERVACIONES GENERALES</h3>
+        <textarea id="observationText" class="obs-textarea" placeholder="Comportamiento, cualidades, defectos, evolución, sensaciones en concurso, reproducción..."></textarea>
+        <div class="form-actions"><button id="saveObservations" class="primary">Guardar observaciones</button></div>
+      </div>
+    </section>
 
     <section id="palomoForm" class="page">
       <div class="title-row"><button class="back app-back" data-go="palomar">‹</button><div><h2 id="formTitle">NUEVO PALOMO</h2><small>Ficha de Mi Palomar</small></div></div>

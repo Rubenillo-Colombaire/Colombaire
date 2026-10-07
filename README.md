@@ -49,3 +49,12 @@ v0.4 sigue siendo un prototipo local. Los datos se guardan en el navegador. Las 
 - Ejemplo: Mi Palomar → Palomo → Cría → ‹ vuelve al Palomo; otro ‹ vuelve a Mi Palomar.
 - El comportamiento se aplica de forma global para que los futuros módulos reutilicen la misma navegación.
 - La navegación principal inferior reinicia el recorrido, evitando volver accidentalmente a una rama antigua.
+
+
+## v0.4f — Observaciones
+- Nueva pestaña Observaciones en la ficha individual.
+- Características iniciales seleccionables: Perseguidor, Constante, Fuerte, Ágil, Inteligente, Buen cierre y Buen reproductor.
+- Posibilidad de añadir características personalizadas.
+- Campo libre de observaciones generales.
+- Características y notas se guardan por ejemplar en localStorage.
+- Concursos/Palmarés permanece separado para resultados deportivos estructurados.
