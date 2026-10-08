@@ -247,6 +247,36 @@ function renderCoccidiosisMaster(d){
   <footer class="poster-note">FICHA ORIENTATIVA · COLOMBICULTURA DEPORTIVA · LA CONFIRMACIÓN PUEDE REQUERIR DIAGNÓSTICO VETERINARIO</footer>
  </article>`;
 }
+function renderDiseaseMaster(d){
+ const ico=k=>healthIcon(k);
+ const safe=s=>String(s??"No especificado");
+ const fact=(title,value)=>`<div class="disease-master-fact"><b>${title}</b><p>${safe(value)}</p></div>`;
+ return `<article class="poster-health disease-master">
+ <header class="poster-head"><div class="poster-guide">GUÍA DEL COLOMBAIRE · SALUD</div>
+ <div class="poster-title-row"><div class="poster-title"><h2>${safe(d.name).toUpperCase()}</h2><p>${safe(d.agent)}</p></div></div></header>
+ <section class="poster-quick">
+ <div><span class="poster-qicon">${ico("exact")}</span><p><b>TIPO</b>${safe(d.type)}</p></div>
+ <div><span class="poster-qicon">${ico("sample")}</span><p><b>ÓRGANO PRINCIPAL</b>${safe(d.organ)}</p></div>
+ <div><span class="poster-qicon">${ico("young")}</span><p><b>AFECTA MÁS A</b>${safe(d.susceptible)}</p></div></section>
+ ${d.zoonosis?'<div class="sheet-alert"><b>⚠ ZOONOSIS</b><span>Puede afectar a personas. Consultar a un veterinario y adoptar medidas de protección.</span></div>':''}
+ <section class="disease-master-intro"><h3>¿QUÉ DEBEMOS SABER?</h3><p>${safe(d.signs)}</p></section>
+ <section class="poster-three">
+ <div class="poster-panel green"><h3>${ico("transmission")} TRANSMISIÓN</h3><p>${safe(d.transmission)}</p></div>
+ <div class="poster-panel rust"><h3>${ico("symptoms")} SIGNOS Y SÍNTOMAS</h3><p>${safe(d.signs)}</p></div>
+ <div class="poster-panel brown"><h3>${ico("feces")} HECES</h3><p>${safe(d.feces)}</p></div></section>
+ <section class="poster-two">
+ <div class="poster-panel blue"><h3>${ico("diagnosis")} DIAGNÓSTICO</h3><p>${safe(d.diagnosis)}</p></div>
+ <div class="poster-panel teal"><h3>${ico("microscope")} DETECCIÓN</h3><p>${safe(d.method)}</p><p>${safe(d.target)}</p></div></section>
+ <section class="poster-two lower">
+ <div class="poster-panel green"><h3>${ico("sample")} MUESTRA Y CONFIRMACIÓN</h3><p><b>Muestra:</b> ${safe(d.sample)}</p><p><b>Detección doméstica:</b> ${safe(d.home)}</p><p><b>Identificación exacta:</b> ${safe(d.exact)}</p></div>
+ <div class="poster-panel amber"><h3><span class="bang">!</span> IMPORTANTE</h3><p>${safe(d.warning)}</p></div></section>
+ <section class="disease-master-extra">
+ ${fact("PORTADORES ASINTOMÁTICOS",d.carriers)}
+ ${fact("CUANTIFICACIÓN",d.quant)}
+ </section>
+ <footer class="poster-note">FICHA ORIENTATIVA · COLOMBICULTURA DEPORTIVA · NO SUSTITUYE EL DIAGNÓSTICO VETERINARIO</footer>
+ </article>`;
+}
 function openDisease(id){
  const d=diseases.find(x=>x.id===id);if(!d)return;
  $("#diseaseTitle").closest(".page-head")?.classList.remove("cocci-hide-generic");
@@ -256,8 +286,8 @@ function openDisease(id){
    $("#diseaseDetailBody").innerHTML=renderCoccidiosisMaster(d);
    go("diseaseDetail");return;
  }
- const facts=[["TRANSMISIÓN",d.transmission],["MÁS SUSCEPTIBLE",d.susceptible],["PORTADORES ASINTOMÁTICOS",d.carriers],["HECES A SIMPLE VISTA",d.feces],["DETECCIÓN DOMÉSTICA",d.home],["MUESTRA",d.sample],["MÉTODO IDEAL",d.method],["QUÉ BUSCAMOS",d.target],["CUANTIFICACIÓN",d.quant],["IDENTIFICACIÓN EXACTA",d.exact]];
- $("#diseaseDetailBody").innerHTML=`<div class="sheet-cover"><div class="sheet-kicker">GUÍA DEL COLOMBAIRE · SALUD</div><div class="sheet-agent">${d.agent}</div><div class="sheet-illustration"><span>🕊</span></div><div class="sheet-topline"><div><small>TIPO</small><b>${d.type}</b></div><div><small>ÓRGANO PRINCIPAL</small><b>${d.organ}</b></div></div></div>${d.zoonosis?'<div class="sheet-alert"><b>⚠ ZOONOSIS</b><span>Puede afectar a personas. Extremar precauciones y buscar asesoramiento profesional.</span></div>':''}<div class="sheet-facts">${facts.map(x=>`<div class="sheet-fact"><small>${x[0]}</small><b>${x[1]}</b></div>`).join("")}</div><div class="sheet-band"><b>SÍNTOMAS Y PRESENTACIÓN</b><p>${d.signs}</p></div><div class="sheet-band"><b>DIAGNÓSTICO</b><p>${d.diagnosis}</p></div><div class="sheet-important"><b>IMPORTANTE</b><p>${d.warning}</p></div><p class="sheet-disclaimer">Ficha orientativa para colombicultura deportiva · No sustituye la valoración ni el diagnóstico veterinario.</p>`;
+ $("#diseaseTitle").closest(".page-head")?.classList.add("cocci-hide-generic");
+ $("#diseaseDetailBody").innerHTML=renderDiseaseMaster(d);
  go("diseaseDetail");
 }
 $("#healthSearch").addEventListener("input",renderDiseases);

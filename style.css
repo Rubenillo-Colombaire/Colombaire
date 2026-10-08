@@ -182,3 +182,14 @@
 .poster-organ-box small{font-size:11px!important;letter-spacing:0!important;line-height:1.35!important}
 .intestine-fallback{padding:20px 14px;color:#243b30;font-size:14px;line-height:1.5;text-align:left;background:#f4f0e4}
 .real-intestine img{object-fit:contain!important;object-position:center!important;background:#f0ebdf}
+
+/* v0.6: ficha madre extendida a las otras diez enfermedades */
+.disease-master .poster-title h2{font-size:clamp(28px,5vw,52px)!important;overflow-wrap:anywhere}
+.disease-master-intro{margin:16px 18px;padding:16px;background:#faf8ee;border-left:5px solid #245a3d;border-radius:9px}
+.disease-master-intro h3{font:700 21px Georgia,serif;color:#245a3d;margin:0 0 8px}
+.disease-master-intro p{font-size:15px;line-height:1.55;margin:0}
+.disease-master-extra{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 18px 16px}
+.disease-master-fact{background:#faf8ee;padding:14px;border-radius:10px}
+.disease-master-fact b{font-size:13px;color:#245a3d}
+.disease-master-fact p{font-size:14px;line-height:1.5}
+@media(max-width:650px){.disease-master-extra{grid-template-columns:1fr;margin:0 12px 12px}.disease-master-intro{margin:12px}}
