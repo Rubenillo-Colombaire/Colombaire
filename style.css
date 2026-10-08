@@ -174,3 +174,11 @@
  .poster-cocci-process{min-height:155px}
  .real-intestine img{height:150px;object-position:50% 66%}
 }
+
+/* v0.5i · tipografía consistente en la ficha de intestino */
+.poster-organ-box,.poster-organ-box span,.poster-organ-box b,.poster-organ-box small,
+.poster-organ-box .intestine-fallback{font-family:Arial,sans-serif!important}
+.poster-organ-box span{font-size:16px!important;font-weight:600!important;line-height:1.4!important}
+.poster-organ-box small{font-size:11px!important;letter-spacing:0!important;line-height:1.35!important}
+.intestine-fallback{padding:20px 14px;color:#243b30;font-size:14px;line-height:1.5;text-align:left;background:#f4f0e4}
+.real-intestine img{object-fit:contain!important;object-position:center!important;background:#f0ebdf}

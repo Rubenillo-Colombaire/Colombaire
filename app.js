@@ -226,7 +226,8 @@ function renderCoccidiosisMaster(d){
   <div class="process-step final"><b>4</b><span>Inflamación y peor absorción</span></div>
 </div>
    <div class="poster-organ-box real-intestine"><h3>INTESTINO</h3>
-<img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Harnleiter-Taube.png" alt="Anatomía abdominal real de una paloma">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Harnleiter-Taube.png" alt="Anatomía abdominal real de una paloma" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+<div class="intestine-fallback" style="display:none">Fotografía anatómica no disponible en este dispositivo. El intestino es donde <i>Eimeria</i> se multiplica y puede lesionar el epitelio intestinal.</div>
 <small>ANATOMÍA REAL DE PALOMA</small><b>Órgano principal</b><span>${d.organ}</span></div>
   </section>
   <section class="poster-three">

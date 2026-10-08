@@ -93,3 +93,4 @@ Ajustes de la ficha madre Coccidiosis a partir de la captura del usuario:
 - eliminada la fotografía genérica del palomo en la zona central;
 - sustituida por un esquema textual del mecanismo intestinal de la coccidiosis;
 - el bloque Intestino usa una fotografía anatómica real de paloma (Uwe Gille, Wikimedia Commons, CC BY 4.0).
+\n## v0.5i\nCorregida ruta de imagen anatómica, fallback visible cuando no carga y tipografía unificada en Intestino.\n
