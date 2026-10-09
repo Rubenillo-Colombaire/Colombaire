@@ -358,3 +358,70 @@ cbRenderContest();
    }finally{clearTimeout(timeout);btn.disabled=false;btn.textContent='Repetir comprobación';}
  });
 })();
+
+
+// FCCV HTML local importer v0.9d
+(()=>{
+ const input=document.getElementById('cb-import-file');
+ const status=document.getElementById('cb-import-status');
+ const table=document.querySelector('.cb-contest-table');
+ if(!input||!status||!table)return;
+ const getText=el=>(el?.textContent||'').replace(/\s+/g,' ').trim();
+ const normalized=t=>t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+ const demoHeader=table.querySelector('thead tr').innerHTML;
+ function parse(html){
+   const doc=new DOMParser().parseFromString(html,'text/html');
+   const tables=[...doc.querySelectorAll('table')];
+   const candidate=tables.find(t=>/nombre\s*palomo|plumaje|anilla|propietario/i.test(getText(t.querySelector('thead')||t.querySelector('tr')))) || tables.find(t=>t.querySelectorAll('tr').length>5);
+   if(!candidate)throw Error('No hay una tabla reconocible. Guarda la página de clasificación completa en formato HTML.');
+   const all=[...candidate.querySelectorAll('tr')];
+   const header=all.find(r=>/palomo|plumaje|anilla/i.test(getText(r)))||all[0];
+   const headers=[...header.querySelectorAll('th,td')].map(getText);
+   const find=(pattern,defaultIndex)=>{let i=headers.findIndex(h=>pattern.test(normalized(h)));return i<0?defaultIndex:i;};
+   const ix={rank:find(/^#|puesto|posic/,0),name:find(/nombre|palomo/,1),color:find(/plumaje|pelaje/,2),ring:find(/anilla/,3),owner:find(/propietario/,4),club:find(/club/,5),total:find(/^total$/, -1)};
+   let scores=headers.map((h,i)=>/^\d{1,2}\s*[ªºao]?$/.test(h.trim())?i:-1).filter(i=>i>=0);
+   if(!scores.length && ix.total>ix.club)scores=Array.from({length:ix.total-ix.club-1},(_,i)=>ix.club+1+i);
+   if(!scores.length||scores.length>40)throw Error('No se han identificado las columnas de las pruebas.');
+   const rows=[];
+   for(const r of all){
+     if(r===header)continue;
+     const cells=[...r.children].filter(e=>/^(TD|TH)$/.test(e.tagName)).map(getText);
+     if(cells.length<=Math.max(ix.name,ix.ring,...scores))continue;
+     const rank=Number.parseInt(cells[ix.rank],10), name=cells[ix.name],ring=cells[ix.ring];
+     if(!Number.isFinite(rank)||!name||!ring)continue;
+     const values=scores.map(i=>cells[i]??'');
+     const total=ix.total>=0?cells[ix.total]??'':'';
+     rows.push([rank,name,cells[ix.color]||'',ring,cells[ix.owner]||'',cells[ix.club]||'',values,total]);
+   }
+   if(!rows.length)throw Error('No se reconocieron participantes en el archivo.');
+   if(rows.length>1000)throw Error('Demasiados participantes para esta prueba.');
+   return {rows,scoreHeaders:scores.map((i,k)=>headers[i]||String(k+1)+'ª')};
+ }
+ input.addEventListener('change',async()=>{
+   const file=input.files?.[0];if(!file)return;
+   status.className='cb-import-status';
+   status.textContent='Leyendo '+file.name+'…';
+   if(file.size>3*1024*1024){status.textContent='El archivo supera el límite de 3 MB.';return;}
+   try{
+     const parsed=parse(await file.text());
+     cbContestRows=parsed.rows;cbTestCount=parsed.scoreHeaders.length;
+     table.querySelector('thead tr').innerHTML=['Puesto','★','Palomo','Pelaje','Anilla','Propietario','Club',...parsed.scoreHeaders,'Total'].map(x=>'<th>'+cbEscape(x)+'</th>').join('');
+     cbRenderContest();
+     document.getElementById('cb-source-label').textContent='Clasificación importada.';
+     document.getElementById('cb-source-note').textContent=' Archivo local: '+file.name+'. No es una actualización automática; consulta la fuente oficial para verificar los resultados.';
+     status.className='cb-import-status cb-import-success';
+     status.textContent='✓ '+parsed.rows.length+' participantes y '+parsed.scoreHeaders.length+' pruebas importados correctamente.';
+   }catch(e){
+     status.className='cb-import-status cb-import-error';
+     status.textContent='No se pudo importar: '+e.message;
+   }
+ });
+ document.getElementById('cb-import-demo')?.addEventListener('click',()=>{
+   cbContestRows=cbContestDemoRows;cbTestCount=6;
+   table.querySelector('thead tr').innerHTML=demoHeader;
+   cbRenderContest();input.value='';
+   document.getElementById('cb-source-label').textContent='Vista de demostración.';
+   document.getElementById('cb-source-note').textContent=' Datos de la captura compartida; no se actualizan automáticamente.';
+   status.className='cb-import-status';status.textContent='Demostración restaurada.';
+ });
+})();

@@ -123,3 +123,6 @@ Añade un botón de diagnóstico CORS dentro de Concursos. Solo una consulta man
 
 ## v0.9c — Importador FCCV experimental
 Permite importar localmente un HTML de clasificación guardado desde la respuesta oficial, sin enviar el archivo a ningún servidor. Conserva la tabla demo, el laboratorio de conexión, las estrellas locales y el resto de módulos. No hay actualización automática ni permisos de integración confirmados.
+
+## v0.9d
+Corrige el importador local: el selector de archivo ahora activa el analizador HTML y muestra confirmación o error.
