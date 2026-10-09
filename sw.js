@@ -1,5 +1,5 @@
-// COLOMBAIRE v0.9d — actualización fiable para iOS/iPhone.
-const CACHE='colombaire-shell-v0.9d';
+// COLOMBAIRE v0.9e — actualización fiable para iOS/iPhone.
+const CACHE='colombaire-shell-v0.9e';
 const CORE=['./index.html','./style.css?v=0.9b','./app.js?v=0.9b','./manifest.webmanifest','./version.json'];
 self.addEventListener('message',event=>{if(event.data&&event.data.type==='SKIP_WAITING')self.skipWaiting();});
 self.addEventListener('install',event=>{

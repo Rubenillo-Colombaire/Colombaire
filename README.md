@@ -126,3 +126,6 @@ Permite importar localmente un HTML de clasificación guardado desde la respuest
 
 ## v0.9d
 Corrige el importador local: el selector de archivo ahora activa el analizador HTML y muestra confirmación o error.
+
+## v0.9e - Dos campeonatos
+Dos paneles independientes de importación HTML, con nombre editable y persistencia local en el dispositivo. La comparación muestra dos tablas simultáneas (en móvil, apiladas). Esta versión no implementa todavía snapshots históricos ni sincronización automática.

@@ -425,3 +425,77 @@ cbRenderContest();
    status.className='cb-import-status';status.textContent='Demostración restaurada.';
  });
 })();
+
+
+// v0.9e: two independent, device-local championship panels.
+(()=>{
+ const KEY='colombaire_dual_championships_v1';
+ const fields=['a','b'];
+ const text=el=>(el?.textContent||'').replace(/\s+/g,' ').trim();
+ const normalize=v=>v.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+ let state={a:null,b:null};
+ try{const raw=JSON.parse(localStorage.getItem(KEY)||'{}');for(const k of fields){if(raw[k]&&Array.isArray(raw[k].rows)&&Array.isArray(raw[k].headings))state[k]=raw[k];}}catch(e){/* corrupted saved data: keep panels empty */}
+ function parse(html){
+   const doc=new DOMParser().parseFromString(html,'text/html');
+   const tables=[...doc.querySelectorAll('table')];
+   const candidate=tables.find(t=>/nombre\s*palomo|plumaje|anilla|propietario/i.test(text(t.querySelector('thead')||t.querySelector('tr'))))||tables.find(t=>t.querySelectorAll('tr').length>5);
+   if(!candidate)throw Error('No encontramos una tabla de clasificación en este archivo.');
+   const trs=[...candidate.querySelectorAll('tr')];
+   const header=trs.find(r=>/palomo|plumaje|anilla/i.test(text(r)))||trs[0];
+   const h=[...header.querySelectorAll('th,td')].map(text);
+   const find=(pattern,fallback)=>{const i=h.findIndex(v=>pattern.test(normalize(v)));return i<0?fallback:i;};
+   const ix={rank:find(/^#|puesto|posic/,0),name:find(/nombre|palomo/,1),color:find(/plumaje|pelaje/,2),ring:find(/anilla/,3),owner:find(/propietario/,4),club:find(/club/,5),total:find(/^total$/,-1)};
+   let scores=h.map((v,i)=>/^\d{1,2}\s*[ªºao]?$/.test(v.trim())?i:-1).filter(i=>i>=0);
+   if(!scores.length&&ix.total>ix.club)scores=Array.from({length:ix.total-ix.club-1},(_,i)=>ix.club+1+i);
+   if(!scores.length||scores.length>40)throw Error('No se reconocen las columnas de puntuaciones.');
+   const rows=[];
+   for(const tr of trs){
+     if(tr===header)continue;
+     const cells=[...tr.children].filter(c=>/^(TH|TD)$/.test(c.tagName)).map(text);
+     if(cells.length<=Math.max(ix.rank,ix.name,ix.ring,...scores))continue;
+     const pos=parseInt(cells[ix.rank],10),name=cells[ix.name],ring=cells[ix.ring];
+     if(!Number.isFinite(pos)||!name||!ring)continue;
+     rows.push([pos,name,cells[ix.color]||'',ring,cells[ix.owner]||'',cells[ix.club]||'',scores.map(i=>cells[i]||''),ix.total>=0?cells[ix.total]||'':'']);
+   }
+   if(!rows.length)throw Error('No se reconocen participantes en la tabla.');
+   if(rows.length>1000)throw Error('Este archivo supera el límite de participantes de la prueba.');
+   return {rows,headings:scores.map((i,j)=>h[i]||String(j+1)+'ª')};
+ }
+ function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));return true;}catch(e){return false;}}
+ function render(k){
+   const item=state[k],table=document.getElementById('cb-dual-table-'+k),status=document.getElementById('cb-dual-status-'+k),name=document.getElementById('cb-dual-name-'+k);
+   if(!table||!status||!name)return;
+   const thead=table.querySelector('thead'),tbody=table.querySelector('tbody');
+   if(!item){thead.innerHTML='';tbody.innerHTML='';name.value='';status.textContent='Sin clasificación importada.';return;}
+   name.value=item.name||'';
+   const headers=['Puesto','Palomo','Pelaje','Anilla','Propietario','Club',...item.headings,'Total'];
+   thead.innerHTML='<tr>'+headers.map(v=>'<th>'+cbEscape(v)+'</th>').join('')+'</tr>';
+   tbody.innerHTML=item.rows.map(([pos,palomo,color,ring,owner,club,scores,total])=>'<tr>'+[pos,palomo,color,ring,owner,club,...scores,total].map(v=>'<td>'+cbEscape(v)+'</td>').join('')+'</tr>').join('');
+   status.textContent=item.rows.length+' participantes · '+item.headings.length+' pruebas · Guardado: '+new Date(item.savedAt).toLocaleString('es-ES')+(item.saved?'':' · ⚠ No se pudo guardar de forma permanente');
+ }
+ for(const k of fields){
+   const file=document.getElementById('cb-dual-file-'+k),name=document.getElementById('cb-dual-name-'+k),status=document.getElementById('cb-dual-status-'+k);
+   if(!file||!name||!status)continue;
+   render(k);
+   file.addEventListener('change',async()=>{
+     const f=file.files?.[0];if(!f)return;
+     status.textContent='Leyendo '+f.name+'…';
+     if(f.size>3*1024*1024){status.textContent='El archivo supera los 3 MB.';return;}
+     try{
+       const parsed=parse(await f.text());
+       const old=state[k];
+       state[k]={...parsed,name:name.value.trim()||old?.name||f.name.replace(/\.html?$/i,''),savedAt:new Date().toISOString(),saved:true};
+       const saved=persist();state[k].saved=saved;
+       render(k);
+       if(!saved)status.textContent+=' · ⚠ Memoria del navegador llena o bloqueada. Los datos solo durarán hasta que cierres la aplicación.';
+     }catch(e){status.textContent='No se pudo importar: '+e.message;}
+     file.value='';
+   });
+   name.addEventListener('change',()=>{if(!state[k])return;state[k].name=name.value.trim()||state[k].name;persist();render(k);});
+   document.getElementById('cb-dual-clear-'+k)?.addEventListener('click',()=>{
+     if(!state[k])return;
+     if(!confirm('¿Vaciar el Campeonato '+k.toUpperCase()+'? Se eliminará su copia guardada en este dispositivo.'))return;
+     state[k]=null;persist();render(k);
+   });
+ }
+})();

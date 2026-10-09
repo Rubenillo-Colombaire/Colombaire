@@ -304,3 +304,22 @@
 .cb-import-instructions a{color:#1e6344}
 .cb-import-status{font-size:.81rem;background:white;border-radius:8px;padding:11px;border-left:3px solid #a2b3a5}
 .cb-import-success{border-color:#33804f}.cb-import-error{border-color:#c16c43}
+
+/* v0.9e - two championship comparison */
+.cb-dual-area{margin:16px 0 24px;border:1px solid #b8d2be;background:#f5faf6;border-radius:14px;padding:15px;color:#234733}
+.cb-dual-heading h3{margin:0 0 6px;font-size:1.05rem}.cb-dual-heading p,.cb-dual-hint{font-size:.82rem;line-height:1.5;margin:4px 0 14px}
+.cb-dual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.cb-dual-panel{min-width:0;background:#fff;border:1px solid #d5e5d9;border-radius:12px;padding:12px}
+.cb-dual-panel h4{font-size:1rem;margin:0 0 12px;color:#1b5136}
+.cb-dual-panel label{display:block;font-size:.77rem;font-weight:700;margin:10px 0 4px}
+.cb-dual-panel input{display:block;box-sizing:border-box;width:100%;padding:9px;border:1px solid #b9d0bf;border-radius:8px;font-size:.82rem;background:white;color:#1d3e2d}
+.cb-dual-actions{display:flex;justify-content:flex-end;margin:9px 0}
+.cb-dual-actions button{padding:7px 12px;border:1px solid #b4cbb9;background:#f1f7f2;border-radius:8px;color:#28513a;cursor:pointer}
+.cb-dual-status{font-size:.75rem;line-height:1.45;min-height:32px;margin:9px 0}
+.cb-dual-scroll{width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid #e0e9e0;border-radius:8px}
+.cb-dual-table{border-collapse:collapse;font-size:.74rem;white-space:nowrap;min-width:max-content}
+.cb-dual-table th,.cb-dual-table td{padding:8px 10px;border-bottom:1px solid #e6ede6;text-align:left}
+.cb-dual-table th{background:#24573c;color:white;position:sticky;top:0}
+.cb-dual-table tbody tr:nth-child(even){background:#f6faf6}
+.cb-dual-hint{margin:14px 0 0;color:#52675a}
+@media(max-width:760px){.cb-dual-grid{grid-template-columns:minmax(0,1fr)}}
