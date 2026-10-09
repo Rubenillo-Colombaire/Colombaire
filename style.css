@@ -281,3 +281,14 @@
 .cb-contest-footnote{font-size:.78rem;color:#67796d;margin:11px 0 19px}
 .cb-contest-next{background:#edf5ef;border:1px solid #c6dccb;padding:16px;border-radius:13px;font-size:.84rem;line-height:1.5;color:#27513b}
 .cb-contest-next p{margin:7px 0 0}
+
+/* Laboratorio de conexión v0.9b */
+.cb-diagnostic{background:#f1f8f2;border:1px solid #b7d4bd;border-radius:14px;padding:17px;margin:16px 0;color:#254b36}
+.cb-diagnostic-title{font-weight:850;font-size:1rem;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.cb-lab-tag{font-size:.64rem;letter-spacing:.06em;color:#637347;border:1px solid #b7d4bd;border-radius:99px;padding:3px 8px}
+.cb-diagnostic p{font-size:.84rem;line-height:1.5;margin:9px 0 12px}
+.cb-test-btn{background:#205b40;border:0;border-radius:9px;padding:12px 15px;color:white;font-weight:750;cursor:pointer}
+.cb-test-btn:disabled{opacity:.6;cursor:wait}
+.cb-test-result{background:white;border-radius:9px;padding:12px;margin:12px 0 8px;font-size:.83rem;line-height:1.5;overflow-wrap:anywhere}
+.cb-test-ok{border-left:4px solid #26794c}.cb-test-fail{border-left:4px solid #b76e42}
+.cb-diagnostic small{font-size:.72rem;color:#637668}

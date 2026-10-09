@@ -13,7 +13,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=0.9a">
+  <link rel="stylesheet" href="style.css?v=0.9b">
 </head>
 <body>
 <div class="app">
@@ -248,6 +248,7 @@
   <div class="title-row"><button class="back app-back">‹</button><div><h2>CONCURSOS</h2><small>Clasificaciones · Colombicultura deportiva</small></div></div>
   <div class="cb-contest-hero"><span class="cb-eyebrow">MIS CONCURSOS</span><h3>Clasificaciones oficiales, a tu alcance</h3><p>Consulta una clasificación completa y destaca los palomos que quieras, sin ocultar a los demás.</p></div>
   <div class="cb-contest-controls"><label for="cb-competition">Concurso</label><select id="cb-competition"><option value="demo">Clasificación de ejemplo · captura FCCV</option></select><div class="cb-contest-actions"><a href="https://colombiculturacv.es/?p=1" target="_blank" rel="noopener noreferrer" class="cb-official-link">↗ Abrir clasificación FCCV</a><button type="button" id="cb-reset-stars" class="cb-clear-stars">Quitar destacados</button></div></div>
+  <div class="cb-diagnostic" id="cb-diagnostic"><div class="cb-diagnostic-title">🧪 Laboratorio FCCV <span class="cb-lab-tag">PRUEBA TÉCNICA</span></div><p>Comprobamos si COLOMBAIRE puede leer la clasificación pública de la federación. No modifica datos ni envía información de tu palomar.</p><button type="button" id="cb-test-fccv" class="cb-test-btn">Comprobar conexión FCCV</button><div id="cb-test-result" class="cb-test-result" role="status" aria-live="polite">Prueba pendiente. Pulsa el botón cuando quieras.</div><small>Campeonato 90 · Año 2026 · Una consulta manual por pulsación.</small></div>
   <div class="cb-contest-note"><b>Vista de demostración.</b> Datos de la captura compartida; no se actualizan automáticamente. La competición y la fecha exactas no están identificadas. La clasificación oficial siempre prevalece.</div>
   <div class="cb-contest-summary"><div><small>Participantes visibles</small><strong id="cb-visible-count">14</strong></div><div><small>Pruebas</small><strong>6</strong></div><div><small>Destacados</small><strong id="cb-star-count">0</strong></div></div>
   <div class="cb-contest-table-wrap"><table class="cb-contest-table"><thead><tr><th>Puesto</th><th>★</th><th>Palomo</th><th>Pelaje</th><th>Anilla</th><th>Propietario</th><th>Club</th><th>1ª</th><th>2ª</th><th>3ª</th><th>4ª</th><th>5ª</th><th>6ª</th><th>Total</th></tr></thead><tbody id="cb-contest-rows"></tbody></table></div>
@@ -275,7 +276,7 @@
     <button data-go="guia">▤<small>Guía</small></button>
   </nav>
 </div>
-<script src="app.js?v=0.9a"></script>
+<script src="app.js?v=0.9b"></script>
  <div id="cb-update-banner" role="status" aria-live="polite" hidden>
    <span id="cb-update-message">Nueva versión de COLOMBAIRE disponible.</span>
    <button id="cb-update-action" type="button">Actualizar</button>
@@ -283,7 +284,7 @@
  </div>
  <script>
  (() => {
-   const CURRENT='0.9a';
+   const CURRENT='0.9b';
    const banner=document.getElementById('cb-update-banner');
    const message=document.getElementById('cb-update-message');
    const action=document.getElementById('cb-update-action');

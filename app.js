@@ -322,3 +322,35 @@ document.getElementById("cb-reset-stars")?.addEventListener("click",()=>{
  cbStarred=[];localStorage.setItem(cbStarStorageKey,"[]");cbRenderContest();
 });
 cbRenderContest();
+
+
+// Diagnóstico FCCV v0.9b. Consulta manual, sin recopilar datos personales ni alterar clasificaciones.
+(()=>{
+ const btn=document.getElementById('cb-test-fccv');
+ const result=document.getElementById('cb-test-result');
+ if(!btn||!result)return;
+ btn.addEventListener('click',async()=>{
+   btn.disabled=true;
+   btn.textContent='Comprobando…';
+   result.className='cb-test-result';
+   result.textContent='Consultando la clasificación pública de la FCCV…';
+   const endpoint='https://colombiculturacv.es/estaticas/competiciones/ajax/ajax_clasificacion.php?ano=2026&cam=90';
+   const controller=new AbortController();
+   const timeout=setTimeout(()=>controller.abort(),12000);
+   try{
+     const response=await fetch(endpoint,{method:'GET',mode:'cors',credentials:'omit',cache:'no-store',signal:controller.signal});
+     if(!response.ok)throw new Error('El servidor ha respondido con HTTP '+response.status);
+     const html=await response.text();
+     const doc=new DOMParser().parseFromString(html,'text/html');
+     const rows=[...doc.querySelectorAll('tr')];
+     const names=rows.map(row=>row.textContent||'').filter(text=>/\b(?:VAMOS|TORETTO|MAUI)\b/i.test(text));
+     if(rows.length<2)throw new Error('La respuesta llegó, pero no contiene una tabla reconocible.');
+     result.className='cb-test-result cb-test-ok';
+     result.textContent='✓ ¡Conexión correcta! HTTP '+response.status+'. Filas HTML encontradas: '+rows.length+'. '+(names.length?'Coincidencias de ejemplo: '+names.length+'. ':'')+'Podemos estudiar la importación directa.';
+   }catch(error){
+     result.className='cb-test-result cb-test-fail';
+     const msg=error&&error.name==='AbortError'?'Tiempo de espera agotado (12 segundos).':String(error&&error.message||error);
+     result.textContent='✕ No hemos podido leer los datos desde COLOMBAIRE. '+msg+'. Si el enlace oficial funciona por separado, podría tratarse de CORS; este resultado por sí solo no confirma la causa.';
+   }finally{clearTimeout(timeout);btn.disabled=false;btn.textContent='Repetir comprobación';}
+ });
+})();
