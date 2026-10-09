@@ -135,3 +135,7 @@ Se muestran botones para Rafelcofer y Villalonga, abriendo solo la tabla selecci
 
 ## v0.9g — Mis concursos
 Biblioteca de concursos ilimitada en localStorage, organizada por año, migración no destructiva de A y B, versiones de clasificaciones importadas y exportación/restauración JSON. Los historiales son capturas de cada importación, no necesariamente estados oficiales tras cada prueba.
+
+
+## v0.9h — Importación privada Coloms
+Subir SOLO los archivos de este ZIP a GitHub. El archivo `COLOMBAIRE_palomos_PRIVADO_Coloms.json` es PRIVADO, se entrega aparte y jamás debe subirse al repositorio público. La importación es local, incremental, idempotente por identificador de fila, y conserva anillas duplicadas de origen. Todos los sexos en la tabla maestra están sin confirmar.

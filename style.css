@@ -333,3 +333,12 @@
 
 /* Biblioteca de campeonatos v0.9g */
 .cb-library-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}.cb-library-toolbar button,.cb-restore-label{border:1px solid #a7c5b0;border-radius:9px;padding:10px;background:#f3faf5;color:#23543a;font-weight:700;font-size:.82rem;cursor:pointer}.cb-library-toolbar select{border-radius:8px;padding:8px;max-width:130px}.cb-library-detail{margin-top:14px}.cb-library-edit{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}.cb-library-edit label{flex:1;min-width:160px}.cb-library-edit input{width:100%;padding:9px;border:1px solid #b5d4c1;border-radius:8px}.cb-library-detail>label{display:block;margin:10px 0 5px}.cb-library-detail>input,.cb-library-detail>select{max-width:100%;padding:8px}.cb-library-status{font-size:.85rem;margin:8px 0}.cb-library-detail[hidden]{display:none!important}
+
+/* Sexo visible: azul macho, rosa hembra, gris desconocido */
+.list-card .sex.cb-sex-male{color:#1b65b9!important;background:#e5f1ff!important;border:1px solid #9cc8f6;border-radius:100px;min-width:36px;text-align:center;font-weight:900}
+.list-card .sex.cb-sex-female{color:#b62c73!important;background:#ffe7f1!important;border:1px solid #f3a4c7;border-radius:100px;min-width:36px;text-align:center;font-weight:900}
+.list-card .sex.cb-sex-unknown{color:#65726b!important;background:#eef0ee!important;border:1px solid #cdd3ce;border-radius:100px;min-width:36px;text-align:center;font-weight:900}
+.coloms-import-panel{border:1px solid #b4d5bf;border-radius:12px;background:#f4faf6;padding:13px;margin:12px 0 18px;color:#28513a}
+.coloms-import-panel p{font-size:.8rem;line-height:1.45;margin:8px 0}
+.coloms-import-panel input{font-size:.8rem;max-width:100%}
+#colomsStatus{margin-top:10px;font-size:.8rem}

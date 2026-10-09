@@ -13,12 +13,12 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=0.9g">
+  <link rel="stylesheet" href="style.css?v=0.9h">
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.8c</b></small></div></div>
+    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.9h</b></small></div></div>
     <div class="head-actions"><button>☀ 23°</button><button>🔔</button></div>
   </header>
 
@@ -68,7 +68,7 @@
       </div>
       <input id="search" class="search" placeholder="🔎 Buscar por nombre, anilla o pelaje...">
       <div class="filters"><button class="selected">Todos</button><button>Machos</button><button>Hembras</button><button>Activos</button></div>
-      <div id="pigeonList"></div>
+      <div class="coloms-import-panel"><strong>📁 Importar palomos históricos (archivo privado)</strong><p>Selecciona el archivo JSON de tu tabla Coloms. Se añadirá a este dispositivo, sin subirlo a internet y sin sustituir tus palomos actuales. Las anillas repetidas se conservan como registros distintos.</p><input id="colomsFile" type="file" accept=".json,application/json"><div id="colomsStatus" role="status" aria-live="polite">Sin importaciones pendientes.</div></div><div id="pigeonList"></div>
     </section>
 
     <section id="ficha" class="page">
@@ -301,7 +301,7 @@
     <button data-go="guia">▤<small>Guía</small></button>
   </nav>
 </div>
-<script src="app.js?v=0.9g"></script>
+<script src="app.js?v=0.9h"></script>
  <div id="cb-update-banner" role="status" aria-live="polite" hidden>
    <span id="cb-update-message">Nueva versión de COLOMBAIRE disponible.</span>
    <button id="cb-update-action" type="button">Actualizar</button>

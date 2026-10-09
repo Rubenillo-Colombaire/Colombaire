@@ -48,7 +48,7 @@ document.addEventListener("click",e=>{
 document.querySelectorAll("nav [data-go]").forEach(btn=>btn.addEventListener("click",()=>{navigationHistory=[];}));
 
 // MI PALOMAR
-function render(list=pigeons){const box=$("#pigeonList");$("#pigeonCount").textContent=`${pigeons.length} palomo${pigeons.length===1?"":"s"} registrado${pigeons.length===1?"":"s"}`;box.innerHTML=list.map(p=>{const sx=p.sex==="Macho"?"♂":p.sex==="Hembra"?"♀":"?";return`<div class="list-card" data-id="${p.id}"><div><b>${p.name||"Sin nombre"}</b><small>${p.ring||"Sin anilla"} · ${p.color||"Sin pelaje"}</small><small>Padre: ${parentName(p,"father")} · Madre: ${parentName(p,"mother")}</small><span class="status-pill">${p.status||"Activo"}</span></div><div class="sex">${sx}</div></div>`}).join("");box.querySelectorAll(".list-card").forEach(c=>c.onclick=()=>openPigeon(c.dataset.id))}
+function render(list=pigeons){const box=$("#pigeonList");$("#pigeonCount").textContent=`${pigeons.length} palomo${pigeons.length===1?"":"s"} registrado${pigeons.length===1?"":"s"}`;box.innerHTML=list.map(p=>{const sx=p.sex==="Macho"?"♂":p.sex==="Hembra"?"♀":"?";const sexClass=p.sex==="Macho"?"cb-sex-male":p.sex==="Hembra"?"cb-sex-female":"cb-sex-unknown";return`<div class="list-card" data-id="${p.id}"><div><b>${p.name||"Sin nombre"}</b><small>${p.ring||"Sin anilla"} · ${p.color||"Sin pelaje"}</small><small>Padre: ${parentName(p,"father")} · Madre: ${parentName(p,"mother")}</small><span class="status-pill">${p.status||"Activo"}</span></div><div class="sex ${sexClass}">${sx}</div></div>`}).join("");box.querySelectorAll(".list-card").forEach(c=>c.onclick=()=>openPigeon(c.dataset.id))}
 function openPigeon(id){currentId=id;const p=byId(id);if(!p)return;$("#f-name").textContent=p.name||"Sin nombre";$("#f-ring").textContent=p.ring||"Sin anilla";["ring","owner","color","sex"].forEach(k=>$("#d-"+k).textContent=p[k]||"Sin registrar");$("#d-birth").textContent=fmtDate(p.birth);$("#d-father").textContent=parentName(p,"father");$("#d-mother").textContent=parentName(p,"mother");go("ficha")}
 function fillParentSelects(editId){const f=$("#p-father"),m=$("#p-mother");f.innerHTML='<option value="">Desconocido / no registrado</option>';m.innerHTML='<option value="">Desconocida / no registrada</option>';pigeons.filter(p=>p.id!==editId&&p.sex==="Macho").forEach(p=>f.add(new Option(`${p.name} · ${p.ring||"sin anilla"}`,p.id)));pigeons.filter(p=>p.id!==editId&&p.sex==="Hembra").forEach(p=>m.add(new Option(`${p.name} · ${p.ring||"sin anilla"}`,p.id)))}
 function openForm(id=null){currentId=id;const p=id?byId(id):{name:"",ring:"",owner:"",color:"",sex:"",birth:"",father:"",mother:"",fatherId:"",motherId:"",status:"Activo"};$("#formTitle").textContent=id?"EDITAR PALOMO":"NUEVO PALOMO";$("#p-index").value=id||"";["name","ring","owner","color","sex","birth","status"].forEach(k=>$("#p-"+k).value=p[k]||"");fillParentSelects(id);$("#p-father").value=p.fatherId||"";$("#p-mother").value=p.motherId||"";$("#deletePigeon").style.display=id?"inline-block":"none";$(".primary").textContent=id?"Guardar cambios":"Guardar palomo";go("palomoForm")}
@@ -488,4 +488,28 @@ cbRenderContest();
   const old=library;const merged=new Map(library.map(c=>[c.id,c]));for(const c of data.championships){if(!c||typeof c.id!=='string'||typeof c.name!=='string'||!Array.isArray(c.versions))throw Error('La copia contiene registros incorrectos.');merged.set(c.id,c);}library=[...merged.values()];if(!save()){library=old;return;}selected=null;renderList();renderDetail();$('cb-library-status').textContent='✓ Copia restaurada.';
  }catch(err){$('cb-library-status').textContent='No se pudo restaurar: '+err.message;}e.target.value='';});
  renderList();renderDetail();
+})();
+
+// Importación privada Coloms — no incluye datos personales en el código publicado.
+(()=>{
+ const fileInput=document.getElementById('colomsFile'),msg=document.getElementById('colomsStatus');
+ if(!fileInput||!msg)return;
+ fileInput.addEventListener('change',async()=>{
+  const file=fileInput.files?.[0];if(!file)return;
+  try{
+   if(file.size>2*1024*1024)throw Error('Archivo demasiado grande.');
+   const payload=JSON.parse(await file.text());
+   if(payload.format!=='colombaire-coloms-v1'||!Array.isArray(payload.pigeons))throw Error('Formato de importación no reconocido.');
+   const seen=new Set(pigeons.map(p=>p.id));let added=0;
+   for(const r of payload.pigeons){
+    if(!r||typeof r.id!=='string'||!r.id.startsWith('coloms-')||seen.has(r.id))continue;
+    if(typeof r.ring!=='string'||typeof r.color!=='string')continue;
+    const p={id:r.id,name:String(r.name||r.ring).slice(0,100),ring:r.ring.slice(0,100),owner:String(r.owner||'').slice(0,100),color:r.color.slice(0,100),sex:['Macho','Hembra'].includes(r.sex)?r.sex:'Sin determinar',birth:'',father:String(r.father||'Desconocido').slice(0,150),mother:String(r.mother||'Desconocida').slice(0,150),fatherId:'',motherId:'',status:'Histórico',source:'coloms-import',sourceRow:String(r.sourceRow||''),normalizedColor:String(r.normalizedColor||''),whitePattern:String(r.whitePattern||'')};
+    pigeons.push(p);seen.add(p.id);added++;
+   }
+   save();render();
+   msg.textContent='✓ '+added+' registros históricos añadidos. Total en Mi Palomar: '+pigeons.length+'. Los ya importados no se duplican.';
+  }catch(err){msg.textContent='⚠ No se pudo importar: '+err.message;}
+  fileInput.value='';
+ });
 })();
