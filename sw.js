@@ -1,6 +1,6 @@
-// COLOMBAIRE v0.8a — actualización fiable para iOS/iPhone.
-const CACHE='colombaire-shell-v0.8a';
-const CORE=['./index.html','./style.css?v=0.8a','./app.js?v=0.8a','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
+// COLOMBAIRE v0.8b — actualización fiable para iOS/iPhone.
+const CACHE='colombaire-shell-v0.8b';
+const CORE=['./index.html','./style.css?v=0.8b','./app.js?v=0.8b','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
 });

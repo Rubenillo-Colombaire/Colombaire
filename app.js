@@ -277,14 +277,14 @@ function renderDiseaseMaster(d){
 }
 function openDisease(id){
  const d=diseases.find(x=>x.id===id);if(!d)return;
- $("#diseaseTitle").closest(".page-head")?.classList.remove("cocci-hide-generic");
+ $("#diseaseTitle").closest(".title-row")?.classList.remove("cocci-hide-generic");
  $("#diseaseTitle").textContent=d.name.toUpperCase();$("#diseaseSubtitle").textContent=d.agent;
  if(id==="coccidiosis"){
-   $("#diseaseTitle").closest(".page-head")?.classList.add("cocci-hide-generic");
+   $("#diseaseTitle").closest(".title-row")?.classList.add("cocci-hide-generic");
    $("#diseaseDetailBody").innerHTML=renderCoccidiosisMaster(d);
    go("diseaseDetail");return;
  }
- $("#diseaseTitle").closest(".page-head")?.classList.add("cocci-hide-generic");
+ $("#diseaseTitle").closest(".title-row")?.classList.add("cocci-hide-generic");
  $("#diseaseDetailBody").innerHTML=renderDiseaseMaster(d);
  go("diseaseDetail");
 }

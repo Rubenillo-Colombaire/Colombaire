@@ -110,3 +110,6 @@ Sube TODOS los archivos y la carpeta icons/ al directorio raiz del repositorio, 
 
 
 v0.8a: iOS PWA cache update. No se borran datos de localStorage. Subir TODOS los archivos a la raiz y conservar icons/.
+
+## v0.8b
+Corregida la cabecera duplicada en todas las fichas, conservando Volver; tipografia responsiva de titulos largos y nueva version de cache para iOS.
