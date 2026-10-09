@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "COLOMBAIRE · Tu palomar",
+  "short_name": "COLOMBAIRE",
+  "description": "Gestión del palomar, cría, salud, genética y concursos de colombicultura deportiva.",
+  "lang": "es",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f2e6",
+  "theme_color": "#164b3a",
+  "icons": [
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}

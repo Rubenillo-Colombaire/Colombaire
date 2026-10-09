@@ -96,3 +96,7 @@ Ajustes de la ficha madre Coccidiosis a partir de la captura del usuario:
 \n## v0.5i\nCorregida ruta de imagen anatómica, fallback visible cuando no carga y tipografía unificada en Intestino.\n\n## v0.6\nLas otras 10 enfermedades adoptan la estructura visual de Coccidiosis. Sin fotografías diagnósticas no verificadas. La ficha original de Coccidiosis permanece sin cambios.\n
 ## v0.6a
 Portadores asintomáticos y Cuantificación unificados con cabecera destacada.
+
+
+## v0.7 PWA
+Sube TODOS los archivos y la carpeta icons/ al directorio raiz del repositorio, conservando sus rutas. En Android abre la URL en Chrome y usa Instalar aplicacion o Anadir a pantalla de inicio. En iPhone abre Safari > Compartir > Anadir a pantalla de inicio. La instalacion no sincroniza localStorage entre dispositivos. Para actualizaciones futuras cambia la version de cache en sw.js y los parametros ?v de CSS/JS.
