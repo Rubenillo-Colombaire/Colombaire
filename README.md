@@ -94,3 +94,5 @@ Ajustes de la ficha madre Coccidiosis a partir de la captura del usuario:
 - sustituida por un esquema textual del mecanismo intestinal de la coccidiosis;
 - el bloque Intestino usa una fotografía anatómica real de paloma (Uwe Gille, Wikimedia Commons, CC BY 4.0).
 \n## v0.5i\nCorregida ruta de imagen anatómica, fallback visible cuando no carga y tipografía unificada en Intestino.\n\n## v0.6\nLas otras 10 enfermedades adoptan la estructura visual de Coccidiosis. Sin fotografías diagnósticas no verificadas. La ficha original de Coccidiosis permanece sin cambios.\n
+## v0.6a
+Portadores asintomáticos y Cuantificación unificados con cabecera destacada.

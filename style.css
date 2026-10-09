@@ -193,3 +193,5 @@
 .disease-master-fact b{font-size:13px;color:#245a3d}
 .disease-master-fact p{font-size:14px;line-height:1.5}
 @media(max-width:650px){.disease-master-extra{grid-template-columns:1fr;margin:0 12px 12px}.disease-master-intro{margin:12px}}
+
+.disease-carriers-quant{grid-template-columns:1fr!important}.disease-carriers-quant-panel{width:100%}.carriers-quant-content{display:grid;grid-template-columns:1fr 1fr}.carriers-quant-content p{padding:16px!important;margin:0!important;line-height:1.55}.carriers-quant-content p+p{border-left:1px solid #d9d0bc}.carriers-quant-content b{display:block;color:#176879;font-size:14px;margin-bottom:5px}.carriers-quant-content span{display:block;font-size:14px}@media(max-width:650px){.carriers-quant-content{grid-template-columns:1fr}.carriers-quant-content p+p{border-left:0;border-top:1px solid #d9d0bc}}

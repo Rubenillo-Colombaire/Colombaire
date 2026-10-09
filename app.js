@@ -200,7 +200,7 @@ function renderCoccidiosisMaster(d){
  const ico=(k)=>healthIcon(k);
  return `<article class="poster-health">
   <header class="poster-head">
-   <div class="poster-guide">GUÍA DEL COLOMBAIRE · SALUD</div>
+   
    <div class="poster-title-row">
     <div class="poster-title"><h2>COCCIDIOSIS</h2><p>Eimeria spp.</p></div>
    </div>
@@ -252,7 +252,7 @@ function renderDiseaseMaster(d){
  const safe=s=>String(s??"No especificado");
  const fact=(title,value)=>`<div class="disease-master-fact"><b>${title}</b><p>${safe(value)}</p></div>`;
  return `<article class="poster-health disease-master">
- <header class="poster-head"><div class="poster-guide">GUÍA DEL COLOMBAIRE · SALUD</div>
+ <header class="poster-head">
  <div class="poster-title-row"><div class="poster-title"><h2>${safe(d.name).toUpperCase()}</h2><p>${safe(d.agent)}</p></div></div></header>
  <section class="poster-quick">
  <div><span class="poster-qicon">${ico("exact")}</span><p><b>TIPO</b>${safe(d.type)}</p></div>
@@ -270,10 +270,7 @@ function renderDiseaseMaster(d){
  <section class="poster-two lower">
  <div class="poster-panel green"><h3>${ico("sample")} MUESTRA Y CONFIRMACIÓN</h3><p><b>Muestra:</b> ${safe(d.sample)}</p><p><b>Detección doméstica:</b> ${safe(d.home)}</p><p><b>Identificación exacta:</b> ${safe(d.exact)}</p></div>
  <div class="poster-panel amber"><h3><span class="bang">!</span> IMPORTANTE</h3><p>${safe(d.warning)}</p></div></section>
- <section class="disease-master-extra">
- ${fact("PORTADORES ASINTOMÁTICOS",d.carriers)}
- ${fact("CUANTIFICACIÓN",d.quant)}
- </section>
+ <section class="poster-two lower disease-carriers-quant"><div class="poster-panel teal disease-carriers-quant-panel"><h3>${ico("quantify")} PORTADORES ASINTOMÁTICOS Y CUANTIFICACIÓN</h3><div class="carriers-quant-content"><p><b>Portadores asintomáticos</b><span>${safe(d.carriers)}</span></p><p><b>Cuantificación</b><span>${safe(d.quant)}</span></p></div></div></section>
  <footer class="poster-note">FICHA ORIENTATIVA · COLOMBICULTURA DEPORTIVA · NO SUSTITUYE EL DIAGNÓSTICO VETERINARIO</footer>
  </article>`;
 }
