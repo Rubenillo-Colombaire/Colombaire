@@ -129,3 +129,9 @@ Corrige el importador local: el selector de archivo ahora activa el analizador H
 
 ## v0.9e - Dos campeonatos
 Dos paneles independientes de importación HTML, con nombre editable y persistencia local en el dispositivo. La comparación muestra dos tablas simultáneas (en móvil, apiladas). Esta versión no implementa todavía snapshots históricos ni sincronización automática.
+
+## v0.9f — Botones de campeonatos
+Se muestran botones para Rafelcofer y Villalonga, abriendo solo la tabla seleccionada. Se mantiene la clave localStorage anterior, por lo que no se borran los campeonatos ya importados. Los nombres personalizados aparecen en los botones.
+
+## v0.9g — Mis concursos
+Biblioteca de concursos ilimitada en localStorage, organizada por año, migración no destructiva de A y B, versiones de clasificaciones importadas y exportación/restauración JSON. Los historiales son capturas de cada importación, no necesariamente estados oficiales tras cada prueba.

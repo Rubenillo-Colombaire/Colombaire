@@ -323,3 +323,13 @@
 .cb-dual-table tbody tr:nth-child(even){background:#f6faf6}
 .cb-dual-hint{margin:14px 0 0;color:#52675a}
 @media(max-width:760px){.cb-dual-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* v0.9f: campeonato individual por botón, sin perder datos existentes */
+.cb-champ-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px}
+.cb-champ-tab{flex:1;min-width:125px;padding:14px 18px;border-radius:12px;border:1px solid #a5c5ae;background:#fff;color:#22533a;font-weight:800;font-size:.95rem;cursor:pointer}
+.cb-champ-tab-active{background:#24573c;color:#fff;border-color:#24573c}
+.cb-dual-panel[hidden]{display:none!important}
+.cb-dual-grid{grid-template-columns:minmax(0,1fr)}
+
+/* Biblioteca de campeonatos v0.9g */
+.cb-library-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}.cb-library-toolbar button,.cb-restore-label{border:1px solid #a7c5b0;border-radius:9px;padding:10px;background:#f3faf5;color:#23543a;font-weight:700;font-size:.82rem;cursor:pointer}.cb-library-toolbar select{border-radius:8px;padding:8px;max-width:130px}.cb-library-detail{margin-top:14px}.cb-library-edit{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}.cb-library-edit label{flex:1;min-width:160px}.cb-library-edit input{width:100%;padding:9px;border:1px solid #b5d4c1;border-radius:8px}.cb-library-detail>label{display:block;margin:10px 0 5px}.cb-library-detail>input,.cb-library-detail>select{max-width:100%;padding:8px}.cb-library-status{font-size:.85rem;margin:8px 0}.cb-library-detail[hidden]{display:none!important}

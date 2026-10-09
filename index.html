@@ -13,7 +13,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=0.9e">
+  <link rel="stylesheet" href="style.css?v=0.9g">
 </head>
 <body>
 <div class="app">
@@ -250,25 +250,20 @@
   <div class="cb-contest-controls"><label for="cb-competition">Concurso</label><select id="cb-competition"><option value="demo">Clasificación de ejemplo · captura FCCV</option></select><div class="cb-contest-actions"><a href="https://colombiculturacv.es/?p=1" target="_blank" rel="noopener noreferrer" class="cb-official-link">↗ Abrir clasificación FCCV</a><button type="button" id="cb-reset-stars" class="cb-clear-stars">Quitar destacados</button></div></div>
   <div class="cb-diagnostic" id="cb-diagnostic"><div class="cb-diagnostic-title">🧪 Laboratorio FCCV <span class="cb-lab-tag">PRUEBA TÉCNICA</span></div><p>Comprobamos si COLOMBAIRE puede leer la clasificación pública de la federación. No modifica datos ni envía información de tu palomar.</p><button type="button" id="cb-test-fccv" class="cb-test-btn">Comprobar conexión FCCV</button><div id="cb-test-result" class="cb-test-result" role="status" aria-live="polite">Prueba pendiente. Pulsa el botón cuando quieras.</div><small>Campeonato 90 · Año 2026 · Una consulta manual por pulsación.</small></div>
   <div class="cb-dual-area" id="cb-dual-area">
- <div class="cb-dual-heading"><h3>🏆 Dos campeonatos a la vez</h3><p>Prueba experimental: importa dos clasificaciones distintas y consúltalas juntas. Se guardan únicamente en este dispositivo.</p></div>
- <div class="cb-dual-grid">
-  <section class="cb-dual-panel" aria-label="Campeonato A">
-   <h4>Campeonato A</h4><label for="cb-dual-name-a">Nombre del campeonato</label><input id="cb-dual-name-a" type="text" maxlength="90" placeholder="Ej.: Comarcal Gener 2026">
-   <label for="cb-dual-file-a">Importar clasificación HTML</label><input id="cb-dual-file-a" type="file" accept=".html,.htm,text/html,text/plain">
-   <div class="cb-dual-actions"><button type="button" id="cb-dual-clear-a">Vaciar A</button></div>
-   <div class="cb-dual-status" id="cb-dual-status-a" role="status" aria-live="polite">Sin clasificación importada.</div>
-   <div class="cb-dual-scroll"><table class="cb-dual-table" id="cb-dual-table-a"><thead></thead><tbody></tbody></table></div>
-  </section>
-  <section class="cb-dual-panel" aria-label="Campeonato B">
-   <h4>Campeonato B</h4><label for="cb-dual-name-b">Nombre del campeonato</label><input id="cb-dual-name-b" type="text" maxlength="90" placeholder="Ej.: Otro comarcal 2026">
-   <label for="cb-dual-file-b">Importar clasificación HTML</label><input id="cb-dual-file-b" type="file" accept=".html,.htm,text/html,text/plain">
-   <div class="cb-dual-actions"><button type="button" id="cb-dual-clear-b">Vaciar B</button></div>
-   <div class="cb-dual-status" id="cb-dual-status-b" role="status" aria-live="polite">Sin clasificación importada.</div>
-   <div class="cb-dual-scroll"><table class="cb-dual-table" id="cb-dual-table-b"><thead></thead><tbody></tbody></table></div>
-  </section>
- </div>
- <p class="cb-dual-hint">Las tablas se desplazan horizontalmente por separado. Esta prueba guarda el último estado de cada campeonato, pero todavía no conserva versiones históricas de cada actualización. No borres los datos del navegador sin hacer una copia de seguridad.</p>
-</div>
+    <div class="cb-dual-heading"><h3>🏆 Mis concursos</h3><p>Organiza tus campeonatos por año. Abre solo el que quieras consultar; los dos que ya tenías se conservan.</p></div>
+    <div class="cb-library-toolbar"><label for="cb-year-filter">Año</label><select id="cb-year-filter"><option value="all">Todos</option></select><button type="button" id="cb-add-champ">＋ Añadir campeonato</button><button type="button" id="cb-backup-champ">↓ Copia de seguridad</button><label class="cb-restore-label" for="cb-restore-champ">↑ Restaurar copia</label><input id="cb-restore-champ" type="file" accept=".json,application/json" hidden></div>
+    <div class="cb-library-status" id="cb-library-status" role="status" aria-live="polite"></div>
+    <div class="cb-champ-tabs" id="cb-library-list" aria-label="Mis campeonatos"></div>
+    <section class="cb-dual-panel cb-library-detail" id="cb-library-detail" hidden>
+      <div class="cb-library-edit"><label>Nombre <input id="cb-library-name" maxlength="90" type="text"></label><label>Año <input id="cb-library-year" type="number" min="1900" max="2100" step="1"></label></div>
+      <label for="cb-library-file">Importar clasificación HTML (también guarda una versión histórica)</label><input id="cb-library-file" type="file" accept=".html,.htm,text/html,text/plain">
+      <div class="cb-dual-actions"><button type="button" id="cb-library-save">Guardar nombre y año</button><button type="button" id="cb-library-delete">Eliminar campeonato</button></div>
+      <div class="cb-dual-status" id="cb-library-detail-status" role="status" aria-live="polite"></div>
+      <label for="cb-library-snapshot">Clasificación guardada</label><select id="cb-library-snapshot"></select>
+      <div class="cb-dual-scroll"><table class="cb-dual-table" id="cb-library-table"><thead></thead><tbody></tbody></table></div>
+    </section>
+    <p class="cb-dual-hint">Los concursos y sus versiones importadas se guardan en este dispositivo. Exporta copias de seguridad periódicamente. Las versiones son fotografías de la clasificación al importarla, no necesariamente el resultado oficial al final de cada prueba.</p>
+  </div>
 <div class="cb-importer">
   <div class="cb-diagnostic-title">📥 Importador FCCV <span class="cb-lab-tag">EXPERIMENTAL</span></div>
   <p>Importa una clasificación completa guardada desde la página oficial. La lectura se hace <b>en tu dispositivo</b>; no se envía ningún archivo a COLOMBAIRE.</p>
@@ -306,7 +301,7 @@
     <button data-go="guia">▤<small>Guía</small></button>
   </nav>
 </div>
-<script src="app.js?v=0.9e"></script>
+<script src="app.js?v=0.9g"></script>
  <div id="cb-update-banner" role="status" aria-live="polite" hidden>
    <span id="cb-update-message">Nueva versión de COLOMBAIRE disponible.</span>
    <button id="cb-update-action" type="button">Actualizar</button>
@@ -314,7 +309,7 @@
  </div>
  <script>
  (() => {
-   const CURRENT='0.9e';
+   const CURRENT='0.9g';
    const banner=document.getElementById('cb-update-banner');
    const message=document.getElementById('cb-update-message');
    const action=document.getElementById('cb-update-action');

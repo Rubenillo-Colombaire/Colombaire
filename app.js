@@ -427,75 +427,65 @@ cbRenderContest();
 })();
 
 
-// v0.9e: two independent, device-local championship panels.
+// v0.9g: biblioteca de concursos con migración no destructiva de A y B.
 (()=>{
- const KEY='colombaire_dual_championships_v1';
- const fields=['a','b'];
- const text=el=>(el?.textContent||'').replace(/\s+/g,' ').trim();
- const normalize=v=>v.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
- let state={a:null,b:null};
- try{const raw=JSON.parse(localStorage.getItem(KEY)||'{}');for(const k of fields){if(raw[k]&&Array.isArray(raw[k].rows)&&Array.isArray(raw[k].headings))state[k]=raw[k];}}catch(e){/* corrupted saved data: keep panels empty */}
- function parse(html){
-   const doc=new DOMParser().parseFromString(html,'text/html');
-   const tables=[...doc.querySelectorAll('table')];
-   const candidate=tables.find(t=>/nombre\s*palomo|plumaje|anilla|propietario/i.test(text(t.querySelector('thead')||t.querySelector('tr'))))||tables.find(t=>t.querySelectorAll('tr').length>5);
-   if(!candidate)throw Error('No encontramos una tabla de clasificación en este archivo.');
-   const trs=[...candidate.querySelectorAll('tr')];
-   const header=trs.find(r=>/palomo|plumaje|anilla/i.test(text(r)))||trs[0];
-   const h=[...header.querySelectorAll('th,td')].map(text);
-   const find=(pattern,fallback)=>{const i=h.findIndex(v=>pattern.test(normalize(v)));return i<0?fallback:i;};
+ const $=id=>document.getElementById(id),KEY='colombaire_championship_library_v2',OLD='colombaire_dual_championships_v1';
+ const list=$('cb-library-list'),detail=$('cb-library-detail');if(!list||!detail)return;
+ const escape=typeof cbEscape==='function'?cbEscape:(v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])));
+ const tx=e=>(e?.textContent||'').replace(/\s+/g,' ').trim();
+ const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+ const parse=html=>{
+   const doc=new DOMParser().parseFromString(html,'text/html'),tables=[...doc.querySelectorAll('table')];
+   const t=tables.find(t=>/nombre\s*palomo|plumaje|anilla|propietario/i.test(tx(t.querySelector('thead')||t.querySelector('tr'))))||tables.find(t=>t.querySelectorAll('tr').length>5);
+   if(!t)throw Error('No se ha encontrado una tabla de clasificación.');
+   const trs=[...t.querySelectorAll('tr')],header=trs.find(r=>/palomo|plumaje|anilla/i.test(tx(r)))||trs[0],h=[...header.querySelectorAll('th,td')].map(tx);
+   const find=(p,d)=>{let i=h.findIndex(v=>p.test(norm(v)));return i<0?d:i;};
    const ix={rank:find(/^#|puesto|posic/,0),name:find(/nombre|palomo/,1),color:find(/plumaje|pelaje/,2),ring:find(/anilla/,3),owner:find(/propietario/,4),club:find(/club/,5),total:find(/^total$/,-1)};
    let scores=h.map((v,i)=>/^\d{1,2}\s*[ªºao]?$/.test(v.trim())?i:-1).filter(i=>i>=0);
    if(!scores.length&&ix.total>ix.club)scores=Array.from({length:ix.total-ix.club-1},(_,i)=>ix.club+1+i);
    if(!scores.length||scores.length>40)throw Error('No se reconocen las columnas de puntuaciones.');
    const rows=[];
-   for(const tr of trs){
-     if(tr===header)continue;
-     const cells=[...tr.children].filter(c=>/^(TH|TD)$/.test(c.tagName)).map(text);
-     if(cells.length<=Math.max(ix.rank,ix.name,ix.ring,...scores))continue;
-     const pos=parseInt(cells[ix.rank],10),name=cells[ix.name],ring=cells[ix.ring];
-     if(!Number.isFinite(pos)||!name||!ring)continue;
-     rows.push([pos,name,cells[ix.color]||'',ring,cells[ix.owner]||'',cells[ix.club]||'',scores.map(i=>cells[i]||''),ix.total>=0?cells[ix.total]||'':'']);
-   }
-   if(!rows.length)throw Error('No se reconocen participantes en la tabla.');
-   if(rows.length>1000)throw Error('Este archivo supera el límite de participantes de la prueba.');
+   for(const tr of trs){if(tr===header)continue;const cells=[...tr.children].filter(c=>/^(TH|TD)$/.test(c.tagName)).map(tx);if(cells.length<=Math.max(ix.rank,ix.name,ix.ring,...scores))continue;
+     const pos=parseInt(cells[ix.rank],10),name=cells[ix.name],ring=cells[ix.ring];if(!Number.isFinite(pos)||!name||!ring)continue;
+     rows.push([pos,name,cells[ix.color]||'',ring,cells[ix.owner]||'',cells[ix.club]||'',scores.map(i=>cells[i]||''),ix.total>=0?cells[ix.total]||'':'']);}
+   if(!rows.length||rows.length>1000)throw Error('No hay participantes válidos o el archivo es demasiado grande.');
    return {rows,headings:scores.map((i,j)=>h[i]||String(j+1)+'ª')};
+ };
+ const id=()=>String(Date.now())+'-'+Math.random().toString(36).slice(2,8);
+ const yearFromName=name=>{const m=String(name||'').match(/20\d{2}/);return m?Number(m[0]):new Date().getFullYear();};
+ let library=[];let selected=null;let changed=false;
+ try{const raw=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(raw))library=raw.filter(c=>c&&typeof c.id==='string'&&Array.isArray(c.versions));}catch(e){}
+ // Migrar sin borrar la clave anterior: si el usuario vuelve a la versión antigua, aún tendrá A y B.
+ try{const old=JSON.parse(localStorage.getItem(OLD)||'{}');for(const [k,fallback] of [['a','Rafelcofer'],['b','Villalonga']]){const c=old[k];if(c&&Array.isArray(c.rows)&&Array.isArray(c.headings)&&!library.some(x=>x.legacy===k)){
+   library.push({id:id(),legacy:k,name:c.name||fallback,year:yearFromName(c.name),versions:[{rows:c.rows,headings:c.headings,savedAt:c.savedAt||new Date().toISOString(),source:'Importación anterior'}]});changed=true;
+ }}}catch(e){}
+ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(library));return true;}catch(e){$('cb-library-status').textContent='⚠ Sin espacio para guardar. Exporta una copia de seguridad; los cambios podrían perderse.';return false;}};
+ if(changed)save();
+ function years(){const sel=$('cb-year-filter'),before=sel.value;const yrs=[...new Set(library.map(c=>c.year))].sort((a,b)=>b-a);sel.innerHTML='<option value="all">Todos los años</option>'+yrs.map(y=>'<option value="'+y+'">'+y+'</option>').join('');sel.value=yrs.includes(Number(before))?before:'all';}
+ function renderList(){years();const y=$('cb-year-filter').value;list.innerHTML='';for(const c of library.filter(c=>y==='all'||String(c.year)===y)){
+  const b=document.createElement('button');b.type='button';b.className='cb-champ-tab'+(selected===c.id?' cb-champ-tab-active':'');b.setAttribute('aria-pressed',String(selected===c.id));b.textContent='🏆 '+c.name+' · '+c.year;b.addEventListener('click',()=>{selected=selected===c.id?null:c.id;renderList();renderDetail();});list.appendChild(b);
+ }if(!list.children.length)list.textContent='No hay campeonatos en este año. Pulsa «Añadir campeonato».';}
+ function renderDetail(){const c=library.find(x=>x.id===selected);detail.hidden=!c;if(!c)return;
+  $('cb-library-name').value=c.name;$('cb-library-year').value=c.year;
+  const selector=$('cb-library-snapshot');selector.innerHTML='';c.versions.forEach((v,i)=>{const o=document.createElement('option');o.value=String(i);o.textContent='Versión '+(i+1)+' · '+new Date(v.savedAt).toLocaleString('es-ES');selector.appendChild(o);});selector.value=String(c.versions.length-1);renderTable();}
+ function renderTable(){const c=library.find(x=>x.id===selected);if(!c)return;const v=c.versions[Number($('cb-library-snapshot').value)];const table=$('cb-library-table'),thead=table.querySelector('thead'),tbody=table.querySelector('tbody');
+  if(!v){thead.innerHTML='';tbody.innerHTML='';$('cb-library-detail-status').textContent='Todavía no hay clasificación importada.';return;}
+  const heads=['Puesto','Palomo','Pelaje','Anilla','Propietario','Club',...v.headings,'Total'];thead.innerHTML='<tr>'+heads.map(x=>'<th>'+escape(x)+'</th>').join('')+'</tr>';
+  tbody.innerHTML=v.rows.map(([p,n,col,r,o,cl,s,t])=>'<tr>'+[p,n,col,r,o,cl,...s,t].map(x=>'<td>'+escape(x)+'</td>').join('')+'</tr>').join('');
+  $('cb-library-detail-status').textContent=v.rows.length+' participantes · '+v.headings.length+' pruebas · '+c.versions.length+' versiones conservadas';
  }
- function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));return true;}catch(e){return false;}}
- function render(k){
-   const item=state[k],table=document.getElementById('cb-dual-table-'+k),status=document.getElementById('cb-dual-status-'+k),name=document.getElementById('cb-dual-name-'+k);
-   if(!table||!status||!name)return;
-   const thead=table.querySelector('thead'),tbody=table.querySelector('tbody');
-   if(!item){thead.innerHTML='';tbody.innerHTML='';name.value='';status.textContent='Sin clasificación importada.';return;}
-   name.value=item.name||'';
-   const headers=['Puesto','Palomo','Pelaje','Anilla','Propietario','Club',...item.headings,'Total'];
-   thead.innerHTML='<tr>'+headers.map(v=>'<th>'+cbEscape(v)+'</th>').join('')+'</tr>';
-   tbody.innerHTML=item.rows.map(([pos,palomo,color,ring,owner,club,scores,total])=>'<tr>'+[pos,palomo,color,ring,owner,club,...scores,total].map(v=>'<td>'+cbEscape(v)+'</td>').join('')+'</tr>').join('');
-   status.textContent=item.rows.length+' participantes · '+item.headings.length+' pruebas · Guardado: '+new Date(item.savedAt).toLocaleString('es-ES')+(item.saved?'':' · ⚠ No se pudo guardar de forma permanente');
- }
- for(const k of fields){
-   const file=document.getElementById('cb-dual-file-'+k),name=document.getElementById('cb-dual-name-'+k),status=document.getElementById('cb-dual-status-'+k);
-   if(!file||!name||!status)continue;
-   render(k);
-   file.addEventListener('change',async()=>{
-     const f=file.files?.[0];if(!f)return;
-     status.textContent='Leyendo '+f.name+'…';
-     if(f.size>3*1024*1024){status.textContent='El archivo supera los 3 MB.';return;}
-     try{
-       const parsed=parse(await f.text());
-       const old=state[k];
-       state[k]={...parsed,name:name.value.trim()||old?.name||f.name.replace(/\.html?$/i,''),savedAt:new Date().toISOString(),saved:true};
-       const saved=persist();state[k].saved=saved;
-       render(k);
-       if(!saved)status.textContent+=' · ⚠ Memoria del navegador llena o bloqueada. Los datos solo durarán hasta que cierres la aplicación.';
-     }catch(e){status.textContent='No se pudo importar: '+e.message;}
-     file.value='';
-   });
-   name.addEventListener('change',()=>{if(!state[k])return;state[k].name=name.value.trim()||state[k].name;persist();render(k);});
-   document.getElementById('cb-dual-clear-'+k)?.addEventListener('click',()=>{
-     if(!state[k])return;
-     if(!confirm('¿Vaciar el Campeonato '+k.toUpperCase()+'? Se eliminará su copia guardada en este dispositivo.'))return;
-     state[k]=null;persist();render(k);
-   });
- }
+ $('cb-add-champ').addEventListener('click',()=>{const c={id:id(),name:'Nuevo campeonato',year:new Date().getFullYear(),versions:[]};library.push(c);if(!save()){library.pop();return;}selected=c.id;renderList();renderDetail();});
+ $('cb-year-filter').addEventListener('change',()=>{selected=null;renderList();renderDetail();});
+ $('cb-library-save').addEventListener('click',()=>{const c=library.find(x=>x.id===selected);if(!c)return;const y=Number($('cb-library-year').value);if(!Number.isInteger(y)||y<1900||y>2100){$('cb-library-detail-status').textContent='Introduce un año válido.';return;}c.name=$('cb-library-name').value.trim()||c.name;c.year=y;save();renderList();renderDetail();});
+ $('cb-library-snapshot').addEventListener('change',renderTable);
+ $('cb-library-file').addEventListener('change',async e=>{const c=library.find(x=>x.id===selected),f=e.target.files?.[0];if(!c||!f)return;if(f.size>3*1024*1024){$('cb-library-detail-status').textContent='Archivo demasiado grande (máximo 3 MB).';return;}
+  try{const v=parse(await f.text());v.savedAt=new Date().toISOString();v.source=f.name;c.versions.push(v);if(c.name==='Nuevo campeonato'){c.name=f.name.replace(/\.html?$/i,'');c.year=yearFromName(c.name);}if(!save()){c.versions.pop();return;}renderList();renderDetail();$('cb-library-detail-status').textContent='✓ Importados '+v.rows.length+' participantes. Versión histórica guardada ('+c.versions.length+').';}
+  catch(err){$('cb-library-detail-status').textContent='Error al importar: '+err.message;}e.target.value='';});
+ $('cb-library-delete').addEventListener('click',()=>{const c=library.find(x=>x.id===selected);if(!c||!confirm('¿Eliminar «'+c.name+'» y todas sus versiones de este dispositivo? Exporta una copia antes si quieres conservarlo.'))return;const before=library;library=library.filter(x=>x.id!==selected);if(!save()){library=before;return;}selected=null;renderList();renderDetail();});
+ $('cb-backup-champ').addEventListener('click',()=>{const data=JSON.stringify({format:'colombaire-championships-v2',exportedAt:new Date().toISOString(),championships:library},null,2);const url=URL.createObjectURL(new Blob([data],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='COLOMBAIRE_concursos_copia_'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);});
+ $('cb-restore-champ').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>10*1024*1024)throw Error('Copia demasiado grande.');const data=JSON.parse(await f.text());if(data.format!=='colombaire-championships-v2'||!Array.isArray(data.championships))throw Error('No es una copia de concursos compatible.');
+  if(!confirm('¿Restaurar la copia? Los concursos que tengan el mismo identificador se sustituirán por los de la copia; los demás se conservarán.'))return;
+  const old=library;const merged=new Map(library.map(c=>[c.id,c]));for(const c of data.championships){if(!c||typeof c.id!=='string'||typeof c.name!=='string'||!Array.isArray(c.versions))throw Error('La copia contiene registros incorrectos.');merged.set(c.id,c);}library=[...merged.values()];if(!save()){library=old;return;}selected=null;renderList();renderDetail();$('cb-library-status').textContent='✓ Copia restaurada.';
+ }catch(err){$('cb-library-status').textContent='No se pudo restaurar: '+err.message;}e.target.value='';});
+ renderList();renderDetail();
 })();
