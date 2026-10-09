@@ -293,3 +293,32 @@ document.querySelectorAll(".health-actions button").forEach(b=>b.onclick=()=>{do
 renderDiseases();
 
 render();renderBreeding();
+
+
+// CONCURSOS v0.9: tabla demostrativa basada en captura facilitada por el usuario.
+// No implica conexión automática ni acceso a información privada.
+const cbContestRows = [[1, "VAMOS", "VAIO", "AL439456", "FRANCISCO VTE. ROSELLO LLACER", "VILLALONGA - LA AMISTAD", [240, 227, 231, 204, 238, 240], 1380], [2, "FACILET", "TOSCAT", "AK706929", "PEÑA VITALI", "LLUTXENT", [240, 225, 231, 194, 218, 240], 1348], [3, "TORMENTO", "ROIG", "AL359249", "ELISEO MASCARELL SIGNES", "PALMA DE GANDIA - LA MURTERA", [240, 146, 248, 212, 238, 240], 1324], [4, "FLORINATA", "FABAT", "AM145518", "OSCAR ESCRIVA MARTI", "VILLALONGA - LA AMISTAD", [240, 166, 231, 204, 238, 240], 1319], [5, "A MI MANERA", "MORATXO", "V071001", "PEÑA VITALI", "LLUTXENT", [240, 150, 231, 194, 238, 240], 1293], [6, "DOGMA DE FE", "ROIG", "AL735330", "PEÑA LA GOMA", "OLIVA", [240, 136, 231, 204, 238, 240], 1289], [7, "MAUI", "VAIO", "AL582599", "PEÑA PORRA Y TOLES", "ALMOINES", [240, 136, 231, 204, 238, 240], 1289], [8, "TORETTO", "VAIO", "AL467653", "PEÑA PORRA Y TOLES", "ALMOINES", [208, 159, 231, 204, 238, 240], 1280], [9, "GAMEIRO", "TOSCAT", "AL716588", "OSCAR ESCRIVA MARTI", "VILLALONGA - LA AMISTAD", [240, 88, 231, 204, 238, 240], 1241], [10, "PISTAXO", "TENAT", "AM301981", "PENYA COSTA CALIDA EL PLA", "VILLALONGA", [240, 72, 231, 204, 245, 240], 1232], [11, "AROMA CITRICO", "FUMAT", "AL582868", "PEÑA LA GOMA", "OLIVA", [240, 72, 236, 204, 238, 240], 1230], [12, "FULLERACA", "VAIO", "E870618", "VALENTIN GALERA HERNANDEZ", "ALQUERIA DE LA CONDESA - SANT PERE I SANT PAU", [240, 72, 231, 204, 238, 240], 1225], [13, "REY DEL CORTIJO", "TOSCAT", "AL325395", "PEÑA DEMA MES", "RAFELCOFER", [240, 72, 231, 204, 238, 240], 1225], [14, "EVAN", "VAIO", "AL532259", "PEDRO JAVIER VERDU PARDO", "ALQUERIA DE LA CONDESA - SANT PERE I SANT PAU", [240, 72, 231, 204, 238, 240], 1225]];
+const cbStarStorageKey="colombaire_contest_starred_rings_v1";
+let cbStarred;
+try { cbStarred=JSON.parse(localStorage.getItem(cbStarStorageKey)||"[]"); if(!Array.isArray(cbStarred))cbStarred=[]; }
+catch {cbStarred=[];}
+function cbEscape(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function cbRenderContest(){
+ const target=document.getElementById("cb-contest-rows");if(!target)return;
+ target.innerHTML=cbContestRows.map(([pos,name,color,ring,owner,club,scores,total])=>{
+ const starred=cbStarred.includes(ring);
+ return `<tr class="${starred?"cb-starred":""}"><td class="cb-rank">${pos}º</td><td><button type="button" class="cb-star-button ${starred?"active":""}" data-ring="${cbEscape(ring)}" aria-label="${starred?"Quitar destacado de":"Destacar a"} ${cbEscape(name)}" aria-pressed="${starred}">${starred?"★":"☆"}</button></td><td class="cb-name">${cbEscape(name)}</td><td>${cbEscape(color)}</td><td>${cbEscape(ring)}</td><td>${cbEscape(owner)}</td><td>${cbEscape(club)}</td>${scores.map(v=>`<td class="cb-num">${v}</td>`).join("")}<td class="cb-total">${total}</td></tr>`;
+ }).join("");
+ document.getElementById("cb-visible-count").textContent=cbContestRows.length;
+ document.getElementById("cb-star-count").textContent=cbStarred.length;
+}
+document.getElementById("cb-contest-rows")?.addEventListener("click",e=>{
+ const btn=e.target.closest("button[data-ring]");if(!btn)return;
+ const ring=btn.dataset.ring;
+ cbStarred=cbStarred.includes(ring)?cbStarred.filter(r=>r!==ring):[...cbStarred,ring];
+ localStorage.setItem(cbStarStorageKey,JSON.stringify(cbStarred));cbRenderContest();
+});
+document.getElementById("cb-reset-stars")?.addEventListener("click",()=>{
+ cbStarred=[];localStorage.setItem(cbStarStorageKey,"[]");cbRenderContest();
+});
+cbRenderContest();

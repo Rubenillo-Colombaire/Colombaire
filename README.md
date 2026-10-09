@@ -116,3 +116,4 @@ Corregida la cabecera duplicada en todas las fichas, conservando Volver; tipogra
 
 ## v0.8c - actualizaciones iPhone
 Comprobacion de version.json al iniciar/volver a la app y boton Buscar actualizaciones en Inicio. Banner de nueva version con boton Actualizar. No elimina localStorage ni datos del palomar. Subir version.json junto con los demas archivos.
+\n\n## v0.9 — Concursos (prototipo)\nClasificación de demostración basada en una captura facilitada por el usuario. 14 filas visibles, seis pruebas, estrellas locales opcionales y acceso oficial a la FCCV. Sin importación ni sincronización automática todavía.\n
