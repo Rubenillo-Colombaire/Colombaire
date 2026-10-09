@@ -100,3 +100,10 @@ Portadores asintomáticos y Cuantificación unificados con cabecera destacada.
 
 ## v0.7 PWA
 Sube TODOS los archivos y la carpeta icons/ al directorio raiz del repositorio, conservando sus rutas. En Android abre la URL en Chrome y usa Instalar aplicacion o Anadir a pantalla de inicio. En iPhone abre Safari > Compartir > Anadir a pantalla de inicio. La instalacion no sincroniza localStorage entre dispositivos. Para actualizaciones futuras cambia la version de cache en sw.js y los parametros ?v de CSS/JS.
+
+## v0.8 · corrección de visualización iPhone
+- Cabeceras centradas y fluidas para nombres largos, sin desbordar.
+- Imagen anatómica de Coccidiosis sustituida por ilustración de vísceras de paloma de dominio público; proporción natural.
+- Primera imagen científica en Tricomoniasis con crédito y contexto, sujeta a conectividad.
+- Caché PWA versionada a 0.8.
+- Pendiente: completar galería real de cada enfermedad, verificando precisión, licencia y accesibilidad de cada imagen.

@@ -226,9 +226,9 @@ function renderCoccidiosisMaster(d){
   <div class="process-step final"><b>4</b><span>Inflamación y peor absorción</span></div>
 </div>
    <div class="poster-organ-box real-intestine"><h3>INTESTINO</h3>
-<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Harnleiter-Taube.png" alt="Anatomía abdominal real de una paloma" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/PigeonAnatomy_cropped_1.png" alt="Ilustración anatómica de las vísceras de una paloma, con su sistema digestivo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
 <div class="intestine-fallback" style="display:none">Fotografía anatómica no disponible en este dispositivo. El intestino es donde <i>Eimeria</i> se multiplica y puede lesionar el epitelio intestinal.</div>
-<small>ANATOMÍA REAL DE PALOMA</small><b>Órgano principal</b><span>${d.organ}</span></div>
+<small>ILUSTRACIÓN ANATÓMICA DE PALOMA · SHIPLEY (1901), DOMINIO PÚBLICO</small><b>Órgano principal</b><span>${d.organ}</span></div>
   </section>
   <section class="poster-three">
    <div class="poster-panel green"><h3>${ico("transmission")} TRANSMISIÓN</h3><p>${d.transmission}</p></div>
@@ -270,6 +270,7 @@ function renderDiseaseMaster(d){
  <section class="poster-two lower">
  <div class="poster-panel green"><h3>${ico("sample")} MUESTRA Y CONFIRMACIÓN</h3><p><b>Muestra:</b> ${safe(d.sample)}</p><p><b>Detección doméstica:</b> ${safe(d.home)}</p><p><b>Identificación exacta:</b> ${safe(d.exact)}</p></div>
  <div class="poster-panel amber"><h3><span class="bang">!</span> IMPORTANTE</h3><p>${safe(d.warning)}</p></div></section>
+ ${d.id==='trichomoniasis'?`<section class="disease-visual-section"><h3>IMAGEN REAL · MICROSCOPÍA</h3><figure><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Scanning_electronmicrograph_of_Trichomonas_gallinae.jpg" loading="lazy" alt="Micrografía electrónica de Trichomonas gallinae" onerror="this.closest('figure').style.display='none';this.closest('section').querySelector('.visual-unavailable').hidden=false"><figcaption><i>Trichomonas gallinae</i>, micrografía electrónica de un aislado de ave silvestre (no de palomo). Fuente: Robinson y colaboradores, PLOS ONE (2010), CC BY-SA 4.0. Imagen del parásito, no diagnóstico por fotografía.</figcaption></figure><p class="visual-unavailable" hidden>La imagen no está disponible con esta conexión. Puedes consultar la fuente en Wikimedia Commons.</p></section>`:''}
  <section class="poster-two lower disease-carriers-quant"><div class="poster-panel teal disease-carriers-quant-panel"><h3>${ico("quantify")} PORTADORES ASINTOMÁTICOS Y CUANTIFICACIÓN</h3><div class="carriers-quant-content"><p><b>Portadores asintomáticos</b><span>${safe(d.carriers)}</span></p><p><b>Cuantificación</b><span>${safe(d.quant)}</span></p></div></div></section>
  <footer class="poster-note">FICHA ORIENTATIVA · COLOMBICULTURA DEPORTIVA · NO SUSTITUYE EL DIAGNÓSTICO VETERINARIO</footer>
  </article>`;
