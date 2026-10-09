@@ -13,7 +13,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=0.9b">
+  <link rel="stylesheet" href="style.css?v=0.9c">
 </head>
 <body>
 <div class="app">
@@ -249,8 +249,18 @@
   <div class="cb-contest-hero"><span class="cb-eyebrow">MIS CONCURSOS</span><h3>Clasificaciones oficiales, a tu alcance</h3><p>Consulta una clasificación completa y destaca los palomos que quieras, sin ocultar a los demás.</p></div>
   <div class="cb-contest-controls"><label for="cb-competition">Concurso</label><select id="cb-competition"><option value="demo">Clasificación de ejemplo · captura FCCV</option></select><div class="cb-contest-actions"><a href="https://colombiculturacv.es/?p=1" target="_blank" rel="noopener noreferrer" class="cb-official-link">↗ Abrir clasificación FCCV</a><button type="button" id="cb-reset-stars" class="cb-clear-stars">Quitar destacados</button></div></div>
   <div class="cb-diagnostic" id="cb-diagnostic"><div class="cb-diagnostic-title">🧪 Laboratorio FCCV <span class="cb-lab-tag">PRUEBA TÉCNICA</span></div><p>Comprobamos si COLOMBAIRE puede leer la clasificación pública de la federación. No modifica datos ni envía información de tu palomar.</p><button type="button" id="cb-test-fccv" class="cb-test-btn">Comprobar conexión FCCV</button><div id="cb-test-result" class="cb-test-result" role="status" aria-live="polite">Prueba pendiente. Pulsa el botón cuando quieras.</div><small>Campeonato 90 · Año 2026 · Una consulta manual por pulsación.</small></div>
-  <div class="cb-contest-note"><b>Vista de demostración.</b> Datos de la captura compartida; no se actualizan automáticamente. La competición y la fecha exactas no están identificadas. La clasificación oficial siempre prevalece.</div>
-  <div class="cb-contest-summary"><div><small>Participantes visibles</small><strong id="cb-visible-count">14</strong></div><div><small>Pruebas</small><strong>6</strong></div><div><small>Destacados</small><strong id="cb-star-count">0</strong></div></div>
+  <div class="cb-importer">
+  <div class="cb-diagnostic-title">📥 Importador FCCV <span class="cb-lab-tag">EXPERIMENTAL</span></div>
+  <p>Importa una clasificación completa guardada desde la página oficial. La lectura se hace <b>en tu dispositivo</b>; no se envía ningún archivo a COLOMBAIRE.</p>
+  <div class="cb-import-grid">
+    <div><label for="cb-import-file">Archivo HTML de la clasificación</label><input id="cb-import-file" type="file" accept=".html,.htm,text/html,text/plain"></div>
+    <button type="button" id="cb-import-demo" class="cb-clear-stars">Volver a la demostración</button>
+  </div>
+  <div class="cb-import-instructions"><b>Cómo obtenerlo:</b> abre la <a href="https://colombiculturacv.es/estaticas/competiciones/ajax/ajax_clasificacion.php?ano=2026&amp;cam=90" target="_blank" rel="noopener noreferrer">clasificación directa</a> en Edge y pulsa <b>Ctrl + S</b> → «Página web, solo HTML» (si está disponible). Guarda el archivo y selecciónalo aquí. Para otro concurso, guarda su respuesta HTML correspondiente.</div>
+  <div id="cb-import-status" class="cb-import-status" role="status" aria-live="polite">Esperando archivo. La demostración sigue disponible.</div>
+</div>
+<div class="cb-contest-note"><b id="cb-source-label">Vista de demostración.</b> <span id="cb-source-note">Datos de la captura compartida; no se actualizan automáticamente. La competición y la fecha exactas no están identificadas. La clasificación oficial siempre prevalece.</span></div>
+  <div class="cb-contest-summary"><div><small>Participantes visibles</small><strong id="cb-visible-count">14</strong></div><div><small>Pruebas</small><strong id="cb-test-count">6</strong></div><div><small>Destacados</small><strong id="cb-star-count">0</strong></div></div>
   <div class="cb-contest-table-wrap"><table class="cb-contest-table"><thead><tr><th>Puesto</th><th>★</th><th>Palomo</th><th>Pelaje</th><th>Anilla</th><th>Propietario</th><th>Club</th><th>1ª</th><th>2ª</th><th>3ª</th><th>4ª</th><th>5ª</th><th>6ª</th><th>Total</th></tr></thead><tbody id="cb-contest-rows"></tbody></table></div>
   <p class="cb-contest-footnote">Desliza la tabla hacia los lados para consultar las seis pruebas. Las estrellas se guardan en este dispositivo.</p>
   <div class="cb-contest-next"><b>PRÓXIMA FASE · CONEXIÓN CON LA FEDERACIÓN</b><p>Investigaremos una vía autorizada y estable para importar concursos y resultados. Hasta entonces, el acceso a la FCCV es directo y los datos mostrados aquí son una demostración fija.</p></div>
@@ -276,7 +286,7 @@
     <button data-go="guia">▤<small>Guía</small></button>
   </nav>
 </div>
-<script src="app.js?v=0.9b"></script>
+<script src="app.js?v=0.9c"></script>
  <div id="cb-update-banner" role="status" aria-live="polite" hidden>
    <span id="cb-update-message">Nueva versión de COLOMBAIRE disponible.</span>
    <button id="cb-update-action" type="button">Actualizar</button>
@@ -284,7 +294,7 @@
  </div>
  <script>
  (() => {
-   const CURRENT='0.9b';
+   const CURRENT='0.9c';
    const banner=document.getElementById('cb-update-banner');
    const message=document.getElementById('cb-update-message');
    const action=document.getElementById('cb-update-action');

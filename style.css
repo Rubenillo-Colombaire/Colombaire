@@ -292,3 +292,15 @@
 .cb-test-result{background:white;border-radius:9px;padding:12px;margin:12px 0 8px;font-size:.83rem;line-height:1.5;overflow-wrap:anywhere}
 .cb-test-ok{border-left:4px solid #26794c}.cb-test-fail{border-left:4px solid #b76e42}
 .cb-diagnostic small{font-size:.72rem;color:#637668}
+
+/* Importador local de clasificaciones v0.9c */
+.cb-importer{border:1px solid #b5d4c1;background:#f5faf5;border-radius:13px;padding:16px;margin:14px 0;color:#234b39}
+.cb-importer p{font-size:.85rem;line-height:1.5;margin:8px 0 14px}
+.cb-import-grid{display:flex;align-items:end;gap:12px;flex-wrap:wrap}
+.cb-import-grid>div{flex:1;min-width:230px}
+.cb-import-grid label{display:block;font-size:.78rem;font-weight:800;margin-bottom:6px}
+.cb-import-grid input{display:block;max-width:100%;font-size:.82rem;padding:9px;background:white;border:1px solid #b5d4c1;border-radius:9px}
+.cb-import-instructions{font-size:.8rem;line-height:1.55;margin:13px 0;color:#4d6254}
+.cb-import-instructions a{color:#1e6344}
+.cb-import-status{font-size:.81rem;background:white;border-radius:8px;padding:11px;border-left:3px solid #a2b3a5}
+.cb-import-success{border-color:#33804f}.cb-import-error{border-color:#c16c43}

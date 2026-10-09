@@ -120,3 +120,6 @@ Comprobacion de version.json al iniciar/volver a la app y boton Buscar actualiza
 
 ## v0.9b — Laboratorio FCCV
 Añade un botón de diagnóstico CORS dentro de Concursos. Solo una consulta manual por pulsación, sin sincronización automática. Corrige los recursos versionados en el service worker y evita que un icono opcional impida instalarlo. Mantiene la clasificación de demostración.
+
+## v0.9c — Importador FCCV experimental
+Permite importar localmente un HTML de clasificación guardado desde la respuesta oficial, sin enviar el archivo a ningún servidor. Conserva la tabla demo, el laboratorio de conexión, las estrellas locales y el resto de módulos. No hay actualización automática ni permisos de integración confirmados.
