@@ -1,6 +1,7 @@
-// COLOMBAIRE v0.8b — actualización fiable para iOS/iPhone.
-const CACHE='colombaire-shell-v0.8b';
-const CORE=['./index.html','./style.css?v=0.8b','./app.js?v=0.8b','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
+// COLOMBAIRE v0.8c — actualización fiable para iOS/iPhone.
+const CACHE='colombaire-shell-v0.8c';
+const CORE=['./index.html','./style.css?v=0.8c','./app.js?v=0.8c','./manifest.webmanifest','./version.json','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
+self.addEventListener('message',event=>{if(event.data&&event.data.type==='SKIP_WAITING')self.skipWaiting();});
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
 });
@@ -13,6 +14,7 @@ self.addEventListener('fetch',event=>{
   const url=new URL(request.url);
   if(url.origin!==self.location.origin||!url.pathname.startsWith(new URL(self.registration.scope).pathname))return;
   // Navegaciones: red primero y caché como respaldo sin conexión.
+  if(url.pathname.endsWith('/version.json')){event.respondWith(fetch(request,{cache:'no-store'}));return;}
   if(request.mode==='navigate'){
     event.respondWith(fetch(request,{cache:'no-store'}).then(response=>{
       if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(c=>c.put('./index.html',copy)));}

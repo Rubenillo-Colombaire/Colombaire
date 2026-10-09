@@ -13,17 +13,18 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=0.8b">
+  <link rel="stylesheet" href="style.css?v=0.8c">
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.8b</b></small></div></div>
+    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.8c</b></small></div></div>
     <div class="head-actions"><button>☀ 23°</button><button>🔔</button></div>
   </header>
 
   <main>
     <section id="inicio" class="page active">
+      <div class="cb-version-tools"><button id="cb-check-updates" type="button">↻ Buscar actualizaciones</button></div>
       <div class="hero-grid">
         <button class="module" data-go="palomar"><span>🕊️</span><b>MI PALOMAR</b><small>Gestiona tus palomos</small></button>
         <button class="module" data-go="genetica"><span>🧬</span><b>GENÉTICA</b><small>Cruces y pelajes</small></button>
@@ -265,25 +266,69 @@
     <button data-go="guia">▤<small>Guía</small></button>
   </nav>
 </div>
-<script src="app.js?v=0.8b"></script>
-<script>
-// Actualizar la PWA al abrirla y al regresar a primer plano en iOS.
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', async () => {
-    try {
-      const reg = await navigator.serviceWorker.register('./sw.js', {updateViaCache:'none'});
-      const check = () => reg.update().catch(() => {});
-      check();
-      document.addEventListener('visibilitychange', () => {if (!document.hidden) check();});
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!sessionStorage.getItem('colombaire-updated-v0.8b')) {
-          sessionStorage.setItem('colombaire-updated-v0.8b','1');
-          location.reload();
-        }
-      });
-    } catch (err) { console.warn('Actualización PWA:', err); }
-  });
-}
-</script>
-</body>
+<script src="app.js?v=0.8c"></script>
+ <div id="cb-update-banner" role="status" aria-live="polite" hidden>
+   <span id="cb-update-message">Nueva versión de COLOMBAIRE disponible.</span>
+   <button id="cb-update-action" type="button">Actualizar</button>
+   <button id="cb-update-close" type="button" aria-label="Cerrar aviso">×</button>
+ </div>
+ <script>
+ (() => {
+   const CURRENT='0.8c';
+   const banner=document.getElementById('cb-update-banner');
+   const message=document.getElementById('cb-update-message');
+   const action=document.getElementById('cb-update-action');
+   const close=document.getElementById('cb-update-close');
+   let updating=false, checking=false, registration=null;
+   const show=(version)=>{message.textContent='COLOMBAIRE v'+version+' disponible';banner.hidden=false;};
+   const check=async()=>{
+     if(checking||!navigator.onLine)return;
+     checking=true;
+     try {
+       if(registration) await registration.update();
+       // Se consulta un documento independiente, con URL distinta en cada comprobación.
+       const r=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});
+       if(!r.ok)return;
+       const info=await r.json();
+       if(typeof info.version==='string'&&info.version!==CURRENT)show(info.version);
+     }catch(e){console.warn('Comprobación de versión:',e)}finally{checking=false;}
+   };
+   action.addEventListener('click',async()=>{
+     if(updating)return;updating=true;
+     action.disabled=true;action.textContent='Actualizando…';
+     try {
+       if(registration){await registration.update();
+         if(registration.waiting)registration.waiting.postMessage({type:'SKIP_WAITING'});
+       }
+       // La navegación solicita una URL nueva, evitando reutilizar la página HTML antigua.
+       const target=new URL('./',location.href);
+       target.searchParams.set('actualizacion',Date.now().toString());
+       location.replace(target.href);
+     }catch(e){action.disabled=false;action.textContent='Reintentar';updating=false;}
+   });
+   close.addEventListener('click',()=>banner.hidden=true);
+   window.addEventListener('load',async()=>{
+     if('serviceWorker' in navigator){
+       try{registration=await navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'});
+         navigator.serviceWorker.addEventListener('controllerchange',()=>{
+           // No recargar mientras el usuario esté rellenando formularios.
+           check();
+         });
+       }catch(e){console.warn('Service worker:',e)}
+     }
+     check();
+   });
+   document.addEventListener('visibilitychange',()=>{if(!document.hidden)check();});
+   window.addEventListener('online',check);
+   // Comprobación manual sin salir de la app.
+   const updateBtn=document.getElementById('cb-check-updates');
+   if(updateBtn)updateBtn.addEventListener('click',async()=>{
+     updateBtn.disabled=true;updateBtn.textContent='Buscando…';
+     await check();
+     if(banner.hidden){updateBtn.textContent='Ya tienes la última versión';}
+     else{updateBtn.textContent='Actualización encontrada';}
+     setTimeout(()=>{updateBtn.disabled=false;updateBtn.textContent='Buscar actualizaciones';},3000);
+   });
+ })();
+ </script></body>
 </html>

@@ -113,3 +113,6 @@ v0.8a: iOS PWA cache update. No se borran datos de localStorage. Subir TODOS los
 
 ## v0.8b
 Corregida la cabecera duplicada en todas las fichas, conservando Volver; tipografia responsiva de titulos largos y nueva version de cache para iOS.
+
+## v0.8c - actualizaciones iPhone
+Comprobacion de version.json al iniciar/volver a la app y boton Buscar actualizaciones en Inicio. Banner de nueva version con boton Actualizar. No elimina localStorage ni datos del palomar. Subir version.json junto con los demas archivos.
