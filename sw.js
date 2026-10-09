@@ -1,11 +1,28 @@
-// COLOMBAIRE PWA v0.7 — solo cachea los archivos propios de la aplicación.
-const CACHE = 'colombaire-shell-v0.8';
-const CORE = ['./','./index.html','./style.css?v=0.8','./app.js?v=0.8','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
-self.addEventListener('install', e => {e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()));});
-self.addEventListener('activate', e => {e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('colombaire-shell-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
-self.addEventListener('fetch', e => {
-  if(e.request.method!=='GET'||new URL(e.request.url).origin!==self.location.origin)return;
-  const url=new URL(e.request.url);
-  if(!url.pathname.startsWith(new URL(self.registration.scope).pathname))return;
-  e.respondWith(fetch(e.request).then(r=>{if(r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));}return r;}).catch(()=>caches.match(e.request).then(r=>r||(e.request.mode==='navigate'?caches.match('./index.html'):Response.error()))));
+// COLOMBAIRE v0.8a — actualización fiable para iOS/iPhone.
+const CACHE='colombaire-shell-v0.8a';
+const CORE=['./index.html','./style.css?v=0.8a','./app.js?v=0.8a','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
+self.addEventListener('install',event=>{
+  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
+});
+self.addEventListener('activate',event=>{
+  event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('colombaire-shell-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
+});
+self.addEventListener('fetch',event=>{
+  const request=event.request;
+  if(request.method!=='GET')return;
+  const url=new URL(request.url);
+  if(url.origin!==self.location.origin||!url.pathname.startsWith(new URL(self.registration.scope).pathname))return;
+  // Navegaciones: red primero y caché como respaldo sin conexión.
+  if(request.mode==='navigate'){
+    event.respondWith(fetch(request,{cache:'no-store'}).then(response=>{
+      if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(c=>c.put('./index.html',copy)));}
+      return response;
+    }).catch(()=>caches.match('./index.html')));
+    return;
+  }
+  // Recursos propios: red primero, con copia offline.
+  event.respondWith(fetch(request,{cache:'no-store'}).then(response=>{
+    if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(c=>c.put(request,copy)));}
+    return response;
+  }).catch(()=>caches.match(request).then(cached=>cached||Response.error())));
 });

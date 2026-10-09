@@ -107,3 +107,6 @@ Sube TODOS los archivos y la carpeta icons/ al directorio raiz del repositorio, 
 - Primera imagen científica en Tricomoniasis con crédito y contexto, sujeta a conectividad.
 - Caché PWA versionada a 0.8.
 - Pendiente: completar galería real de cada enfermedad, verificando precisión, licencia y accesibilidad de cada imagen.
+
+
+v0.8a: iOS PWA cache update. No se borran datos de localStorage. Subir TODOS los archivos a la raiz y conservar icons/.
