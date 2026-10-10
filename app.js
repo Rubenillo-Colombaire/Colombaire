@@ -512,3 +512,6 @@ cbRenderContest();
   fileInput.value='';
  });
 })();
+
+// v0.9j: color de sexo en la ficha; no altera registros.
+(function(){const el=document.getElementById('d-sex');if(!el)return;const observer=new MutationObserver(()=>{el.classList.toggle('cb-sex-male',el.textContent.trim()==='Macho');el.classList.toggle('cb-sex-female',el.textContent.trim()==='Hembra')});observer.observe(el,{childList:true,characterData:true,subtree:true});})();
