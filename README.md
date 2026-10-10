@@ -139,3 +139,7 @@ Biblioteca de concursos ilimitada en localStorage, organizada por año, migraci�
 
 ## v0.9h — Importación privada Coloms
 Subir SOLO los archivos de este ZIP a GitHub. El archivo `COLOMBAIRE_palomos_PRIVADO_Coloms.json` es PRIVADO, se entrega aparte y jamás debe subirse al repositorio público. La importación es local, incremental, idempotente por identificador de fila, y conserva anillas duplicadas de origen. Todos los sexos en la tabla maestra están sin confirmar.
+
+
+## v0.9i
+Padres externos mediante texto; propietarios sugeridos; etapa deportiva y reproductora independientes; ficha mejorada; concursos agrupados por año. Meteorología pendiente de integrar con proveedor y ubicación seleccionada. Los datos existentes no se borran. Antes de actualizar exporta copias de tus concursos y palomar si tienes esa opción.

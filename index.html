@@ -13,12 +13,12 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=0.9h">
+  <link rel="stylesheet" href="style.css?v=0.9i">
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.9h</b></small></div></div>
+    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.9i</b></small></div></div>
     <div class="head-actions"><button>☀ 23°</button><button>🔔</button></div>
   </header>
 
@@ -79,7 +79,7 @@
         <div class="detail-grid">
           <div><small>Anilla</small><b id="d-ring"></b></div><div><small>Propietario</small><b id="d-owner"></b></div>
           <div><small>Pelaje</small><b id="d-color"></b></div><div><small>Sexo</small><b id="d-sex"></b></div>
-          <div><small>Fecha de nacimiento</small><b id="d-birth"></b></div><div><small>Estado</small><b>● Activo</b></div>
+          <div><small>Fecha de nacimiento</small><b id="d-birth"></b></div><div><small>Estado</small><b id="d-status"></b></div><div><small>Etapa deportiva</small><b id="d-sport"></b></div><div><small>Reproducción</small><b id="d-breeder"></b></div>
         </div>
         <hr><h3>PADRES</h3>
         <div class="parents"><button><small>♂ PADRE</small><b id="d-father"></b></button><button><small>♀ MADRE</small><b id="d-mother"></b></button></div>
@@ -109,13 +109,13 @@
         <div class="form-grid">
           <label><span>Nombre</span><input id="p-name" required placeholder="Ej. Toretto"></label>
           <label><span>Anilla</span><input id="p-ring" required placeholder="Ej. ESP-2026-00124"></label>
-          <label><span>Propietario</span><input id="p-owner" placeholder="Nombre del propietario"></label>
+          <label><span>Propietario</span><input id="p-owner" list="cb-owners" placeholder="Nombre del propietario"><datalist id="cb-owners"></datalist></label>
           <label><span>Pelaje</span><input id="p-color" required placeholder="Ej. Azul, Rojo, Bayo..."></label>
           <label><span>Sexo</span><select id="p-sex" required><option value="">Seleccionar</option><option>Macho</option><option>Hembra</option><option>Sin determinar</option></select></label>
           <label><span>Fecha de nacimiento</span><input id="p-birth" type="date"></label>
-          <label><span>Padre</span><select id="p-father"><option value="">Desconocido / no registrado</option></select><small class="field-help">Machos registrados en Mi Palomar</small></label>
-          <label><span>Madre</span><select id="p-mother"><option value="">Desconocida / no registrada</option></select><small class="field-help">Hembras registradas en Mi Palomar</small></label>
-          <label><span>Estado</span><select id="p-status"><option>Activo</option><option>Cedido</option><option>Baja</option><option>Fallecido</option></select></label>
+          <label><span>Padre</span><select id="p-father"><option value="">Desconocido / no registrado</option></select><input id="p-father-text" placeholder="O escribe un padre no registrado"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Madre</span><select id="p-mother"><option value="">Desconocida / no registrada</option></select><input id="p-mother-text" placeholder="O escribe una madre no registrada"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Estado del palomo</span><select id="p-status"><option>Activo</option><option>Cedido</option><option>Baja</option><option>Fallecido</option></select></label><label><span>Etapa deportiva</span><select id="p-sport"><option value="Sin indicar">Sin indicar</option><option value="En competición">En competición</option><option value="En preparación">En preparación</option><option value="Retirado">Retirado</option><option value="No compite">No compite</option></select></label><label><span>Actividad reproductora</span><select id="p-breeder"><option value="Sin indicar">Sin indicar</option><option value="Reproductor">Reproductor</option><option value="No reproductor">No reproductor</option></select><small class="field-help">Puede competir y criar a la vez</small></label>
         </div>
         <div class="form-actions">
           <button type="button" class="secondary" data-go="palomar">Cancelar</button>
@@ -301,7 +301,7 @@
     <button data-go="guia">▤<small>Guía</small></button>
   </nav>
 </div>
-<script src="app.js?v=0.9h"></script>
+<script src="app.js?v=0.9i"></script>
  <div id="cb-update-banner" role="status" aria-live="polite" hidden>
    <span id="cb-update-message">Nueva versión de COLOMBAIRE disponible.</span>
    <button id="cb-update-action" type="button">Actualizar</button>

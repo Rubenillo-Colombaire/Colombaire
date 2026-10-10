@@ -342,3 +342,6 @@
 .coloms-import-panel p{font-size:.8rem;line-height:1.45;margin:8px 0}
 .coloms-import-panel input{font-size:.8rem;max-width:100%}
 #colomsStatus{margin-top:10px;font-size:.8rem}
+
+/* v0.9i: ficha, genealogía flexible y años desplegables */
+#pigeonForm #p-name,#pigeonForm #p-ring{font-weight:700;}#pigeonForm label:has(#p-name),#pigeonForm label:has(#p-ring){background:rgba(70,125,83,.07);border-radius:12px;padding:10px;}#p-father-text,#p-mother-text{margin-top:7px;width:100%;}.cb-year-group{border:1px solid rgba(95,125,100,.25);border-radius:12px;padding:10px;margin:10px 0}.cb-year-group summary{font-weight:700;cursor:pointer;padding:7px}.cb-year-group .cb-champ-tab{display:block;width:100%;margin-top:7px}
