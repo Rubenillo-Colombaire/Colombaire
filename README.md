@@ -1,3 +1,5 @@
+COLOMBAIRE v0.9n: nueva cabecera e icono de la PWA. Conserva los datos locales y evita borrar la aplicación.
+
 # COLOMBAIRE v0.4
 
 ## Cría conectada con Mi Palomar
