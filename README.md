@@ -149,7 +149,10 @@ Padres externos mediante texto; propietarios sugeridos; etapa deportiva y reprod
 Meteorología real en inicio: tiempo actual, previsión por horas, 7/16 días, acceso a Windy. Open-Meteo, actualización al abrir y cada 15 minutos mientras la página esté visible. La ciudad seleccionada se guarda solo en este dispositivo; no se guarda GPS.
 
 
-## v0.9l
+## v0.9m
 - Municipio compartido y persistente en almacenamiento local, sin guardar coordenadas GPS.
 - Días pulsables: previsión por horas con viento, rachas y probabilidad de lluvia.
 - No modifica el palomar ni los concursos.
+
+## Corrección v0.9m
+Corregida la inicialización del panel meteorológico (acceso a `txt` antes de declararlo), que dejaba el panel cargando indefinidamente. Añadido límite de 15 segundos a peticiones del panel. No se modifica el almacenamiento de palomos ni concursos.
