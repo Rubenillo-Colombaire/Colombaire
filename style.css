@@ -386,3 +386,10 @@
 .hw-more{display:block;width:100%;border:1px solid #ffffff50;background:#ffffff1c;color:#fff;border-radius:9px;padding:10px;margin:14px 0 8px;cursor:pointer;font-weight:750}.hw-updated{display:block;color:#d9eafa;font-size:10px;margin:12px 0}
 .hw-actions{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}.hw-actions a,.hw-actions button{flex:1;min-width:130px;text-align:center;background:#ffffffea;color:#164b3a;border:0;border-radius:9px;padding:12px;text-decoration:none;font-weight:800;font-size:12px;cursor:pointer}
 @media(max-width:480px){.home-weather{padding:14px}.hw-day{grid-template-columns:38px 24px 30px 1fr 30px;gap:6px}.hw-current strong{font-size:49px}.hw-hour{flex-basis:67px}}
+
+/* v0.9l: días seleccionables y previsión horaria detallada */
+.hw-day{width:100%;color:inherit;background:transparent;border:0;text-align:left;font:inherit;cursor:pointer;border-radius:8px}
+.hw-day:hover,.hw-day:focus-visible{background:#ffffff26;outline:2px solid #ffffff70;outline-offset:1px}
+.hw-day-selected{background:#ffffff2d;border-left:4px solid #ffdf73;padding-left:8px}
+.hw-day-summary{font-size:12px;line-height:1.6;color:#e9f4ff;background:#ffffff19;padding:11px;border-radius:9px;margin-top:10px}
+.hw-hour{flex-basis:90px}.hw-hour small{white-space:nowrap}

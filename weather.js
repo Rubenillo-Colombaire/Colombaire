@@ -3,6 +3,10 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const form=$('cb-weather-form');if(!form)return;
+const STORE='colombaire_weather_place_v1';
+try{const saved=JSON.parse(localStorage.getItem(STORE)||'null');if(saved?.name)$('cb-weather-place').value=saved.name;}catch(e){}
+function setPlace(loc,persist=true){const info={name:loc.name,lat:loc.lat,lon:loc.lon};if(persist){try{localStorage.setItem(STORE,JSON.stringify(info))}catch(e){}}window.dispatchEvent(new CustomEvent('colombaire:weather-location',{detail:info}));}
+
 const msg=$('cb-weather-message'), result=$('cb-weather-result');
 const compass=deg=>['N','NE','E','SE','S','SO','O','NO'][Math.round(deg/45)%8];
 function description(code){
@@ -51,12 +55,12 @@ form.addEventListener('submit',async e=>{
   const r=await fetch(url.toString());if(!r.ok)throw Error('Error en la búsqueda');
   const d=await r.json();if(!d.results?.length)throw Error('No se encontró el municipio');
   const choices=d.results;const best=choices.find(x=>x.country_code==='ES'&&((x.admin1||'').toLowerCase().includes('valencia')||(x.admin2||'').toLowerCase().includes('valencia')))||choices.find(x=>x.country_code==='ES')||choices[0];
-  await weather(best.latitude,best.longitude,[best.name,best.admin1,best.country].filter(Boolean).join(', '));
+  const label=best.name;await weather(best.latitude,best.longitude,[best.name,best.admin1,best.country].filter(Boolean).join(', '));setPlace({name:label,lat:best.latitude,lon:best.longitude});
  }catch(err){msg.textContent=err.message+'. Prueba con otro municipio.';}
 });
 $('cb-weather-gps').addEventListener('click',()=>{
  if(!navigator.geolocation){msg.textContent='Tu dispositivo no permite consultar la ubicación.';return;}
  msg.textContent='Solicitando permiso de ubicación…';
- navigator.geolocation.getCurrentPosition(p=>weather(p.coords.latitude,p.coords.longitude,'Mi ubicación actual'),()=>{msg.textContent='No se pudo obtener la ubicación. Puedes escribir tu municipio.';},{timeout:12000,maximumAge:60000,enableHighAccuracy:false});
+ navigator.geolocation.getCurrentPosition(p=>{weather(p.coords.latitude,p.coords.longitude,'Mi ubicación actual');setPlace({name:'Mi ubicación actual',lat:p.coords.latitude,lon:p.coords.longitude},false);},()=>{msg.textContent='No se pudo obtener la ubicación. Puedes escribir tu municipio.';},{timeout:12000,maximumAge:60000,enableHighAccuracy:false});
 });
 })();

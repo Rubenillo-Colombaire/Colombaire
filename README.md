@@ -147,3 +147,9 @@ Padres externos mediante texto; propietarios sugeridos; etapa deportiva y reprod
 
 ## v0.9k
 Meteorología real en inicio: tiempo actual, previsión por horas, 7/16 días, acceso a Windy. Open-Meteo, actualización al abrir y cada 15 minutos mientras la página esté visible. La ciudad seleccionada se guarda solo en este dispositivo; no se guarda GPS.
+
+
+## v0.9l
+- Municipio compartido y persistente en almacenamiento local, sin guardar coordenadas GPS.
+- Días pulsables: previsión por horas con viento, rachas y probabilidad de lluvia.
+- No modifica el palomar ni los concursos.
