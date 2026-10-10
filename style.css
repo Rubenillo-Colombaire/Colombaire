@@ -401,3 +401,17 @@ header{min-height:106px;height:auto;gap:14px}
 .brand-version{font-size:11px;letter-spacing:.15px;white-space:nowrap;opacity:.85}
 @media(max-width:700px){header{height:auto;min-height:86px;padding:10px 12px}.brand-logo{width:190px}.brand-version{font-size:9px}.head-actions{gap:5px}.head-actions button{padding:8px 10px}}
 @media(max-width:360px){.brand-logo{width:165px}.brand-version{font-size:8px}}
+
+/* v0.9o: cabecera a todo el ancho y bienvenida con movimiento suave */
+.app>header{height:auto;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0 0 9px;background:var(--green)}
+.app>header .brand-new{display:flex;flex-direction:column;align-items:center;width:100%;min-width:0;gap:0}
+.app>header .brand-logo{display:block;width:100%;max-width:none;height:auto;aspect-ratio:1605/630;object-fit:contain;padding:0;border-radius:0;background:#faf7ed}
+.app>header .brand-version{align-self:flex-start;margin:8px 14px 0;font-size:11px}
+.app>header .head-actions{align-self:flex-end;margin:-24px 12px 0;z-index:1}
+.cb-splash{position:fixed;inset:0;z-index:99999;background:#faf7ed;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:1;transition:opacity .46s ease,filter .46s ease;pointer-events:auto}
+.cb-splash-logo{display:block;width:min(88vw,640px);height:auto;object-fit:contain;opacity:0;transform:scale(.94);animation:cb-welcome 1.15s cubic-bezier(.2,.75,.2,1) forwards}
+.cb-splash-exit{opacity:0;filter:blur(9px);pointer-events:none}
+.cb-splash-exit .cb-splash-logo{transform:scale(1.07);transition:transform .46s ease}
+@keyframes cb-welcome{0%{opacity:0;transform:scale(.94)}45%{opacity:1}100%{opacity:1;transform:scale(1.035)}}
+@media(max-width:700px){.app>header{height:auto;padding:0 0 9px}.app>header .brand-logo{width:100%;max-width:none}.app>header .brand-version{font-size:9px;margin:7px 10px 0}.app>header .head-actions{margin:-24px 8px 0}.app>header .head-actions button{font-size:12px;padding:6px 9px}}
+@media(prefers-reduced-motion:reduce){.cb-splash-logo{animation:none;opacity:1;transform:none}.cb-splash,.cb-splash-exit{transition:none;filter:none}}
