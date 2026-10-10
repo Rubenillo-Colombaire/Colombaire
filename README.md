@@ -143,3 +143,7 @@ Subir SOLO los archivos de este ZIP a GitHub. El archivo `COLOMBAIRE_palomos_PRI
 
 ## v0.9i
 Padres externos mediante texto; propietarios sugeridos; etapa deportiva y reproductora independientes; ficha mejorada; concursos agrupados por año. Meteorología pendiente de integrar con proveedor y ubicación seleccionada. Los datos existentes no se borran. Antes de actualizar exporta copias de tus concursos y palomar si tienes esa opción.
+
+
+## v0.9k
+Meteorología real en inicio: tiempo actual, previsión por horas, 7/16 días, acceso a Windy. Open-Meteo, actualización al abrir y cada 15 minutos mientras la página esté visible. La ciudad seleccionada se guarda solo en este dispositivo; no se guarda GPS.

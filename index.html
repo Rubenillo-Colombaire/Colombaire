@@ -13,12 +13,12 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=0.9j">
+  <link rel="stylesheet" href="style.css?v=0.9k">
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.9j</b></small></div></div>
+    <div class="brand"><div class="bird">◒</div><div><h1>COLOMBAIRE</h1><small>Tu palomar, en tus manos · <b>v0.9k</b></small></div></div>
     <div class="head-actions"><button type="button" data-go="meteorologia" aria-label="Abrir meteorología">☁ Tiempo</button><button aria-label="Notificaciones">🔔</button></div>
   </header>
 
@@ -35,6 +35,23 @@
       </div>
 
       <button class="ask" data-go="guia"><span>🔎</span><div><b>Pregúntale a la Guía</b><small>¿Qué quieres consultar?</small></div><strong>›</strong></button>
+
+
+      <section class="home-weather" aria-label="Previsión meteorológica en el palomar">
+        <div class="hw-head"><div><small>🌤️ EL TIEMPO EN TU PALOMAR</small><h3 id="hw-city">Cargando meteorología…</h3></div><button id="hw-refresh" type="button" title="Actualizar previsión">↻</button></div>
+        <p id="hw-status" class="hw-status" role="status" aria-live="polite">Consultando datos reales…</p>
+        <div id="hw-data" hidden>
+          <div class="hw-current"><div><strong id="hw-temp">—</strong><span id="hw-desc">—</span><small id="hw-range">—</small></div><span id="hw-icon" class="hw-icon">🌤️</span></div>
+          <div class="hw-mini"><span id="hw-wind">💨 —</span><span id="hw-gust">🌪️ —</span><span id="hw-rain">☔ —</span></div>
+          <h4>HOY · POR HORAS <small>Desliza para ver más →</small></h4>
+          <div class="hw-hours" id="hw-hours" aria-label="Previsión por horas"></div>
+          <h4>PRÓXIMOS 7 DÍAS</h4>
+          <div class="hw-days" id="hw-days"></div>
+          <button type="button" class="hw-more" id="hw-more" aria-expanded="false">Ver previsión de 16 días ▾</button>
+          <small id="hw-updated" class="hw-updated"></small>
+        </div>
+        <div class="hw-actions"><button type="button" data-go="meteorologia">⚙ Cambiar municipio</button><a href="https://www.windy.com/" target="_blank" rel="noopener noreferrer">🗺️ Abrir Windy ↗</a></div>
+      </section>
 
       <h2>HOY EN TU PALOMAR <span>5 avisos</span></h2>
       <div class="today">
@@ -332,8 +349,9 @@
     <button data-go="guia">▤<small>Guía</small></button>
   </nav>
 </div>
-<script src="app.js?v=0.9j"></script>
-<script src="weather.js?v=0.9j" defer></script>
+<script src="app.js?v=0.9k"></script>
+<script src="weather.js?v=0.9k" defer></script>
+<script src="home-weather.js?v=0.9k" defer></script>
  <div id="cb-update-banner" role="status" aria-live="polite" hidden>
    <span id="cb-update-message">Nueva versión de COLOMBAIRE disponible.</span>
    <button id="cb-update-action" type="button">Actualizar</button>
