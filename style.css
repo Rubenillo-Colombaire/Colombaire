@@ -486,3 +486,44 @@ nav .cb-line-icon{width:22px;height:22px;margin:0 auto 3px;color:inherit}
 #inicio .cb-updates-panel > p:first-of-type{margin-top:0}
 #inicio .cb-updates-panel > p small{display:inline-block;margin-top:4px}
 @media(max-width:700px){#inicio .ask > span{font-size:30px!important}#inicio .ask b{font-size:17px!important}}
+
+/* COLOMBAIRE v0.9z — panel meteorológico en verde y crema */
+#inicio .cb-forecast,#inicio .cb-wind-card{background:#f4f0e8;color:#173d32;border:1px solid #e2d9c8;border-radius:18px;padding:15px;margin:16px 0 12px;box-shadow:0 5px 18px #183c2712;overflow:hidden}
+#inicio .cb-forecast-head,#inicio .cb-wind-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+#inicio .cb-forecast-head small{font-size:11px;font-weight:800;letter-spacing:.06em;color:#647369}
+#inicio .cb-forecast-head h3,#inicio .cb-wind-head h3{font-size:18px;margin:3px 0 0;color:#173d32;font-weight:800}
+#inicio .cb-forecast-head button{border:1px solid #d6d0c2;border-radius:10px;background:white;color:#173d32;font-size:24px;width:38px;height:38px;cursor:pointer}
+#inicio .hw-status{color:#6d776f;font-size:12px;margin:5px 0}
+#inicio .cb-forecast-current{display:flex;align-items:center;gap:16px;padding:8px 4px 16px;background:linear-gradient(110deg,#f4f0e8,#e4eef0);border-radius:12px;margin-bottom:12px}
+#inicio .cb-forecast-bigicon{font-size:55px;line-height:1}
+#inicio .cb-forecast-current strong{display:block;font-size:40px;line-height:1.15;color:#123f30}
+#inicio .cb-forecast-current span:not(.cb-forecast-bigicon){display:block;font-size:15px}
+#inicio .cb-forecast-current small{display:block;font-size:12px;color:#657269;margin-top:3px}
+#inicio .cb-seven{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+#inicio .cb-day{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;padding:10px 2px;background:#fffdf9;border:1px solid #e7e0d4;border-radius:11px;color:#173d32;font-family:inherit;box-shadow:0 2px 5px #173d320c}
+#inicio button.cb-day{cursor:pointer}
+#inicio .cb-day.is-selected{background:#174b3b;color:#fff;border-color:#174b3b}
+#inicio .cb-day-name{font-size:11px;font-weight:700}
+#inicio .cb-day-icon{font-size:22px;line-height:1.5}
+#inicio .cb-day-max{font-size:16px;line-height:1.2}
+#inicio .cb-day-min{font-size:12px;opacity:.72}
+#inicio .cb-forecast-bottom{display:flex;justify-content:space-between;align-items:center;gap:7px;margin-top:13px;font-size:11px;color:#5d7166}
+#inicio .cb-forecast-bottom button{border:1px solid #d4cfbf;background:#fffdfa;color:#174b3b;border-radius:9px;padding:8px;font:inherit;font-weight:700;cursor:pointer}
+#inicio .cb-wind-head{display:block}
+#inicio .cb-wind-head h3{font-size:16px;margin:0 0 3px}
+#inicio .cb-wind-head small{color:#657269;font-size:11px}
+#inicio .cb-wind-arrow{font-size:21px;display:inline-block;line-height:1.5;color:#174b3b}
+#inicio .cb-wind-day.is-selected .cb-wind-arrow{color:#fff}
+#inicio .cb-wind-dir{font-size:11px}
+#inicio .cb-wind-speed{font-size:16px}
+#inicio .cb-wind-unit{font-size:10px}
+#inicio .cb-wind-foot{display:flex;justify-content:space-between;gap:8px;margin-top:12px;font-size:11px;color:#596f64}
+#inicio .cb-forecast-details{background:#f4f0e8;color:#173d32;border:1px solid #e2d9c8;border-radius:13px;padding:13px;margin:0 0 17px}
+#inicio .cb-forecast-details summary{font-size:12px;font-weight:800;cursor:pointer}
+#inicio .cb-forecast-details h4{font-size:12px;margin:16px 0 8px}
+#inicio .cb-forecast-details .hw-hour{background:#fff;border:1px solid #e1daca;color:#173d32}
+#inicio .cb-forecast-details .hw-day-summary{background:#fff;color:#173d32}
+#inicio .cb-forecast-details .hw-more{color:#173d32;border-color:#d6d0c2;background:#fff}
+#inicio .cb-extra-row{padding:7px 4px;border-bottom:1px solid #ddd5c9;font-size:12px}
+#inicio .cb-forecast-details .hw-updated{color:#68786d;display:block;margin-top:10px}
+@media(max-width:420px){#inicio .cb-forecast,#inicio .cb-wind-card{padding:10px}#inicio .cb-seven{gap:3px}#inicio .cb-day{padding:9px 1px;gap:3px;border-radius:8px}#inicio .cb-day-name{font-size:10px}#inicio .cb-day-icon{font-size:19px}#inicio .cb-day-max,#inicio .cb-wind-speed{font-size:14px}#inicio .cb-day-min{font-size:11px}#inicio .cb-wind-unit{font-size:9px}}
