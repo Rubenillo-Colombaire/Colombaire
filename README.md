@@ -1,1 +1,1 @@
-COLOMBAIRE v0.9u. Corrige las rutas de las seis fotos de las tarjetas y recupera su tamaño compacto (125px en móvil), con el texto superpuesto. Sin cambios en los datos locales. No desinstalar la PWA.
+COLOMBAIRE v0.9v. Corrección: imágenes de tarjetas mediante elementos img reales, casillas compactas y bienvenida histórica con COLOMBAIRE y botones ilustrados. No se modifica el almacenamiento local.\n
