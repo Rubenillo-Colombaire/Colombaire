@@ -1,6 +1,6 @@
-// COLOMBAIRE v0.9w — actualización fiable para iOS/iPhone.
-const CACHE='colombaire-shell-v0.9w';
-const CORE=['./index.html','./style.css?v=0.9w','./app.js?v=0.9w','./weather.js?v=0.9w','./home-weather.js?v=0.9w','./manifest.webmanifest','./version.json','./splash-bienvenida.jpg','./card-images/palomar.jpg','./card-images/genetica.jpg','./card-images/salud.jpg','./card-images/concursos.jpg','./card-images/guia.jpg','./card-images/calendario.jpg','./NotoSans-Regular.ttf','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
+// COLOMBAIRE v0.9x — actualización fiable para iOS/iPhone.
+const CACHE='colombaire-shell-v0.9x';
+const CORE=['./index.html','./style.css?v=0.9x','./app.js?v=0.9x','./weather.js?v=0.9x','./home-weather.js?v=0.9x','./manifest.webmanifest','./version.json','./splash-bienvenida.jpg','./palomar.jpg','./genetica.jpg','./salud.jpg','./concursos.jpg','./guia.jpg','./calendario.jpg','./NotoSans-Regular.ttf','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('message',event=>{if(event.data&&event.data.type==='SKIP_WAITING')self.skipWaiting();});
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
