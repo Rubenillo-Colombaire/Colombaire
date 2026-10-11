@@ -446,3 +446,12 @@ nav .cb-line-icon{width:22px;height:22px;margin:0 auto 3px;color:inherit}
 #inicio .hero-grid .cb-weather-tile small{margin-left:auto}
 @media(max-width:700px){#inicio .hero-grid{gap:10px}#inicio .hero-grid .module:not(.cb-weather-tile){min-height:clamp(180px,51vw,255px);padding:12px 10px 13px}#inicio .hero-grid .module:not(.cb-weather-tile) b{font-size:16px}#inicio .hero-grid .module:not(.cb-weather-tile) small{font-size:10px}#inicio .hero-grid .cb-weather-tile{min-height:66px}}
 @media(prefers-reduced-motion:reduce){#inicio .hero-grid .module{transition:none}}
+
+/* v0.9u: tamaño compacto original, fotografía de fondo en cada botón */
+#inicio .hero-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#inicio .hero-grid .module:not(.cb-weather-tile){min-height:125px;height:125px;padding:10px 11px;border-radius:14px;gap:2px;background-position:center;background-size:cover}
+#inicio .hero-grid .module:not(.cb-weather-tile) .cb-module-icon{width:23px;height:23px;margin:0 0 1px}
+#inicio .hero-grid .module:not(.cb-weather-tile) .cb-line-icon{width:21px;height:21px}
+#inicio .hero-grid .module:not(.cb-weather-tile) b{font-size:14px;line-height:1.15}
+#inicio .hero-grid .module:not(.cb-weather-tile) small{font-size:10px;line-height:1.2}
+@media(min-width:701px){#inicio .hero-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}#inicio .hero-grid .module:not(.cb-weather-tile){height:155px;min-height:155px}}

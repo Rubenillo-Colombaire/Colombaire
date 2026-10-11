@@ -1,1 +1,1 @@
-COLOMBAIRE v0.9t — Casillas de inicio con fotografías y texto superpuesto. Mi Palomar y Genética usan las imágenes aportadas. Las otras cuatro usan recortes ilustrativos de la maqueta aprobada. Se mantienen todas las funciones y datos locales.
+COLOMBAIRE v0.9u. Corrige las rutas de las seis fotos de las tarjetas y recupera su tamaño compacto (125px en móvil), con el texto superpuesto. Sin cambios en los datos locales. No desinstalar la PWA.
