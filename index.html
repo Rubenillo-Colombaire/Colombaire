@@ -20,9 +20,10 @@
   <img class="cb-splash-logo" src="splash-bienvenida.jpg?v=0.9x" alt="Palomar valenciano histórico, COLOMBAIRE" width="1024" height="1536">
 </div>
 <div class="app">
-  <header>
-    <div class="brand brand-new"><h1 class="brand-wordmark">COLOMBAIRE</h1><small class="brand-version">Tu palomar, en tus manos · <b>v0.9z</b></small></div>
-    <div class="head-actions"><button type="button" data-go="meteorologia" aria-label="Abrir meteorología">☁ Tiempo</button><button aria-label="Notificaciones">🔔</button></div>
+  <header class="cb-banner-header" aria-label="COLOMBAIRE, La Guía del Colombaire">
+    <div class="cb-banner-brand" aria-hidden="true">COLOMBAIRE</div>
+    <button type="button" class="cb-banner-menu" aria-label="Ir a las secciones principales" title="Ir a las secciones principales" onclick="document.querySelector('#inicio .hero-grid')?.scrollIntoView({behavior:'smooth',block:'start'})"></button>
+    <button type="button" class="cb-banner-bell" aria-label="Notificaciones" title="Notificaciones" onclick="document.querySelector('#inicio .columns')?.scrollIntoView({behavior:'smooth',block:'start'})"></button>
   </header>
 
   <main>

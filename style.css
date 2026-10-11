@@ -527,3 +527,19 @@ nav .cb-line-icon{width:22px;height:22px;margin:0 auto 3px;color:inherit}
 #inicio .cb-extra-row{padding:7px 4px;border-bottom:1px solid #ddd5c9;font-size:12px}
 #inicio .cb-forecast-details .hw-updated{color:#68786d;display:block;margin-top:10px}
 @media(max-width:420px){#inicio .cb-forecast,#inicio .cb-wind-card{padding:10px}#inicio .cb-seven{gap:3px}#inicio .cb-day{padding:9px 1px;gap:3px;border-radius:8px}#inicio .cb-day-name{font-size:10px}#inicio .cb-day-icon{font-size:19px}#inicio .cb-day-max,#inicio .cb-wind-speed{font-size:14px}#inicio .cb-day-min{font-size:11px}#inicio .cb-wind-unit{font-size:9px}}
+
+/* v1.0a · cabecera panorámica aprobada, sin cambiar la bienvenida ni las seis casillas */
+.app>header.cb-banner-header{
+  display:block!important;position:relative!important;isolation:isolate;
+  width:100%;height:auto!important;min-height:0!important;aspect-ratio:1800 / 810;
+  padding:0!important;margin:0!important;overflow:hidden;
+  background:#0b3327 url('cabecera-colombaire.png?v=1.0a') center center / 100% 100% no-repeat!important;
+  border-radius:0 0 13px 13px;
+}
+.app>header.cb-banner-header .cb-banner-brand{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.app>header.cb-banner-header button{position:absolute;top:2%;width:9%;height:21%;padding:0!important;margin:0!important;
+  background:transparent!important;border:0!important;border-radius:0!important;z-index:2;cursor:pointer;touch-action:manipulation}
+.app>header.cb-banner-header .cb-banner-menu{left:0}
+.app>header.cb-banner-header .cb-banner-bell{right:0}
+.app>header.cb-banner-header button:focus-visible{outline:3px solid #f2c66e;outline-offset:-4px;border-radius:8px!important}
+@media(max-width:700px){.app>header.cb-banner-header{aspect-ratio:1800 / 810;min-height:0!important}}
