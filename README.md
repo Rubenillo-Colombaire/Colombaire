@@ -1,1 +1,1 @@
-COLOMBAIRE v0.9v. Corrección: imágenes de tarjetas mediante elementos img reales, casillas compactas y bienvenida histórica con COLOMBAIRE y botones ilustrados. No se modifica el almacenamiento local.\n
+COLOMBAIRE v0.9w: arregla visibilidad de fotos (capas z-index 0,1,2) en las seis casillas, mantiene tamaños compactos y bienvenida aprobada. No modifica datos locales. Publicar el CONTENIDO del ZIP en la raiz del repositorio.
