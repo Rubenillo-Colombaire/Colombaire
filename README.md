@@ -1,1 +1,1 @@
-COLOMBAIRE v0.9s — Base v0.9r Manrope. Cambios: bienvenida con palomo sin texto, iconos vectoriales elegantes en los módulos principales y navegación, nuevo icono de instalación para móvil. Mantiene datos locales; no desinstalar la PWA.
+COLOMBAIRE v0.9t — Casillas de inicio con fotografías y texto superpuesto. Mi Palomar y Genética usan las imágenes aportadas. Las otras cuatro usan recortes ilustrativos de la maqueta aprobada. Se mantienen todas las funciones y datos locales.

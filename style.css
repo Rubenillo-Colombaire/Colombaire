@@ -432,3 +432,17 @@ button,input,textarea,select{font-family:"Manrope","Noto Sans Offline",system-ui
 .module .cb-module-icon .cb-line-icon{width:34px;height:34px}
 nav .cb-line-icon{width:22px;height:22px;margin:0 auto 3px;color:inherit}
 .cb-splash-logo{width:min(78vw,410px);max-height:78vh;object-fit:contain}
+
+/* v0.9t — Photographic dashboard. User-provided images in first two cards. */
+#inicio .hero-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#inicio .hero-grid .module:not(.cb-weather-tile){position:relative;isolation:isolate;overflow:hidden;min-height:clamp(190px,29vw,300px);padding:18px 13px 16px;border-radius:16px;border:1px solid #b9a578;background-image:linear-gradient(to bottom,rgba(2,15,12,.04) 15%,rgba(1,15,12,.25) 48%,rgba(1,15,12,.9) 100%),var(--tile-image);background-position:center;background-size:cover;background-repeat:no-repeat;color:#fff;align-items:flex-start;justify-content:flex-end;text-align:left;gap:4px;box-shadow:0 5px 14px #102d241e;transition:transform .15s ease,box-shadow .15s ease}
+#inicio .hero-grid .module:not(.cb-weather-tile):active{transform:scale(.985)}
+#inicio .hero-grid .module:not(.cb-weather-tile) .cb-module-icon{margin:0 0 4px;width:31px;height:31px;color:white}
+#inicio .hero-grid .module:not(.cb-weather-tile) .cb-line-icon{width:28px;height:28px;color:#fff;filter:drop-shadow(0 1px 2px #0009)}
+#inicio .hero-grid .module:not(.cb-weather-tile) b{font-family:Manrope,'Noto Sans Offline',sans-serif!important;font-size:clamp(16px,2.3vw,23px);line-height:1.18;letter-spacing:.005em;font-weight:700;text-shadow:0 1px 4px #000b}
+#inicio .hero-grid .module:not(.cb-weather-tile) small{font-size:clamp(10px,1.4vw,12px);font-weight:500;letter-spacing:.02em;line-height:1.4;color:#f9f6eb;text-shadow:0 1px 4px #000b}
+#inicio .hero-grid .cb-weather-tile{grid-column:1/-1;min-height:70px;display:flex;flex-direction:row;gap:14px;align-items:center;justify-content:flex-start;padding:12px 18px}
+#inicio .hero-grid .cb-weather-tile .cb-module-icon{margin:0;width:36px;height:36px}
+#inicio .hero-grid .cb-weather-tile small{margin-left:auto}
+@media(max-width:700px){#inicio .hero-grid{gap:10px}#inicio .hero-grid .module:not(.cb-weather-tile){min-height:clamp(180px,51vw,255px);padding:12px 10px 13px}#inicio .hero-grid .module:not(.cb-weather-tile) b{font-size:16px}#inicio .hero-grid .module:not(.cb-weather-tile) small{font-size:10px}#inicio .hero-grid .cb-weather-tile{min-height:66px}}
+@media(prefers-reduced-motion:reduce){#inicio .hero-grid .module{transition:none}}

@@ -1,6 +1,6 @@
-// COLOMBAIRE v0.9s — actualización fiable para iOS/iPhone.
-const CACHE='colombaire-shell-v0.9s';
-const CORE=['./index.html','./style.css?v=0.9r','./app.js?v=0.9r','./weather.js?v=0.9r','./home-weather.js?v=0.9r','./manifest.webmanifest','./version.json','./splash-palomo.png','./NotoSans-Regular.ttf','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
+// COLOMBAIRE v0.9t — actualización fiable para iOS/iPhone.
+const CACHE='colombaire-shell-v0.9t';
+const CORE=['./index.html','./style.css?v=0.9t','./app.js?v=0.9t','./weather.js?v=0.9t','./home-weather.js?v=0.9t','./manifest.webmanifest','./version.json','./splash-palomo.png','./card-images/palomar.jpg','./card-images/genetica.jpg','./card-images/salud.jpg','./card-images/concursos.jpg','./card-images/guia.jpg','./card-images/calendario.jpg','./NotoSans-Regular.ttf','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('message',event=>{if(event.data&&event.data.type==='SKIP_WAITING')self.skipWaiting();});
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
