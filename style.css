@@ -415,3 +415,16 @@ header{min-height:106px;height:auto;gap:14px}
 @keyframes cb-welcome{0%{opacity:0;transform:scale(.94)}45%{opacity:1}100%{opacity:1;transform:scale(1.035)}}
 @media(max-width:700px){.app>header{height:auto;padding:0 0 9px}.app>header .brand-logo{width:100%;max-width:none}.app>header .brand-version{font-size:9px;margin:7px 10px 0}.app>header .head-actions{margin:-24px 8px 0}.app>header .head-actions button{font-size:12px;padding:6px 9px}}
 @media(prefers-reduced-motion:reduce){.cb-splash-logo{animation:none;opacity:1;transform:none}.cb-splash,.cb-splash-exit{transition:none;filter:none}}
+
+
+/* v0.9q · Prueba tipografica integral: CS Seaton Regular Demo */
+@font-face{font-family:"CS Seaton";src:url("CS-Seaton-Regular-Demo.otf") format("opentype");font-style:normal;font-weight:100 900;font-display:swap}
+/* Incluye los textos de fichas, controles, formularios y titulares, incluso reglas antiguas Georgia/Inter. */
+html body,html body :is(h1,h2,h3,h4,h5,h6,p,span,small,b,strong,em,label,input,textarea,select,button,option,div,li,td,th,a,summary,blockquote){font-family:"CS Seaton",Georgia,serif!important}
+.app>header{padding:16px 18px 12px;gap:9px;min-height:102px}
+.app>header .brand-new{align-items:center;gap:5px}
+.app>header .brand-wordmark{font-family:"CS Seaton",Georgia,serif!important;font-weight:400;letter-spacing:.035em;line-height:1.1;color:#faf7ed;text-align:center;font-size:clamp(28px,5.8vw,72px);margin:0;max-width:100%;overflow-wrap:anywhere}
+.app>header .brand-version{align-self:center;margin:0;font-size:11px;text-align:center;white-space:normal}
+.app>header .head-actions{align-self:flex-end;margin:0;display:flex;gap:7px}
+@media(max-width:700px){.app>header{padding:15px 10px 9px;min-height:0}.app>header .brand-wordmark{font-size:clamp(23px,7vw,43px);letter-spacing:.01em}.app>header .brand-version{margin:0;font-size:10px}.app>header .head-actions{margin:0}}
+@media(max-width:360px){.app>header .brand-wordmark{font-size:clamp(21px,6.8vw,27px)}}

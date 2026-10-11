@@ -1,3 +1,1 @@
-COLOMBAIRE v0.9p: bienvenida animada de 1,5 segundos y logotipo a todo el ancho de la cabecera. Actualiza archivos de GitHub sin borrar datos locales.
-
-PRUEBA TIPOGRAFICA: cabecera y bienvenida con CS Seaton Regular Demo, sin incluir el archivo de fuente. Comprueba licencia antes de publicacion definitiva.
+COLOMBAIRE v0.9q — PRUEBA tipográfica CS Seaton Regular Demo en toda la aplicación. Cabecera únicamente con texto COLOMBAIRE, sin palomo. Pantalla de bienvenida e iconos anteriores conservados. Fuente DEMO incluida exclusivamente para evaluación: verificar y adquirir licencia apropiada antes de distribución/uso definitivo. Para actualizar, sustituir archivos de GitHub. No desinstalar ni borrar datos locales.
