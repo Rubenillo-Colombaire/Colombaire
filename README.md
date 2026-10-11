@@ -1,1 +1,1 @@
-COLOMBAIRE v0.9r — Manrope en toda la app, cabecera solo texto. Manrope se carga desde Google Fonts cuando hay conexión; Noto Sans incorporada (SIL OFL) para uso sin conexión. Conserva datos locales: no desinstalar ni borrar datos. Sustituir archivos en GitHub. No se ha alterado app.js.
+COLOMBAIRE v0.9s — Base v0.9r Manrope. Cambios: bienvenida con palomo sin texto, iconos vectoriales elegantes en los módulos principales y navegación, nuevo icono de instalación para móvil. Mantiene datos locales; no desinstalar la PWA.

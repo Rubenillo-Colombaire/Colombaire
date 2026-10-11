@@ -425,3 +425,10 @@ html,body,.app,.app *:not(svg):not(path){font-family:"Manrope","Noto Sans Offlin
 .app>header .brand-wordmark{font-weight:600!important;letter-spacing:.055em!important;color:#faf7ed!important;line-height:1.1!important}
 .app>header .brand-new .brand-version{font-size:11px!important;letter-spacing:.025em!important}
 button,input,textarea,select{font-family:"Manrope","Noto Sans Offline",system-ui,sans-serif!important}
+
+/* v0.9s: iconografía lineal sobria y bienvenida con palomo únicamente */
+.cb-line-icon{display:block;width:28px;height:28px;flex:none;color:#174b3a}
+.module .cb-module-icon{display:flex;align-items:center;justify-content:center;margin:0 auto 7px;width:42px;height:42px;color:#174b3a}
+.module .cb-module-icon .cb-line-icon{width:34px;height:34px}
+nav .cb-line-icon{width:22px;height:22px;margin:0 auto 3px;color:inherit}
+.cb-splash-logo{width:min(78vw,410px);max-height:78vh;object-fit:contain}
