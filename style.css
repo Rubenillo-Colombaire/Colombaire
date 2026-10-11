@@ -417,14 +417,11 @@ header{min-height:106px;height:auto;gap:14px}
 @media(prefers-reduced-motion:reduce){.cb-splash-logo{animation:none;opacity:1;transform:none}.cb-splash,.cb-splash-exit{transition:none;filter:none}}
 
 
-/* v0.9q · Prueba tipografica integral: CS Seaton Regular Demo */
-@font-face{font-family:"CS Seaton";src:url("CS-Seaton-Regular-Demo.otf") format("opentype");font-style:normal;font-weight:100 900;font-display:swap}
-/* Incluye los textos de fichas, controles, formularios y titulares, incluso reglas antiguas Georgia/Inter. */
-html body,html body :is(h1,h2,h3,h4,h5,h6,p,span,small,b,strong,em,label,input,textarea,select,button,option,div,li,td,th,a,summary,blockquote){font-family:"CS Seaton",Georgia,serif!important}
-.app>header{padding:16px 18px 12px;gap:9px;min-height:102px}
-.app>header .brand-new{align-items:center;gap:5px}
-.app>header .brand-wordmark{font-family:"CS Seaton",Georgia,serif!important;font-weight:400;letter-spacing:.035em;line-height:1.1;color:#faf7ed;text-align:center;font-size:clamp(28px,5.8vw,72px);margin:0;max-width:100%;overflow-wrap:anywhere}
-.app>header .brand-version{align-self:center;margin:0;font-size:11px;text-align:center;white-space:normal}
-.app>header .head-actions{align-self:flex-end;margin:0;display:flex;gap:7px}
-@media(max-width:700px){.app>header{padding:15px 10px 9px;min-height:0}.app>header .brand-wordmark{font-size:clamp(23px,7vw,43px);letter-spacing:.01em}.app>header .brand-version{margin:0;font-size:10px}.app>header .head-actions{margin:0}}
-@media(max-width:360px){.app>header .brand-wordmark{font-size:clamp(21px,6.8vw,27px)}}
+
+/* v0.9r — Manrope throughout; embedded open-source Noto Sans offline fallback. */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@font-face{font-family:"Noto Sans Offline";src:url("NotoSans-Regular.ttf") format("truetype");font-weight:400 900;font-display:swap}
+html,body,.app,.app *:not(svg):not(path){font-family:"Manrope","Noto Sans Offline",system-ui,sans-serif!important}
+.app>header .brand-wordmark{font-weight:600!important;letter-spacing:.055em!important;color:#faf7ed!important;line-height:1.1!important}
+.app>header .brand-new .brand-version{font-size:11px!important;letter-spacing:.025em!important}
+button,input,textarea,select{font-family:"Manrope","Noto Sans Offline",system-ui,sans-serif!important}
