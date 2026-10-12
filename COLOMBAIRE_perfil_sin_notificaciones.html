@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#164b3a">
+  <title>COLOMBAIRE · Perfil en lugar de notificaciones</title>
+  <meta name="description" content="Tu palomar, en tus manos: cría, salud, genética y concursos de colombicultura deportiva.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="COLOMBAIRE">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css?v=1.0c">
+<style>
+/* Perfil autocontenido: no depende de style.css actualizado */
+.app > header.cb-banner-header {position:relative!important;}
+.app > header.cb-banner-header #cb-profile-button {background-image:none!important;position:absolute!important;right:10px!important;left:auto!important;top:50%!important;transform:translateY(-50%)!important;width:43px!important;height:43px!important;min-width:43px!important;min-height:43px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#ffffff18!important;border:0!important;border-radius:11px!important;color:#fff5df!important;font-size:23px!important;z-index:50!important;cursor:pointer!important;margin:0!important;padding:0!important;line-height:1!important}
+.app > header.cb-banner-header #cb-profile-button::before,.app > header.cb-banner-header #cb-profile-button::after{content:none!important;display:none!important}
+#cb-profile-dialog {position:fixed!important;inset:0!important;margin:auto!important;box-sizing:border-box!important;border:1px solid #d9d2bf!important;border-radius:17px!important;padding:24px!important;width:min(430px,calc(100vw - 30px))!important;max-width:calc(100vw - 30px)!important;max-height:85vh!important;color:#173e30!important;background:#fff!important;box-shadow:0 15px 45px #0a261b50!important;z-index:9999!important}
+#cb-profile-dialog:not([open]){display:none!important}
+#cb-profile-dialog::backdrop{background:#071e16a6}
+#cb-profile-dialog .cb-profile-head{display:flex;justify-content:space-between;align-items:center;font:700 21px Georgia,serif}
+#cb-profile-dialog .cb-profile-head button{width:38px;height:38px;border:0;background:#eee7d7;color:#173e30;border-radius:8px;font-size:25px;cursor:pointer}
+#cb-profile-dialog p{line-height:1.5;margin:12px 0}
+#cb-profile-dialog .cb-profile-muted{font-size:13px;overflow-wrap:anywhere}
+#cb-profile-dialog .cb-profile-sync{background:#f6f2e8;padding:12px;border-radius:9px;font-size:14px}
+#cb-profile-dialog form{display:grid;gap:9px}
+#cb-profile-dialog label{font-size:14px;font-weight:600}
+#cb-profile-dialog input{padding:12px;border:1px solid #b8c4ba;border-radius:8px;font-size:16px;width:100%;box-sizing:border-box}
+#cb-profile-dialog form button,#cb-profile-logout{background:#194b37;color:white;border:0;border-radius:8px;padding:13px;width:100%;margin:8px 0;cursor:pointer}
+#cb-profile-dialog a{color:#194b37}
+#cb-profile-dialog [hidden]{display:none!important}
+@media(max-width:700px){.app > header.cb-banner-header #cb-profile-button{right:8px!important;width:39px!important;height:39px!important;min-width:39px!important;min-height:39px!important}}
+</style>
+</head>
+<body>
+<div id="cb-splash" class="cb-splash" aria-label="Bienvenido a COLOMBAIRE">
+  <img class="cb-splash-logo" src="splash-bienvenida.jpg?v=0.9x" alt="Palomar valenciano histórico, COLOMBAIRE" width="1024" height="1536">
+</div>
+<div class="app">
+  <header class="cb-banner-header" aria-label="COLOMBAIRE, La Guía del Colombaire">
+    <div class="cb-banner-brand" aria-hidden="true">COLOMBAIRE</div>
+    <button type="button" class="cb-banner-menu" aria-label="Ir a las secciones principales" title="Ir a las secciones principales" onclick="document.querySelector('#inicio .hero-grid')?.scrollIntoView({behavior:'smooth',block:'start'})"></button>
+    <button type="button" class="cb-banner-bell" id="cb-profile-button" aria-label="Abrir mi cuenta" title="Mi cuenta"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20c.5-4.3 3.2-6.5 7.5-6.5s7 2.2 7.5 6.5"/></svg></button>
+  </header>
+
+  <dialog id="cb-profile-dialog" aria-label="Mi cuenta COLOMBAIRE">
+    <div class="cb-profile-head"><strong>MI CUENTA</strong><button type="button" id="cb-profile-close" aria-label="Cerrar">×</button></div>
+    <p id="cb-profile-state" role="status">Comprobando acceso…</p>
+    <p id="cb-profile-email" class="cb-profile-muted"></p>
+    <p class="cb-profile-sync">☁ Sincronización de palomos: <strong>NO ACTIVADA</strong></p>
+    <form id="cb-profile-form" autocomplete="on">
+      <label for="cb-profile-login-email">Correo electrónico</label>
+      <input id="cb-profile-login-email" type="email" autocomplete="email" required>
+      <label for="cb-profile-login-password">Contraseña</label>
+      <input id="cb-profile-login-password" type="password" autocomplete="current-password" required>
+      <button type="submit">Iniciar sesión</button>
+    </form>
+    <button type="button" id="cb-profile-logout" hidden>Cerrar sesión</button>
+    <p id="cb-profile-result" role="status" aria-live="polite"></p>
+    <a href="COLOMBAIRE_establecer_contrasena.html" target="_blank" rel="noopener">¿Olvidaste tu contraseña?</a>
+  </dialog>
+  <main>
+    <section id="inicio" class="page active">
+      <div class="cb-version-tools"><button id="cb-check-updates" type="button">↻ Buscar actualizaciones</button></div>
+      <div class="hero-grid">
+        <button class="module" data-go="palomar"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-7h6v7"/></svg></span><b>MI PALOMAR</b><small>Gestiona tus palomos</small></button>
+        <button class="module" data-go="genetica"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c0 6 10 6 10 12s-10 6-10 6"/><path d="M17 3c0 6-10 6-10 12s10 6 10 6"/><path d="M8 7h8M7 12h10M8 17h8"/></svg></span><b>GENÉTICA</b><small>Cruces y pelajes</small></button>
+        <button class="module" data-go="salud"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/><path d="M3.5 12h4l2-3 3 6 2-3h6"/></svg></span><b>SALUD</b><small>Control y enfermedades</small></button>
+        <button class="module" data-go="concursos"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v7a5 5 0 0 1-10 0z"/><path d="M7 6H4v3a4 4 0 0 0 4 4M17 6h3v3a4 4 0 0 1-4 4"/></svg></span><b>CONCURSOS</b><small>Calendario y resultados</small></button>
+        <button class="module" data-go="guia"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V5c-4-1-7-1-10 1z"/><path d="M12 6v15"/></svg></span><b>LA GUÍA</b><small>Todo sobre colombicultura</small></button>
+        <button class="module" data-go="calendario"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/></svg></span><b>CALENDARIO</b><small>Fechas y recordatorios</small></button>
+      </div>
+
+      <section class="cb-forecast" aria-label="Previsión meteorológica de siete días">
+        <div class="cb-forecast-head"><div><small>☀️ PREVISIÓN METEOROLÓGICA</small><h3 id="hw-city">Cargando municipio…</h3></div><button id="hw-refresh" type="button" title="Actualizar previsión" aria-label="Actualizar previsión">↻</button></div>
+        <p id="hw-status" class="hw-status" role="status" aria-live="polite">Consultando datos reales…</p>
+        <div id="hw-data" hidden>
+          <div class="cb-forecast-current"><span id="hw-icon" class="cb-forecast-bigicon">🌤️</span><div><strong id="hw-temp">—</strong><span id="hw-desc">—</span><small id="hw-range">—</small></div></div>
+          <div class="cb-seven" id="hw-days" aria-label="Previsión de temperatura de los próximos siete días"></div>
+          <div class="cb-forecast-bottom"><span id="hw-rain">☔ —</span><button type="button" data-go="meteorologia">⚙ Cambiar municipio</button></div>
+        </div>
+      </section>
+      <section class="cb-wind-card" aria-label="Previsión del viento de siete días">
+        <div class="cb-wind-head"><h3>💨 VIENTO EN <span id="hw-wind-city">TU PALOMAR</span></h3><small>Dirección de procedencia · km/h</small></div>
+        <div class="cb-seven cb-wind-seven" id="hw-wind-days" aria-label="Previsión del viento"></div>
+        <div class="cb-wind-foot"><span id="hw-wind">💨 —</span><span id="hw-gust">🌪️ —</span></div>
+      </section>
+      <details class="cb-forecast-details"><summary>Ver previsión detallada por horas y hasta 16 días</summary>
+        <h4 id="hw-hour-title">HOY · POR HORAS</h4><div class="hw-hours" id="hw-hours" aria-label="Previsión por horas"></div>
+        <div id="hw-day-summary" class="hw-day-summary" hidden></div>
+        <button type="button" class="hw-more" id="hw-more" aria-expanded="false">Ver previsión de 16 días ▾</button>
+        <div id="hw-extra-days" class="cb-extra-days"></div>
+        <small id="hw-updated" class="hw-updated"></small>
+      </details>
+      <button class="ask" data-go="guia"><span>🔎</span><div><b>Pregúntale a la Guía</b><small>¿Qué quieres consultar?</small></div><strong>›</strong></button>
+
+      <h2>HOY EN TU PALOMAR <span>5 avisos</span></h2>
+      <div class="today">
+        <button><span>🥚</span><b>2</b><small>Huevos próximos<br>a eclosionar</small></button>
+        <button><span>🐣</span><b>3</b><small>Pichones próximos<br>a anillar</small></button>
+        <button><span>💊</span><b>1</b><small>Tratamiento<br>pendiente</small></button>
+        <button><span>🕊️</span><b>4</b><small>Parejas<br>criando</small></button>
+        <button><span>🏆</span><b>1</b><small>Próximo<br>concurso</small></button>
+      </div>
+
+      <div class="columns">
+        <section class="panel cb-home-panel">
+          <h3 class="cb-panel-heading">PALOMOS DESTACADOS</h3>
+          <div class="pigeon-row"><div class="avatar">T</div><div><b>Toretto</b><small>Rojo · Macho</small></div><span>Competidor</span></div>
+          <div class="pigeon-row"><div class="avatar">B</div><div><b>Bumblebee</b><small>Mascarado Plomes · Macho</small></div><span>Reproductor</span></div>
+        </section>
+        <section class="panel cb-home-panel cb-updates-panel">
+          <h3 class="cb-panel-heading">ÚLTIMAS ACTUALIZACIONES</h3>
+          <p>🐣 <b>Nacimiento registrado</b><br><small>Pichón de Toretto × Brisa</small></p>
+          <p>🏆 <b>Resultado de concurso</b><br><small>Toretto · 2.º clasificado</small></p>
+          <p>🩺 <b>Control sanitario</b><br><small>Revisión completada</small></p>
+        </section>
+      </div>
+    </section>
+
+    <section id="palomar" class="page">
+      <div class="title-row"><button class="back app-back" data-go="inicio">‹</button><div><h2>MI PALOMAR</h2><small id="pigeonCount">3 palomos registrados</small></div><button class="plus" id="addPigeon">＋</button></div>
+      <div class="loft-tabs">
+        <button class="selected">PALOMOS</button>
+        <button data-go="cria">CRÍA</button>
+      </div>
+      <input id="search" class="search" placeholder="🔎 Buscar por nombre, anilla o pelaje...">
+      <div class="filters"><button class="selected">Todos</button><button>Machos</button><button>Hembras</button><button>Activos</button></div>
+      <div class="coloms-import-panel"><strong>📁 Importar palomos históricos (archivo privado)</strong><p>Selecciona el archivo JSON de tu tabla Coloms. Se añadirá a este dispositivo, sin subirlo a internet y sin sustituir tus palomos actuales. Las anillas repetidas se conservan como registros distintos.</p><input id="colomsFile" type="file" accept=".json,application/json"><div id="colomsStatus" role="status" aria-live="polite">Sin importaciones pendientes.</div></div><div id="pigeonList"></div><div class="cb-backup-tools"><button type="button" id="cb-backup-export">⬇ Descargar copia de seguridad</button><small>Guarda este archivo antes de actualizar o cambiar de dispositivo.</small></div>
+    </section>
+
+    <section id="ficha" class="page">
+      <div class="title-row"><button class="back app-back" data-go="palomar">‹</button><div><h2 id="f-name">Toretto</h2><small id="f-ring">ESP-2024-01587</small></div><button id="editPigeon" type="button" aria-label="Editar palomo">✎ Editar</button></div>
+      <div class="tabs"><button class="selected">Información</button><button data-go="cria">Cría</button><button data-go="salud">Salud</button><button data-go="concursos">Concursos</button><button id="observationsTab">Observaciones</button><button>Genealogía</button></div>
+      <section class="detail-card cb-ficha-card">
+        <div class="cb-ficha-band">🕊️ IDENTIFICACIÓN</div>
+        <div class="detail-grid cb-ficha-fields">
+          <div><small>Anilla</small><b id="d-ring"></b></div><div><small>Propietario</small><b id="d-owner"></b></div>
+          <div><small>Pelaje</small><b id="d-color"></b></div><div><small>Sexo</small><b id="d-sex"></b></div>
+          <div><small>Fecha de nacimiento</small><b id="d-birth"></b></div><div><small>Estado</small><b id="d-status"></b></div>
+        </div>
+        <div class="cb-ficha-band">🏆 ACTIVIDAD DEL PALOMO</div>
+        <div class="detail-grid cb-ficha-fields cb-activity-fields">
+          <div><small>Etapa deportiva</small><b id="d-sport"></b></div>
+          <div><small>Reproducción</small><b id="d-breeder"></b></div>
+        </div>
+        <div class="cb-ficha-band">🌿 GENEALOGÍA</div>
+        <div class="parents cb-ficha-parents"><button><small>♂ PADRE</small><b id="d-father"></b></button><button><small>♀ MADRE</small><b id="d-mother"></b></button></div>
+      </section>
+    </section>
+
+
+    <section id="observations" class="page">
+      <div class="title-row"><button class="back app-back">‹</button><div><h2 id="obsPigeonName">OBSERVACIONES</h2><small>Características y notas del ejemplar</small></div></div>
+      <div class="detail-card">
+        <h3>CARACTERÍSTICAS</h3>
+        <p class="field-note">Selecciona las que describan al palomo. Puedes añadir las tuyas.</p>
+        <div id="traitChips" class="trait-chips"></div>
+        <label class="obs-label"><span>Otra característica</span><div class="custom-trait-row"><input id="customTrait" placeholder="Ej. Muy trabajador"><button id="addTraitBtn" type="button" class="secondary">Añadir</button></div></label>
+      </div>
+      <div class="detail-card">
+        <h3>OBSERVACIONES GENERALES</h3>
+        <textarea id="observationText" class="obs-textarea" placeholder="Comportamiento, cualidades, defectos, evolución, sensaciones en concurso, reproducción..."></textarea>
+        <div class="form-actions"><button id="saveObservations" class="primary">Guardar observaciones</button></div>
+      </div>
+    </section>
+
+    <section id="palomoForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="palomar">‹</button><div><h2 id="formTitle">NUEVO PALOMO</h2><small>Ficha de Mi Palomar</small></div></div>
+      <form id="pigeonForm" class="detail-card form-card">
+        <input type="hidden" id="p-index">
+        <div class="form-grid">
+          <label><span>Nombre</span><input id="p-name" placeholder="Ej. Toretto"></label>
+          <label><span>Anilla</span><input id="p-ring" required placeholder="Ej. ESP-2026-00124"></label>
+          <label><span>Propietario</span><input id="p-owner" list="cb-owners" placeholder="Nombre del propietario"><datalist id="cb-owners"></datalist></label>
+          <label><span>Pelaje</span><input id="p-color" list="cb-colors" placeholder="Ej. Azul, Rojo, Bayo..."><datalist id="cb-colors"></datalist></label>
+          <label><span>Sexo</span><select id="p-sex" required><option value="">Seleccionar</option><option>Macho</option><option>Hembra</option><option>Sin determinar</option></select></label>
+          <label><span>Fecha de nacimiento</span><input id="p-birth" type="date"></label>
+          <label><span>Padre</span><select id="p-father"><option value="">Desconocido / no registrado</option></select><input id="p-father-text" placeholder="O escribe un padre no registrado"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Madre</span><select id="p-mother"><option value="">Desconocida / no registrada</option></select><input id="p-mother-text" placeholder="O escribe una madre no registrada"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Estado del palomo</span><select id="p-status"><option>Activo</option><option>Cedido</option><option>Baja</option><option>Fallecido</option></select></label><label><span>Etapa deportiva</span><select id="p-sport"><option value="Sin indicar">Sin indicar</option><option value="En competición">En competición</option><option value="En preparación">En preparación</option><option value="Retirado">Retirado</option><option value="No compite">No compite</option></select></label><label><span>Actividad reproductora</span><select id="p-breeder"><option value="Sin indicar">Sin indicar</option><option value="Reproductor">Reproductor</option><option value="No reproductor">No reproductor</option></select><small class="field-help">Puede competir y criar a la vez</small></label>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="secondary" data-go="palomar">Cancelar</button>
+          <button type="button" class="danger" id="deletePigeon">🗑 Borrar palomo</button>
+          <button type="submit" class="primary">Guardar cambios</button>
+        </div>
+        <p class="storage-note">🔒 En esta versión de prueba los datos se guardan únicamente en este navegador.</p>
+      </form>
+    </section>
+
+    <section id="cria" class="page">
+      <div class="title-row"><button class="back app-back" data-go="inicio">‹</button><div><h2>CRÍA</h2><small id="breedingSeason">Temporada 2026</small></div><button class="plus" id="addPair">＋</button></div>
+      <div class="loft-tabs">
+        <button data-go="palomar">PALOMOS</button>
+        <button class="selected">CRÍA</button>
+      </div>
+      <div class="stats"><div><b id="pairCount">0</b><small>Parejas activas</small></div><div><b id="eggCount">0</b><small>Huevos</small></div><div><b id="chickCount">0</b><small>Pichones</small></div></div>
+      <h3>AVISOS DE CRÍA</h3>
+      <div id="breedingAlerts"></div>
+      <h3>PAREJAS ACTIVAS</h3>
+      <div id="pairList"></div>
+      <div id="noPairs" class="empty-state"><span>🕊️</span><b>Aún no hay parejas de cría</b><small>Pulsa ＋ para seleccionar un macho y una hembra de Mi Palomar.</small></div>
+    </section>
+
+    <section id="pairForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="cria">‹</button><div><h2>NUEVA PAREJA</h2><small>Selecciona reproductores de Mi Palomar</small></div></div>
+      <form id="newPairForm" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>♂ Macho</span><select id="pairMale" required></select></label>
+          <label><span>♀ Hembra</span><select id="pairFemale" required></select></label>
+          <label><span>Fecha de emparejamiento</span><input id="pairDate" type="date"></label>
+          <label><span>Estado</span><select id="pairStatus"><option>Activa</option><option>Descanso</option><option>Finalizada</option></select></label>
+        </div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="cria">Cancelar</button><button class="primary" type="submit">Crear pareja</button></div>
+      </form>
+    </section>
+
+    <section id="pairDetail" class="page">
+      <div class="title-row"><button class="back app-back" data-go="cria">‹</button><div><h2 id="pairTitle">PAREJA</h2><small id="pairSubtitle"></small></div><button id="newClutchBtn" class="plus">＋ Puesta</button></div>
+      <div id="pairParents" class="pair"></div>
+      <div class="pair-actions"><button id="newClutchBtn2" class="primary">🥚 Registrar puesta</button><button id="finishPairBtn" class="secondary">Finalizar pareja</button></div>
+      <h3>HISTORIAL DE PUESTAS</h3>
+      <div id="clutchList"></div>
+      <h3>PICHONES DE ESTA PAREJA</h3>
+      <div id="pairChicks"></div>
+    </section>
+
+    <section id="clutchForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="pairDetail">‹</button><div><h2>NUEVA PUESTA</h2><small id="clutchPairName"></small></div></div>
+      <form id="newClutchForm" class="detail-card form-card">
+        <div class="egg-entry">
+          <h3>🥚 HUEVO 1</h3>
+          <div class="form-grid">
+            <label><span>Fecha del primer huevo</span><input id="egg1Date" type="date" required></label>
+            <label><span>Fecundado</span><select id="egg1Fert"><option value="Pendiente">Pendiente</option><option value="Sí">Sí</option><option value="No">No</option></select></label>
+          </div>
+        </div>
+        <div class="egg-entry">
+          <h3>🥚 HUEVO 2</h3>
+          <div class="form-grid">
+            <label><span>Fecha del segundo huevo</span><input id="egg2Date" type="date"></label>
+            <label><span>Fecundado</span><select id="egg2Fert"><option value="Pendiente">Pendiente</option><option value="Sí">Sí</option><option value="No">No</option></select></label>
+          </div>
+          <small class="field-note">Si no hay segundo huevo, deja la fecha vacía.</small>
+        </div>
+        <div class="prediction" id="hatchPrediction">La app calculará la fecha orientativa de eclosión.</div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="pairDetail">Cancelar</button><button class="primary" type="submit">Guardar puesta</button></div>
+      </form>
+    </section>
+
+    <section id="clutchDetail" class="page">
+      <div class="title-row"><button class="back app-back" data-go="pairDetail">‹</button><div><h2>DETALLE DE PUESTA</h2><small id="clutchDetailSub"></small></div></div>
+      <div id="clutchInfo" class="detail-card"></div>
+      <h3>HUEVOS</h3><div id="eggList"></div>
+      <div class="pair-actions"><button id="registerBirthBtn" class="primary">🐣 Registrar nacimiento</button></div>
+    </section>
+
+    <section id="birthForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="clutchDetail">‹</button><div><h2>REGISTRAR NACIMIENTO</h2><small>El pichón quedará vinculado a sus padres</small></div></div>
+      <form id="newBirthForm" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>Fecha de nacimiento</span><input id="birthDate" type="date" required></label>
+          <label><span>Sexo</span><select id="birthSex"><option>Sin determinar</option><option>Macho</option><option>Hembra</option></select></label>
+          <label><span>Nombre provisional</span><input id="birthName" placeholder="Opcional"></label>
+          <label><span>Pelaje</span><input id="birthColor" placeholder="Si ya puede determinarse"></label>
+          <label><span>Anilla</span><input id="birthRing" placeholder="Puede añadirse después"></label>
+        </div>
+        <div class="prediction">Al guardar, quedará registrado como <b>pichón en seguimiento</b>. Al anillarlo completará su identidad en Mi Palomar.</div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="clutchDetail">Cancelar</button><button class="primary" type="submit">Guardar pichón</button></div>
+      </form>
+    </section>
+
+    <section id="chickDetail" class="page">
+      <div class="title-row"><button class="back app-back" data-go="pairDetail">‹</button><div><h2>PICHÓN</h2><small id="chickDetailSub">Seguimiento de cría</small></div></div>
+      <div id="chickStatusCard" class="detail-card"></div>
+      <div id="ringingAlertBox"></div>
+      <div class="pair-actions"><button id="ringChickBtn" class="primary">💍 Registrar anilla</button><button id="openChickPigeonBtn" class="secondary">Ver ficha en Mi Palomar</button></div>
+    </section>
+
+    <section id="ringForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="chickDetail">‹</button><div><h2>ANILLAR PICHÓN</h2><small id="ringFormSub"></small></div></div>
+      <form id="ringFormData" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>Número de anilla</span><input id="ringNumber" required placeholder="Ej. ESP-2026-01234"></label>
+          <label><span>Fecha de anillado</span><input id="ringDate" type="date" required></label>
+          <label><span>Nombre</span><input id="ringName" placeholder="Opcional"></label>
+          <label><span>Pelaje</span><input id="ringColor" placeholder="Si ya puede determinarse"></label>
+          <label><span>Sexo</span><select id="ringSex"><option>Sin determinar</option><option>Macho</option><option>Hembra</option></select></label>
+        </div>
+        <div class="prediction">Padre, madre y fecha de nacimiento ya están vinculados automáticamente.</div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="chickDetail">Cancelar</button><button class="primary" type="submit">Guardar anilla</button></div>
+      </form>
+    </section>
+
+    <section id="genetica" class="page placeholder"></section>
+    <section id="salud" class="page">
+      <div class="title-row"><button class="back app-back">‹</button><div><h2>SALUD</h2><small>Enfermedades y orientación sanitaria del palomar</small></div></div>
+      <div class="health-hero"><div><b>GUÍA DE ENFERMEDADES</b><small>Consulta fichas estructuradas por agente, transmisión, órganos, signos y diagnóstico.</small></div><span>🩺</span></div>
+      <input id="healthSearch" class="search" placeholder="Buscar enfermedad, agente, signo...">
+      <div class="health-actions"><button class="selected">Todas</button><button>Protozoos</button><button>Bacterianas</button><button>Víricas</button></div>
+      <div id="diseaseList" class="disease-list"></div>
+      <div class="health-next"><b>PRÓXIMAMENTE · CALCULADORA DIFERENCIAL</b><small>Síntomas + contexto → procesos compatibles → pruebas que ayudan a diferenciarlos. No sustituirá el diagnóstico veterinario.</small></div>
+    </section>
+
+    <section id="diseaseDetail" class="page health-sheet-page">
+      <div class="title-row"><button class="back app-back">‹</button><div><h2 id="diseaseTitle">ENFERMEDAD</h2><small id="diseaseSubtitle"></small></div></div>
+      <div id="diseaseDetailBody" class="disease-sheet"></div>
+    </section>
+    <section id="concursos" class="page cb-contests">
+  <div class="title-row"><button class="back app-back">‹</button><div><h2>CONCURSOS</h2><small>Clasificaciones · Colombicultura deportiva</small></div></div>
+  <div class="cb-contest-hero"><span class="cb-eyebrow">MIS CONCURSOS</span><h3>Clasificaciones oficiales, a tu alcance</h3><p>Consulta una clasificación completa y destaca los palomos que quieras, sin ocultar a los demás.</p></div>
+  <div class="cb-contest-controls"><label for="cb-competition">Concurso</label><select id="cb-competition"><option value="demo">Clasificación de ejemplo · captura FCCV</option></select><div class="cb-contest-actions"><a href="https://colombiculturacv.es/?p=1" target="_blank" rel="noopener noreferrer" class="cb-official-link">↗ Abrir clasificación FCCV</a><button type="button" id="cb-reset-stars" class="cb-clear-stars">Quitar destacados</button></div></div>
+  <div class="cb-diagnostic" id="cb-diagnostic"><div class="cb-diagnostic-title">🧪 Laboratorio FCCV <span class="cb-lab-tag">PRUEBA TÉCNICA</span></div><p>Comprobamos si COLOMBAIRE puede leer la clasificación pública de la federación. No modifica datos ni envía información de tu palomar.</p><button type="button" id="cb-test-fccv" class="cb-test-btn">Comprobar conexión FCCV</button><div id="cb-test-result" class="cb-test-result" role="status" aria-live="polite">Prueba pendiente. Pulsa el botón cuando quieras.</div><small>Campeonato 90 · Año 2026 · Una consulta manual por pulsación.</small></div>
+  <div class="cb-dual-area" id="cb-dual-area">
+    <div class="cb-dual-heading"><h3>🏆 Mis concursos</h3><p>Organiza tus campeonatos por año. Abre solo el que quieras consultar; los dos que ya tenías se conservan.</p></div>
+    <div class="cb-library-toolbar"><label for="cb-year-filter">Año</label><select id="cb-year-filter"><option value="all">Todos</option></select><button type="button" id="cb-add-champ">＋ Añadir campeonato</button><button type="button" id="cb-backup-champ">↓ Copia de seguridad</button><label class="cb-restore-label" for="cb-restore-champ">↑ Restaurar copia</label><input id="cb-restore-champ" type="file" accept=".json,application/json" hidden></div>
+    <div class="cb-library-status" id="cb-library-status" role="status" aria-live="polite"></div>
+    <div class="cb-champ-tabs" id="cb-library-list" aria-label="Mis campeonatos"></div>
+    <section class="cb-dual-panel cb-library-detail" id="cb-library-detail" hidden>
+      <div class="cb-library-edit"><label>Nombre <input id="cb-library-name" maxlength="90" type="text"></label><label>Año <input id="cb-library-year" type="number" min="1900" max="2100" step="1"></label></div>
+      <label for="cb-library-file">Importar clasificación HTML (también guarda una versión histórica)</label><input id="cb-library-file" type="file" accept=".html,.htm,text/html,text/plain">
+      <div class="cb-dual-actions"><button type="button" id="cb-library-save">Guardar nombre y año</button><button type="button" id="cb-library-delete">Eliminar campeonato</button></div>
+      <div class="cb-dual-status" id="cb-library-detail-status" role="status" aria-live="polite"></div>
+      <label for="cb-library-snapshot">Clasificación guardada</label><select id="cb-library-snapshot"></select>
+      <div class="cb-dual-scroll"><table class="cb-dual-table" id="cb-library-table"><thead></thead><tbody></tbody></table></div>
+    </section>
+    <p class="cb-dual-hint">Los concursos y sus versiones importadas se guardan en este dispositivo. Exporta copias de seguridad periódicamente. Las versiones son fotografías de la clasificación al importarla, no necesariamente el resultado oficial al final de cada prueba.</p>
+  </div>
+<div class="cb-importer">
+  <div class="cb-diagnostic-title">📥 Importador FCCV <span class="cb-lab-tag">EXPERIMENTAL</span></div>
+  <p>Importa una clasificación completa guardada desde la página oficial. La lectura se hace <b>en tu dispositivo</b>; no se envía ningún archivo a COLOMBAIRE.</p>
+  <div class="cb-import-grid">
+    <div><label for="cb-import-file">Archivo HTML de la clasificación</label><input id="cb-import-file" type="file" accept=".html,.htm,text/html,text/plain"></div>
+    <button type="button" id="cb-import-demo" class="cb-clear-stars">Volver a la demostración</button>
+  </div>
+  <div class="cb-import-instructions"><b>Cómo obtenerlo:</b> abre la <a href="https://colombiculturacv.es/estaticas/competiciones/ajax/ajax_clasificacion.php?ano=2026&amp;cam=90" target="_blank" rel="noopener noreferrer">clasificación directa</a> en Edge y pulsa <b>Ctrl + S</b> → «Página web, solo HTML» (si está disponible). Guarda el archivo y selecciónalo aquí. Para otro concurso, guarda su respuesta HTML correspondiente.</div>
+  <div id="cb-import-status" class="cb-import-status" role="status" aria-live="polite">Esperando archivo. La demostración sigue disponible.</div>
+</div>
+<div class="cb-contest-note"><b id="cb-source-label">Vista de demostración.</b> <span id="cb-source-note">Datos de la captura compartida; no se actualizan automáticamente. La competición y la fecha exactas no están identificadas. La clasificación oficial siempre prevalece.</span></div>
+  <div class="cb-contest-summary"><div><small>Participantes visibles</small><strong id="cb-visible-count">14</strong></div><div><small>Pruebas</small><strong id="cb-test-count">6</strong></div><div><small>Destacados</small><strong id="cb-star-count">0</strong></div></div>
+  <div class="cb-contest-table-wrap"><table class="cb-contest-table"><thead><tr><th>Puesto</th><th>★</th><th>Palomo</th><th>Pelaje</th><th>Anilla</th><th>Propietario</th><th>Club</th><th>1ª</th><th>2ª</th><th>3ª</th><th>4ª</th><th>5ª</th><th>6ª</th><th>Total</th></tr></thead><tbody id="cb-contest-rows"></tbody></table></div>
+  <p class="cb-contest-footnote">Desliza la tabla hacia los lados para consultar las seis pruebas. Las estrellas se guardan en este dispositivo.</p>
+  <div class="cb-contest-next"><b>PRÓXIMA FASE · CONEXIÓN CON LA FEDERACIÓN</b><p>Investigaremos una vía autorizada y estable para importar concursos y resultados. Hasta entonces, el acceso a la FCCV es directo y los datos mostrados aquí son una demostración fija.</p></div>
+</section>
+    <section id="guia" class="page placeholder"></section>
+    <section id="meteorologia" class="page">
+      <div class="title-row"><button class="back app-back" data-go="inicio">‹</button><div><h2>METEOROLOGÍA</h2><small>Previsión para tu palomar y tus concursos</small></div></div>
+      <div class="cb-weather-panel">
+        <div class="cb-weather-heading"><span>🌤️</span><div><h3>EL TIEMPO EN TU PALOMAR</h3><p>Temperatura, viento, rachas y lluvia en tiempo real</p></div></div>
+        <form id="cb-weather-form" class="cb-weather-search">
+          <label for="cb-weather-place">Municipio</label>
+          <div><input id="cb-weather-place" type="search" value="Sollana" placeholder="Ej. Sollana, Valencia" required><button type="submit">Consultar</button></div>
+        </form>
+        <button type="button" id="cb-weather-gps" class="cb-weather-locate">⌖ Usar mi ubicación (con permiso)</button>
+        <p id="cb-weather-message" role="status" aria-live="polite">Pulsa «Consultar» para obtener datos meteorológicos actuales.</p>
+        <div id="cb-weather-result" hidden>
+          <div class="cb-weather-now"><div><small id="cb-weather-location"></small><strong id="cb-weather-temp"></strong><span id="cb-weather-condition"></span></div><span class="cb-weather-emoji" id="cb-weather-emoji">🌤️</span></div>
+          <div class="cb-weather-metrics">
+            <div><small>💨 Viento</small><b id="cb-weather-wind"></b></div>
+            <div><small>🧭 Dirección</small><b id="cb-weather-direction"></b></div>
+            <div><small>🌪️ Rachas</small><b id="cb-weather-gust"></b></div>
+            <div><small>💧 Humedad</small><b id="cb-weather-humidity"></b></div>
+            <div><small>🌧️ Lluvia (hora)</small><b id="cb-weather-rain"></b></div>
+            <div><small>☔ Prob. lluvia hoy</small><b id="cb-weather-prob"></b></div>
+          </div>
+          <p class="cb-weather-updated" id="cb-weather-updated"></p>
+        </div>
+        <a class="cb-windy-link" href="https://www.windy.com/" target="_blank" rel="noopener noreferrer">🗺️ Abrir mapa de viento en Windy ↗</a>
+        <p class="cb-weather-footnote">Datos de Open-Meteo. La previsión es orientativa y puede cambiar. La ubicación se consulta solo cuando lo solicitas; no se almacena tu posición GPS. Requiere conexión a internet.</p>
+      </div>
+    </section>
+    <section id="calendario" class="page placeholder"></section>
+  </main>
+  <div id="deleteModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-icon">🗑️</div>
+      <h3 id="deleteTitle">¿Eliminar este palomo?</h3>
+      <p>Esta acción elimina la ficha creada en Mi Palomar. Si el palomo ha fallecido, ha sido cedido o ya no está activo, es mejor conservar su historial y cambiar su <b>Estado</b>.</p>
+      <div class="modal-actions"><button id="cancelDelete" class="secondary">Cancelar</button><button id="confirmDelete" class="danger">Eliminar definitivamente</button></div>
+    </div>
+  </div>
+
+  <nav>
+    <button data-go="inicio" class="selected"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 9-8 9 8v10h-6v-7H9v7H3z"/></svg><small>Inicio</small></button>
+    <button data-go="palomar"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-7h6v7"/></svg><small>Mi palomar</small></button>
+    <button data-go="genetica"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c0 6 10 6 10 12s-10 6-10 6"/><path d="M17 3c0 6-10 6-10 12s10 6 10 6"/><path d="M8 7h8M7 12h10M8 17h8"/></svg><small>Genética</small></button>
+    <button data-go="salud"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/><path d="M3.5 12h4l2-3 3 6 2-3h6"/></svg><small>Salud</small></button>
+    <button data-go="concursos"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v7a5 5 0 0 1-10 0z"/><path d="M7 6H4v3a4 4 0 0 0 4 4M17 6h3v3a4 4 0 0 1-4 4"/></svg><small>Concursos</small></button>
+    <button data-go="guia"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V5c-4-1-7-1-10 1z"/><path d="M12 6v15"/></svg><small>Guía</small></button>
+  </nav>
+</div>
+<script>
+(function(){
+  const splash=document.getElementById('cb-splash');
+  if(!splash)return;
+  let closed=false;
+  function dismiss(){if(closed)return;closed=true;splash.classList.add('cb-splash-exit');
+    setTimeout(()=>{splash.remove();},500);}
+  // El contenido se carga detrás de la bienvenida, sin bloquear la aplicación.
+  setTimeout(dismiss,1500);
+  // En caso de pestaña reanudada, nunca mantener la capa bloqueando la interfaz.
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&closed)splash.remove();});
+})();
+</script>
+<script src="app.js?v=1.0b"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+<script>document.addEventListener("DOMContentLoaded",function(){
+(()=>{'use strict';
+const $=id=>document.getElementById(id),dialog=$('cb-profile-dialog'),open=$('cb-profile-button'),close=$('cb-profile-close'),form=$('cb-profile-form'),out=$('cb-profile-logout'),status=$('cb-profile-state'),email=$('cb-profile-email'),result=$('cb-profile-result');
+if(!dialog||!open)return;
+let client=null,busy=false;
+const message=s=>{result.textContent=s};
+function display(user){status.textContent=user?'✓ Cuenta conectada':'Cuenta no conectada';email.textContent=user?(user.email||'Usuario autenticado'):'';form.hidden=!!user;out.hidden=!user;open.title=user?'Mi cuenta · Conectado':'Mi cuenta · Sin conectar';open.setAttribute('aria-label',open.title)}
+function initialize(){if(!window.supabase?.createClient){status.textContent='Acceso no disponible sin conexión a Internet.';form.hidden=true;return;}
+client=window.supabase.createClient('https://mjbamwhnalljvmnogqzi.supabase.co','sb_publishable_pLmcbeWD6LGbT1MC2bUMxw_8Ng80tY6',{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+client.auth.onAuthStateChange((_event,session)=>{display(session?.user||null)});
+client.auth.getUser().then(({data,error})=>{if(error){client.auth.getSession().then(({data:d})=>display(d?.session?.user||null))}else display(data.user)}).catch(()=>{status.textContent='No se pudo comprobar la sesión';form.hidden=false});
+}
+open.addEventListener('click',()=>{if(!dialog.open)dialog.showModal()});close.addEventListener('click',()=>dialog.close());
+form.addEventListener('submit',async e=>{e.preventDefault();if(busy||!client)return;busy=true;const btn=form.querySelector('button');btn.disabled=true;message('Comprobando credenciales…');try{const {data,error}=await client.auth.signInWithPassword({email:$('cb-profile-login-email').value.trim(),password:$('cb-profile-login-password').value});if(error)throw error;$('cb-profile-login-password').value='';display(data.user);message('Sesión iniciada correctamente. La sincronización de palomos sigue desactivada.')}catch(err){message('No se pudo iniciar sesión: '+(err.message||'Error de conexión'))}finally{busy=false;btn.disabled=false}});
+out.addEventListener('click',async()=>{if(busy||!client)return;busy=true;out.disabled=true;try{const {error}=await client.auth.signOut();if(error)throw error;display(null);message('Sesión cerrada. Tus palomos locales no se han modificado.')}catch(err){message('No se pudo cerrar sesión: '+err.message)}finally{busy=false;out.disabled=false}});
+initialize();
+})();
+
+});</script>
+<script src="weather.js?v=0.9p" defer></script>
+<script src="home-weather.js?v=1.0b" defer></script>
+ <div id="cb-update-banner" role="status" aria-live="polite" hidden>
+   <span id="cb-update-message">Nueva versión de COLOMBAIRE disponible.</span>
+   <button id="cb-update-action" type="button">Actualizar</button>
+   <button id="cb-update-close" type="button" aria-label="Cerrar aviso">×</button>
+ </div>
+ <script>
+ (() => {
+   const CURRENT='1.0b';
+   const banner=document.getElementById('cb-update-banner');
+   const message=document.getElementById('cb-update-message');
+   const action=document.getElementById('cb-update-action');
+   const close=document.getElementById('cb-update-close');
+   let updating=false, checking=false, registration=null;
+   const show=(version)=>{message.textContent='COLOMBAIRE v'+version+' disponible';banner.hidden=false;};
+   const check=async()=>{
+     if(checking||!navigator.onLine)return;
+     checking=true;
+     try {
+       if(registration) await registration.update();
+       // Se consulta un documento independiente, con URL distinta en cada comprobación.
+       const r=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});
+       if(!r.ok)return;
+       const info=await r.json();
+       if(typeof info.version==='string'&&info.version!==CURRENT)show(info.version);
+     }catch(e){console.warn('Comprobación de versión:',e)}finally{checking=false;}
+   };
+   action.addEventListener('click',async()=>{
+     if(updating)return;updating=true;
+     action.disabled=true;action.textContent='Actualizando…';
+     try {
+       if(registration){await registration.update();
+         if(registration.waiting)registration.waiting.postMessage({type:'SKIP_WAITING'});
+       }
+       // La navegación solicita una URL nueva, evitando reutilizar la página HTML antigua.
+       const target=new URL('./',location.href);
+       target.searchParams.set('actualizacion',Date.now().toString());
+       location.replace(target.href);
+     }catch(e){action.disabled=false;action.textContent='Reintentar';updating=false;}
+   });
+   close.addEventListener('click',()=>banner.hidden=true);
+   window.addEventListener('load',async()=>{
+     if('serviceWorker' in navigator){
+       try{registration=await navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'});
+         navigator.serviceWorker.addEventListener('controllerchange',()=>{
+           // No recargar mientras el usuario esté rellenando formularios.
+           check();
+         });
+       }catch(e){console.warn('Service worker:',e)}
+     }
+     check();
+   });
+   document.addEventListener('visibilitychange',()=>{if(!document.hidden)check();});
+   window.addEventListener('online',check);
+   // Comprobación manual sin salir de la app.
+   const updateBtn=document.getElementById('cb-check-updates');
+   if(updateBtn)updateBtn.addEventListener('click',async()=>{
+     updateBtn.disabled=true;updateBtn.textContent='Buscando…';
+     await check();
+     if(banner.hidden){updateBtn.textContent='Ya tienes la última versión';}
+     else{updateBtn.textContent='Actualización encontrada';}
+     setTimeout(()=>{updateBtn.disabled=false;updateBtn.textContent='Buscar actualizaciones';},3000);
+   });
+ })();
+ </script></body>
+</html>
