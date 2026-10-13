@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#164b3a">
-  <title>COLOMBAIRE</title>
+  <title>COLOMBAIRE · Perfil con nombre de colombaire</title>
   <meta name="description" content="Tu palomar, en tus manos: cría, salud, genética y concursos de colombicultura deportiva.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -13,7 +13,31 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=1.0b">
+  <link rel="stylesheet" href="style.css?v=1.0c">
+<style>
+/* Perfil autocontenido: no depende de style.css actualizado */
+.app > header.cb-banner-header {position:relative!important;}
+.app > header.cb-banner-header #cb-profile-button {background-image:none!important;position:absolute!important;right:10px!important;left:auto!important;top:50%!important;transform:translateY(-50%)!important;width:43px!important;height:43px!important;min-width:43px!important;min-height:43px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#ffffff18!important;border:0!important;border-radius:11px!important;color:#fff5df!important;font-size:23px!important;z-index:50!important;cursor:pointer!important;margin:0!important;padding:0!important;line-height:1!important}
+.app > header.cb-banner-header #cb-profile-button::before,.app > header.cb-banner-header #cb-profile-button::after{content:none!important;display:none!important}
+#cb-profile-dialog {position:fixed!important;inset:0!important;margin:auto!important;box-sizing:border-box!important;border:1px solid #d9d2bf!important;border-radius:17px!important;padding:24px!important;width:min(430px,calc(100vw - 30px))!important;max-width:calc(100vw - 30px)!important;max-height:85vh!important;color:#173e30!important;background:#fff!important;box-shadow:0 15px 45px #0a261b50!important;z-index:9999!important}
+#cb-profile-dialog:not([open]){display:none!important}
+#cb-profile-dialog::backdrop{background:#071e16a6}
+#cb-profile-dialog .cb-profile-head{display:flex;justify-content:space-between;align-items:center;font:700 21px Georgia,serif}
+#cb-profile-dialog .cb-profile-head button{width:38px;height:38px;border:0;background:#eee7d7;color:#173e30;border-radius:8px;font-size:25px;cursor:pointer}
+#cb-profile-dialog p{line-height:1.5;margin:12px 0}
+#cb-profile-dialog .cb-profile-muted{font-size:13px;overflow-wrap:anywhere}
+#cb-profile-dialog .cb-profile-name{font-size:21px;font-weight:700;margin:10px 0 0;overflow-wrap:anywhere}
+#cb-profile-dialog .cb-profile-name button{margin-left:8px;background:#f0eadb;border:1px solid #d9d2bf;color:#194b37;border-radius:7px;padding:5px 9px;cursor:pointer;font-size:12px}
+#cb-profile-dialog #cb-profile-name-form{margin:10px 0 12px;padding:12px;background:#faf8f1;border-radius:9px}
+#cb-profile-dialog .cb-profile-sync{background:#f6f2e8;padding:12px;border-radius:9px;font-size:14px}
+#cb-profile-dialog form{display:grid;gap:9px}
+#cb-profile-dialog label{font-size:14px;font-weight:600}
+#cb-profile-dialog input{padding:12px;border:1px solid #b8c4ba;border-radius:8px;font-size:16px;width:100%;box-sizing:border-box}
+#cb-profile-dialog form button,#cb-profile-logout{background:#194b37;color:white;border:0;border-radius:8px;padding:13px;width:100%;margin:8px 0;cursor:pointer}
+#cb-profile-dialog a{color:#194b37}
+#cb-profile-dialog [hidden]{display:none!important}
+@media(max-width:700px){.app > header.cb-banner-header #cb-profile-button{right:8px!important;width:39px!important;height:39px!important;min-width:39px!important;min-height:39px!important}}
+</style>
 </head>
 <body>
 <div id="cb-splash" class="cb-splash" aria-label="Bienvenido a COLOMBAIRE">
@@ -23,9 +47,34 @@
   <header class="cb-banner-header" aria-label="COLOMBAIRE, La Guía del Colombaire">
     <div class="cb-banner-brand" aria-hidden="true">COLOMBAIRE</div>
     <button type="button" class="cb-banner-menu" aria-label="Ir a las secciones principales" title="Ir a las secciones principales" onclick="document.querySelector('#inicio .hero-grid')?.scrollIntoView({behavior:'smooth',block:'start'})"></button>
-    <button type="button" class="cb-banner-bell" aria-label="Notificaciones" title="Notificaciones" onclick="document.querySelector('#inicio .columns')?.scrollIntoView({behavior:'smooth',block:'start'})"></button>
+    <button type="button" class="cb-banner-bell" id="cb-profile-button" aria-label="Abrir mi cuenta" title="Mi cuenta"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20c.5-4.3 3.2-6.5 7.5-6.5s7 2.2 7.5 6.5"/></svg></button>
   </header>
 
+  <dialog id="cb-profile-dialog" aria-label="Mi cuenta COLOMBAIRE">
+    <div class="cb-profile-head"><strong>MI CUENTA</strong><button type="button" id="cb-profile-close" aria-label="Cerrar">×</button></div>
+    <p id="cb-profile-state" role="status">Comprobando acceso…</p>
+    <div id="cb-profile-identity" hidden>
+      <div class="cb-profile-name"><span id="cb-profile-display-name"></span><button type="button" id="cb-profile-edit-name">Editar nombre</button></div>
+      <form id="cb-profile-name-form" hidden>
+        <label for="cb-profile-name-input">Tu nombre o apodo de colombaire</label>
+        <input id="cb-profile-name-input" type="text" maxlength="60" minlength="2" autocomplete="nickname" placeholder="Ej. Rubén" required>
+        <button type="submit">Guardar nombre</button>
+        <button type="button" id="cb-profile-name-cancel" style="background:#e8e0ce;color:#194b37">Cancelar</button>
+      </form>
+    </div>
+    <p id="cb-profile-email" class="cb-profile-muted"></p>
+    <p class="cb-profile-sync">☁ Sincronización de palomos: <strong>NO ACTIVADA</strong></p>
+    <form id="cb-profile-form" autocomplete="on">
+      <label for="cb-profile-login-email">Correo electrónico</label>
+      <input id="cb-profile-login-email" type="email" autocomplete="email" required>
+      <label for="cb-profile-login-password">Contraseña</label>
+      <input id="cb-profile-login-password" type="password" autocomplete="current-password" required>
+      <button type="submit">Iniciar sesión</button>
+    </form>
+    <button type="button" id="cb-profile-logout" hidden>Cerrar sesión</button>
+    <p id="cb-profile-result" role="status" aria-live="polite"></p>
+    <a href="COLOMBAIRE_establecer_contrasena.html" target="_blank" rel="noopener">¿Olvidaste tu contraseña?</a>
+  </dialog>
   <main>
     <section id="inicio" class="page active">
       <div class="cb-version-tools"><button id="cb-check-updates" type="button">↻ Buscar actualizaciones</button></div>
@@ -371,6 +420,31 @@
 })();
 </script>
 <script src="app.js?v=1.0b"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+<script>document.addEventListener("DOMContentLoaded",function(){
+(()=>{'use strict';
+const $=id=>document.getElementById(id),dialog=$('cb-profile-dialog'),open=$('cb-profile-button'),close=$('cb-profile-close'),form=$('cb-profile-form'),out=$('cb-profile-logout'),status=$('cb-profile-state'),email=$('cb-profile-email'),result=$('cb-profile-result');
+const identity=$('cb-profile-identity'),nameText=$('cb-profile-display-name'),nameForm=$('cb-profile-name-form'),nameInput=$('cb-profile-name-input'),editName=$('cb-profile-edit-name'),cancelName=$('cb-profile-name-cancel');
+if(!dialog||!open)return;
+let client=null,busy=false,currentUser=null;
+const message=s=>{result.textContent=s};
+function safeName(user){const n=user?.user_metadata?.colombaire_name;return typeof n==='string'?n.trim():''}
+function display(user){currentUser=user||null;const connected=!!user;status.textContent=connected?'✓ Cuenta conectada':'Cuenta no conectada';email.textContent=connected?(user.email||'Usuario autenticado'):'';form.hidden=connected;out.hidden=!connected;identity.hidden=!connected;nameForm.hidden=true;if(connected){const n=safeName(user);nameText.textContent=n||'Nombre pendiente de configurar';editName.textContent=n?'Editar nombre':'Añadir nombre';}open.title=connected?'Mi cuenta · Conectado':'Mi cuenta · Sin conectar';open.setAttribute('aria-label',open.title)}
+function initialize(){if(!window.supabase?.createClient){status.textContent='Acceso no disponible sin conexión a Internet.';form.hidden=true;return;}
+client=window.supabase.createClient('https://mjbamwhnalljvmnogqzi.supabase.co','sb_publishable_pLmcbeWD6LGbT1MC2bUMxw_8Ng80tY6',{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+client.auth.onAuthStateChange((_event,session)=>{display(session?.user||null)});
+client.auth.getUser().then(({data,error})=>{if(error){client.auth.getSession().then(({data:d})=>display(d?.session?.user||null))}else display(data.user)}).catch(()=>{status.textContent='No se pudo comprobar la sesión';form.hidden=false});
+}
+open.addEventListener('click',()=>{if(!dialog.open)dialog.showModal()});close.addEventListener('click',()=>dialog.close());
+editName.addEventListener('click',()=>{if(!currentUser)return;nameInput.value=safeName(currentUser);nameForm.hidden=false;nameInput.focus();});
+cancelName.addEventListener('click',()=>{nameForm.hidden=true;message('')});
+nameForm.addEventListener('submit',async e=>{e.preventDefault();if(busy||!client||!currentUser)return;const n=nameInput.value.trim().replace(/\s+/g,' ');if(n.length<2||n.length>60){message('El nombre debe tener entre 2 y 60 caracteres.');return;}busy=true;const btn=nameForm.querySelector('button[type="submit"]');btn.disabled=true;message('Guardando nombre en tu cuenta…');try{const {data,error}=await client.auth.updateUser({data:{colombaire_name:n}});if(error)throw error;display(data.user);message('Nombre guardado en tu cuenta de Supabase. No se han modificado datos de palomos.')}catch(err){message('No se pudo guardar el nombre: '+(err.message||'Error de conexión'))}finally{busy=false;btn.disabled=false}});
+form.addEventListener('submit',async e=>{e.preventDefault();if(busy||!client)return;busy=true;const btn=form.querySelector('button');btn.disabled=true;message('Comprobando credenciales…');try{const {data,error}=await client.auth.signInWithPassword({email:$('cb-profile-login-email').value.trim(),password:$('cb-profile-login-password').value});if(error)throw error;$('cb-profile-login-password').value='';display(data.user);message('Sesión iniciada correctamente. La sincronización de palomos sigue desactivada.')}catch(err){message('No se pudo iniciar sesión: '+(err.message||'Error de conexión'))}finally{busy=false;btn.disabled=false}});
+out.addEventListener('click',async()=>{if(busy||!client)return;busy=true;out.disabled=true;try{const {error}=await client.auth.signOut();if(error)throw error;display(null);message('Sesión cerrada. Tus palomos locales no se han modificado.')}catch(err){message('No se pudo cerrar sesión: '+err.message)}finally{busy=false;out.disabled=false}});
+initialize();
+})();
+
+});</script>
 <script src="weather.js?v=0.9p" defer></script>
 <script src="home-weather.js?v=1.0b" defer></script>
  <div id="cb-update-banner" role="status" aria-live="polite" hidden>
