@@ -1,0 +1,351 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>COLOMBOMETEO V9 · Laboratorio</title><style>
+*{box-sizing:border-box}body{margin:0;background:#eaf0f4;color:#182c40;font:14px 'Segoe UI',Arial,sans-serif}button,select,input{font:inherit}button{cursor:pointer;border:1px solid #cfdce7;border-radius:8px;padding:10px 13px;background:#edf3f7;color:#19354d}button:hover{filter:brightness(.95)}button.active{background:#087bd0;color:white;border-color:#087bd0}.shell{max-width:1580px;margin:auto;padding:0 15px 20px}.hero{height:143px;background:#083653 url('cabecera.jpg') center/cover no-repeat;border-radius:0 0 12px 12px;position:relative;box-shadow:0 3px 10px #163b5c22}.hero .back{position:absolute;right:18px;bottom:12px;background:#062b48e6;color:white;border:1px solid #ffffff66;text-decoration:none;padding:9px 13px;border-radius:9px}.warning{background:#fff4d3;border:1px solid #e8c77e;border-radius:9px;margin:12px 0;padding:10px 14px;line-height:1.5}.warning strong{color:#79500a}.layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);gap:12px}.panel{background:#fff;border:1px solid #d4e0e8;border-radius:12px;padding:13px;box-shadow:0 2px 8px #1231}.panel h2{font-size:18px;margin:3px 0 13px}.layers{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}.layers button{flex:1;min-width:112px}.map{position:relative;overflow:hidden;border-radius:10px;background:#144d6e;aspect-ratio:754/532}.map>img{width:100%;height:100%;object-fit:cover;display:block}.map::after{content:'SIMULACIÓN · MAPA ILUSTRATIVO';position:absolute;top:10px;right:10px;background:#0b2942d9;color:white;padding:7px 10px;border-radius:7px;font-size:12px;pointer-events:none}.map .citypin{position:absolute;border-radius:50%;height:21px;width:21px;padding:0;background:#ffe361;border:3px solid #fff;box-shadow:0 0 0 2px #06416a;transform:translate(-50%,-50%)}.map .citypin.sel{background:#ff8138;box-shadow:0 0 0 4px #ffe36199}.map .shade{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .15s}.map .overlaytitle{position:absolute;bottom:70px;left:12px;color:white;background:#092d45db;border-radius:7px;padding:7px 11px;font-weight:700}.timeline{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:center;gap:8px;background:#f8fcfff0;border-radius:10px;padding:9px}.timeline input{flex:1;min-width:20px;accent-color:#087bd0}.timeline b{white-space:nowrap;font-size:13px}.timeline button{padding:6px 10px}.models{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.model{border-radius:9px;padding:12px 9px;display:flex;justify-content:space-between;gap:3px;align-items:center;font-weight:800;cursor:pointer}.model input{width:18px;height:18px}.model[data-name=ECMWF]{background:#d9ecff;color:#0561af}.model[data-name=GFS]{background:#ffe1e1;color:#c92831}.model[data-name=ICON]{background:#ddf6e4;color:#097b35}.model[data-name=ARPEGE]{background:#f0e2ff;color:#8230c3}.model.off{opacity:.4}.muted{font-size:12px;color:#627588;line-height:1.5}.right .panel+.panel{margin-top:12px}.heading{display:flex;justify-content:space-between;align-items:center;gap:10px}.heading select{padding:8px;border:1px solid #cddae4;border-radius:7px;background:#f5f9fc;max-width:160px}.hours{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px;margin:15px 0}.hour{padding:7px 2px;text-align:center;font-size:12px;min-width:0}.hour b{display:block;font-size:20px;margin:4px 0}.hour.active{background:#d7eeff;color:#07558e;border-color:#1688d7}.matrix{width:100%;border-collapse:separate;border-spacing:3px 5px;font-size:12px}.matrix th{font-weight:600;color:#627588}.matrix td,.matrix th{padding:7px 2px;text-align:center}.matrix th:first-child,.matrix td:first-child{text-align:left;white-space:nowrap;font-weight:800}.matrix td.val{background:#d5ebfa;border-radius:6px}.matrix td.current{background:#64b6ed;color:#073d64;font-weight:800}.agreement{display:flex;align-items:center;gap:14px;margin-top:10px}.track{flex:1;height:15px;background:#e4e9ed;border-radius:10px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#ffb53e,#20b56b);width:0%}.score{font-size:28px;font-weight:900}.bottom{display:grid;grid-template-columns:repeat(4,1fr) 1.25fr;gap:12px;margin-top:12px}.mini{padding:0;overflow:hidden}.mini .minihead{padding:9px;color:white;font-weight:800}.mini img{width:100%;height:130px;object-fit:cover;display:block}.mini .minifoot{padding:10px;display:flex;justify-content:space-between}.mini.off{opacity:.45}.note{background:#fff5d6;border-color:#f0d58b;line-height:1.5}.note h2{margin-bottom:7px}.footer{font-size:12px;color:#586c7d;margin:12px 0;text-align:center}.backrow{display:flex;justify-content:flex-end;margin-top:10px}.backrow button{background:#123f5c;color:white}.legend{font-size:12px;margin-top:8px;color:#50687a}@media(max-width:1150px){.layout{grid-template-columns:1fr}.bottom{grid-template-columns:repeat(2,1fr)}.bottom .note{grid-column:1/-1}}@media(max-width:620px){.shell{padding:0 7px 15px}.hero{height:100px;background-position:center}.hero .back{font-size:11px;bottom:5px;right:5px}.models{grid-template-columns:repeat(2,1fr)}.hours{grid-template-columns:repeat(4,1fr)}.bottom{grid-template-columns:1fr 1fr}.timeline{gap:4px}.timeline b{font-size:11px}.timeline button{padding:5px}.map{aspect-ratio:754/620}.map>img{object-fit:cover}.layers button{min-width:90px;padding:8px}.panel{padding:9px}}
+.modelnames{display:flex;flex-direction:column;gap:2px;text-align:left}.modelnames small{font-size:10px;font-weight:600;opacity:.82;white-space:normal}.weather-demo{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.56;mix-blend-mode:screen}.rain-demo{background:radial-gradient(ellipse at 22% 28%,#0436b6cc 0%,#1373e7a8 15%,#39c4ff80 25%,transparent 43%),radial-gradient(ellipse at 70% 57%,#1146bfc9 0%,#008de6b0 18%,#3fd0e27d 27%,transparent 48%);background-position:var(--hour-shift) 0,calc(0px - var(--hour-shift)) 0}.wind-demo{background:repeating-linear-gradient(155deg,transparent 0 23px,#b2f3ffb5 24px 26px,transparent 27px 62px);animation:windflow 3s linear infinite}.cloud-demo{background:radial-gradient(ellipse at 25% 30%,#fff9 0%,#d8e4ee80 25%,transparent 52%),radial-gradient(ellipse at 78% 60%,#fff9 0%,#d8e4ee80 23%,transparent 48%)}.temp-demo{background:linear-gradient(105deg,#1372d49c,#ffd04a77,#ef573899)}.pressure-demo{background:repeating-radial-gradient(ellipse at 55% 55%,transparent 0 27px,#e8f7ffab 29px 31px,transparent 33px 56px)}@keyframes windflow{from{background-position:0 0}to{background-position:120px 0}}@media(prefers-reduced-motion:reduce){.wind-demo{animation:none}}.map .citypin,.map .timeline,.map .overlaytitle{z-index:3}.map::after{z-index:4}.model{min-height:56px}@media(max-width:620px){.modelnames small{font-size:9px}}</style><style>
+.realpanel{margin:16px 0;background:#fff;border:2px solid #1285bd;border-radius:12px;padding:17px;box-shadow:0 3px 14px #12345615}.realpanel h2{margin:0 0 8px;color:#103f60}.realpanel .realmeta{color:#36536a;font-size:13px;line-height:1.5}.realpanel .realgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-top:12px}.realpanel .realitem{background:#eaf5fc;border-radius:8px;padding:11px}.realpanel .realitem b{display:block;font-size:18px;margin:6px 0;color:#083e65}.realpanel .realitem small{color:#526779}.realpanel .error{color:#a12525}.realpanel button{background:#0b75b9;color:#fff;border:0;margin-top:10px}.realpanel .realhours{display:flex;gap:7px;overflow:auto;padding-top:12px}.realpanel .realhour{min-width:136px;border:1px solid #d9e8f2;border-radius:9px;padding:9px;font-size:12px}.realpanel .realhour strong{display:block;color:#104869;margin-bottom:7px}.realpanel .realhour span{display:block;line-height:1.7}
+</style><style>
+#real-map{position:absolute;inset:0;z-index:0;background:#cfe2ed}.map>img{display:none}.map .weather-demo{z-index:401;opacity:.4;pointer-events:none}.map .shade{z-index:400}.map .overlaytitle{z-index:510}.map .timeline{z-index:510}.map::after{z-index:520}.map .citypin{display:none}.leaflet-container{font:12px 'Segoe UI',Arial,sans-serif}.leaflet-control-attribution{font-size:9px!important}.weather-demo.wind-demo{background:none;animation:none}.wind-particles{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:450}.place-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:0 0 9px}.place-controls input{flex:1;min-width:160px;padding:9px;border:1px solid #cddae4;border-radius:8px}.place-controls button{padding:8px 10px}.place-status{font-size:12px;color:#526779}.map .leaflet-marker-icon{z-index:500!important}.map .leaflet-popup{z-index:530}.modelrowname{display:flex;flex-direction:column;gap:2px;min-width:113px}.modelrowname small{font-size:10px;font-weight:500;color:#60768a}.matrix td:first-child{white-space:normal}.map:has(.leaflet-container)::after{content:'MAPA REAL · METEOROLOGÍA DEMO';}.map .weather-demo.rain-demo{opacity:.16}
+.realpanel{margin:0 0 14px;border-color:#1689bf;background:#f9fdff}.realpanel .realgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.realpanel .realitem{padding:10px}.realpanel .realitem b{font-size:17px}.realpanel .realhours{padding-bottom:5px}.realpicker{margin:12px 0 5px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.realpicker label{font-weight:700;font-size:12px;color:#123e60}.realpicker select{max-width:100%;flex:1;min-width:170px;border:1px solid #b6d5e9;border-radius:7px;padding:8px;background:white;color:#123e60}.right .realpanel h2{font-size:19px}@media(max-width:650px){.realpanel .realgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}</style></head><body><div class="shell"><header class="hero"><button class="back" id="back">← Volver a COLOMBAIRE</button></header><div class="warning"><strong>🧪 LABORATORIO V12 · COMPARATIVA HORARIA REAL.</strong> El mapa base es cartografía real; las capas coloreadas sobre el mapa y las imágenes de miniatura siguen siendo ilustrativas; las casillas y tabla comparativa consultan datos reales. Las cifras y la coincidencia son ficticias y NO deben utilizarse para planificar sueltas. Los avisos oficiales de AEMET y Protección Civil prevalecen siempre.</div><section id="aemet-oficial" aria-label="AEMET oficial" style="background:#eef6ff;border:1px solid #a4c6e9;border-radius:12px;padding:16px;margin:12px 0;color:#123653;font:14px system-ui,sans-serif">
+ <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap"><strong>🇪🇸 AEMET · Fuente oficial de España</strong><a href="https://www.aemet.es/es/eltiempo/prediccion/municipios/valencia-id46250" target="_blank" rel="noopener noreferrer">Consultar AEMET oficial ↗</a></div>
+ <p style="margin:8px 0">Predicción municipal oficial para Valencia. Esta sección solo mostrará datos automáticos cuando se configure el servidor seguro de AEMET.</p>
+ <div id="aemet-status" role="status">Conexión automática pendiente de configuración. No se muestran datos simulados.</div>
+ <div id="aemet-data" style="display:none;margin-top:10px"></div>
+ <button id="aemet-refresh" type="button" style="margin-top:10px;border:0;border-radius:8px;background:#1562a0;color:white;padding:8px 12px;cursor:pointer">↻ Consultar AEMET</button>
+ <p style="font-size:12px;margin:8px 0 0">Fuente: AEMET OpenData. Los avisos oficiales deben consultarse siempre en los canales de AEMET y Protección Civil.</p>
+</section>
+<script src="aemet-config.js"></script>
+<script>
+(function(){
+ const status=document.getElementById('aemet-status'),data=document.getElementById('aemet-data');
+ const endpoint=window.COLOMBOMETEO_AEMET_PROXY_URL;
+ async function load(){
+  if(!endpoint){status.textContent='Conexión automática pendiente de configuración segura. Puedes consultar la predicción oficial en el enlace superior.';return}
+  status.textContent='Consultando AEMET…';data.style.display='none';data.replaceChildren();
+  try{
+   const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),16000);
+   let r;try{r=await fetch(endpoint+'?municipio=46250',{signal:ctrl.signal,cache:'no-store'})}finally{clearTimeout(timer)}
+   if(!r.ok)throw new Error('HTTP '+r.status);
+   const json=await r.json();if(!Array.isArray(json)||!json[0]||!json[0].prediccion)throw new Error('respuesta inesperada');
+   const p=json[0],dias=p.prediccion.dia||[];const day=dias[0];
+   const h=document.createElement('strong');h.textContent=(p.nombre||'Valencia')+' · '+(day?.fecha||'fecha no disponible');data.append(h);
+   const info=document.createElement('p');info.textContent='Origen: AEMET OpenData · actualización: '+(p.elaborado||'no indicada');data.append(info);
+   if(day){
+    const t=document.createElement('p');t.textContent='Temperatura prevista: máxima '+(day.temperatura?.maxima??'—')+' °C; mínima '+(day.temperatura?.minima??'—')+' °C.';data.append(t);
+    const rain=(day.probPrecipitacion||[]).map(x=>(x.periodo||'día')+': '+(x.value??'—')+' %').join(' · ');
+    const pp=document.createElement('p');pp.textContent='Probabilidad de precipitación por periodos: '+(rain||'no disponible');data.append(pp)
+   }
+   data.style.display='block';status.textContent='Datos oficiales recibidos. Consulta la web de AEMET para los avisos vigentes.';
+  }catch(err){status.textContent='AEMET no disponible: '+(err.name==='AbortError'?'tiempo de espera agotado':err.message)+'. No se sustituyen los datos por simulaciones.'}
+ }
+ document.getElementById('aemet-refresh').addEventListener('click',load);load();
+})();
+</script><section class="realpanel" aria-label="Primer pronóstico real de Valencia">
+<h2 id="real-title">🌦️ Pronóstico REAL · Valencia</h2>
+<div class="realmeta" id="real-location-meta">Fuente: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · Predicción horaria por coordenadas · Hora peninsular · Modelo seleccionado automáticamente por el proveedor. Los valores no representan la comparación ECMWF/GFS/ICON/ARPEGE.</div>
+<div class="realpicker"><label for="real-hour-select">Hora de previsión</label><select id="real-hour-select" aria-label="Elegir hora de previsión" disabled><option>Cargando…</option></select></div>
+<div id="realstatus" class="realmeta" role="status" aria-live="polite">Consultando el servicio meteorológico…</div>
+<div id="realgrid" class="realgrid"></div>
+<div id="realhours" class="realhours"></div>
+<button id="realrefresh" type="button">↻ Actualizar pronóstico real</button>
+<div class="realmeta" style="margin-top:9px">Las capas de mapa, las tarjetas de modelos, la tabla comparativa y la coincidencia siguen siendo <strong>SIMULADOS</strong>. Consulta avisos oficiales en <a href="https://www.aemet.es/" target="_blank" rel="noopener noreferrer">AEMET</a> y Protección Civil. No uses este prototipo como único criterio para organizar concursos.</div>
+</section><div class="layout"><section class="panel"><div class="layers" id="layers"><button data-layer="Precipitación" class="active">🌧 Precipitación</button><button data-layer="Viento">🌬 Viento</button><button data-layer="Nubosidad">☁ Nubosidad</button><button data-layer="Temperatura">🌡 Temperatura</button><button data-layer="Presión">◉ Presión</button></div><div class="place-controls"><input id="place-search" type="search" placeholder="Buscar pueblo o ciudad de España…" aria-label="Buscar municipio"/><button type="button" id="place-go">🔎 Buscar</button><button type="button" id="place-reset">🇪🇸 España</button><span class="place-status" id="place-status" role="status">Busca un municipio para ver su previsión real en la ficha lateral. Puedes acercarte y arrastrar el mapa.</span></div><div class="map" id="map"><div id="real-map" aria-label="Mapa interactivo de España"></div><canvas id="wind-canvas" class="wind-particles" aria-hidden="true"></canvas><img src="mapa_referencia.jpg" alt="Mapa ilustrativo del boceto de COLOMBOMETEO, no predicción real"><div class="shade" id="shade"></div><div class="weather-demo" id="weather-demo" aria-hidden="true"></div><div class="overlaytitle" id="maptitle">Precipitación · Madrid · DEMO</div><div class="timeline"><button id="play" aria-label="Reproducir horas">▶</button><button id="prev" aria-label="Hora anterior">‹</button><input type="range" id="slider" min="0" max="7" value="0" aria-label="Intervalo horario"><button id="next" aria-label="Hora siguiente">›</button><b id="clock">+0 h</b></div></div><div class="legend">📍 Mapa interactivo incrustado © colaboradores de OpenStreetMap. Busca un municipio o selecciónalo en el desplegable para consultar su previsión real. El clic dentro del visor incrustado no selecciona coordenadas automáticamente. Las capas meteorológicas y cifras siguen siendo SIMULADAS.</div></section><div class="right"><section class="panel"><h2>▱ Modelos meteorológicos</h2><div class="models" id="models"></div><p class="muted">Activa o desactiva modelos para compararlos. Los resultados mostrados son de demostración.</p></section><section class="panel"><div class="heading"><h2>◷ Previsión por horas</h2><select id="city" aria-label="Ciudad"></select></div><div class="hours" id="hours"></div><div class="muted" id="unitlabel">Precipitación prevista (mm) · SIMULACIÓN</div><div style="overflow-x:auto"><table class="matrix"><thead id="thead"></thead><tbody id="tbody"></tbody></table></div></section><section class="panel"><h2>♟ Coincidencia entre modelos</h2><div class="agreement"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">—</div></div><p class="muted" id="method">Indicador didáctico de dispersión, NO una probabilidad de acierto.</p></section></div></div><section class="bottom" id="bottom"></section><div class="footer">COLOMBOMETEO V13 · Gráfica horaria de cuatro modelos reales · Diseño basado en el boceto aprobado · Uso exclusivo para evaluación visual</div></div><script>
+'use strict';const cities=[['A Coruña',19,9],['Vigo',17,19],['Oviedo',36,8],['Bilbao',54,9],['Zaragoza',66,27],['Barcelona',82,30],['Madrid',51,48],['Valencia',73,55],['Sevilla',37,75],['Málaga',45,83],['Murcia',66,72],['Valladolid',43,30]];const names=['ECMWF','GFS','ICON','ARPEGE'];const modelOrigins=['Modelo Europeo','Modelo Estadounidense','Modelo Alemán','Modelo Francés'];const colors=['#0876d0','#f03940','#169c52','#903edb'];const units={'Precipitación':'mm','Viento':'km/h','Nubosidad':'%','Temperatura':'°C','Presión':'hPa'};const scale={'Precipitación':5,'Viento':30,'Nubosidad':70,'Temperatura':12,'Presión':18};const state={city:'Madrid',hour:0,layer:'Precipitación',active:new Set(names)};const $=x=>document.getElementById(x);const ci=()=>Math.max(0,cities.findIndex(c=>c[0]===state.city));const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));const f=x=>Number.isInteger(x)?String(x):x.toFixed(1);function value(c,h,m,l){const t=c*1.71+h*.84+m*1.13;switch(l){case 'Precipitación':return Math.round(Math.max(0,Math.sin(t)*2.4+Math.cos(c*.51+h*.65)*1.8+2+m*.24)*10)/10;case 'Viento':return Math.round(8+Math.abs(Math.sin(t*.8))*23+m*2.3);case 'Nubosidad':return Math.round(clamp(42+40*Math.sin(t*.48)+m*5,0,100));case 'Temperatura':return Math.round((13+7*Math.sin(c*.6+h*.45)+m*.8)*10)/10;default:return Math.round((1008+9*Math.sin(c*.33+h*.4)+m*1.5)*10)/10}}const select=$('city');cities.forEach(c=>{const o=document.createElement('option');o.value=o.textContent=c[0];select.append(o)});select.onchange=()=>{state.city=select.value;render();focusCity(state.city)};cities.forEach(c=>{const b=document.createElement('button');b.className='citypin';b.title='Seleccionar '+c[0];b.setAttribute('aria-label','Seleccionar '+c[0]);b.style.left=c[1]+'%';b.style.top=c[2]+'%';b.onclick=()=>{state.city=c[0];render();focusCity(c[0])};$('map').append(b)});names.forEach((n,i)=>{const lab=document.createElement('label');lab.className='model';lab.dataset.name=n;const cb=document.createElement('input');cb.type='checkbox';cb.checked=true;cb.onchange=()=>{cb.checked?state.active.add(n):state.active.delete(n);render()};const namesBox=document.createElement('span');namesBox.className='modelnames';const abbr=document.createElement('strong');abbr.textContent=n;const origin=document.createElement('small');origin.textContent=modelOrigins[i];namesBox.append(abbr,origin);lab.append(namesBox,cb);$('models').append(lab)});$('layers').onclick=e=>{const b=e.target.closest('[data-layer]');if(!b)return;state.layer=b.dataset.layer;render()};$('slider').oninput=e=>{state.hour=+e.target.value;render()};$('prev').onclick=()=>{state.hour=(state.hour+7)%8;render()};$('next').onclick=()=>{state.hour=(state.hour+1)%8;render()};let timer=null;$('play').onclick=()=>{if(timer){clearInterval(timer);timer=null;$('play').textContent='▶'}else{timer=setInterval(()=>{state.hour=(state.hour+1)%8;render()},1300);$('play').textContent='❚❚'}};$('back').onclick=()=>{window.parent.postMessage('COLOMBOMETEO_VOLVER','*')};function render(){select.value=state.city;$('slider').value=state.hour;$('clock').textContent='+'+(state.hour*3)+' h';$('maptitle').textContent=state.layer+' · '+state.city+' · +'+(state.hour*3)+' h';$('unitlabel').textContent=state.layer+' ('+units[state.layer]+') · DATOS SIMULADOS';document.querySelectorAll('[data-layer]').forEach(b=>b.classList.toggle('active',b.dataset.layer===state.layer));document.querySelectorAll('.model').forEach(x=>x.classList.toggle('off',!state.active.has(x.dataset.name)));document.querySelectorAll('.citypin').forEach(b=>b.classList.toggle('sel',b.title==='Seleccionar '+state.city));const sh=$('shade');const wd=$('weather-demo');if(window.drawWindDemo)window.drawWindDemo();wd.className='weather-demo '+(state.layer==='Viento'?'wind-demo':state.layer==='Precipitación'?'rain-demo':state.layer==='Nubosidad'?'cloud-demo':state.layer==='Temperatura'?'temp-demo':'pressure-demo');wd.style.setProperty('--hour-shift',String(state.hour*11)+'px');sh.style.opacity=state.layer==='Precipitación'?'0':'.34';sh.style.background=state.layer==='Viento'?'transparent':state.layer==='Temperatura'?'linear-gradient(110deg,#fcb33c,#d63b2a,#4ba7ef)':state.layer==='Nubosidad'?'linear-gradient(130deg,#dfeaf5,#7d94a9,#dfeaf5)':'linear-gradient(140deg,#3750b5,#8c55c7,#55b2cf)';const hs=$('hours');hs.replaceChildren();for(let h=0;h<8;h++){const b=document.createElement('button');b.className='hour'+(h===state.hour?' active':'');b.innerHTML='+'+(h*3)+' h<b>'+(state.layer==='Precipitación'?'🌧':state.layer==='Viento'?'🌬':state.layer==='Nubosidad'?'☁':state.layer==='Temperatura'?'🌡':'◉')+'</b>';b.onclick=()=>{state.hour=h;render()};hs.append(b)}const thead=$('thead');thead.replaceChildren();const head=document.createElement('tr');['Modelo',...Array.from({length:8},(_,h)=>'+'+(h*3)+'h')].forEach(t=>{const th=document.createElement('th');th.textContent=t;head.append(th)});thead.append(head);const tbody=$('tbody');tbody.replaceChildren();names.forEach((n,m)=>{if(!state.active.has(n))return;const tr=document.createElement('tr');const label=document.createElement('td');label.style.color=colors[m];const l1=document.createElement('strong');l1.textContent=n;const l2=document.createElement('small');l2.textContent=modelOrigins[m];const ln=document.createElement('span');ln.className='modelrowname';ln.append(l1,l2);label.append(ln);tr.append(label);for(let h=0;h<8;h++){const td=document.createElement('td');td.className='val'+(h===state.hour?' current':'');td.textContent=f(value(ci(),h,m,state.layer));tr.append(td)}tbody.append(tr)});if(!state.active.size){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=9;td.textContent='Activa algún modelo para ver la comparación';tr.append(td);tbody.append(tr)}const vs=names.map((n,m)=>state.active.has(n)?value(ci(),state.hour,m,state.layer):null).filter(v=>v!==null);const spread=vs.length?Math.max(...vs)-Math.min(...vs):0;const score=vs.length>=2?Math.round(clamp(100-100*spread/scale[state.layer],0,100)):null;$('score').textContent=score===null?'—':score+'%';$('fill').style.width=(score??0)+'%';$('method').textContent=score===null?'Selecciona al menos dos modelos para compararlos.':'Coincidencia simulada = 100 − (rango entre modelos ÷ escala de referencia × 100). No es probabilidad de acierto.';const bottom=$('bottom');bottom.replaceChildren();names.forEach((n,m)=>{const card=document.createElement('div');card.className='panel mini'+(state.active.has(n)?'':' off');const h=document.createElement('div');h.className='minihead';h.style.background=colors[m];h.textContent=n+' · '+modelOrigins[m]+' · DEMO';const img=document.createElement('img');img.src='modelo_'+m+'.jpg';img.alt='Imagen ilustrativa del modelo '+n+' del boceto original';const ft=document.createElement('div');ft.className='minifoot';ft.innerHTML='<span>+'+(state.hour*3)+' h</span><strong>'+f(value(ci(),state.hour,m,state.layer))+' '+units[state.layer]+'</strong>';card.append(h,img,ft);bottom.append(card)});const note=document.createElement('div');note.className='panel note';note.innerHTML='<h2>📣 Aviso importante</h2><p>COLOMBOMETEO muestra lo que pronostican distintos modelos, cuándo lo pronostican y cuánto coinciden.</p><p><strong>Este prototipo es una simulación.</strong> Los mapas, cifras y porcentajes no representan pronósticos actuales.</p><p>Para decisiones reales, consulta siempre AEMET, Protección Civil y los avisos oficiales.</p>';bottom.append(note)}render();
+
+// Ficha meteorológica municipal real Open-Meteo.
+(function(){
+  'use strict';
+  const panel=document.querySelector('.realpanel');
+  const sidebar=document.querySelector('.right');
+  sidebar.insertBefore(panel,sidebar.firstChild);
+  const title=document.getElementById('real-title'), status=document.getElementById('realstatus');
+  const grid=document.getElementById('realgrid'), hours=document.getElementById('realhours');
+  const picker=document.getElementById('real-hour-select'), meta=document.getElementById('real-location-meta');
+  const forecast={name:'Valencia',lat:39.4699,lon:-0.3763,data:null,request:0};
+  let aborter=null;
+  const fmt=(v,unit)=>Number.isFinite(v)?(Math.round(v*10)/10).toLocaleString('es-ES')+' '+unit:'—';
+  const dateLabel=(s)=>s.replace('T',' · ');
+  const variables=['temperature_2m','precipitation_probability','precipitation','wind_speed_10m','wind_direction_10m','wind_gusts_10m'];
+  const cardinal=(deg)=>Number.isFinite(deg)?['N','NE','E','SE','S','SO','O','NO'][Math.round(deg/45)%8]:'—';
+  function renderHour(){
+    const d=forecast.data;if(!d)return;
+    const h=d.hourly, i=Number(picker.value), units=d.hourly_units||{};
+    grid.replaceChildren();hours.replaceChildren();
+    const items=[['Probabilidad de lluvia',h.precipitation_probability?.[i],'%'],['Precipitación prevista',h.precipitation?.[i],units.precipitation||'mm'],['Temperatura',h.temperature_2m?.[i],units.temperature_2m||'°C'],['Viento a 10 m',h.wind_speed_10m?.[i],units.wind_speed_10m||'km/h'],['Rachas',h.wind_gusts_10m?.[i],units.wind_gusts_10m||'km/h']];
+    items.forEach(([label,val,unit])=>{const el=document.createElement('div');el.className='realitem';const small=document.createElement('small');small.textContent=label;const strong=document.createElement('b');strong.textContent=fmt(val,unit);el.append(small,strong);grid.append(el)});
+    const wind=document.createElement('div');wind.className='realitem';const lab=document.createElement('small');lab.textContent='Dirección del viento';const b=document.createElement('b');b.textContent=cardinal(h.wind_direction_10m?.[i])+' · '+fmt(h.wind_direction_10m?.[i],'°');wind.append(lab,b);grid.append(wind);
+    for(let j=i;j<Math.min(i+6,h.time.length);j++){
+      const card=document.createElement('div');card.className='realhour';const heading=document.createElement('strong');heading.textContent=dateLabel(h.time[j]);card.append(heading);
+      [['🌧 Prob.',h.precipitation_probability?.[j],'%'],['☔ Lluvia',h.precipitation?.[j],'mm'],['🌡',h.temperature_2m?.[j],'°C'],['🌬',h.wind_speed_10m?.[j],'km/h']].forEach(([label,val,unit])=>{const line=document.createElement('span');line.textContent=label+' '+fmt(val,unit);card.append(line)});hours.append(card)
+    }
+  }
+  async function load(){
+    const seq=++forecast.request;
+    if(aborter)aborter.abort();aborter=new AbortController();
+    title.textContent='🌦️ Pronóstico REAL · '+forecast.name;
+    meta.innerHTML='Fuente: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · Coordenadas '+forecast.lat.toFixed(4)+', '+forecast.lon.toFixed(4)+' · Hora Europe/Madrid. Modelo de selección automática; no es la comparación simulada de cuatro modelos.';
+    status.classList.remove('error');status.textContent='Consultando pronóstico real para '+forecast.name+'…';
+    grid.replaceChildren();hours.replaceChildren();picker.disabled=true;picker.replaceChildren();
+    const url=new URL('https://api.open-meteo.com/v1/forecast');
+    url.searchParams.set('latitude',String(forecast.lat));url.searchParams.set('longitude',String(forecast.lon));
+    url.searchParams.set('hourly',variables.join(','));url.searchParams.set('timezone','Europe/Madrid');url.searchParams.set('forecast_days','3');
+    try{
+      const r=await fetch(url.toString(),{signal:aborter.signal});if(!r.ok)throw Error('HTTP '+r.status);
+      const d=await r.json();if(seq!==forecast.request)return;
+      if(!Array.isArray(d.hourly?.time)||!d.hourly.time.length)throw Error('sin datos horarios');
+      forecast.data=d;
+      const now=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).format(new Date()).replace(' ','T').slice(0,13);
+      const idx=Math.max(0,d.hourly.time.findIndex(t=>t.slice(0,13)>=now));
+      for(let i=idx;i<Math.min(idx+48,d.hourly.time.length);i++){const option=document.createElement('option');option.value=String(i);option.textContent=dateLabel(d.hourly.time[i]);picker.append(option)}
+      picker.disabled=false;picker.value=String(idx);renderHour();
+      status.textContent='Previsión horaria real de Open-Meteo · Actualizada en pantalla: '+new Date().toLocaleString('es-ES')+'. Hora seleccionada: '+dateLabel(d.hourly.time[idx])+'.';
+    }catch(e){if(seq!==forecast.request||e.name==='AbortError')return;status.classList.add('error');status.textContent='No se pudo obtener el pronóstico real ('+e.message+'). No se muestran valores inventados.'}
+  }
+  window.updateMunicipalForecast=(name,lat,lon)=>{if(!Number.isFinite(lat)||!Number.isFinite(lon))return;forecast.name=name;forecast.lat=lat;forecast.lon=lon;load()};
+  picker.addEventListener('change',renderHour);
+  document.getElementById('realrefresh').addEventListener('click',load);
+  load();
+})();
+</script><script>
+/* LABORATORIO: cartografía de Esri con atribución; uso sujeto a condiciones del proveedor; meteorología ilustrativa. */
+(function(){
+ const coords={'A Coruña':[43.3623,-8.4115],'Vigo':[42.2406,-8.7207],'Oviedo':[43.3619,-5.8494],'Bilbao':[43.263,-2.935],'Zaragoza':[41.6488,-0.8891],'Barcelona':[41.3874,2.1686],'Madrid':[40.4168,-3.7038],'Valencia':[39.4699,-0.3763],'Sevilla':[37.3891,-5.9845],'Málaga':[36.7213,-4.4214],'Murcia':[37.9922,-1.1307],'Valladolid':[41.6523,-4.7245]};
+ const mapEl=document.getElementById('real-map'),status=document.getElementById('place-status');
+ const frame=document.createElement('iframe');frame.title='Cartografía interactiva OpenStreetMap';frame.loading='eager';frame.referrerPolicy='strict-origin-when-cross-origin';frame.setAttribute('allowfullscreen','');frame.style.cssText='width:100%;height:100%;border:0;display:block;background:#d3e5ee';mapEl.appendChild(frame);
+ function showMap(lat,lon,span){const bbox=[lon-span,lat-span*.67,lon+span,lat+span*.67].map(v=>v.toFixed(6)).join('%2C');frame.src='https://www.openstreetmap.org/export/embed.html?bbox='+bbox+'&layer=mapnik&marker='+lat.toFixed(6)+'%2C'+lon.toFixed(6);}
+ showMap(40.15,-3.6,6.7);
+ window.focusCity=function(name,position){const ll=position||coords[name];if(!ll)return;showMap(ll[0],ll[1],.055);if(window.updateMunicipalForecast)window.updateMunicipalForecast(name,ll[0],ll[1]);status.textContent='📍 '+name+' · mapa interactivo; puedes ampliar y arrastrar dentro del mapa. Predicción DEMO.'};
+ window.pickTown=function(name,ll){let option=[...document.querySelector('#city').options].find(o=>o.value===name);if(!option){option=document.createElement('option');option.value=option.textContent=name;document.querySelector('#city').append(option)}window.statePlaceName=name;state.city=name;render();window.focusCity(name,ll)};
+ document.getElementById('place-reset').onclick=()=>{showMap(40.15,-3.6,6.7);status.textContent='Vista de España restaurada.'};
+ const search=document.getElementById('place-search');async function findTown(){const q=search.value.trim();if(q.length<2){status.textContent='Escribe al menos dos letras del municipio.';return}status.textContent='Buscando municipio…';try{const u='https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=es&q='+encodeURIComponent(q);const r=await fetch(u,{headers:{Accept:'application/json'}});if(!r.ok)throw Error('servicio no disponible');const results=await r.json();if(!results.length){status.textContent='No se ha encontrado el lugar.';return}const p=results[0];window.pickTown(p.name||q,[Number(p.lat),Number(p.lon)]);status.textContent='📍 '+p.display_name+' · ubicación real; meteorología simulada.'}catch(e){status.textContent='No se pudo buscar: '+e.message;}}
+ document.getElementById('place-go').onclick=findTown;search.addEventListener('keydown',e=>{if(e.key==='Enter')findTown()});
+ const canvas=document.getElementById('wind-canvas'),ctx=canvas.getContext('2d');let particles=[],last=0;
+ function resize(){const r=canvas.getBoundingClientRect();canvas.width=Math.max(1,Math.round(r.width*devicePixelRatio));canvas.height=Math.max(1,Math.round(r.height*devicePixelRatio));ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);particles=Array.from({length:180},()=>({x:Math.random()*r.width,y:Math.random()*r.height,age:Math.random()*130}));}new ResizeObserver(resize).observe(canvas);resize();
+ function animate(t){requestAnimationFrame(animate);if(t-last<30)return;last=t;const w=canvas.clientWidth,h=canvas.clientHeight;ctx.clearRect(0,0,w,h);if(state.layer!=='Viento')return;ctx.lineWidth=1.2;for(const p of particles){const angle=-.45+.32*Math.sin(p.y/70+p.x/110+state.hour*.4);const speed=1.8+1.4*Math.sin(p.y/100+state.hour*.5)**2;const x2=p.x+Math.cos(angle)*speed*3,y2=p.y+Math.sin(angle)*speed*3;ctx.strokeStyle='rgba(241,255,255,'+(.26+.6*(1-p.age/130))+')';ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(x2,y2);ctx.stroke();p.x=x2;p.y=y2;p.age++;if(p.x>w+10||p.y<0||p.y>h||p.age>130){p.x=-10;p.y=Math.random()*h;p.age=0}}}
+ requestAnimationFrame(animate);window.drawWindDemo=()=>{};
+
+})();
+</script><style>
+.v12status{padding:10px 12px;border:1px solid #b5d4e7;border-radius:9px;background:#f3faff;margin:10px 0;font-size:12px;line-height:1.5}.model .v12num{font-size:11px;font-weight:650;line-height:1.55;white-space:normal}.model{flex-direction:column;align-items:stretch;min-height:125px}.model>input{align-self:flex-end}.model .modelnames{margin-bottom:3px}.v12notice{font-size:11px;color:#486577;line-height:1.45;margin:6px 0}
+</style>
+<script>
+(function(){
+ 'use strict';
+ const specs=[['ECMWF','ecmwf_ifs'],['GFS','ncep_gfs_global'],['ICON','icon_eu'],['ARPEGE','meteofrance_arpege_europe']];
+ const vars=['temperature_2m','precipitation_probability','precipitation','wind_speed_10m','wind_gusts_10m','wind_direction_10m','relative_humidity_2m','cloud_cover'];
+ const map={ 'Precipitación':['precipitation','mm'],'Viento':['wind_speed_10m','km/h'],'Temperatura':['temperature_2m','°C'],'Nubosidad':['cloud_cover','%']};
+ const box=document.createElement('div');box.className='v12status';box.id='v12-status';box.setAttribute('role','status');box.textContent='V12 · Preparando consulta de los cuatro modelos…';
+ document.getElementById('models').before(box);
+ const legend=document.createElement('p');legend.className='v12notice';legend.textContent='Las cuatro casillas muestran pronósticos reales por coordenadas. La probabilidad de lluvia puede no estar disponible en algún modelo. Los mapas de colores son ilustrativos.';document.getElementById('models').after(legend);
+ let place={name:'Valencia',lat:39.4699,lon:-.3763}, seq=0, datasets={}, baseTime='', controller=null;
+ const fmt=(v,u)=>Number.isFinite(v)?(Math.round(v*10)/10).toLocaleString('es-ES')+' '+u:'No disponible';
+ function selectedTime(){const picker=document.getElementById('real-hour-select');return picker.options[picker.selectedIndex]?.textContent?.replace(' · ','T')||baseTime}
+ function indexFor(d){const ts=d?.hourly?.time;if(!ts?.length)return -1;const t=selectedTime();let i=ts.indexOf(t);if(i>=0)return i;const now=new Date();const local=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).format(now).replace(' ','T');return Math.max(0,ts.findIndex(x=>x>=local));}
+ function display(){
+   const t=selectedTime();const key=map[state.layer]||null;
+   const info=specs.map(([n,id])=>{const d=datasets[id],i=indexFor(d);return {n,id,d,i,h:d?.hourly||{},available:!!d&&i>=0};});
+   document.querySelectorAll('.model').forEach(el=>{
+     const m=info.find(x=>x.n===el.dataset.name);if(!m)return;
+     let sub=el.querySelector('.v12num');if(!sub){sub=document.createElement('span');sub.className='v12num';el.querySelector('.modelnames').after(sub)}
+     const v=(name,unit)=>fmt(m.h[name]?.[m.i],unit);
+     sub.textContent=m.available?('🌧 '+v('precipitation_probability','%')+' · ☔ '+v('precipitation','mm')+' | 🌡 '+v('temperature_2m','°C')+' · 🌬 '+v('wind_speed_10m','km/h')+' · Rachas '+v('wind_gusts_10m','km/h')):'Datos no disponibles';
+   });
+   const head=document.getElementById('thead'),body=document.getElementById('tbody');head.replaceChildren();body.replaceChildren();
+   const hr=document.createElement('tr');['Modelo',...Array.from({length:8},(_,j)=>{const d=info.find(x=>x.available)?.d;const i=info.find(x=>x.available)?.i??0;return d?.hourly?.time?.[i+j*3]?.slice(11)||'—'})].forEach(x=>{const th=document.createElement('th');th.textContent=x;hr.append(th)});head.append(hr);
+   info.filter(x=>state.active.has(x.n)).forEach(m=>{const tr=document.createElement('tr');const first=document.createElement('td');first.textContent=m.n;tr.append(first);for(let j=0;j<8;j++){const td=document.createElement('td');td.className='val'+(j===0?' current':'');const field=key?.[0]||'precipitation';const unit=key?.[1]||'mm';const i=m.i+j*3;td.textContent=m.available?fmt(m.h[field]?.[i],unit):'—';tr.append(td)}body.append(tr)});
+   if(!body.children.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=9;td.textContent='Activa algún modelo para comparar';tr.append(td);body.append(tr)}
+   const field=key?.[0], values=info.filter(x=>state.active.has(x.n)&&x.available).map(x=>x.h[field]?.[x.i]).filter(Number.isFinite);
+   const score=document.getElementById('score'),fill=document.getElementById('fill'),method=document.getElementById('method');score.textContent='—';fill.style.width='0%';
+   if(values.length>=2){const lo=Math.min(...values),hi=Math.max(...values);method.textContent='Rango entre '+values.length+' modelos: '+fmt(lo,key[1])+' a '+fmt(hi,key[1])+'. No es una probabilidad de acierto.'}else{method.textContent='Se necesitan al menos dos modelos con datos reales comparables. No se calcula una coincidencia artificial.'}
+   const bottom=document.getElementById('bottom');bottom.querySelectorAll('.mini').forEach((card,i)=>{const m=info[i];if(!m)return;const h=card.querySelector('.minihead');if(h)h.textContent=m.n+' · '+['Modelo Europeo','Modelo Estadounidense','Modelo Alemán','Modelo Francés'][i]+' · CIFRAS REALES / IMAGEN DEMO';const ft=card.querySelector('.minifoot strong');if(ft)ft.textContent=m.available?fmt(m.h[key?.[0]||'precipitation']?.[m.i],key?.[1]||'mm'):'No disponible'});
+   const note=bottom.querySelector('.note');if(note)note.innerHTML='<h2>📣 Transparencia meteorológica</h2><p>Datos horarios reales consultados a Open-Meteo para cada modelo. Las imágenes de mapas y capas coloreadas son DEMO, no mapas reales de predicción. La ausencia de dato nunca equivale a 0 %.</p><p>Para alertas y decisiones de seguridad, consulta AEMET y Protección Civil.</p>';
+   renderGraph();
+   box.textContent='📍 '+place.name+' · '+(t||'hora actual')+' (hora peninsular) · '+info.filter(x=>x.available).length+'/4 modelos disponibles · Fuente: Open-Meteo. Datos según rejilla de cada modelo.';
+ }
+ async function load(name,lat,lon){if(!Number.isFinite(lat)||!Number.isFinite(lon))return;place={name,lat,lon};const id=++seq;if(controller)controller.abort();controller=new AbortController();datasets={};box.textContent='Consultando cuatro modelos reales para '+name+'…';
+  await Promise.all(specs.map(async([n,model])=>{const url=new URL('https://api.open-meteo.com/v1/forecast');url.search=new URLSearchParams({latitude:String(lat),longitude:String(lon),hourly:vars.join(','),models:model,forecast_days:'4',timezone:'Europe/Madrid'}).toString();try{const r=await fetch(url,{signal:controller.signal});if(!r.ok)throw Error('HTTP '+r.status);const d=await r.json();if(id===seq&&Array.isArray(d.hourly?.time))datasets[model]=d;}catch(e){if(id===seq&&e.name!=='AbortError')console.warn('Modelo '+model+': '+e.message)}}));if(id===seq)display();
+ }
+ const oldRender=render;render=function(){oldRender();display()};
+ const oldFocus=window.focusCity;window.focusCity=function(name,ll){oldFocus(name,ll);const coords={'Sollana':[39.28,-.38],'Valencia':[39.4699,-.3763],'Sueca':[39.202,-.311],'Madrid':[40.4168,-3.7038]};const p=ll||coords[name];if(p)load(name,p[0],p[1]);};
+ const picker=document.getElementById('real-hour-select');picker.addEventListener('change',()=>setTimeout(display,0));
+ document.getElementById('realrefresh').addEventListener('click',()=>load(place.name,place.lat,place.lon));
+ // Hour picker can be populated asynchronously after the initial request.
+ const obs=new MutationObserver(()=>display());obs.observe(picker,{childList:true});
+
+ // V14: matriz compacta, interactiva y vinculada a los cuatro modelos reales.
+ const panel=document.getElementById('hours').closest('section.panel');
+ panel.querySelector('.heading h2').textContent='◷ Previsión por horas y modelos';
+ const graphControls=document.createElement('div');graphControls.className='v14-controls';
+ const options=[['rain','🌧 Lluvia (%)'],['mm','☔ Lluvia (mm)'],['wind','🌬 Viento'],['gust','💨 Rachas'],['temp','🌡 Temperatura']];
+ let selected='rain',chosenTimes=[],manualSelection=false;
+ const chartVars={rain:['precipitation_probability','%',100],mm:['precipitation','mm',null],wind:['wind_speed_10m','km/h',null],gust:['wind_gusts_10m','km/h',null],temp:['temperature_2m','°C',null]};
+ for(const [key,label] of options){const btn=document.createElement('button');btn.type='button';btn.textContent=label;btn.dataset.v14=key;btn.onclick=()=>{selected=key;renderGraph()};graphControls.append(btn)}
+ const pickBox=document.createElement('div');pickBox.className='v14-pick';
+ pickBox.innerHTML='<label for="v14-time">🕒 Hora que te interesa</label><input id="v14-time" type="time" value="16:35" step="60"><button id="v14-go" type="button">Ver horas</button><button id="v14-reset" type="button" class="v14-secondary">Ver desde ahora</button>';
+ const graphIntro=document.createElement('p');graphIntro.className='v14-caption';graphIntro.textContent='Comparación real por modelo · Pulsa las horas para seleccionar columnas · Desplaza horizontalmente para ver más.';
+ const graphScroll=document.createElement('div');graphScroll.className='v14-scroll';graphScroll.setAttribute('aria-label','Matriz horaria comparativa de los cuatro modelos');
+ const graph=document.createElement('div');graph.className='v14-graph';graphScroll.append(graph);
+ const detail=document.createElement('section');detail.className='v14-detail';
+ const graphNote=document.createElement('p');graphNote.className='v14-caption';
+ panel.querySelector('.heading').after(graphControls,pickBox,graphIntro,graphScroll,detail,graphNote);
+ const timeInput=pickBox.querySelector('#v14-time');
+ pickBox.querySelector('#v14-go').onclick=()=>{
+  const first=specs.map(([,id])=>datasets[id]).find(d=>d?.hourly?.time?.length);
+  if(!first)return;
+  const date=selectedTime()?.slice(0,10)||first.hourly.time[0].slice(0,10);
+  const hh=Number(timeInput.value.split(':')[0]);
+  const t1=date+'T'+String(hh).padStart(2,'0')+':00';
+  const next=new Date(date+'T12:00:00Z');next.setUTCDate(next.getUTCDate()+1);
+  const tomorrow=next.toISOString().slice(0,10);
+  const t2=(hh===23?tomorrow:date)+'T'+String((hh+1)%24).padStart(2,'0')+':00';
+  chosenTimes=[t1,t2].filter(t=>first.hourly.time.includes(t));manualSelection=true;renderGraph();
+  const cell=graph.querySelector('.v14-time.selected');if(cell)cell.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+ };
+ pickBox.querySelector('#v14-reset').onclick=()=>{chosenTimes=[];manualSelection=false;renderGraph();graphScroll.scrollLeft=0};
+ const palette={rain:[42,145,219],mm:[42,145,219],wind:[32,165,145],gust:[225,145,60],temp:[230,151,63]};
+ // V15: iconos vectoriales propios y autocontenidos. La intensidad se interpreta desde mm/h, NUNCA desde la probabilidad.
+ // V16: símbolos propios en SVG, diseñados para la lectura horaria.
+ const iconSvg=(kind)=>{
+  // V18: iconos Lucide de trazo fino, fieles a la muestra aprobada por el usuario.
+  // Se usan las geometrías de sun, cloud, cloud-drizzle, cloud-rain y cloud-rain-wind.
+  // La clasificación sigue usando precipitación (mm/h), nunca probabilidad (%).
+  const line=(shapes,color)=>`<g fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${shapes}</g>`;
+  const cloud='<path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 16.25"/><path d="M8 16h12"/>';
+  let art='';
+  if(kind==='sun')art=line('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M6.35 17.65l-1.42 1.42M19.07 4.93l-1.42 1.42"/>','#e9b33d');
+  if(kind==='cloud')art=line(cloud,'#a5b3c2');
+  if(kind==='drizzle')art=line(cloud+'<path d="M8 20v2M12 20v2M16 20v2"/>','#8db8d5');
+  if(kind==='moderate')art=line(cloud+'<path d="M8 19v2M8 13v2M12 21v2M12 15v2M16 19v2M16 13v2"/>','#4e95c6');
+  if(kind==='heavy')art=line(cloud+'<path d="m8 19-1 2M11 19l-1 2M14 19l-1 2M17 19l-1 2M10 15l-1 2M14 15l-1 2"/>','#315c87');
+  // Estos cinco iconos tienen el mismo lienzo 24x24 que la muestra original.
+  if(['sun','cloud','drizzle','moderate','heavy'].includes(kind))return `<svg class="v15-icon v18-lucide" viewBox="0 0 24 24" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">${art}</svg>`;
+  if(kind==='calm')art='<circle cx="31" cy="27" r="13" fill="#e3f3f1" stroke="#8bbeb5" stroke-width="2"/><path d="M24 27h14" stroke="#4c9c8e" stroke-width="3" stroke-linecap="round"/>';
+  if(kind==='wind-soft')art='<path d="M8 21h29c9 0 9-12 1-12-4 0-7 3-7 6M7 31h43c10 0 9 13 1 13-4 0-6-3-6-6" fill="none" stroke="#58b0a4" stroke-width="3.4" stroke-linecap="round"/>';
+  if(kind==='wind-moderate')art='<path d="M4 17h40c11 0 11-12 3-12-4 0-7 3-7 6M5 28h49M5 39h35c11 0 11 12 3 12-4 0-7-3-7-6" fill="none" stroke="#d59e44" stroke-width="3.5" stroke-linecap="round"/>';
+  if(kind==='wind-strong')art='<path d="M4 13h42c12 0 12-11 4-11-4 0-7 3-7 6M3 24h54M3 34h52M5 44h34c12 0 12 11 4 11-4 0-7-3-7-6" fill="none" stroke="#ce6159" stroke-width="4" stroke-linecap="round"/>';
+  return `<svg class="v15-icon" viewBox="0 0 62 58" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">${art}</svg>`;
+ };
+ const temperatureStops=[[-5,[35,87,177]],[5,[67,151,215]],[13,[53,168,169]],[20,[103,173,93]],[25,[222,191,60]],[30,[229,134,55]],[35,[215,75,60]],[42,[153,38,61]]];
+ const temperatureColor=(t)=>{
+  if(t<=temperatureStops[0][0])return `rgb(${temperatureStops[0][1].join(',')})`;
+  for(let j=1;j<temperatureStops.length;j++)if(t<=temperatureStops[j][0]){
+   const [a,ac]=temperatureStops[j-1],[b,bc]=temperatureStops[j],f=(t-a)/(b-a);
+   return 'rgb('+ac.map((x,k)=>Math.round(x+(bc[k]-x)*f)).join(',')+')';
+  }
+  return 'rgb(153,38,61)';
+ };
+ const thermometer=(t)=>{
+  const color=temperatureColor(t),fill=Math.max(0,Math.min(1,(t+5)/47)),y=9+(1-fill)*29;
+  return `<svg class="v16-thermo" viewBox="0 0 28 55" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="4" width="12" height="37" rx="6" fill="#f5f9fc" stroke="#8195a6" stroke-width="1.5"/><rect x="11" y="${y.toFixed(1)}" width="6" height="${(41-y).toFixed(1)}" rx="3" fill="${color}"/><circle cx="14" cy="42" r="10" fill="${color}" stroke="#8195a6" stroke-width="1.3"/><circle cx="14" cy="42" r="4" fill="#ffffff" opacity=".22"/></svg>`;
+ };
+ const windKind=(v)=>!Number.isFinite(v)?null:v<2?'calm':v<15?'wind-soft':v<30?'wind-moderate':'wind-strong';
+ function rainIconKind(d,i){
+  const mm=d?.hourly?.precipitation?.[i];
+  if(!Number.isFinite(mm))return null;
+  // Umbrales de visualización provisionales: no son alertas oficiales ni una clasificación meteorológica normativa.
+  if(mm>=2)return 'heavy';
+  if(mm>=0.5)return 'moderate';
+  if(mm>=0.1)return 'drizzle';
+  const cover=d?.hourly?.cloud_cover?.[i];
+  return Number.isFinite(cover)&&cover>=55?'cloud':'sun';
+ }
+ const hoursShown=24;
+ const fmt14=(v)=>Number(v).toLocaleString('es-ES',{maximumFractionDigits:1});
+ function renderGraph(){
+  for(const btn of graphControls.querySelectorAll('button'))btn.classList.toggle('chosen',btn.dataset.v14===selected);
+  graph.replaceChildren();
+  const [field,unit,fixedMax]=chartVars[selected];
+  const first=specs.map(([,id])=>datasets[id]).find(d=>Array.isArray(d?.hourly?.time));
+  if(!first){graph.textContent='Esperando datos reales de los modelos…';detail.textContent='';graphNote.textContent='No se muestran cifras simuladas.';return}
+  const time=selectedTime();let start=first.hourly.time.indexOf(time);
+  if(start<0){const local=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).format(new Date()).replace(' ','T');start=first.hourly.time.findIndex(t=>t>=local)}
+  start=Math.max(0,start);
+  if(manualSelection&&chosenTimes.length){const ix=first.hourly.time.indexOf(chosenTimes[0]);if(ix>=0)start=Math.max(0,ix-3)}
+  const ticks=first.hourly.time.slice(start,start+hoursShown);
+  if(!manualSelection){chosenTimes=ticks.slice(0,1)}
+  const all=[];for(const [,id] of specs){const d=datasets[id];if(!d)continue;for(const t of ticks){const i=d.hourly.time.indexOf(t),v=d.hourly[field]?.[i];if(Number.isFinite(v))all.push(v)}}
+  const low=selected==='temp'&&all.length?Math.floor(Math.min(...all)/5)*5:0;
+  const high=fixedMax??(all.length?Math.max(low+1,Math.ceil(Math.max(...all)/5)*5):10);
+  const range=Math.max(1,high-low);
+  const header=document.createElement('div');header.className='v14-line v14-header';
+  const corner=document.createElement('div');corner.className='v14-name';corner.textContent='MODELO';header.append(corner);
+  for(const t of ticks){const cell=document.createElement('button');cell.type='button';cell.className='v14-time'+(chosenTimes.includes(t)?' selected':'');cell.textContent=t.slice(11,13)+'h';cell.title=t.replace('T',' · ');cell.onclick=()=>{manualSelection=true;chosenTimes=chosenTimes.includes(t)?chosenTimes.filter(x=>x!==t):[...chosenTimes,t].slice(-2);renderGraph()};header.append(cell)}graph.append(header);
+  specs.forEach(([name,id])=>{
+   const d=datasets[id],row=document.createElement('div');row.className='v14-line';
+   const label=document.createElement('div');label.className='v14-name';label.textContent=name;row.append(label);
+   for(const t of ticks){const i=d?.hourly?.time?.indexOf(t)??-1,v=i>=0?d.hourly[field]?.[i]:null;
+    const cell=document.createElement('button');cell.type='button';cell.className='v14-cell'+(chosenTimes.includes(t)?' selected':'');
+    cell.onclick=()=>{manualSelection=true;chosenTimes=chosenTimes.includes(t)?chosenTimes.filter(x=>x!==t):[...chosenTimes,t].slice(-2);renderGraph()};
+    if(Number.isFinite(v)){
+      const frac=Math.max(0,Math.min(1,(v-low)/range));const [r,g,b]=palette[selected];
+      cell.style.background='rgba('+r+','+g+','+b+','+(0.07+frac*.44).toFixed(3)+')';
+      if(selected==='rain'||selected==='mm'){
+        const kind=rainIconKind(d,i);
+        if(kind){cell.classList.add('v15-weather');cell.innerHTML=iconSvg(kind)+'<span class="v15-value">'+fmt14(v)+unit+'</span>';}
+        else cell.textContent=fmt14(v)+unit;
+      }else if(selected==='wind'||selected==='gust'){
+        cell.classList.add('v15-weather');cell.innerHTML=iconSvg(windKind(v))+'<span class="v15-value">'+fmt14(v)+' km/h</span>';
+      }else if(selected==='temp'){
+        cell.classList.add('v15-weather','v16-temperature');cell.style.background=temperatureColor(v).replace('rgb(', 'rgba(').replace(')', ',0.20)');cell.style.setProperty('--v17-temp-color',temperatureColor(v));cell.innerHTML=thermometer(v)+'<span class="v15-value">'+fmt14(v)+' °C</span>';
+      }else cell.textContent=fmt14(v)+unit;
+      cell.title=name+' · '+t.replace('T',' · ')+' · '+fmt14(v)+' '+unit;
+    }else{cell.textContent='—';cell.title='Dato no disponible · '+name+' · '+t}
+    row.append(cell)
+   }graph.append(row)
+  });
+  detail.replaceChildren();
+  if(chosenTimes.length){
+    const h=document.createElement('h3');h.textContent='◷ Detalle de horas seleccionadas';detail.append(h);
+    const table=document.createElement('table');table.className='v14-table';const tr=document.createElement('tr');
+    ['Modelo',...chosenTimes.map(t=>t.slice(0,10)+' · '+t.slice(11))].forEach(label=>{const th=document.createElement('th');th.textContent=label;tr.append(th)});table.append(tr);
+    specs.forEach(([name,id])=>{const row=document.createElement('tr');const n=document.createElement('th');n.textContent=name;row.append(n);for(const t of chosenTimes){const d=datasets[id],i=d?.hourly?.time?.indexOf(t)??-1,v=i>=0?d.hourly[field]?.[i]:null;const td=document.createElement('td');td.textContent=Number.isFinite(v)?fmt14(v)+' '+unit:'—';row.append(td)}table.append(row)});detail.append(table);
+    if(chosenTimes.length===2){const msg=document.createElement('p');msg.className='v14-caption';msg.textContent='Dos horas de referencia: no constituyen una predicción exacta para los minutos intermedios.';detail.append(msg)}
+  }
+  graphNote.textContent=(selected==='rain'?'Probabilidad de precipitación (%) cuando está disponible. ARPEGE puede no ofrecer este dato; «—» no significa 0 %.':selected==='mm'?'Cantidad de precipitación prevista por hora (mm); no es la probabilidad de lluvia.':'Los colores indican magnitud dentro de la variable seleccionada, no riesgo ni fiabilidad.')+' Escala visual compartida entre modelos: '+low+' a '+high+' '+unit+'. Fuente: Open-Meteo; la rejilla de cada modelo puede diferir.'+((selected==='rain'||selected==='mm')?' Iconos de lluvia según mm/h: sin lluvia <0,1; débil 0,1–<0,5; moderada 0,5–<2; intensa ≥2. Umbrales visuales provisionales; no son alertas. Si faltan mm no se inventa icono.':'');
+ }
+ renderGraph();
+ load(place.name,place.lat,place.lon);
+})();
+</script><style>
+/* V14: matriz real compacta, sin barras ni datos ficticios */
+.right>section.panel:has(#models){display:none!important}
+#hours,#unitlabel,.matrix{display:none!important}
+.v14-controls{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}
+.v14-controls button,.v14-pick button{border:1px solid #b7cfe0;background:#f2f8fc;color:#23465e;border-radius:9px;padding:9px 12px;font-weight:700;cursor:pointer}
+.v14-controls button.chosen,.v14-pick button:not(.v14-secondary){background:#146da8;color:white;border-color:#146da8}
+.v14-pick{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:8px 0 12px;background:#f0f7fc;border:1px solid #d8e6ef;padding:10px;border-radius:11px}
+.v14-pick label{font-weight:700;font-size:12px;color:#284b64}
+.v14-pick input{border:1px solid #bdd2e1;border-radius:8px;padding:8px;font:inherit;background:white;color:#17354a}
+.v14-scroll{overflow-x:auto;max-width:100%;border:1px solid #d8e5ef;border-radius:12px;background:#fff}
+.v14-graph{width:max-content;min-width:100%;padding:8px 5px}
+.v14-line{display:grid;grid-template-columns:90px repeat(24,64px);gap:4px;margin-bottom:5px;align-items:stretch}
+.v14-header{margin-bottom:7px}
+.v14-name{position:sticky;left:0;z-index:2;background:#fff;display:flex;align-items:center;padding:0 5px;font-size:11px;font-weight:800;color:#153b59}
+.v14-time{border:1px solid #dbe7ef;border-radius:7px;background:#f3f7fa;height:36px;font-weight:700;color:#28516e;cursor:pointer}
+.v14-cell{border:1px solid transparent;border-radius:7px;height:52px;font-weight:750;font-size:12px;color:#163a58;cursor:pointer;white-space:nowrap;padding:3px}
+.v14-cell:hover,.v14-time:hover{outline:2px solid #7cc3ed}
+.v14-time.selected{background:#168ee1;color:white;border-color:#168ee1}
+.v14-cell.selected{border:2px solid #168ee1;box-shadow:inset 0 0 0 1px #ffffff}
+.v14-detail{margin-top:14px;padding:12px;border:1px solid #d7e7f1;border-radius:12px;background:#f6fbff;overflow-x:auto}
+.v14-detail h3{margin:0 0 9px;font-size:14px;color:#173e5b}
+.v14-table{width:100%;border-collapse:separate;border-spacing:3px;font-size:12px;color:#183e5d}
+.v14-table td,.v14-table th{background:white;border-radius:5px;padding:8px;text-align:center;white-space:nowrap}
+.v14-table th:first-child{text-align:left}
+.v14-caption{font-size:11px;line-height:1.5;color:#49677b;margin:8px 0}
+@media(max-width:600px){.v14-line{grid-template-columns:74px repeat(24,59px)}.v14-name{font-size:10px}.v14-cell{font-size:11px}}
+/* V15: pequeños pictogramas meteorológicos originales en la matriz */
+.v14-cell.v15-weather{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;padding:1px 2px;height:60px;line-height:1.05}
+.v15-icon{width:35px;height:34px;display:block;flex-shrink:0}
+.v15-value{font-size:11px;font-weight:800;white-space:nowrap}
+.v14-cell.v15-weather:hover .v15-icon{transform:translateY(-1px)}
+@media(max-width:600px){.v15-icon{width:31px;height:31px}.v15-value{font-size:10px}}
+/* V16: termómetro cromático y símbolos del viento */
+.v14-cell.v16-temperature{flex-direction:row;gap:1px}
+.v16-thermo{width:23px;height:40px;flex-shrink:0}
+.v16-temperature .v15-value{font-size:10px}
+.v14-cell.v15-weather{height:64px}
+@media(max-width:600px){.v16-thermo{width:19px;height:36px}.v16-temperature .v15-value{font-size:9px}}
+/* V17: misma escala cromática para termómetro y fondo, con menor opacidad en la celda. */
+.v14-cell.v16-temperature{border-color:var(--v17-temp-color);border-width:1px;border-style:solid}
+.v14-cell.v16-temperature .v15-value{color:#17354c;text-shadow:0 1px 0 rgba(255,255,255,.55)}
+</style></body></html>
+
+<!-- COLOMBOMETEO V18: iconos originales de trazo fino; resto de V17 conservado. -->

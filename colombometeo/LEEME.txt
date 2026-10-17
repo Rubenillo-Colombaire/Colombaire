@@ -1,1 +1,9 @@
-Carpeta de COLOMBOMETEO V18.
+COLOMBOMETEO V2 — DEMOSTRACIÓN VISUAL INTERACTIVA
+
+Abre index.html en el navegador. No requiere instalación ni conexión a internet.
+
+Controles: mapa (puntos de ciudades), selector de ciudad, capas, horas, reproducir, activar/desactivar modelos.
+
+IMPORTANTE: los datos son SIMULADOS. La cartografía es un recorte del boceto proporcionado por el usuario, no un mapa meteorológico real. No utilizar para planificar sueltas ni decisiones de seguridad.
+
+No se conecta a COLOMBAIRE ni modifica datos de palomos. El botón de regreso está reservado para una integración futura.
