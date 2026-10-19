@@ -1,0 +1,10 @@
+COLOMBOMETEO V24 EXPERIMENTAL
+
+Subir la carpeta V24 completa a pruebas-v19, sin reemplazar V23-1.
+Acceso: https://rubenillo-colombaire.github.io/Colombaire/pruebas-v19/V24/
+
+Cambios: reproducción horaria (950 ms/fotograma), iconos y capa de lluvia actualizados con cada hora, transparencia en lluvia y ajuste del retardo de repintado.
+
+IMPORTANTE: lluvia y probabilidades son interpolaciones orientativas de 18 municipios, NO datos espaciales de alta resolución ni radar. El movimiento procede de la evolución horaria de las muestras, no de advección meteorológica real.
+
+No instalar como PWA todavía: primero validar en Safari iPhone. V23.1 permanece intacta.
