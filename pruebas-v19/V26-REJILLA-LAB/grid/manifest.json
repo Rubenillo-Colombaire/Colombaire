@@ -3,9 +3,9 @@
   "resolution": "0.25°",
   "precipitation_note": "Acumulación por intervalos de 3 horas; NO mm/h",
   "frames": {
-    "2026-10-20T09:00:00Z": {
+    "2026-10-21T00:00:00Z": {
       "temperature_2m": {
-        "file": "grid/temperature_2m_003.png",
+        "file": "grid/temperature_2m_018.png",
         "bounds": [
           [
             37.375,
@@ -18,7 +18,7 @@
         ]
       },
       "wind_speed_10m": {
-        "file": "grid/wind_speed_10m_003.png",
+        "file": "grid/wind_speed_10m_018.png",
         "bounds": [
           [
             37.375,
@@ -31,7 +31,7 @@
         ]
       },
       "precipitation": {
-        "file": "grid/precipitation_003.png",
+        "file": "grid/precipitation_018.png",
         "bounds": [
           [
             37.375,
@@ -44,9 +44,9 @@
         ]
       }
     },
-    "2026-10-20T12:00:00Z": {
+    "2026-10-21T03:00:00Z": {
       "temperature_2m": {
-        "file": "grid/temperature_2m_006.png",
+        "file": "grid/temperature_2m_021.png",
         "bounds": [
           [
             37.375,
@@ -59,7 +59,7 @@
         ]
       },
       "wind_speed_10m": {
-        "file": "grid/wind_speed_10m_006.png",
+        "file": "grid/wind_speed_10m_021.png",
         "bounds": [
           [
             37.375,
@@ -72,7 +72,7 @@
         ]
       },
       "precipitation": {
-        "file": "grid/precipitation_006.png",
+        "file": "grid/precipitation_021.png",
         "bounds": [
           [
             37.375,
@@ -85,9 +85,9 @@
         ]
       }
     },
-    "2026-10-20T15:00:00Z": {
+    "2026-10-21T06:00:00Z": {
       "temperature_2m": {
-        "file": "grid/temperature_2m_009.png",
+        "file": "grid/temperature_2m_024.png",
         "bounds": [
           [
             37.375,
@@ -100,7 +100,7 @@
         ]
       },
       "wind_speed_10m": {
-        "file": "grid/wind_speed_10m_009.png",
+        "file": "grid/wind_speed_10m_024.png",
         "bounds": [
           [
             37.375,
@@ -113,7 +113,7 @@
         ]
       },
       "precipitation": {
-        "file": "grid/precipitation_009.png",
+        "file": "grid/precipitation_024.png",
         "bounds": [
           [
             37.375,
