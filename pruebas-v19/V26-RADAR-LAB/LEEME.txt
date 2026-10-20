@@ -1,0 +1,7 @@
+COLOMBOMETEO V26 RADAR LAB
+
+Sube index.html a pruebas-v19/V26-RADAR-LAB/ en GitHub Pages.
+Fuente: RainViewer API (radar histórico, NO AEMET directo ni pronóstico).
+Requiere conexión a internet, Leaflet CDN, OpenStreetMap y API de RainViewer.
+No incorpora ni modifica V25.2.
+No hay garantías de cobertura, disponibilidad ni latencia.
