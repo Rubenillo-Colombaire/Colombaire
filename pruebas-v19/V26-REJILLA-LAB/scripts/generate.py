@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'grid'; OUT.mkdir(exist_ok=True)
 # Expanded bounding rectangle covering Comunitat Valenciana, with margins.
 WEST, EAST, SOUTH, NORTH = -2.0, 1.3, 37.4, 41.3
-STEPS = [3, 6, 9]  # Primera comprobación: tres fotogramas, costes de red reducidos
+STEPS = [18, 21, 24]  # Tres plazos posteriores, normalmente futuros para el ciclo ECMWF disponible
 COLORS = {
  'temperature_2m': [(0,(68,103,176)),(10,(79,177,229)),(20,(235,215,94)),(30,(215,71,68))],
  'wind_speed_10m': [(0,(157,214,189)),(20,(240,219,109)),(40,(243,162,82)),(70,(158,56,112))],
