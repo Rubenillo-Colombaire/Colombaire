@@ -1,0 +1,49 @@
+name: COLOMBOMETEO V26 - Generar rejilla ECMWF
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: pruebas-v19/V26-REJILLA-LAB/requirements.txt
+      - name: Instalar dependencias
+        run: pip install -r pruebas-v19/V26-REJILLA-LAB/requirements.txt
+      - name: Descargar y convertir ECMWF IFS
+        working-directory: pruebas-v19/V26-REJILLA-LAB
+        run: python scripts/generate.py
+      - name: Verificar archivos generados
+        run: |
+          python - <<'PYVERIFY'
+          import json,pathlib
+          d=pathlib.Path('pruebas-v19/V26-REJILLA-LAB/grid')
+          j=json.loads((d/'manifest.json').read_text())
+          assert len(j['frames']) == 3, 'Se esperaban tres horas de pronóstico'
+          for frame in j['frames'].values():
+              for v in ('temperature_2m','wind_speed_10m','precipitation'):
+                  assert (pathlib.Path('pruebas-v19/V26-REJILLA-LAB')/frame[v]['file']).is_file()
+          print('VERIFICADO:',len(j['frames']),'fotogramas; nueve imágenes')
+          PYVERIFY
+      - name: Guardar únicamente las imágenes y el manifiesto
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pruebas-v19/V26-REJILLA-LAB/grid/
+          if ! git diff --cached --quiet; then
+            git commit -m 'V26 LAB: rejilla ECMWF IFS (3 fotogramas)'
+            git push
+          else
+            echo 'No hay cambios que publicar'
+          fi
