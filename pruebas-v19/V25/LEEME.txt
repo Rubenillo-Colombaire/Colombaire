@@ -1,0 +1,7 @@
+COLOMBOMETEO V25 EXPERIMENTAL
+
+Versión independiente basada en V24, sin modificar el ZIP original.
+Cambios: cabecera, iconos, selectores, siete días dinámicos, gradiente de precipitación mm/1 h y botón de geolocalización.
+La capa meteorológica procede de interpolación de los valores reales consultados en municipios; no es una rejilla meteorológica nativa.
+La geolocalización necesita HTTPS y permiso explícito. No hay seguimiento continuo.
+Prueba los cuatro modelos y las cuatro variables antes de sustituir cualquier versión publicada.
