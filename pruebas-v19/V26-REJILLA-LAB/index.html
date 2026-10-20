@@ -100,9 +100,11 @@ function showGrid(){
  if(model!=='ECMWF'||!gridManifest||variable==='precipitation_probability'){removeGrid();return false}
  const selected=times[hour];if(!selected){removeGrid();return false}
  // Open-Meteo time is local ISO; match ECMWF UTC frame via epoch.
- const tzTime=new Date(selected).getTime();
+ // Open-Meteo delivers Europe/Madrid wall-clock strings without a UTC offset.
+ // Convert each UTC ECMWF frame to Madrid wall-clock before comparing.
+ const madridClock=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
  const frames=Object.keys(gridManifest.frames||{});
- const frame=frames.find(t=>{const d=new Date(t);return Math.abs(d.getTime()-tzTime)<60*1000})
+ const frame=frames.find(t=>madridClock.format(new Date(t)).replace(' ','T')===selected.slice(0,16))
  if(!frame){removeGrid();return false}
  const item=gridManifest.frames[frame]?.[variable];if(!item){removeGrid();return false}
  const url='./'+item.file;
