@@ -1,0 +1,10 @@
+COLOMBOMETEO V26 · LABORATORIO DE CAPAS REALES
+
+Prueba aislada, NO sustituye V25.2.
+Subir index.html a pruebas-v19/V26-LAB/ en GitHub Pages.
+
+Utiliza mapas meteorológicos raster públicos de WeatherAPI para temperatura, precipitación y velocidad del viento. No hay garantía de disponibilidad de cada mosaico/hora; esta prueba requiere validación en navegador con conexión. No representa aún una rejilla GRIB original identificada de ECMWF, ni incluye dirección del viento. No confundir colores ilustrativos con umbrales de peligro.
+
+Fuentes:
+https://www.weatherapi.com/docs/weather-maps/
+https://www.ecmwf.int/en/forecasts/datasets/open-data
