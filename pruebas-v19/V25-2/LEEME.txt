@@ -1,0 +1,9 @@
+COLOMBOMETEO V25.2 — Estabilidad de modelos
+
+- No muestra días sin datos diarios meteorológicos válidos.
+- Informa del número de días disponibles por modelo.
+- Sustituye interrogantes por guion neutral si falta weather_code.
+- Corrige el margen lateral del carrusel.
+- Conserva el resto de V25.1 y no altera V24/V25.
+
+Subir el index.html a pruebas-v19/V25-2/.
