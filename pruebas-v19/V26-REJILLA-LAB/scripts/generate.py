@@ -11,8 +11,9 @@ from ecmwf.opendata import Client
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'grid'; OUT.mkdir(exist_ok=True)
-# Expanded bounding rectangle covering Comunitat Valenciana, with margins.
-WEST, EAST, SOUTH, NORTH = -2.0, 1.3, 37.4, 41.3
+# V26.1: Península Ibérica, Baleares y márgenes de Atlántico, Francia y Mediterráneo.
+# Solo cambia el recorte espacial de los campos ECMWF.
+WEST, EAST, SOUTH, NORTH = -12.0, 7.0, 34.0, 45.0
 STEPS = [18, 21, 24]  # Tres plazos posteriores, normalmente futuros para el ciclo ECMWF disponible
 COLORS = {
  'temperature_2m': [(0,(68,103,176)),(10,(79,177,229)),(20,(235,215,94)),(30,(215,71,68))],
