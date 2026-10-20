@@ -1,0 +1,4 @@
+ecmwf-opendata>=0.3.0
+eccodes>=2.37
+numpy>=1.26
+Pillow>=10
