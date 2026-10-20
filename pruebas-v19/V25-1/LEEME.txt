@@ -1,0 +1,1 @@
+COLOMBOMETEO V25.1 EXPERIMENTAL\n\nCambios exclusivos: tarjetas de 7 días seleccionables con fecha visible, sincronización horaria si hay datos, e icono de Mi ubicación más visible.\n\nSubir a pruebas-v19/V25-1/ sin reemplazar V24 ni V25.\n
