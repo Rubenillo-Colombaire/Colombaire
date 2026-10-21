@@ -1,473 +1,514 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>COLOMBOMETEO V24 · Experimento de lluvia</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>
-*{box-sizing:border-box}body{margin:0;background:#eaf1f6;color:#152e43;font:14px system-ui,Segoe UI,sans-serif}button,select{font:inherit;cursor:pointer}header{background:linear-gradient(110deg,#082a45,#07669b);color:#fff;padding:20px max(15px,calc((100vw - 1250px)/2));}header h1{margin:0;font-size:clamp(24px,4vw,39px);letter-spacing:1px}header p{margin:5px 0 0;color:#d5eaf7}.wrap{max-width:1250px;margin:16px auto;padding:0 12px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}.tag{background:#e4f5eb;color:#146342;padding:7px 10px;border-radius:20px;font-size:12px;font-weight:700}.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(315px,1fr);gap:13px}.panel{background:white;border:1px solid #d5e2eb;border-radius:14px;padding:13px;box-shadow:0 3px 10px #1231}.panel h2{margin:0 0 10px;font-size:17px}.models{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}.models button{padding:11px 5px;border:2px solid transparent;border-radius:9px;font-weight:800;background:#e5eff8;color:#075caa}.models button:nth-child(2){background:#ffe5e5;color:#bb2932}.models button:nth-child(3){background:#def6e5;color:#087537}.models button:nth-child(4){background:#f0e4ff;color:#7833bd}.models button.active{border-color:currentColor;box-shadow:0 0 0 2px #ffffff inset}.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.controls select,.controls button{background:#f5f9fc;border:1px solid #cadce7;border-radius:8px;padding:9px}.controls select{flex:1;min-width:145px}.controls input{flex:1;min-width:90px;accent-color:#087bd0}#map{height:710px;border-radius:11px;background:#cbe1eb;touch-action:none}.mapnote{font-size:12px;color:#536a7c;line-height:1.5;margin:10px 0 0}.status{background:#f2f8fc;border-radius:8px;padding:10px;margin:0 0 10px;font-size:12px;line-height:1.5}.detail{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{background:#eef6fc;border-radius:9px;padding:12px}.metric small{display:block;color:#526e82}.metric strong{display:block;font-size:21px;margin-top:5px}.four{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:13px}.compare{border:1px solid #d7e5ed;border-radius:9px;padding:10px}.compare b{display:block}.compare .val{font-size:22px;margin:5px 0}.compare small{color:#627789}.weatherpin{background:transparent!important;border:0!important;box-shadow:none!important;padding:0;text-align:center;width:42px;height:43px;display:grid;place-items:center;pointer-events:auto}.weatherpin .ico{font-size:32px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));background:none!important}.weatherpin:hover .ico{transform:scale(1.12)}.weatherpin.selected .ico{filter:drop-shadow(0 0 3px #ffb700) drop-shadow(0 1px 2px #333)}.leaflet-div-icon{background:none;border:0}.zoom-indicator{font-size:12px;color:#185779;background:#eaf5fb;border-radius:8px;padding:9px;margin-top:8px}.extra-town .ico{font-size:27px}.extra-town{width:34px;height:35px}.extra-town .ico{filter:drop-shadow(0 1px 2px rgba(0,0,0,.65))}.legend{margin-top:12px;font-size:12px;color:#54697b}.footer{font-size:12px;color:#566b7a;margin:15px 0;line-height:1.5}.err{color:#b0222b}.busy{color:#0c699a}@media(max-width:850px){.layout{grid-template-columns:1fr}#map{height:620px}}@media(max-width:500px){.models{gap:4px}.models button{font-size:12px}.panel{padding:9px}#map{height:540px}.weatherpin{width:38px;height:38px}.weatherpin .ico{font-size:29px}}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#164b3a">
+  <title>COLOMBAIRE · Perfil con nombre de colombaire</title>
+  <meta name="description" content="Tu palomar, en tus manos: cría, salud, genética y concursos de colombicultura deportiva.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="COLOMBAIRE">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css?v=1.0c">
+<style>
+/* Perfil autocontenido: no depende de style.css actualizado */
+.app > header.cb-banner-header {position:relative!important;}
+.app > header.cb-banner-header #cb-profile-button {background-image:none!important;position:absolute!important;right:10px!important;left:auto!important;top:50%!important;transform:translateY(-50%)!important;width:43px!important;height:43px!important;min-width:43px!important;min-height:43px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#ffffff18!important;border:0!important;border-radius:11px!important;color:#fff5df!important;font-size:23px!important;z-index:50!important;cursor:pointer!important;margin:0!important;padding:0!important;line-height:1!important}
+.app > header.cb-banner-header #cb-profile-button::before,.app > header.cb-banner-header #cb-profile-button::after{content:none!important;display:none!important}
+#cb-profile-dialog {position:fixed!important;inset:0!important;margin:auto!important;box-sizing:border-box!important;border:1px solid #d9d2bf!important;border-radius:17px!important;padding:24px!important;width:min(430px,calc(100vw - 30px))!important;max-width:calc(100vw - 30px)!important;max-height:85vh!important;color:#173e30!important;background:#fff!important;box-shadow:0 15px 45px #0a261b50!important;z-index:9999!important}
+#cb-profile-dialog:not([open]){display:none!important}
+#cb-profile-dialog::backdrop{background:#071e16a6}
+#cb-profile-dialog .cb-profile-head{display:flex;justify-content:space-between;align-items:center;font:700 21px Georgia,serif}
+#cb-profile-dialog .cb-profile-head button{width:38px;height:38px;border:0;background:#eee7d7;color:#173e30;border-radius:8px;font-size:25px;cursor:pointer}
+#cb-profile-dialog p{line-height:1.5;margin:12px 0}
+#cb-profile-dialog .cb-profile-muted{font-size:13px;overflow-wrap:anywhere}
+#cb-profile-dialog .cb-profile-name{font-size:21px;font-weight:700;margin:10px 0 0;overflow-wrap:anywhere}
+#cb-profile-dialog .cb-profile-name button{margin-left:8px;background:#f0eadb;border:1px solid #d9d2bf;color:#194b37;border-radius:7px;padding:5px 9px;cursor:pointer;font-size:12px}
+#cb-profile-dialog #cb-profile-name-form{margin:10px 0 12px;padding:12px;background:#faf8f1;border-radius:9px}
+#cb-profile-dialog .cb-profile-sync{background:#f6f2e8;padding:12px;border-radius:9px;font-size:14px}
+#cb-profile-dialog form{display:grid;gap:9px}
+#cb-profile-dialog label{font-size:14px;font-weight:600}
+#cb-profile-dialog input{padding:12px;border:1px solid #b8c4ba;border-radius:8px;font-size:16px;width:100%;box-sizing:border-box}
+#cb-profile-dialog form button,#cb-profile-logout{background:#194b37;color:white;border:0;border-radius:8px;padding:13px;width:100%;margin:8px 0;cursor:pointer}
+#cb-profile-dialog a{color:#194b37}
+#cb-profile-dialog [hidden]{display:none!important}
+@media(max-width:700px){.app > header.cb-banner-header #cb-profile-button{right:8px!important;width:39px!important;height:39px!important;min-width:39px!important;min-height:39px!important}}
+</style>
+</head>
+<body>
+<div id="cb-splash" class="cb-splash" aria-label="Bienvenido a COLOMBAIRE">
+  <img class="cb-splash-logo" src="splash-bienvenida.jpg?v=0.9x" alt="Palomar valenciano histórico, COLOMBAIRE" width="1024" height="1536">
+</div>
+<div class="app">
+  <header class="cb-banner-header" aria-label="COLOMBAIRE, La Guía del Colombaire">
+    <div class="cb-banner-brand" aria-hidden="true">COLOMBAIRE</div>
+    <button type="button" class="cb-banner-menu" aria-label="Ir a las secciones principales" title="Ir a las secciones principales" onclick="document.querySelector('#inicio .hero-grid')?.scrollIntoView({behavior:'smooth',block:'start'})"></button>
+    <button type="button" class="cb-banner-bell" id="cb-profile-button" aria-label="Abrir mi cuenta" title="Mi cuenta"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20c.5-4.3 3.2-6.5 7.5-6.5s7 2.2 7.5 6.5"/></svg></button>
+  </header>
 
-.variables button{font-size:12px;padding:11px 3px}.variables button:nth-child(1){background:#ffe8df;color:#ad4b20}.variables button:nth-child(2){background:#e1f2fb;color:#07679a}.variables button:nth-child(3){background:#dcecff;color:#165baf}.variables button:nth-child(4){background:#e8e2ff;color:#6644a7}.variable-note{font-size:12px;color:#24516d;margin:-5px 0 10px}.metric-active{outline:2px solid #1780b6;background:#e2f4ff}.compare{cursor:pointer}.compare.model-active{border:2px solid #0878b4;background:#e9f6ff}.compare:focus-visible{outline:3px solid #f2ae20}#map{background:#c7d5db}.leaflet-container{background:#c7d5db}
+  <dialog id="cb-profile-dialog" aria-label="Mi cuenta COLOMBAIRE">
+    <div class="cb-profile-head"><strong>MI CUENTA</strong><button type="button" id="cb-profile-close" aria-label="Cerrar">×</button></div>
+    <p id="cb-profile-state" role="status">Comprobando acceso…</p>
+    <div id="cb-profile-identity" hidden>
+      <div class="cb-profile-name"><span id="cb-profile-display-name"></span><button type="button" id="cb-profile-edit-name">Editar nombre</button></div>
+      <form id="cb-profile-name-form" hidden>
+        <label for="cb-profile-name-input">Tu nombre o apodo de colombaire</label>
+        <input id="cb-profile-name-input" type="text" maxlength="60" minlength="2" autocomplete="nickname" placeholder="Ej. Rubén" required>
+        <button type="submit">Guardar nombre</button>
+        <button type="button" id="cb-profile-name-cancel" style="background:#e8e0ce;color:#194b37">Cancelar</button>
+      </form>
+    </div>
+    <p id="cb-profile-email" class="cb-profile-muted"></p>
+    <p class="cb-profile-sync">☁ Sincronización de palomos: <strong>NO ACTIVADA</strong></p>
+    <form id="cb-profile-form" autocomplete="on">
+      <label for="cb-profile-login-email">Correo electrónico</label>
+      <input id="cb-profile-login-email" type="email" autocomplete="email" required>
+      <label for="cb-profile-login-password">Contraseña</label>
+      <input id="cb-profile-login-password" type="password" autocomplete="current-password" required>
+      <button type="submit">Iniciar sesión</button>
+    </form>
+    <button type="button" id="cb-profile-logout" hidden>Cerrar sesión</button>
+    <p id="cb-profile-result" role="status" aria-live="polite"></p>
+    <a href="COLOMBAIRE_establecer_contrasena.html" target="_blank" rel="noopener">¿Olvidaste tu contraseña?</a>
+  </dialog>
+  <main>
+    <section id="inicio" class="page active">
+      <div class="cb-version-tools"><button id="cb-check-updates" type="button">↻ Buscar actualizaciones</button></div>
+      <div class="hero-grid">
+        <button class="module" data-go="palomar"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-7h6v7"/></svg></span><b>MI PALOMAR</b><small>Gestiona tus palomos</small></button>
+        <button class="module" data-go="genetica"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c0 6 10 6 10 12s-10 6-10 6"/><path d="M17 3c0 6-10 6-10 12s10 6 10 6"/><path d="M8 7h8M7 12h10M8 17h8"/></svg></span><b>GENÉTICA</b><small>Cruces y pelajes</small></button>
+        <button class="module" data-go="salud"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/><path d="M3.5 12h4l2-3 3 6 2-3h6"/></svg></span><b>SALUD</b><small>Control y enfermedades</small></button>
+        <button class="module" data-go="concursos"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v7a5 5 0 0 1-10 0z"/><path d="M7 6H4v3a4 4 0 0 0 4 4M17 6h3v3a4 4 0 0 1-4 4"/></svg></span><b>CONCURSOS</b><small>Calendario y resultados</small></button>
+        <button class="module" data-go="guia"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V5c-4-1-7-1-10 1z"/><path d="M12 6v15"/></svg></span><b>LA GUÍA</b><small>Todo sobre colombicultura</small></button>
+        <button class="module" data-go="calendario"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/></svg></span><b>CALENDARIO</b><small>Fechas y recordatorios</small></button>
+      </div>
 
-.heat-legend{font-size:12px;line-height:1.5;color:#24485f;padding:10px;background:#f1f7fc;border-radius:9px;margin-bottom:9px}
-.heat-ramp{height:13px;border-radius:5px;background:linear-gradient(90deg,#4467b0,#4fb1e5,#61bd90,#ebd75e,#f39a45,#d74744);margin:6px 0 3px}
-.heat-scale{display:flex;justify-content:space-between;font-size:11px;color:#4a6575}
+      <section class="cb-forecast" aria-label="Previsión meteorológica de siete días">
+        <div class="cb-forecast-head"><div><small>☀️ PREVISIÓN METEOROLÓGICA</small><h3 id="hw-city">Cargando municipio…</h3></div><button id="hw-refresh" type="button" title="Actualizar previsión" aria-label="Actualizar previsión">↻</button></div>
+        <p id="hw-status" class="hw-status" role="status" aria-live="polite">Consultando datos reales…</p>
+        <div id="hw-data" hidden>
+          <div class="cb-forecast-current"><span id="hw-icon" class="cb-forecast-bigicon">🌤️</span><div><strong id="hw-temp">—</strong><span id="hw-desc">—</span><small id="hw-range">—</small></div></div>
+          <div class="cb-seven" id="hw-days" aria-label="Previsión de temperatura de los próximos siete días"></div>
+          <div class="cb-forecast-bottom"><span id="hw-rain">☔ —</span><button type="button" data-go="meteorologia">⚙ Cambiar municipio</button></div>
+        </div>
+      </section>
+      <section class="cb-wind-card" aria-label="Previsión del viento de siete días">
+        <div class="cb-wind-head"><h3>💨 VIENTO EN <span id="hw-wind-city">TU PALOMAR</span></h3><small>Dirección de procedencia · km/h</small></div>
+        <div class="cb-seven cb-wind-seven" id="hw-wind-days" aria-label="Previsión del viento"></div>
+        <div class="cb-wind-foot"><span id="hw-wind">💨 —</span><span id="hw-gust">🌪️ —</span></div>
+      </section>
+      <details class="cb-forecast-details"><summary>Ver previsión detallada por horas y hasta 16 días</summary>
+        <h4 id="hw-hour-title">HOY · POR HORAS</h4><div class="hw-hours" id="hw-hours" aria-label="Previsión por horas"></div>
+        <div id="hw-day-summary" class="hw-day-summary" hidden></div>
+        <button type="button" class="hw-more" id="hw-more" aria-expanded="false">Ver previsión de 16 días ▾</button>
+        <div id="hw-extra-days" class="cb-extra-days"></div>
+        <small id="hw-updated" class="hw-updated"></small>
+      </details>
+      <button class="ask" data-go="guia"><span>🔎</span><div><b>Pregúntale a la Guía</b><small>¿Qué quieres consultar?</small></div><strong>›</strong></button>
 
-/* V23: presentación móvil compacta, sin alterar la cartografía */
-.daily-section{margin:9px 0 12px;padding:12px;background:#f5faff;border:1px solid #cbdfea;border-radius:12px}
-.daily-head,.quick-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.daily-head strong{font-size:16px}.daily-place,.daily-hint{font-size:12px;color:#5b7285;margin-top:4px}.daily-head label{font-size:11px;color:#557085}.daily-head select{display:block;padding:7px;border:1px solid #c5d9e8;border-radius:8px;background:white;color:#183a53;font-weight:700}
-.daily-track{display:flex;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:10px 1px;scrollbar-width:thin}.day-card{flex:0 0 115px;scroll-snap-align:start;background:white;border:1px solid #d9e5ef;border-radius:11px;text-align:center;padding:10px 6px;display:flex;flex-direction:column;gap:5px;min-height:180px}.day-card.today{border:2px solid #0878b4;background:#eaf5ff}.day-card .day{font-weight:800;color:#173f61}.day-card .date{font-size:11px;color:#678092}.day-card .weather{font-size:31px;line-height:1.25}.day-card .temps{font-weight:800;font-size:16px}.day-card .low{color:#277f47}.day-card .minor{font-size:11px;color:#496578}.daily-loading{padding:14px;color:#4e6b7e}.quick-compare{padding:10px;background:#f1f7fc;border-radius:10px;margin-bottom:10px}.quick-head{font-size:13px}.quick-head span{font-size:11px;color:#567084}.quick-values{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}.quick-value{padding:8px 4px;background:white;border:1px solid #d7e5ed;border-radius:8px;text-align:center;cursor:pointer;color:#183a53}.quick-value.selected{background:#e2f4ff;border:2px solid #0878b4}.quick-value b{display:block;font-size:11px}.quick-value strong{display:block;font-size:15px;margin-top:4px}.quick-value small{font-size:10px;color:#567084}.mapnote{display:none}.mapnote.expanded{display:block}.info-toggle{display:block;margin:8px 0;border:0;background:transparent;color:#146b9a;font-weight:700;padding:5px}.top .tag{display:none}
-@media(max-width:850px){header{padding:12px 15px}header h1{font-size:25px}header p{font-size:12px}.wrap{margin:8px auto}.top{margin-bottom:6px}.top strong{font-size:12px}.panel h2{font-size:15px}.daily-section{margin-top:8px}#map{height:min(62vh,540px)}.layout aside .four{display:grid}.layout aside .legend{display:none}}
-@media(max-width:500px){.models button{padding:9px 2px;font-size:11px}.variable-note{font-size:11px}.controls{margin-bottom:6px}.controls button{padding:7px}.heat-legend{font-size:11px;padding:6px}.quick-value strong{font-size:13px}.day-card{flex-basis:110px}}
+      <h2>HOY EN TU PALOMAR <span>5 avisos</span></h2>
+      <div class="today">
+        <button><span>🥚</span><b>2</b><small>Huevos próximos<br>a eclosionar</small></button>
+        <button><span>🐣</span><b>3</b><small>Pichones próximos<br>a anillar</small></button>
+        <button><span>💊</span><b>1</b><small>Tratamiento<br>pendiente</small></button>
+        <button><span>🕊️</span><b>4</b><small>Parejas<br>criando</small></button>
+        <button><span>🏆</span><b>1</b><small>Próximo<br>concurso</small></button>
+      </div>
 
-/* V23.1: buscador dentro del mapa; controles táctiles independientes de Leaflet. */
-.map-frame{position:relative}.map-search{position:absolute;z-index:1100;top:10px;left:50px;right:10px;max-width:360px;pointer-events:auto}.map-search-line{display:flex;gap:4px;padding:5px;border-radius:10px;background:rgba(255,255,255,.97);box-shadow:0 2px 10px #173b5260}.map-search input{flex:1;min-width:0;padding:9px;border:1px solid #cbdde9;border-radius:7px;font:inherit}.map-search button{padding:9px;border:0;border-radius:7px;background:#0878b4;color:white;font-weight:700}.map-search-results{margin-top:4px;background:white;border-radius:9px;box-shadow:0 4px 12px #173b5260;max-height:230px;overflow:auto}.map-search-results button{display:block;text-align:left;width:100%;background:white;color:#163b54;border-radius:0;border-bottom:1px solid #edf2f6;padding:10px}.map-search-results button:hover{background:#eaf5ff}.map-search-results .search-msg{padding:10px;color:#546b7c;font-size:12px}@media(max-width:500px){.map-search{right:8px;left:45px;top:8px}.map-search input{font-size:16px}}
+      <div class="columns">
+        <section class="panel cb-home-panel">
+          <h3 class="cb-panel-heading">PALOMOS DESTACADOS</h3>
+          <div class="pigeon-row"><div class="avatar">T</div><div><b>Toretto</b><small>Rojo · Macho</small></div><span>Competidor</span></div>
+          <div class="pigeon-row"><div class="avatar">B</div><div><b>Bumblebee</b><small>Mascarado Plomes · Macho</small></div><span>Reproductor</span></div>
+        </section>
+        <section class="panel cb-home-panel cb-updates-panel">
+          <h3 class="cb-panel-heading">ÚLTIMAS ACTUALIZACIONES</h3>
+          <p>🐣 <b>Nacimiento registrado</b><br><small>Pichón de Toretto × Brisa</small></p>
+          <p>🏆 <b>Resultado de concurso</b><br><small>Toretto · 2.º clasificado</small></p>
+          <p>🩺 <b>Control sanitario</b><br><small>Revisión completada</small></p>
+        </section>
+      </div>
+    </section>
 
-/* V25: mejoras discretas sin cambiar la estructura aprobada de V24 */
-header h1{font-size:clamp(27px,4.3vw,43px);letter-spacing:.65px;font-weight:780}
-.brand-icon{font-size:.79em;vertical-align:3%;color:#c5eafc}.version-label{color:#a9e2ff;font-size:.40em;letter-spacing:.6px;vertical-align:middle;font-weight:650}
-.variables button{min-height:55px;padding-top:15px;padding-bottom:15px}
-.weatherpin .ico{font-size:38px}.extra-town .ico{font-size:32px}
-.map-search .locate-btn{font-size:27px;line-height:1;padding:7px 11px;background:#0878b4;color:white;flex:none;display:flex;align-items:center;justify-content:center;min-width:48px;min-height:45px;border-radius:9px}
-.map-search .locate-btn svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.map-search .locate-btn:hover{background:#066a9e}
-.locate-btn:focus-visible{outline:3px solid #ffba40}
-.daily-section .day-card{cursor:pointer;transition:border-color .15s,box-shadow .15s}
-.daily-section .day-card:focus-visible{outline:3px solid #0878b4;outline-offset:2px}
-.daily-section .day-card.selected-day{border:2px solid #0878b4;background:#eaf5ff;box-shadow:0 0 0 2px #c9eaff}
-.daily-section .day-card .primary-daily{font-weight:800;font-size:16px;color:#124e81}
-.daily-section .day-card .primary-daily.rain{color:#7c238f}
-@media(max-width:500px){header h1{font-size:27px}.variables button{min-height:58px;padding-top:14px;padding-bottom:14px}.weatherpin .ico{font-size:35px}.extra-town .ico{font-size:30px}.map-search .locate-btn{padding:7px 9px;min-width:46px}}
-.daily-track{padding-left:9px;padding-right:9px;scroll-padding-left:9px}
-.daily-availability{font-size:12px;color:#506d82;margin:5px 2px 8px;line-height:1.4}
-</style></head><body><header><h1><span class="brand-icon" aria-hidden="true">☁</span> COLOMBOMETEO <span class="version-label">V26 REJILLA LAB</span></h1><p>Compara. Observa. Decide. · Laboratorio de la Comunidad Valenciana</p></header><div class="wrap"><div class="top"><strong>🗺️ Mapa valenciano · relieve, municipios e iconos libres</strong><span class="tag">V26 REJILLA LAB · V25.2 CONSERVADA</span></div><div class="layout"><section class="panel"><h2>Comunitat Valenciana · toca cualquier punto del territorio</h2><div class="models variables" id="variables"><button data-variable="temperature_2m" class="active">🌡️ Temperatura</button><button data-variable="wind_speed_10m">💨 Viento</button><button data-variable="precipitation">🌧️ Lluvia mm</button><button data-variable="precipitation_probability">☔ Lluvia %</button></div><div class="variable-note" id="variable-note">🌡️ Temperatura seleccionada. Los símbolos meteorológicos se muestran solo en las vistas de lluvia.</div><div class="controls"><label for="hour">Hora:</label><input id="hour" type="range" min="0" max="47" value="0"><strong id="hourlabel">—</strong><button id="play-hours" type="button" aria-label="Reproducir evolución horaria">▶ Animar</button><button id="refresh" type="button">↻ Actualizar</button></div><div id="heat-legend" class="heat-legend">Esperando datos reales para colorear el mapa…</div><section class="daily-section" aria-label="Pronóstico de siete días"><div class="daily-head"><div><strong>📅 Pronóstico de 7 días</strong><div class="daily-place" id="daily-place">📍 Sollana</div></div><label>Modelo <select id="daily-model" aria-label="Modelo del pronóstico diario"><option>ECMWF</option><option>GFS</option><option>ICON</option><option>ARPEGE</option></select></label></div><div class="daily-track" id="daily-track" aria-live="polite"><div class="daily-loading">Cargando previsión diaria…</div></div><div class="daily-hint" id="daily-hint">← Desliza para consultar los siete días. Cada tarjeta corresponde al modelo seleccionado.</div></section><div class="quick-compare"><div class="quick-head"><strong id="quick-label">Comparación de cuatro modelos</strong><span id="quick-time"></span></div><div id="quick-values" class="quick-values">Esperando datos de los modelos…</div></div><div class="map-frame"><div class="map-search" id="map-search"><div class="map-search-line"><input id="town-search" type="search" autocomplete="off" placeholder="🔎 Buscar población…" aria-label="Buscar población en el mapa"><button id="town-search-go" type="button" aria-label="Buscar">Buscar</button><button id="my-location" type="button" class="locate-btn" title="Mi ubicación" aria-label="Centrar en mi ubicación"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button></div><div class="map-search-results" id="town-search-results" hidden></div></div><div id="map" aria-label="Mapa interactivo de la Comunidad Valenciana"></div></div><div id="zoom-indicator" class="zoom-indicator" aria-live="polite">🔎 Amplía el mapa y toca cualquier punto de la Comunitat para consultar su previsión.</div><button type="button" class="info-toggle" id="info-toggle">ℹ️ Información del mapa ▾</button><p class="mapnote" id="mapnote">☝️ El mapa muestra el relieve físico de España alrededor, atenuado fuera del contorno autonómico real obtenido de OpenStreetMap. El mapa físico oficial del ICV sirve como referencia cartográfica autorizada, pero esta prueba no incorpora directamente su PDF. Si falla la consulta de límites, se mostrará un aviso. Toca un icono o cualquier punto dentro de la Comunitat Valenciana para seleccionar esa ubicación y consultar los cuatro modelos. La identificación municipal se realiza mediante OpenStreetMap.  Los iconos no llevan fondos ni cifras sobre el mapa. En V24 experimental, las zonas de lluvia transparentes y animadas siguen siendo una interpolación orientativa entre 18 municipios; NO representan la resolución espacial real del modelo ni un radar de lluvia. En móvil, mueve el mapa con un dedo y haz zoom con dos dedos.</p></section><aside><section class="panel"><h2 id="town-title">📍 Sollana</h2><div class="status" id="status" role="status">Preparando consultas meteorológicas…</div><div class="controls"><label for="town-select">Municipio</label><select id="town-select"></select></div><div class="detail" id="detail"><div class="metric"><small>🌡 Temperatura</small><strong>—</strong></div><div class="metric"><small>☔ Lluvia prevista</small><strong>—</strong></div><div class="metric"><small>☁ Nubosidad</small><strong>—</strong></div><div class="metric"><small>💨 Viento</small><strong>—</strong></div></div><h2 style="margin-top:20px">Comparación de cuatro modelos</h2><div class="four" id="compare"></div><div class="legend" id="legend">Los iconos meteorológicos aparecen en Lluvia mm y Lluvia %. En Temperatura y Viento se ocultan para despejar el mapa. Toca un punto para consultar sus valores. Elige un modelo en el panel comparativo; la probabilidad (%) se consulta por separado y solo se muestra si el modelo la proporciona.</div></section></aside></div><p class="footer">Referencia cartográfica oficial: <a href="https://descargas.icv.gva.es/dcd/01_cartografia/tematica/CA350/castellano/CA350_Fisico.pdf" target="_blank" rel="noopener">Institut Cartogràfic Valencià, mapa físico CC BY 4.0</a> (no usado como capa interactiva). Límite autonómico © OpenStreetMap contributors (ODbL). Fuente meteorológica: Open-Meteo · Modelos ECMWF IFS, NOAA GFS, DWD ICON-EU y Météo-France ARPEGE-Europa. Relieve sombreado © Esri y colaboradores. Contorno y geocodificación © OpenStreetMap contributors. Pronósticos sujetos a cambios; no son observaciones en tiempo real. Consulta AEMET y Protección Civil para avisos oficiales. Si un modelo no devuelve datos, aparece «—».</p></div><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>
+    <section id="palomar" class="page">
+      <div class="title-row"><button class="back app-back" data-go="inicio">‹</button><div><h2>MI PALOMAR</h2><small id="pigeonCount">3 palomos registrados</small></div><button class="plus" id="addPigeon">＋</button></div>
+      <div class="loft-tabs">
+        <button class="selected">PALOMOS</button>
+        <button data-go="cria">CRÍA</button>
+      </div>
+      <input id="search" class="search" placeholder="🔎 Buscar por nombre, anilla o pelaje...">
+      <div class="filters"><button class="selected">Todos</button><button>Machos</button><button>Hembras</button><button>Activos</button></div>
+      <div class="coloms-import-panel"><strong>📁 Importar palomos históricos (archivo privado)</strong><p>Selecciona el archivo JSON de tu tabla Coloms. Se añadirá a este dispositivo, sin subirlo a internet y sin sustituir tus palomos actuales. Las anillas repetidas se conservan como registros distintos.</p><input id="colomsFile" type="file" accept=".json,application/json"><div id="colomsStatus" role="status" aria-live="polite">Sin importaciones pendientes.</div></div><div id="pigeonList"></div><div class="cb-backup-tools"><button type="button" id="cb-backup-export">⬇ Descargar copia de seguridad</button><small>Guarda este archivo antes de actualizar o cambiar de dispositivo.</small></div>
+    </section>
+
+    <section id="ficha" class="page">
+      <div class="title-row"><button class="back app-back" data-go="palomar">‹</button><div><h2 id="f-name">Toretto</h2><small id="f-ring">ESP-2024-01587</small></div><button id="editPigeon" type="button" aria-label="Editar palomo">✎ Editar</button></div>
+      <div class="tabs"><button class="selected">Información</button><button data-go="cria">Cría</button><button data-go="salud">Salud</button><button data-go="concursos">Concursos</button><button id="observationsTab">Observaciones</button><button>Genealogía</button></div>
+      <section class="detail-card cb-ficha-card">
+        <div class="cb-ficha-band">🕊️ IDENTIFICACIÓN</div>
+        <div class="detail-grid cb-ficha-fields">
+          <div><small>Anilla</small><b id="d-ring"></b></div><div><small>Propietario</small><b id="d-owner"></b></div>
+          <div><small>Pelaje</small><b id="d-color"></b></div><div><small>Sexo</small><b id="d-sex"></b></div>
+          <div><small>Fecha de nacimiento</small><b id="d-birth"></b></div><div><small>Estado</small><b id="d-status"></b></div>
+        </div>
+        <div class="cb-ficha-band">🏆 ACTIVIDAD DEL PALOMO</div>
+        <div class="detail-grid cb-ficha-fields cb-activity-fields">
+          <div><small>Etapa deportiva</small><b id="d-sport"></b></div>
+          <div><small>Reproducción</small><b id="d-breeder"></b></div>
+        </div>
+        <div class="cb-ficha-band">🌿 GENEALOGÍA</div>
+        <div class="parents cb-ficha-parents"><button><small>♂ PADRE</small><b id="d-father"></b></button><button><small>♀ MADRE</small><b id="d-mother"></b></button></div>
+      </section>
+    </section>
+
+
+    <section id="observations" class="page">
+      <div class="title-row"><button class="back app-back">‹</button><div><h2 id="obsPigeonName">OBSERVACIONES</h2><small>Características y notas del ejemplar</small></div></div>
+      <div class="detail-card">
+        <h3>CARACTERÍSTICAS</h3>
+        <p class="field-note">Selecciona las que describan al palomo. Puedes añadir las tuyas.</p>
+        <div id="traitChips" class="trait-chips"></div>
+        <label class="obs-label"><span>Otra característica</span><div class="custom-trait-row"><input id="customTrait" placeholder="Ej. Muy trabajador"><button id="addTraitBtn" type="button" class="secondary">Añadir</button></div></label>
+      </div>
+      <div class="detail-card">
+        <h3>OBSERVACIONES GENERALES</h3>
+        <textarea id="observationText" class="obs-textarea" placeholder="Comportamiento, cualidades, defectos, evolución, sensaciones en concurso, reproducción..."></textarea>
+        <div class="form-actions"><button id="saveObservations" class="primary">Guardar observaciones</button></div>
+      </div>
+    </section>
+
+    <section id="palomoForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="palomar">‹</button><div><h2 id="formTitle">NUEVO PALOMO</h2><small>Ficha de Mi Palomar</small></div></div>
+      <form id="pigeonForm" class="detail-card form-card">
+        <input type="hidden" id="p-index">
+        <div class="form-grid">
+          <label><span>Nombre</span><input id="p-name" placeholder="Ej. Toretto"></label>
+          <label><span>Anilla</span><input id="p-ring" required placeholder="Ej. ESP-2026-00124"></label>
+          <label><span>Propietario</span><input id="p-owner" list="cb-owners" placeholder="Nombre del propietario"><datalist id="cb-owners"></datalist></label>
+          <label><span>Pelaje</span><input id="p-color" list="cb-colors" placeholder="Ej. Azul, Rojo, Bayo..."><datalist id="cb-colors"></datalist></label>
+          <label><span>Sexo</span><select id="p-sex" required><option value="">Seleccionar</option><option>Macho</option><option>Hembra</option><option>Sin determinar</option></select></label>
+          <label><span>Fecha de nacimiento</span><input id="p-birth" type="date"></label>
+          <label><span>Padre</span><select id="p-father"><option value="">Desconocido / no registrado</option></select><input id="p-father-text" placeholder="O escribe un padre no registrado"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Madre</span><select id="p-mother"><option value="">Desconocida / no registrada</option></select><input id="p-mother-text" placeholder="O escribe una madre no registrada"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Estado del palomo</span><select id="p-status"><option>Activo</option><option>Cedido</option><option>Baja</option><option>Fallecido</option></select></label><label><span>Etapa deportiva</span><select id="p-sport"><option value="Sin indicar">Sin indicar</option><option value="En competición">En competición</option><option value="En preparación">En preparación</option><option value="Retirado">Retirado</option><option value="No compite">No compite</option></select></label><label><span>Actividad reproductora</span><select id="p-breeder"><option value="Sin indicar">Sin indicar</option><option value="Reproductor">Reproductor</option><option value="No reproductor">No reproductor</option></select><small class="field-help">Puede competir y criar a la vez</small></label>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="secondary" data-go="palomar">Cancelar</button>
+          <button type="button" class="danger" id="deletePigeon">🗑 Borrar palomo</button>
+          <button type="submit" class="primary">Guardar cambios</button>
+        </div>
+        <p class="storage-note">🔒 En esta versión de prueba los datos se guardan únicamente en este navegador.</p>
+      </form>
+    </section>
+
+    <section id="cria" class="page">
+      <div class="title-row"><button class="back app-back" data-go="inicio">‹</button><div><h2>CRÍA</h2><small id="breedingSeason">Temporada 2026</small></div><button class="plus" id="addPair">＋</button></div>
+      <div class="loft-tabs">
+        <button data-go="palomar">PALOMOS</button>
+        <button class="selected">CRÍA</button>
+      </div>
+      <div class="stats"><div><b id="pairCount">0</b><small>Parejas activas</small></div><div><b id="eggCount">0</b><small>Huevos</small></div><div><b id="chickCount">0</b><small>Pichones</small></div></div>
+      <h3>AVISOS DE CRÍA</h3>
+      <div id="breedingAlerts"></div>
+      <h3>PAREJAS ACTIVAS</h3>
+      <div id="pairList"></div>
+      <div id="noPairs" class="empty-state"><span>🕊️</span><b>Aún no hay parejas de cría</b><small>Pulsa ＋ para seleccionar un macho y una hembra de Mi Palomar.</small></div>
+    </section>
+
+    <section id="pairForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="cria">‹</button><div><h2>NUEVA PAREJA</h2><small>Selecciona reproductores de Mi Palomar</small></div></div>
+      <form id="newPairForm" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>♂ Macho</span><select id="pairMale" required></select></label>
+          <label><span>♀ Hembra</span><select id="pairFemale" required></select></label>
+          <label><span>Fecha de emparejamiento</span><input id="pairDate" type="date"></label>
+          <label><span>Estado</span><select id="pairStatus"><option>Activa</option><option>Descanso</option><option>Finalizada</option></select></label>
+        </div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="cria">Cancelar</button><button class="primary" type="submit">Crear pareja</button></div>
+      </form>
+    </section>
+
+    <section id="pairDetail" class="page">
+      <div class="title-row"><button class="back app-back" data-go="cria">‹</button><div><h2 id="pairTitle">PAREJA</h2><small id="pairSubtitle"></small></div><button id="newClutchBtn" class="plus">＋ Puesta</button></div>
+      <div id="pairParents" class="pair"></div>
+      <div class="pair-actions"><button id="newClutchBtn2" class="primary">🥚 Registrar puesta</button><button id="finishPairBtn" class="secondary">Finalizar pareja</button></div>
+      <h3>HISTORIAL DE PUESTAS</h3>
+      <div id="clutchList"></div>
+      <h3>PICHONES DE ESTA PAREJA</h3>
+      <div id="pairChicks"></div>
+    </section>
+
+    <section id="clutchForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="pairDetail">‹</button><div><h2>NUEVA PUESTA</h2><small id="clutchPairName"></small></div></div>
+      <form id="newClutchForm" class="detail-card form-card">
+        <div class="egg-entry">
+          <h3>🥚 HUEVO 1</h3>
+          <div class="form-grid">
+            <label><span>Fecha del primer huevo</span><input id="egg1Date" type="date" required></label>
+            <label><span>Fecundado</span><select id="egg1Fert"><option value="Pendiente">Pendiente</option><option value="Sí">Sí</option><option value="No">No</option></select></label>
+          </div>
+        </div>
+        <div class="egg-entry">
+          <h3>🥚 HUEVO 2</h3>
+          <div class="form-grid">
+            <label><span>Fecha del segundo huevo</span><input id="egg2Date" type="date"></label>
+            <label><span>Fecundado</span><select id="egg2Fert"><option value="Pendiente">Pendiente</option><option value="Sí">Sí</option><option value="No">No</option></select></label>
+          </div>
+          <small class="field-note">Si no hay segundo huevo, deja la fecha vacía.</small>
+        </div>
+        <div class="prediction" id="hatchPrediction">La app calculará la fecha orientativa de eclosión.</div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="pairDetail">Cancelar</button><button class="primary" type="submit">Guardar puesta</button></div>
+      </form>
+    </section>
+
+    <section id="clutchDetail" class="page">
+      <div class="title-row"><button class="back app-back" data-go="pairDetail">‹</button><div><h2>DETALLE DE PUESTA</h2><small id="clutchDetailSub"></small></div></div>
+      <div id="clutchInfo" class="detail-card"></div>
+      <h3>HUEVOS</h3><div id="eggList"></div>
+      <div class="pair-actions"><button id="registerBirthBtn" class="primary">🐣 Registrar nacimiento</button></div>
+    </section>
+
+    <section id="birthForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="clutchDetail">‹</button><div><h2>REGISTRAR NACIMIENTO</h2><small>El pichón quedará vinculado a sus padres</small></div></div>
+      <form id="newBirthForm" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>Fecha de nacimiento</span><input id="birthDate" type="date" required></label>
+          <label><span>Sexo</span><select id="birthSex"><option>Sin determinar</option><option>Macho</option><option>Hembra</option></select></label>
+          <label><span>Nombre provisional</span><input id="birthName" placeholder="Opcional"></label>
+          <label><span>Pelaje</span><input id="birthColor" placeholder="Si ya puede determinarse"></label>
+          <label><span>Anilla</span><input id="birthRing" placeholder="Puede añadirse después"></label>
+        </div>
+        <div class="prediction">Al guardar, quedará registrado como <b>pichón en seguimiento</b>. Al anillarlo completará su identidad en Mi Palomar.</div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="clutchDetail">Cancelar</button><button class="primary" type="submit">Guardar pichón</button></div>
+      </form>
+    </section>
+
+    <section id="chickDetail" class="page">
+      <div class="title-row"><button class="back app-back" data-go="pairDetail">‹</button><div><h2>PICHÓN</h2><small id="chickDetailSub">Seguimiento de cría</small></div></div>
+      <div id="chickStatusCard" class="detail-card"></div>
+      <div id="ringingAlertBox"></div>
+      <div class="pair-actions"><button id="ringChickBtn" class="primary">💍 Registrar anilla</button><button id="openChickPigeonBtn" class="secondary">Ver ficha en Mi Palomar</button></div>
+    </section>
+
+    <section id="ringForm" class="page">
+      <div class="title-row"><button class="back app-back" data-go="chickDetail">‹</button><div><h2>ANILLAR PICHÓN</h2><small id="ringFormSub"></small></div></div>
+      <form id="ringFormData" class="detail-card form-card">
+        <div class="form-grid">
+          <label><span>Número de anilla</span><input id="ringNumber" required placeholder="Ej. ESP-2026-01234"></label>
+          <label><span>Fecha de anillado</span><input id="ringDate" type="date" required></label>
+          <label><span>Nombre</span><input id="ringName" placeholder="Opcional"></label>
+          <label><span>Pelaje</span><input id="ringColor" placeholder="Si ya puede determinarse"></label>
+          <label><span>Sexo</span><select id="ringSex"><option>Sin determinar</option><option>Macho</option><option>Hembra</option></select></label>
+        </div>
+        <div class="prediction">Padre, madre y fecha de nacimiento ya están vinculados automáticamente.</div>
+        <div class="form-actions"><button type="button" class="secondary" data-go="chickDetail">Cancelar</button><button class="primary" type="submit">Guardar anilla</button></div>
+      </form>
+    </section>
+
+    <section id="genetica" class="page placeholder"></section>
+    <section id="salud" class="page">
+      <div class="title-row"><button class="back app-back">‹</button><div><h2>SALUD</h2><small>Enfermedades y orientación sanitaria del palomar</small></div></div>
+      <div class="health-hero"><div><b>GUÍA DE ENFERMEDADES</b><small>Consulta fichas estructuradas por agente, transmisión, órganos, signos y diagnóstico.</small></div><span>🩺</span></div>
+      <input id="healthSearch" class="search" placeholder="Buscar enfermedad, agente, signo...">
+      <div class="health-actions"><button class="selected">Todas</button><button>Protozoos</button><button>Bacterianas</button><button>Víricas</button></div>
+      <div id="diseaseList" class="disease-list"></div>
+      <div class="health-next"><b>PRÓXIMAMENTE · CALCULADORA DIFERENCIAL</b><small>Síntomas + contexto → procesos compatibles → pruebas que ayudan a diferenciarlos. No sustituirá el diagnóstico veterinario.</small></div>
+    </section>
+
+    <section id="diseaseDetail" class="page health-sheet-page">
+      <div class="title-row"><button class="back app-back">‹</button><div><h2 id="diseaseTitle">ENFERMEDAD</h2><small id="diseaseSubtitle"></small></div></div>
+      <div id="diseaseDetailBody" class="disease-sheet"></div>
+    </section>
+    <section id="concursos" class="page cb-contests">
+  <div class="title-row"><button class="back app-back">‹</button><div><h2>CONCURSOS</h2><small>Clasificaciones · Colombicultura deportiva</small></div></div>
+  <div class="cb-contest-hero"><span class="cb-eyebrow">MIS CONCURSOS</span><h3>Clasificaciones oficiales, a tu alcance</h3><p>Consulta una clasificación completa y destaca los palomos que quieras, sin ocultar a los demás.</p></div>
+  <div class="cb-contest-controls"><label for="cb-competition">Concurso</label><select id="cb-competition"><option value="demo">Clasificación de ejemplo · captura FCCV</option></select><div class="cb-contest-actions"><a href="https://colombiculturacv.es/?p=1" target="_blank" rel="noopener noreferrer" class="cb-official-link">↗ Abrir clasificación FCCV</a><button type="button" id="cb-reset-stars" class="cb-clear-stars">Quitar destacados</button></div></div>
+  <div class="cb-diagnostic" id="cb-diagnostic"><div class="cb-diagnostic-title">🧪 Laboratorio FCCV <span class="cb-lab-tag">PRUEBA TÉCNICA</span></div><p>Comprobamos si COLOMBAIRE puede leer la clasificación pública de la federación. No modifica datos ni envía información de tu palomar.</p><button type="button" id="cb-test-fccv" class="cb-test-btn">Comprobar conexión FCCV</button><div id="cb-test-result" class="cb-test-result" role="status" aria-live="polite">Prueba pendiente. Pulsa el botón cuando quieras.</div><small>Campeonato 90 · Año 2026 · Una consulta manual por pulsación.</small></div>
+  <div class="cb-dual-area" id="cb-dual-area">
+    <div class="cb-dual-heading"><h3>🏆 Mis concursos</h3><p>Organiza tus campeonatos por año. Abre solo el que quieras consultar; los dos que ya tenías se conservan.</p></div>
+    <div class="cb-library-toolbar"><label for="cb-year-filter">Año</label><select id="cb-year-filter"><option value="all">Todos</option></select><button type="button" id="cb-add-champ">＋ Añadir campeonato</button><button type="button" id="cb-backup-champ">↓ Copia de seguridad</button><label class="cb-restore-label" for="cb-restore-champ">↑ Restaurar copia</label><input id="cb-restore-champ" type="file" accept=".json,application/json" hidden></div>
+    <div class="cb-library-status" id="cb-library-status" role="status" aria-live="polite"></div>
+    <div class="cb-champ-tabs" id="cb-library-list" aria-label="Mis campeonatos"></div>
+    <section class="cb-dual-panel cb-library-detail" id="cb-library-detail" hidden>
+      <div class="cb-library-edit"><label>Nombre <input id="cb-library-name" maxlength="90" type="text"></label><label>Año <input id="cb-library-year" type="number" min="1900" max="2100" step="1"></label></div>
+      <label for="cb-library-file">Importar clasificación HTML (también guarda una versión histórica)</label><input id="cb-library-file" type="file" accept=".html,.htm,text/html,text/plain">
+      <div class="cb-dual-actions"><button type="button" id="cb-library-save">Guardar nombre y año</button><button type="button" id="cb-library-delete">Eliminar campeonato</button></div>
+      <div class="cb-dual-status" id="cb-library-detail-status" role="status" aria-live="polite"></div>
+      <label for="cb-library-snapshot">Clasificación guardada</label><select id="cb-library-snapshot"></select>
+      <div class="cb-dual-scroll"><table class="cb-dual-table" id="cb-library-table"><thead></thead><tbody></tbody></table></div>
+    </section>
+    <p class="cb-dual-hint">Los concursos y sus versiones importadas se guardan en este dispositivo. Exporta copias de seguridad periódicamente. Las versiones son fotografías de la clasificación al importarla, no necesariamente el resultado oficial al final de cada prueba.</p>
+  </div>
+<div class="cb-importer">
+  <div class="cb-diagnostic-title">📥 Importador FCCV <span class="cb-lab-tag">EXPERIMENTAL</span></div>
+  <p>Importa una clasificación completa guardada desde la página oficial. La lectura se hace <b>en tu dispositivo</b>; no se envía ningún archivo a COLOMBAIRE.</p>
+  <div class="cb-import-grid">
+    <div><label for="cb-import-file">Archivo HTML de la clasificación</label><input id="cb-import-file" type="file" accept=".html,.htm,text/html,text/plain"></div>
+    <button type="button" id="cb-import-demo" class="cb-clear-stars">Volver a la demostración</button>
+  </div>
+  <div class="cb-import-instructions"><b>Cómo obtenerlo:</b> abre la <a href="https://colombiculturacv.es/estaticas/competiciones/ajax/ajax_clasificacion.php?ano=2026&amp;cam=90" target="_blank" rel="noopener noreferrer">clasificación directa</a> en Edge y pulsa <b>Ctrl + S</b> → «Página web, solo HTML» (si está disponible). Guarda el archivo y selecciónalo aquí. Para otro concurso, guarda su respuesta HTML correspondiente.</div>
+  <div id="cb-import-status" class="cb-import-status" role="status" aria-live="polite">Esperando archivo. La demostración sigue disponible.</div>
+</div>
+<div class="cb-contest-note"><b id="cb-source-label">Vista de demostración.</b> <span id="cb-source-note">Datos de la captura compartida; no se actualizan automáticamente. La competición y la fecha exactas no están identificadas. La clasificación oficial siempre prevalece.</span></div>
+  <div class="cb-contest-summary"><div><small>Participantes visibles</small><strong id="cb-visible-count">14</strong></div><div><small>Pruebas</small><strong id="cb-test-count">6</strong></div><div><small>Destacados</small><strong id="cb-star-count">0</strong></div></div>
+  <div class="cb-contest-table-wrap"><table class="cb-contest-table"><thead><tr><th>Puesto</th><th>★</th><th>Palomo</th><th>Pelaje</th><th>Anilla</th><th>Propietario</th><th>Club</th><th>1ª</th><th>2ª</th><th>3ª</th><th>4ª</th><th>5ª</th><th>6ª</th><th>Total</th></tr></thead><tbody id="cb-contest-rows"></tbody></table></div>
+  <p class="cb-contest-footnote">Desliza la tabla hacia los lados para consultar las seis pruebas. Las estrellas se guardan en este dispositivo.</p>
+  <div class="cb-contest-next"><b>PRÓXIMA FASE · CONEXIÓN CON LA FEDERACIÓN</b><p>Investigaremos una vía autorizada y estable para importar concursos y resultados. Hasta entonces, el acceso a la FCCV es directo y los datos mostrados aquí son una demostración fija.</p></div>
+</section>
+    <section id="guia" class="page placeholder"></section>
+    <section id="meteorologia" class="page">
+      <div class="title-row"><button class="back app-back" data-go="inicio">‹</button><div><h2>METEOROLOGÍA</h2><small>Previsión para tu palomar y tus concursos</small></div></div>
+      <div class="cb-weather-panel">
+        <div class="cb-weather-heading"><span>🌤️</span><div><h3>EL TIEMPO EN TU PALOMAR</h3><p>Temperatura, viento, rachas y lluvia en tiempo real</p></div></div>
+        <form id="cb-weather-form" class="cb-weather-search">
+          <label for="cb-weather-place">Municipio</label>
+          <div><input id="cb-weather-place" type="search" value="Sollana" placeholder="Ej. Sollana, Valencia" required><button type="submit">Consultar</button></div>
+        </form>
+        <button type="button" id="cb-weather-gps" class="cb-weather-locate">⌖ Usar mi ubicación (con permiso)</button>
+        <p id="cb-weather-message" role="status" aria-live="polite">Pulsa «Consultar» para obtener datos meteorológicos actuales.</p>
+        <div id="cb-weather-result" hidden>
+          <div class="cb-weather-now"><div><small id="cb-weather-location"></small><strong id="cb-weather-temp"></strong><span id="cb-weather-condition"></span></div><span class="cb-weather-emoji" id="cb-weather-emoji">🌤️</span></div>
+          <div class="cb-weather-metrics">
+            <div><small>💨 Viento</small><b id="cb-weather-wind"></b></div>
+            <div><small>🧭 Dirección</small><b id="cb-weather-direction"></b></div>
+            <div><small>🌪️ Rachas</small><b id="cb-weather-gust"></b></div>
+            <div><small>💧 Humedad</small><b id="cb-weather-humidity"></b></div>
+            <div><small>🌧️ Lluvia (hora)</small><b id="cb-weather-rain"></b></div>
+            <div><small>☔ Prob. lluvia hoy</small><b id="cb-weather-prob"></b></div>
+          </div>
+          <p class="cb-weather-updated" id="cb-weather-updated"></p>
+        </div>
+        <a class="cb-windy-link" href="https://www.windy.com/" target="_blank" rel="noopener noreferrer">🗺️ Abrir mapa de viento en Windy ↗</a>
+        <p class="cb-weather-footnote">Datos de Open-Meteo. La previsión es orientativa y puede cambiar. La ubicación se consulta solo cuando lo solicitas; no se almacena tu posición GPS. Requiere conexión a internet.</p>
+      </div>
+    </section>
+    <section id="calendario" class="page placeholder"></section>
+  </main>
+  <div id="deleteModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-icon">🗑️</div>
+      <h3 id="deleteTitle">¿Eliminar este palomo?</h3>
+      <p>Esta acción elimina la ficha creada en Mi Palomar. Si el palomo ha fallecido, ha sido cedido o ya no está activo, es mejor conservar su historial y cambiar su <b>Estado</b>.</p>
+      <div class="modal-actions"><button id="cancelDelete" class="secondary">Cancelar</button><button id="confirmDelete" class="danger">Eliminar definitivamente</button></div>
+    </div>
+  </div>
+
+  <nav>
+    <button data-go="inicio" class="selected"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 9-8 9 8v10h-6v-7H9v7H3z"/></svg><small>Inicio</small></button>
+    <button data-go="palomar"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-7h6v7"/></svg><small>Mi palomar</small></button>
+    <button data-go="genetica"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c0 6 10 6 10 12s-10 6-10 6"/><path d="M17 3c0 6-10 6-10 12s10 6 10 6"/><path d="M8 7h8M7 12h10M8 17h8"/></svg><small>Genética</small></button>
+    <button data-go="salud"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/><path d="M3.5 12h4l2-3 3 6 2-3h6"/></svg><small>Salud</small></button>
+    <button data-go="concursos"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v7a5 5 0 0 1-10 0z"/><path d="M7 6H4v3a4 4 0 0 0 4 4M17 6h3v3a4 4 0 0 1-4 4"/></svg><small>Concursos</small></button>
+    <button data-go="guia"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V5c-4-1-7-1-10 1z"/><path d="M12 6v15"/></svg><small>Guía</small></button>
+  </nav>
+</div>
+<script>
+(function(){
+  const splash=document.getElementById('cb-splash');
+  if(!splash)return;
+  let closed=false;
+  function dismiss(){if(closed)return;closed=true;splash.classList.add('cb-splash-exit');
+    setTimeout(()=>{splash.remove();},500);}
+  // El contenido se carga detrás de la bienvenida, sin bloquear la aplicación.
+  setTimeout(dismiss,1500);
+  // En caso de pestaña reanudada, nunca mantener la capa bloqueando la interfaz.
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&closed)splash.remove();});
+})();
+</script>
+<script src="app.js?v=1.0b"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+<script>document.addEventListener("DOMContentLoaded",function(){
 (()=>{'use strict';
-const towns=[['Morella',40.6196,-0.0989],['Vinaròs',40.4703,0.4756],['Castelló',39.9864,-0.0513],['Vila-real',39.9383,-0.1005],['Segorbe',39.8524,-0.4893],['Sagunt',39.6798,-0.2786],['València',39.4699,-0.3763],['Llíria',39.6259,-0.5963],['Sollana',39.2786,-0.3826],['Sueca',39.2026,-0.3111],['Gandia',38.9685,-0.1810],['Xàtiva',38.9904,-0.5185],['Alcoi',38.6986,-0.4735],['Dénia',38.8408,0.1057],['Benidorm',38.5411,-0.1225],['Alacant',38.3452,-0.4810],['Elx',38.2655,-0.6988],['Orihuela',38.0848,-0.9440]];
-const specs={ECMWF:'ecmwf_ifs',GFS:'ncep_gfs_global',ICON:'icon_eu',ARPEGE:'meteofrance_arpege_europe'};
-const $=id=>document.getElementById(id);let variable='temperature_2m';let model='ECMWF',town=8,hour=0,forecast={},times=[],pending=0,ctrl=null;const markers=[];let boundary=null,customMarker=null,customForecast={},customLocation=null,geoSeq=0;
-const cvBounds=L.latLngBounds([[37.82,-1.28],[40.82,0.67]]);
-const map=L.map('map',{center:[39.27,-0.34],zoom:8,scrollWheelZoom:false,dragging:true,touchZoom:true,tap:false,zoomControl:true,maxBounds:L.latLngBounds([[36.9,-3.0],[42.1,2.3]]),maxBoundsViscosity:.7,minZoom:6});
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Tiles © Esri, HERE, Garmin, USGS, OpenStreetMap contributors'}).addTo(map);
-map.fitBounds([[37.75,-1.40],[40.85,0.85]],{padding:[5,5]});
-// El recorte se obtiene de una geometría administrativa real de OpenStreetMap.
-// No se dibuja ninguna silueta aproximada ni se modifican los datos meteorológicos.
-(async function recortarComunitat(){
-  const aviso=document.createElement('div');
-  aviso.id='map-mask-status'; aviso.style.cssText='font-size:12px;color:#526b7b;margin:6px 0';
-  aviso.textContent='Cargando el límite geográfico de la Comunidad Valenciana…';
-  map.getContainer().insertAdjacentElement('afterend',aviso);
-  try{
-    const endpoint='https://nominatim.openstreetmap.org/search?format=geojson&polygon_geojson=1&limit=5&countrycodes=es&q='+encodeURIComponent('Comunitat Valenciana, España');
-    const response=await fetch(endpoint,{headers:{'Accept':'application/geo+json, application/json'}});
-    if(!response.ok)throw Error('HTTP '+response.status);
-    const json=await response.json();
-    const feature=(json.features||[]).find(f=>f.geometry&&['Polygon','MultiPolygon'].includes(f.geometry.type)&&/Valenc|Valèn/i.test((f.properties?.display_name||'')+' '+(f.properties?.name||'')));
-    if(!feature)throw Error('No se recibió el contorno autonómico');
-    const geometry=feature.geometry; boundary=geometry;
-    const polygons=geometry.type==='Polygon'?[geometry.coordinates]:geometry.coordinates;
-    // Atenuación alrededor de la Comunitat; no oculta por completo España.
-    const world=[[85,-179],[85,179],[-85,179],[-85,-179]];
-    const holes=polygons.map(poly=>poly[0].map(([lon,lat])=>[lat,lon]));
-    const mask=L.polygon([world,...holes],{
-      color:'#fff',weight:0,fillColor:'#edf2f5',fillOpacity:.20,
-      fillRule:'evenodd',interactive:false,pane:'overlayPane'
-    }).addTo(map);
-    mask.bringToFront();
-    L.geoJSON(feature,{style:{color:'#087bb5',weight:1.4,opacity:.72,fill:false,interactive:false}}).addTo(map);
-    const b=L.geoJSON(feature).getBounds();
-    map.fitBounds(b.pad(.075),{padding:[5,5]});
-    map.setMaxBounds(b.pad(.45));
-    aviso.textContent='✓ Contorno real cargado. Territorio circundante atenuado.';scheduleHeat();
-  }catch(error){
-    aviso.textContent='⚠ No se pudo cargar el contorno real. El mapa sigue funcionando sin recorte. '+error.message;
-  }
+const $=id=>document.getElementById(id),dialog=$('cb-profile-dialog'),open=$('cb-profile-button'),close=$('cb-profile-close'),form=$('cb-profile-form'),out=$('cb-profile-logout'),status=$('cb-profile-state'),email=$('cb-profile-email'),result=$('cb-profile-result');
+const identity=$('cb-profile-identity'),nameText=$('cb-profile-display-name'),nameForm=$('cb-profile-name-form'),nameInput=$('cb-profile-name-input'),editName=$('cb-profile-edit-name'),cancelName=$('cb-profile-name-cancel');
+if(!dialog||!open)return;
+let client=null,busy=false,currentUser=null;
+const message=s=>{result.textContent=s};
+function safeName(user){const n=user?.user_metadata?.colombaire_name;return typeof n==='string'?n.trim():''}
+function display(user){currentUser=user||null;const connected=!!user;status.textContent=connected?'✓ Cuenta conectada':'Cuenta no conectada';email.textContent=connected?(user.email||'Usuario autenticado'):'';form.hidden=connected;out.hidden=!connected;identity.hidden=!connected;nameForm.hidden=true;if(connected){const n=safeName(user);nameText.textContent=n||'Nombre pendiente de configurar';editName.textContent=n?'Editar nombre':'Añadir nombre';}open.title=connected?'Mi cuenta · Conectado':'Mi cuenta · Sin conectar';open.setAttribute('aria-label',open.title)}
+function initialize(){if(!window.supabase?.createClient){status.textContent='Acceso no disponible sin conexión a Internet.';form.hidden=true;return;}
+client=window.supabase.createClient('https://mjbamwhnalljvmnogqzi.supabase.co','sb_publishable_pLmcbeWD6LGbT1MC2bUMxw_8Ng80tY6',{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+client.auth.onAuthStateChange((_event,session)=>{display(session?.user||null)});
+client.auth.getUser().then(({data,error})=>{if(error){client.auth.getSession().then(({data:d})=>display(d?.session?.user||null))}else display(data.user)}).catch(()=>{status.textContent='No se pudo comprobar la sesión';form.hidden=false});
+}
+open.addEventListener('click',()=>{if(!dialog.open)dialog.showModal()});close.addEventListener('click',()=>dialog.close());
+editName.addEventListener('click',()=>{if(!currentUser)return;nameInput.value=safeName(currentUser);nameForm.hidden=false;nameInput.focus();});
+cancelName.addEventListener('click',()=>{nameForm.hidden=true;message('')});
+nameForm.addEventListener('submit',async e=>{e.preventDefault();if(busy||!client||!currentUser)return;const n=nameInput.value.trim().replace(/\s+/g,' ');if(n.length<2||n.length>60){message('El nombre debe tener entre 2 y 60 caracteres.');return;}busy=true;const btn=nameForm.querySelector('button[type="submit"]');btn.disabled=true;message('Guardando nombre en tu cuenta…');try{const {data,error}=await client.auth.updateUser({data:{colombaire_name:n}});if(error)throw error;display(data.user);message('Nombre guardado en tu cuenta de Supabase. No se han modificado datos de palomos.')}catch(err){message('No se pudo guardar el nombre: '+(err.message||'Error de conexión'))}finally{busy=false;btn.disabled=false}});
+form.addEventListener('submit',async e=>{e.preventDefault();if(busy||!client)return;busy=true;const btn=form.querySelector('button');btn.disabled=true;message('Comprobando credenciales…');try{const {data,error}=await client.auth.signInWithPassword({email:$('cb-profile-login-email').value.trim(),password:$('cb-profile-login-password').value});if(error)throw error;$('cb-profile-login-password').value='';display(data.user);message('Sesión iniciada correctamente. La sincronización de palomos sigue desactivada.')}catch(err){message('No se pudo iniciar sesión: '+(err.message||'Error de conexión'))}finally{busy=false;btn.disabled=false}});
+out.addEventListener('click',async()=>{if(busy||!client)return;busy=true;out.disabled=true;try{const {error}=await client.auth.signOut();if(error)throw error;display(null);message('Sesión cerrada. Tus palomos locales no se han modificado.')}catch(err){message('No se pudo cerrar sesión: '+err.message)}finally{busy=false;out.disabled=false}});
+initialize();
 })();
-// V23.1: Leaflet gestiona el arrastre con un dedo y el zoom con dos; no interceptar touchstart/touchend.
-const select=$('town-select');towns.forEach((t,i)=>{let o=document.createElement('option');o.value=i;o.textContent=t[0];select.append(o);const marker=L.marker([t[1],t[2]],{icon:L.divIcon({className:'',html:'',iconSize:[42,43],iconAnchor:[21,22]})}).addTo(map);marker.on('click',e=>{L.DomEvent.stopPropagation(e);town=i;select.value=i;map.panTo([t[1],t[2]]);render()});markers.push(marker)});const customOption=document.createElement('option');customOption.value='-1';customOption.textContent='📍 Punto seleccionado en el mapa';select.append(customOption);select.value=town;
-function fmt(v,suffix=''){return Number.isFinite(v)?Math.round(v*10)/10+suffix:'—'}
-function icon(d,i){if(!d||i<0)return '❔';let h=d.hourly||{},p=h.precipitation?.[i],c=h.cloud_cover?.[i],w=h.weather_code?.[i];if(Number.isFinite(w)&&[71,73,75,77,85,86].includes(w))return '🌨️';if(Number.isFinite(p)&&p>=2)return '🌧️';if(Number.isFinite(p)&&p>=.5)return '🌧️';if(Number.isFinite(p)&&p>=.1)return '🌦️';if(!Number.isFinite(p)||!Number.isFinite(c))return '❔';return c>=80?'☁️':c>=35?'🌤️':'☀️'}
-function idx(d){let t=times[hour];return t&&d?.hourly?.time?d.hourly.time.indexOf(t):-1}
 
-// V22: superficie orientativa coloreada por interpolación de los 18 municipios
-// consultados al modelo elegido. Nunca se generan valores meteorológicos ficticios.
-// V23.1: superposición georreferenciada nativa de Leaflet.
-// La imagen se transforma junto con el mapa durante zoom y desplazamiento.
-const heatCanvas=document.createElement('canvas');
-// V24: la animación usa horas pronosticadas, no desplaza artificialmente las manchas.
-let playTimer=null;
-function stopPlay(){if(playTimer!==null){clearInterval(playTimer);playTimer=null;}const b=$('play-hours');if(b){b.textContent='▶ Animar';b.setAttribute('aria-label','Reproducir evolución horaria')}}
-$('play-hours').addEventListener('click',()=>{if(playTimer!==null){stopPlay();return;}if(times.length<2){$('status').textContent='Esperando las previsiones horarias…';return;}const b=$('play-hours');b.textContent='⏸ Pausar';b.setAttribute('aria-label','Pausar evolución horaria');playTimer=setInterval(()=>{if(document.hidden){stopPlay();return;}hour=(hour+1)%times.length;render();scheduleHeat();},950);});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPlay()});
-// V26: overlay from ORIGINAL ECMWF gridded forecast files, if generated and deployed.
-let gridManifest=null,gridImage=null,gridLoadMessage='Rejilla ECMWF no generada todavía';
-fetch('./grid/manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No hay manifiesto');return r.json()}).then(data=>{gridManifest=data;gridLoadMessage='Rejilla ECMWF disponible';scheduleHeat()}).catch(()=>{gridLoadMessage='Sin archivos de rejilla: se conserva la vista V25.2';});
-function removeGrid(){if(gridImage){map.removeLayer(gridImage);gridImage=null}}
-function showGrid(){
- if(model!=='ECMWF'||!gridManifest||variable==='precipitation_probability'){removeGrid();return false}
- const selected=times[hour];if(!selected){removeGrid();return false}
- // Open-Meteo time is local ISO; match ECMWF UTC frame via epoch.
- const tzTime=new Date(selected).getTime();
- const frames=Object.keys(gridManifest.frames||{});
- const frame=frames.find(t=>{const d=new Date(t);return Math.abs(d.getTime()-tzTime)<60*1000})
- if(!frame){removeGrid();return false}
- const item=gridManifest.frames[frame]?.[variable];if(!item){removeGrid();return false}
- const url='./'+item.file;
- if(gridImage){gridImage.setUrl(url);gridImage.setBounds(item.bounds)}
- else gridImage=L.imageOverlay(url,item.bounds,{opacity:.72,interactive:false,className:'weather-heat-image'}).addTo(map);
- const legend=$('heat-legend');legend.textContent='🧭 REJILLA ORIGINAL ECMWF IFS '+gridManifest.resolution+' · '+frame+' · '+(variable==='precipitation'?'Lluvia acumulada en 3 horas (mm), NO mm/h':variable==='temperature_2m'?'Temperatura (°C)':'Velocidad del viento (km/h)')+' · Fuente ECMWF Open Data CC BY 4.0';
- return true
-}
-let heatOverlay=null;
-let heatBounds=null;
-function clearHeat(){if(heatOverlay){map.removeLayer(heatOverlay);heatOverlay=null;}heatBounds=null;}
-let heatTimer=null;
-const scales={
- temperature_2m:{unit:'°C',steps:[0,5,10,15,20,25,30,35],colors:['#4467b0','#4fb1e5','#61bd90','#ebd75e','#f39a45','#d74744']},
- wind_speed_10m:{unit:'km/h',steps:[0,10,20,30,40,60],colors:['#9dd6bd','#f0db6d','#f3a252','#db6252','#9e3870']},
- precipitation:{unit:'mm/1 h',steps:[0,0.5,1,2,5,10,20,40],colors:['#c7f1ff','#86d7ff','#47b4f5','#167be5','#3036ad','#8539c9','#dc35ac','#ff48a9']},
- precipitation_probability:{unit:'%',steps:[0,20,40,60,80,100],colors:['#e7e7e7','#b3dbec','#6db7e3','#4d77c3','#43348d']}
-};
-function mixColor(a,b,t){let A=[1,3,5].map(i=>parseInt(a.slice(i,i+2),16)),B=[1,3,5].map(i=>parseInt(b.slice(i,i+2),16));return A.map((x,i)=>Math.round(x+(B[i]-x)*t))}
-function heatColor(value){const s=scales[variable],st=s.steps,c=s.colors;for(let i=0;i<st.length-1;i++)if(value<=st[i+1]){const f=Math.max(0,Math.min(1,(value-st[i])/(st[i+1]-st[i]))),ix=Math.min(i,c.length-1);return mixColor(c[ix],c[Math.min(ix+1,c.length-1)],f)}return mixColor(c[c.length-1],c[c.length-1],0)}
-function scheduleHeat(){clearTimeout(heatTimer);heatTimer=setTimeout(drawHeat,45)}
-function drawHeat(){
- if(showGrid()){clearHeat();return;}removeGrid();
- const legend=$('heat-legend'),s=scales[variable],samples=[];
- towns.forEach((t,i)=>{let d=forecast[model]?.[i],j=idx(d),v=d?.hourly?.[variable]?.[j];if(Number.isFinite(v))samples.push({lat:t[1],lon:t[2],value:v})});
- if(!boundary||samples.length<4){clearHeat();heatCanvas.width=0;legend.textContent=!boundary?'Esperando el límite autonómico real para colorear el territorio…':'No hay suficientes valores del modelo '+model+' para representar '+variable+'.';return}
- const w=map.getSize().x,h=map.getSize().y;
- heatBounds=L.latLngBounds(map.containerPointToLatLng([0,0]),map.containerPointToLatLng([w,h]));
- heatCanvas.width=w;heatCanvas.height=h;
- // Dibujamos una superficie continua en un lienzo auxiliar y la recortamos
- // al contorno geográfico. El suavizado afecta solo a la representación visual.
- const ctx=heatCanvas.getContext('2d');
- const resolution=4,gw=Math.ceil(w/resolution),gh=Math.ceil(h/resolution);
- const scratch=document.createElement('canvas');scratch.width=gw;scratch.height=gh;
- const sc=scratch.getContext('2d'),pixels=sc.createImageData(gw,gh);
- for(let gy=0;gy<gh;gy++)for(let gx=0;gx<gw;gx++){
-   const ll=map.containerPointToLatLng([(gx+.5)*resolution,(gy+.5)*resolution]);
-   let sum=0,weight=0;
-   for(const pt of samples){
-     const dx=(ll.lng-pt.lon)*Math.cos(ll.lat*Math.PI/180),dy=ll.lat-pt.lat;
-     const k=1/(dx*dx+dy*dy+.001);sum+=pt.value*k;weight+=k;
-   }
-   const value=sum/weight;
-   const [r,g,b]=heatColor(value),p=(gy*gw+gx)*4;
-   pixels.data[p]=r;pixels.data[p+1]=g;pixels.data[p+2]=b;
-   // Lluvia: dejar transparente el territorio seco; transición suave de intensidad.
-   // Este valor procede de una interpolación municipal, NO de una rejilla meteorológica.
-   pixels.data[p]=(variable==='precipitation')?Math.round(255*Math.max(0,Math.min(1,(value-.04)/.48))):(variable==='precipitation_probability')?Math.round(255*Math.max(0,Math.min(1,(value-8)/37))):255;
- }
- sc.putImageData(pixels,0,0);
- // La geometría OSM determina un recorte de borde antialias, sin cuadrados.
- ctx.save();ctx.beginPath();
- const polys=boundary.type==='Polygon'?[boundary.coordinates]:boundary.coordinates;
- for(const poly of polys)for(const ring of poly){
-   ring.forEach(([lon,lat],i)=>{
-     const p=map.latLngToContainerPoint([lat,lon]);
-     if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);
-   });ctx.closePath();
- }
- ctx.clip('evenodd');ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
- ctx.drawImage(scratch,0,0,w,h);ctx.restore();
- // Leaflet mueve y escala el ImageOverlay de forma sincronizada con las teselas.
- const url=heatCanvas.toDataURL('image/png');
- if(heatOverlay){heatOverlay.setBounds(heatBounds);heatOverlay.setOpacity(variable.startsWith('precipitation')?.72:.55);heatOverlay.setUrl(url)}
- else{heatOverlay=L.imageOverlay(url,heatBounds,{opacity:variable.startsWith('precipitation')?.72:.55,interactive:false,pane:'overlayPane',className:'weather-heat-image'}).addTo(map)}
- legend.innerHTML='';const line=document.createElement('div');line.textContent='🎨 '+({'temperature_2m':'Temperatura','wind_speed_10m':'Viento','precipitation':'Lluvia','precipitation_probability':'Probabilidad de lluvia'}[variable])+' · '+model+' · '+(times[hour]?.replace('T',' ')||'—')+' · '+samples.length+' puntos de modelo · superficie interpolada';legend.append(line);
- const ramp=document.createElement('div');ramp.className='heat-ramp';ramp.style.background='linear-gradient(90deg,'+s.colors.join(',')+')';legend.append(ramp);
- const scale=document.createElement('div');scale.className='heat-scale';s.steps.forEach(v=>{let e=document.createElement('span');e.textContent=v;scale.append(e)});legend.append(scale);
- const note=document.createElement('div');note.textContent='V24 experimental · zonas orientativas interpoladas entre municipios, no radar ni rejilla espacial del modelo. Cada fotograma corresponde a una hora de pronóstico. Escala en '+s.unit+'.';legend.append(note)
-}
-map.on('moveend zoomend resize',scheduleHeat);
-
-// V22.5: localidades adicionales, por niveles de zoom. Coordenadas de referencia municipales.
-// Sus previsiones se solicitan al mismo modelo Open-Meteo; no se copian de otro municipio.
-const zoomTowns=[
- ['Burriana',39.889,-0.085,9],['Benicarló',40.416,0.428,9],['Onda',39.963,-0.261,9],['Benicàssim',40.056,0.064,9],
- ['Requena',39.488,-1.101,9],['Utiel',39.566,-1.203,9],['Torrent',39.437,-0.465,9],['Alzira',39.151,-0.436,9],
- ['Ontinyent',38.822,-0.607,9],['Cullera',39.166,-0.254,9],['Oliva',38.920,-0.119,9],['Villena',38.638,-0.866,9],
- ['Elda',38.478,-0.797,9],['Novelda',38.385,-0.767,9],['Torrevieja',37.979,-0.683,9],['Petrer',38.478,-0.776,10],
- ['Catarroja',39.404,-0.403,10],['Paiporta',39.428,-0.418,10],['Picassent',39.363,-0.459,10],['Silla',39.363,-0.411,10],
- ['Alfafar',39.424,-0.389,10],['Massanassa',39.412,-0.400,10],['Algemesí',39.191,-0.435,10],['Carcaixent',39.121,-0.449,10],
- ['Benifaió',39.284,-0.427,10],['Almussafes',39.293,-0.412,10],['Paterna',39.503,-0.442,10],['Manises',39.491,-0.463,10],
- ['Mislata',39.476,-0.417,10],['Burjassot',39.510,-0.413,10],['Alboraia',39.500,-0.350,10],['Puçol',39.616,-0.302,10],
- ['Xirivella',39.466,-0.426,10],['Aldaia',39.464,-0.463,10],['Albal',39.396,-0.413,10],['Benetússer',39.422,-0.396,11],
- ['Sedaví',39.433,-0.384,11],['Llocnou de la Corona',39.421,-0.381,11],['Alcàsser',39.369,-0.445,11],
- ['Meliana',39.527,-0.349,11],['Foios',39.538,-0.356,11],['Rocafort',39.530,-0.410,11],['Godella',39.521,-0.418,11],
- ['Tavernes de la Valldigna',39.071,-0.266,10],['Xeraco',39.033,-0.216,10],['Benissa',38.714,0.051,10],
- ['Calp',38.644,0.045,10],['Altea',38.598,-0.052,10],['La Vila Joiosa',38.507,-0.231,10],
- ['Sant Vicent del Raspeig',38.397,-0.526,10],['Santa Pola',38.192,-0.557,10],['Crevillent',38.248,-0.811,10],
- ['Aspe',38.345,-0.768,10],['Almoradí',38.110,-0.792,10],['Guardamar del Segura',38.090,-0.654,10],
- ['Nules',39.852,-0.156,10],['Almassora',39.945,-0.063,10],['Peníscola',40.359,0.407,10],
- ['L’Alcora',40.073,-0.214,10],['La Vall d’Uixó',39.824,-0.232,10]
-];
-const zoomLayer=L.layerGroup().addTo(map);
-const zoomForecast=new Map(); // modelo -> previsiones para localidades adicionales
-let zoomTimer=null;
-const zoomInFlight=new Set();
-function zoomAvailable(){return map.getZoom()>=9}
-function zoomNeeds(){return zoomTowns.filter(t=>t[3]<=map.getZoom()&&map.getBounds().pad(.16).contains([t[1],t[2]]))}
-function zoomLoad(){
- clearTimeout(zoomTimer);
- zoomTimer=setTimeout(async()=>{
-  if(!zoomAvailable()||!forecast[model]){zoomLayer.clearLayers();return}
-  const chosenModel=model;
-  const existing=zoomForecast.get(chosenModel)||new Map();
-  const missing=zoomNeeds().filter(t=>!existing.has(t[0])&&!zoomInFlight.has(chosenModel+'|'+t[0]));
-  if(!missing.length){renderZoom();return}
-  // Lotes pequeños: se conservan al mover el mapa; las poblaciones aparecen progresivamente.
-  for(let offset=0;offset<missing.length;offset+=10){
-   const batch=missing.slice(offset,offset+10);
-   batch.forEach(t=>zoomInFlight.add(chosenModel+'|'+t[0]));
-   try{
-    const result=await requestModel(chosenModel,specs[chosenModel],batch.map(t=>t[1]).join(','),batch.map(t=>t[2]).join(','),new AbortController().signal);
-    if(result.data.length===batch.length){
-     const target=zoomForecast.get(chosenModel)||new Map();
-     batch.forEach((t,i)=>target.set(t[0],result.data[i]));
-     zoomForecast.set(chosenModel,target);
-     if(model===chosenModel)renderZoom();
-    }
-   }catch(e){console.warn('Iconos adicionales:',e.message)}
-   finally{batch.forEach(t=>zoomInFlight.delete(chosenModel+'|'+t[0]))}
-  }
- },130);
-}
-function renderZoom(){
- zoomLayer.clearLayers();if(!zoomAvailable())return;
- const data=zoomForecast.get(model);if(!data)return;
- const showIcons=variable==='precipitation'||variable==='precipitation_probability';
- if(!showIcons)return;
- const used=[];const bounds=map.getBounds();
- // Reparto visual: evitar iconos muy próximos entre sí y a los 18 originales.
- const size=map.getZoom()===9?55:map.getZoom()===10?42:32;
- towns.forEach(t=>{const pt=map.latLngToContainerPoint([t[1],t[2]]);used.push(pt)});
- for(const t of zoomNeeds()){
-  if(!bounds.contains([t[1],t[2]]))continue;
-  const d=data.get(t[0]);if(!d)continue;
-  const j=idx(d);if(j<0)continue;
-  const pt=map.latLngToContainerPoint([t[1],t[2]]);
-  if(used.some(p=>Math.hypot(p.x-pt.x,p.y-pt.y)<size))continue;
-  used.push(pt);
-  const ico=icon(d,j);if(ico==='❔')continue;
-  const html='<div class="weatherpin extra-town" title="'+t[0]+'"><span class="ico">'+ico+'</span></div>';
-  const marker=L.marker([t[1],t[2]],{icon:L.divIcon({className:'',html,iconSize:[34,35],iconAnchor:[17,18]}),zIndexOffset:150});
-  marker.on('click',e=>{L.DomEvent.stopPropagation(e);loadCustom(t[1],t[2],t[0])});zoomLayer.addLayer(marker);
- }
-}
-map.on('zoomend moveend',()=>{renderZoom();zoomLoad()});
-
-
-
-// V23: pronóstico diario independiente para el punto elegido, sin descargar siete días de 18 municipios.
-const dailyCache=new Map();let dailySeq=0,dailyController=null;
-function currentPoint(){return town>=0?{name:towns[town][0],lat:towns[town][1],lon:towns[town][2]}:customLocation}
-function dailyIcon(code){if(!Number.isFinite(code))return '—';if(code===0)return '☀️';if(code<=2)return '🌤️';if(code===3)return '☁️';if(code===45||code===48)return '🌫️';if([51,53,55,56,57,61,63,65,66,67,80,81,82].includes(code))return '🌧️';if([71,73,75,77,85,86].includes(code))return '🌨️';if(code>=95)return '⛈️';return '🌥️'}
-function dayNumber(v,suffix=''){return typeof v==='number'&&Number.isFinite(v)?(Math.round(v*10)/10).toLocaleString('es-ES')+suffix:'—'}
-async function fetchDaily(){
- const p=currentPoint();if(!p)return;
- const key=model+'|'+p.lat.toFixed(4)+'|'+p.lon.toFixed(4);const seq=++dailySeq;
- $('daily-place').textContent='📍 '+p.name;$('daily-model').value=model;
- const saved=dailyCache.get(key);
- if(saved&&Date.now()-saved.at<20*60*1000){paintDaily(saved.data);return}
- if(dailyController)dailyController.abort();dailyController=new AbortController();
- const signal=dailyController.signal;
- $('daily-track').innerHTML='<div class="daily-loading">Consultando los 7 días de '+model+'…</div>';
- const url=new URL('https://api.open-meteo.com/v1/forecast');
- url.search=new URLSearchParams({latitude:String(p.lat),longitude:String(p.lon),models:specs[model],timezone:'Europe/Madrid',forecast_days:'7',daily:'weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max,precipitation_probability_max'}).toString();
- try{let r=await fetch(url,{signal});if(r.status===400){url.searchParams.set('daily','weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max');r=await fetch(url,{signal})}if(!r.ok)throw Error('HTTP '+r.status);const d=(await r.json()).daily;if(!d?.time?.length)throw Error('Sin datos diarios');if(seq!==dailySeq)return;dailyCache.set(key,{at:Date.now(),data:d});paintDaily(d)}catch(e){if(e.name==='AbortError'||seq!==dailySeq)return;$('daily-track').textContent='Previsión diaria no disponible para '+model+'. Puedes seleccionar otro modelo.'}
-}
-let selectedDailyDate=null;
-function chooseDailyDate(date){
- selectedDailyDate=date;
- const first=times.findIndex(t=>t.startsWith(date+'T'));
- if(first>=0){hour=first;render();scheduleHeat()}
- else {paintDaily(dailyCache.get(dailyLastKey)?.data||{time:[]})}
-}
-function paintDaily(d){
- $('daily-hint').textContent='← Desliza para ver los siete días · '+({'temperature_2m':'temperaturas máximas y mínimas','wind_speed_10m':'viento máximo diario','precipitation':'precipitación acumulada diaria en mm','precipitation_probability':'probabilidad máxima diaria (%), si el modelo la ofrece'}[variable])+' · '+model+'.';
- if(!d?.time?.length)return;
- const validIndices=d.time.map((_,i)=>i).filter(i=>[d.temperature_2m_max?.[i],d.temperature_2m_min?.[i],d.precipitation_sum?.[i],d.wind_speed_10m_max?.[i]].some(v=>typeof v==='number'&&Number.isFinite(v)));
- if(!validIndices.length){$('daily-track').textContent='Este modelo no ofrece datos diarios válidos para estas fechas.';return;}
- const validDates=validIndices.map(i=>d.time[i]);
- if(!selectedDailyDate||!validDates.includes(selectedDailyDate))selectedDailyDate=validDates[0];
- const track=$('daily-track');const scrollLeft=track.scrollLeft;track.parentElement.querySelector('.daily-availability')?.remove();track.replaceChildren();
- const selectedIndex=d.time.indexOf(selectedDailyDate);
- $('daily-hint').textContent='Día seleccionado: '+(selectedIndex===0?'HOY':selectedDailyDate.split('-').reverse().join('/'))+' · '+({'temperature_2m':'temperaturas','wind_speed_10m':'viento máximo','precipitation':'lluvia acumulada','precipitation_probability':'probabilidad máxima'}[variable])+' · '+model+(selectedIndex>1?' · El mapa horario solo dispone de las primeras 48 horas.':'');
- const weekdays=['DOM','LUN','MAR','MIÉ','JUE','VIE','SÁB'];
- validIndices.slice(0,7).forEach(i=>{
-  const date=d.time[i];
-  const day=new Date(date+'T12:00:00');const box=document.createElement('div');box.className='day-card'+(date===selectedDailyDate?' selected-day':'');
-  box.setAttribute('role','button');box.tabIndex=0;box.setAttribute('aria-pressed',String(date===selectedDailyDate));
-  box.setAttribute('aria-label','Seleccionar pronóstico del '+date);
-  box.addEventListener('click',()=>chooseDailyDate(date));
-  box.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();chooseDailyDate(date)}});
-
-  const tmax=d.temperature_2m_max?.[i],tmin=d.temperature_2m_min?.[i],rain=d.precipitation_sum?.[i],wind=d.wind_speed_10m_max?.[i];
-  const probability=d.precipitation_probability_max?.[i];
-  const main=variable==='wind_speed_10m'?['💨 '+dayNumber(wind,' km/h'),'Viento máximo']:variable==='precipitation'?['💧 '+dayNumber(rain,' mm'),'Lluvia acumulada']:variable==='precipitation_probability'?['☔ '+dayNumber(probability,' %'),'Probabilidad máx.']:['🌡 '+dayNumber(tmax,' °C'),'Temperatura máx.'];
-  const pieces=[['day',weekdays[day.getDay()]],['date',i===0?'Hoy':date.slice(8,10)+'/'+date.slice(5,7)],['weather',dailyIcon(d.weather_code?.[i])],['primary-daily'+(variable==='precipitation'?' rain':''),main[0]],['minor',main[1]],...(variable==='temperature_2m'?[['low','Mín. '+dayNumber(tmin,' °C')]]:variable==='wind_speed_10m'?[['minor','🌡 '+dayNumber(tmax,' °C')]]:variable==='precipitation'?[['minor','💨 '+dayNumber(wind,' km/h')]]:[['minor','💧 '+dayNumber(rain,' mm')]])];
-  pieces.forEach(([cls,txt])=>{const el=document.createElement('div');el.className=cls;el.textContent=txt;box.append(el)});track.append(box)
- });
- track.scrollLeft=scrollLeft;
- if(validIndices.length<7){
-  const note=document.createElement('div');note.className='daily-availability';
-  note.textContent='ℹ️ '+model+': '+validIndices.length+' día(s) con datos disponibles. Los días restantes no se muestran para evitar pronósticos vacíos.';
-  track.after(note);
- }else{track.parentElement.querySelector('.daily-availability')?.remove()}
-}
-let dailyTimer=null,dailyLastKey='';
-function scheduleDaily(){const p=currentPoint();if(!p)return;const key=model+'|'+p.lat.toFixed(4)+'|'+p.lon.toFixed(4);if(key===dailyLastKey){const saved=dailyCache.get(key);if(saved)paintDaily(saved.data);return;}dailyLastKey=key;clearTimeout(dailyTimer);dailyTimer=setTimeout(fetchDaily,160)}
-function renderQuick(){
- $('quick-label').textContent='Comparación · '+({'temperature_2m':'Temperatura','wind_speed_10m':'Viento','precipitation':'Lluvia mm','precipitation_probability':'Lluvia %'}[variable]);$('quick-time').textContent=times[hour]?.replace('T',' ')||'';
- const root=$('quick-values');root.replaceChildren();
- Object.keys(specs).forEach(n=>{const d=town>=0?forecast[n]?.[town]:customForecast[n],j=idx(d),v=j>=0?d?.hourly?.[variable]?.[j]:null;const el=document.createElement('button');el.type='button';el.className='quick-value'+(n===model?' selected':'');const title=document.createElement('b');title.textContent=n;const val=document.createElement('strong');val.textContent=dayNumber(v,{'temperature_2m':' °C','wind_speed_10m':' km/h','precipitation':' mm/h','precipitation_probability':' %'}[variable]);el.append(title,val);el.addEventListener('click',()=>{model=n;render();scheduleHeat();zoomLoad()});root.append(el)})
-}
-$('info-toggle').addEventListener('click',()=>{const open=$('mapnote').classList.toggle('expanded');$('info-toggle').textContent=open?'ℹ️ Ocultar información ▴':'ℹ️ Información del mapa ▾'});
-$('daily-model').addEventListener('change',e=>{model=e.target.value;render();scheduleHeat();zoomLoad()});
-function render(){select.value=town>=0?String(town):'-1';$('town-title').textContent='📍 '+(town>=0?towns[town][0]:(customLocation?.name||'Ubicación seleccionada'));document.querySelectorAll('[data-variable]').forEach(b=>b.classList.toggle('active',b.dataset.variable===variable));$('variable-note').textContent=({'temperature_2m':'🌡️ Temperatura','wind_speed_10m':'💨 Velocidad del viento','precipitation':'🌧️ Precipitación por hora','precipitation_probability':'☔ Probabilidad de precipitación'}[variable]||'')+' · Modelo: '+model+' · '+(['precipitation','precipitation_probability'].includes(variable)?'Iconos meteorológicos visibles.':'Mapa sin iconos meteorológicos.');$('hour').max=Math.max(0,times.length-1);$('hour').value=hour;$('hourlabel').textContent=times[hour]?.replace('T',' · ')||'—';const mainUsed=[];markers.forEach((m,i)=>{let d=forecast[model]?.[i],j=idx(d);const show=['precipitation','precipitation_probability'].includes(variable);const pt=map.latLngToContainerPoint([towns[i][1],towns[i][2]]);const threshold=map.getZoom()<=8?35:27;const nearby=mainUsed.some(p=>Math.hypot(p.x-pt.x,p.y-pt.y)<threshold);const visible=show&&!nearby&&j>=0&&!!d; if(visible)mainUsed.push(pt);m.setOpacity(visible?1:0);m.setIcon(L.divIcon({className:'',html:`<div class="weatherpin ${i===town?'selected':''}" title="${towns[i][0]}"><span class="ico">${visible?icon(d,j):''}</span></div>`,iconSize:[42,43],iconAnchor:[21,22]}))});renderZoom();let d=town>=0?forecast[model]?.[town]:customForecast[model],j=idx(d),h=d?.hourly||{};const vals=[['🌡 Temperatura',fmt(h.temperature_2m?.[j],' °C'),'temperature_2m'],['☔ Lluvia prevista',fmt(h.precipitation?.[j],' mm/h'),'precipitation'],['☁ Nubosidad',fmt(h.cloud_cover?.[j],' %'),'cloud_cover'],['💨 Viento',fmt(h.wind_speed_10m?.[j],' km/h'),'wind_speed_10m'],['☔ Probabilidad de lluvia',fmt(h.precipitation_probability?.[j],' %'),'precipitation_probability']];$('detail').replaceChildren();vals.forEach(([k,v,key])=>{let el=document.createElement('div');el.className='metric'+(key===variable?' metric-active':'');let small=document.createElement('small'),strong=document.createElement('strong');small.textContent=k;strong.textContent=v;el.append(small,strong);$('detail').append(el)});$('compare').replaceChildren();Object.keys(specs).forEach(n=>{let d=town>=0?forecast[n]?.[town]:customForecast[n],j=idx(d),h=d?.hourly||{},box=document.createElement('div');box.className='compare'+(n===model?' model-active':'');box.setAttribute('role','button');box.tabIndex=0;box.setAttribute('aria-label','Seleccionar modelo '+n);box.onclick=()=>{model=n;render();scheduleHeat();zoomLoad();if(!forecast[n])$('status').textContent='⚠ '+n+' no tiene datos disponibles en esta consulta. Selecciona un modelo con valores o pulsa Actualizar.'};box.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();model=n;render();scheduleHeat();zoomLoad();if(!forecast[n])$('status').textContent='⚠ '+n+' no tiene datos disponibles en esta consulta.'}};let title=document.createElement('b');title.textContent=n;let val=document.createElement('div');val.className='val';val.textContent=fmt(h[variable]?.[j],({'temperature_2m':' °C','wind_speed_10m':' km/h','precipitation':' mm/h','precipitation_probability':' %'}[variable]||''));let small=document.createElement('small');small.textContent=({'temperature_2m':'Temperatura '+fmt(h.temperature_2m?.[j],' °C'),'wind_speed_10m':'Viento '+fmt(h.wind_speed_10m?.[j],' km/h'),'precipitation':'Lluvia '+fmt(h.precipitation?.[j],' mm/h'),'precipitation_probability':'Probabilidad '+fmt(h.precipitation_probability?.[j],' %')}[variable]||'');box.append(title,val,small);$('compare').append(box)});renderQuick();scheduleDaily();}
-// V22.4: carga progresiva, cache temporal y reintentos limitados.
-const CACHE_TTL=8*60*1000;
-const weatherCache=new Map();
-const requestControllers=new Set();
-const loadStates={};
-function cacheKey(name,lat,lon){return name+'|'+lat+'|'+lon}
-function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
-async function requestModel(name,id,lat,lon,signal){
- const key=cacheKey(name,lat,lon),saved=weatherCache.get(key);
- if(saved&&Date.now()-saved.at<CACHE_TTL)return {data:saved.data,cached:true};
- const u=new URL('https://api.open-meteo.com/v1/forecast');
- u.search=new URLSearchParams({latitude:lat,longitude:lon,hourly:'temperature_2m,precipitation,cloud_cover,wind_speed_10m,weather_code,precipitation_probability',models:id,timezone:'Europe/Madrid',forecast_days:'3'}).toString();
- let last;
- for(let attempt=0;attempt<3;attempt++){
-  if(signal.aborted)throw new DOMException('Cancelada','AbortError');
-  try{
-   const r=await fetch(u,{signal});
-   if(!r.ok){const err=new Error('HTTP '+r.status);err.status=r.status;throw err}
-   const json=await r.json();
-   const data=Array.isArray(json)?json:[json];
-   if(!data.length||!data[0]?.hourly?.time?.length)throw Error('Sin datos horarios');
-   weatherCache.set(key,{at:Date.now(),data});return {data,cached:false};
-  }catch(e){last=e;if(e.name==='AbortError')throw e;
-   // Si la variable de probabilidad no está disponible, consultar las variables básicas.
-   if(e.status===400&&u.searchParams.get('hourly').includes('precipitation_probability')){
-    u.searchParams.set('hourly','temperature_2m,precipitation,cloud_cover,wind_speed_10m,weather_code');
-    continue;
-   }
-   if(![429,500,502,503,504].includes(e.status)&&!(e instanceof TypeError))break;
-   if(attempt<2)await sleep(700*(attempt+1));
-  }
- }
- throw last;
-}
-function currentTimeWindow(){
- const now=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).format(new Date()).replace(' ','T');
- const lists=Object.values(forecast).map(a=>a?.[0]?.hourly?.time).filter(Boolean);
- const all=lists.find(Boolean)||[];
- const start=Math.max(0,all.findIndex(t=>t>=now));
- times=all.slice(start,start+48);
- if(hour>=times.length)hour=Math.max(0,times.length-1);
-}
-function updateLoadStatus(){
- const ok=Object.entries(loadStates).filter(([k,v])=>v==='ok'||v==='cache').map(([k])=>k);
- const loading=Object.entries(loadStates).filter(([k,v])=>v==='loading').map(([k])=>k);
- const failed=Object.entries(loadStates).filter(([k,v])=>v.startsWith('error')).map(([k,v])=>k+' ('+v.slice(6)+')');
- $('status').textContent='Modelos disponibles: '+(ok.join(', ')||'ninguno')+'. '+(loading.length?'Cargando: '+loading.join(', ')+'. ':'')+(failed.length?'Sin respuesta: '+failed.join(', ')+'. ':'')+'Seleccionado: '+model+'.';
- $('status').className='status '+(!ok.length&&!loading.length?'err':'');
-}
-async function load(force=false){
- if(ctrl)ctrl.abort();ctrl=new AbortController();const signal=ctrl.signal,seq=++pending;
- if(force){weatherCache.clear();zoomForecast.clear();zoomLayer.clearLayers();}
- forecast={};times=[];hour=0;
- Object.keys(specs).forEach(n=>loadStates[n]='loading');
- updateLoadStatus();render();scheduleHeat();
- const lat=towns.map(x=>x[1]).join(','),lon=towns.map(x=>x[2]).join(',');
- await Promise.all(Object.entries(specs).map(async([name,id])=>{
-  try{
-   const result=await requestModel(name,id,lat,lon,signal);
-   if(seq!==pending)return;
-   if(result.data.length!==towns.length)throw Error('Municipios incompletos');
-   forecast[name]=result.data;loadStates[name]=result.cached?'cache':'ok';
-   currentTimeWindow();updateLoadStatus();render();scheduleHeat();zoomLoad();
-  }catch(e){if(seq!==pending||e.name==='AbortError')return;loadStates[name]='error:'+e.message;updateLoadStatus();render();scheduleHeat()}
- }));
-}
-$('variables').addEventListener('click',e=>{let b=e.target.closest('[data-variable]');if(!b)return;variable=b.dataset.variable;render();scheduleHeat()});$('hour').addEventListener('input',e=>{hour=+e.target.value;render();scheduleHeat()});select.addEventListener('change',()=>{const selected=Number(select.value);if(selected<0){if(customLocation){town=-1;map.panTo([customLocation.lat,customLocation.lon]);render();}else{select.value=String(town);}return;}town=selected;map.panTo([towns[town][1],towns[town][2]]);render()});$('refresh').addEventListener('click',async()=>{await load(true);if(town<0&&customLocation)await loadCustom(customLocation.lat,customLocation.lon,customLocation.name)});
-// Geometría administrativa real: rechazar clics fuera de la Comunitat Valenciana.
-function inRing(lon,lat,ring){let inside=false;for(let i=0,j=ring.length-1;i<ring.length;j=i++){const a=ring[i],b=ring[j];if(((a[1]>lat)!==(b[1]>lat))&&(lon<(b[0]-a[0])*(lat-a[1])/(b[1]-a[1])+a[0]))inside=!inside}return inside}
-function inValencia(lat,lon){if(!boundary)return false;const polys=boundary.type==='Polygon'?[boundary.coordinates]:boundary.coordinates;return polys.some(poly=>inRing(lon,lat,poly[0])&&!poly.slice(1).some(hole=>inRing(lon,lat,hole)))}
-let customCtrl=null,customSeq=0;
-async function loadCustom(lat,lon,name){
- if(customCtrl)customCtrl.abort();customCtrl=new AbortController();const signal=customCtrl.signal,seq=++customSeq;
- customForecast={};customLocation={lat,lon,name};town=-1;customOption.textContent='📍 '+name;select.value='-1';
- // Aprovechar los datos que ya descargó el zoom inteligente para esta localidad.
- for(const n of Object.keys(specs)){const found=zoomForecast.get(n)?.get(name);if(found)customForecast[n]=found}
-
- if(customMarker)map.removeLayer(customMarker);
- customMarker=L.circleMarker([lat,lon],{radius:9,color:'#075caa',weight:3,fillColor:'#fff',fillOpacity:1}).addTo(map);
- $('status').textContent=Object.keys(customForecast).length?'📍 '+name+' · Mostrando datos ya descargados; completando modelos…':'Consultando modelos para '+name+'…';render();
- const results={};
- await Promise.all(Object.entries(specs).map(async([key,id])=>{
-  try{
-   if(customForecast[key]){results[key]='en caché';return}
-   const result=await requestModel(key,id,String(lat),String(lon),signal);
-   if(seq!==customSeq)return;
-   customForecast[key]=result.data[0];results[key]='disponible';render();
-  }catch(e){if(seq!==customSeq||e.name==='AbortError')return;results[key]=e.message}
-  if(seq===customSeq)$('status').textContent='📍 '+name+' · '+Object.entries(results).map(([k,v])=>k+': '+v).join(' · ');
- }));
-}
-// V25: geolocalización puntual y voluntaria; no se conserva ni comparte.
-let myLocationMarker=null;
-$('my-location').addEventListener('click',()=>{
- if(!navigator.geolocation){$('status').textContent='Tu navegador no admite geolocalización.';return}
- $('status').textContent='📍 Solicitando permiso de ubicación…';
- navigator.geolocation.getCurrentPosition(pos=>{
-  const lat=pos.coords.latitude,lon=pos.coords.longitude;
-  if(boundary&&!inValencia(lat,lon)){$('status').textContent='📍 Tu ubicación está fuera del área de previsión de la Comunitat Valenciana.';return}
-  if(myLocationMarker)map.removeLayer(myLocationMarker);
-  myLocationMarker=L.circleMarker([lat,lon],{radius:7,color:'#fff',weight:3,fillColor:'#1678ec',fillOpacity:1}).addTo(map);
-  myLocationMarker.bindPopup('📍 Mi ubicación aproximada');
-  map.setView([lat,lon],Math.max(map.getZoom(),11),{animate:true});
-  loadCustom(lat,lon,'Mi ubicación');
- },error=>{$('status').textContent='📍 No se pudo obtener la ubicación: '+(error.code===1?'permiso denegado':error.code===2?'posición no disponible':'tiempo de espera agotado')+'.';},{enableHighAccuracy:true,timeout:12000,maximumAge:120000});
-});
-// V23.1: búsqueda local inmediata (78 localidades) y consulta puntual a OSM.
-const searchInput=$('town-search'),searchResults=$('town-search-results');
-const allSearchTowns=[...towns.map((t,i)=>({name:t[0],lat:t[1],lon:t[2],main:i})),...zoomTowns.map(t=>({name:t[0],lat:t[1],lon:t[2],main:-1}))];
-function norm(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').replace(/[’']/g,'').trim()}
-function chooseSearch(t){searchInput.value=t.name;searchResults.hidden=true;map.setView([t.lat,t.lon],Math.max(map.getZoom(),10),{animate:true});
- if(t.main>=0){town=t.main;select.value=String(t.main);render()}
- else loadCustom(t.lat,t.lon,t.name);
-}
-function showSearch(list,msg){searchResults.replaceChildren();searchResults.hidden=false;
- if(!list.length){const d=document.createElement('div');d.className='search-msg';d.textContent=msg||'No aparece en la lista. Pulsa Buscar para consultar otras poblaciones.';searchResults.append(d);return}
- list.slice(0,8).forEach(t=>{const b=document.createElement('button');b.type='button';b.textContent='📍 '+t.name;b.addEventListener('click',()=>chooseSearch(t));searchResults.append(b)})
-}
-searchInput.addEventListener('input',()=>{const q=norm(searchInput.value);if(!q){searchResults.hidden=true;return}showSearch(allSearchTowns.filter(t=>norm(t.name).includes(q)))});
-searchInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchTown()}if(e.key==='Escape')searchResults.hidden=true});
-$('town-search-go').addEventListener('click',searchTown);
-let searchSeq=0;
-async function searchTown(){const q=searchInput.value.trim();if(!q)return;
- const local=allSearchTowns.filter(t=>norm(t.name)===norm(q));if(local.length){chooseSearch(local[0]);return}
- const seq=++searchSeq;showSearch([],'Buscando en OpenStreetMap…');
- try{const url=new URL('https://nominatim.openstreetmap.org/search');url.search=new URLSearchParams({q:q+', Comunitat Valenciana, España',format:'jsonv2',limit:'8',addressdetails:'1',countrycodes:'es'}).toString();
- const r=await fetch(url,{headers:{Accept:'application/json'}});if(!r.ok)throw Error('HTTP '+r.status);
- const results=await r.json();if(seq!==searchSeq)return;
- const candidates=results.map(x=>({name:(x.name||x.display_name.split(',')[0]),lat:Number(x.lat),lon:Number(x.lon),main:-1})).filter(t=>Number.isFinite(t.lat)&&Number.isFinite(t.lon)&&(!boundary||inValencia(t.lat,t.lon)));
- showSearch(candidates,'No se ha encontrado esa población dentro de la Comunitat Valenciana.');
- }catch(e){if(seq===searchSeq)showSearch([],'No se ha podido consultar el buscador. Prueba con una localidad de la lista.')}
-}
-map.on('click',()=>{searchResults.hidden=true});
-map.on('click',async e=>{
-  const {lat,lng}=e.latlng;
-  if(!boundary){$('status').textContent='Espera a que termine de cargar el contorno valenciano antes de seleccionar un punto.';return}
-  if(!inValencia(lat,lng)){$('status').textContent='Selecciona un punto dentro de la Comunitat Valenciana.';return}
-  const seq=++geoSeq;
-  $('status').textContent='🔎 Identificando municipio en OpenStreetMap…';
-  let name='Punto '+lat.toFixed(4)+', '+lng.toFixed(4);
-  try{
-    const u='https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=10&addressdetails=1&lat='+encodeURIComponent(lat)+'&lon='+encodeURIComponent(lng);
-    const r=await fetch(u,{headers:{Accept:'application/json'}});
-    if(r.ok){const data=await r.json(),a=data.address||{};name=a.city||a.town||a.village||a.municipality||a.county||name}
-  }catch(e){}
-  if(seq!==geoSeq)return;
-  await loadCustom(lat,lng,name);
-});
-load();
-})();
-</script></body></html>
+});</script>
+<script src="weather.js?v=0.9p" defer></script>
+<script src="home-weather.js?v=1.0b" defer></script>
+ <div id="cb-update-banner" role="status" aria-live="polite" hidden>
+   <span id="cb-update-message">Nueva versión de COLOMBAIRE disponible.</span>
+   <button id="cb-update-action" type="button">Actualizar</button>
+   <button id="cb-update-close" type="button" aria-label="Cerrar aviso">×</button>
+ </div>
+ <script>
+ (() => {
+   const CURRENT='1.0b';
+   const banner=document.getElementById('cb-update-banner');
+   const message=document.getElementById('cb-update-message');
+   const action=document.getElementById('cb-update-action');
+   const close=document.getElementById('cb-update-close');
+   let updating=false, checking=false, registration=null;
+   const show=(version)=>{message.textContent='COLOMBAIRE v'+version+' disponible';banner.hidden=false;};
+   const check=async()=>{
+     if(checking||!navigator.onLine)return;
+     checking=true;
+     try {
+       if(registration) await registration.update();
+       // Se consulta un documento independiente, con URL distinta en cada comprobación.
+       const r=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});
+       if(!r.ok)return;
+       const info=await r.json();
+       if(typeof info.version==='string'&&info.version!==CURRENT)show(info.version);
+     }catch(e){console.warn('Comprobación de versión:',e)}finally{checking=false;}
+   };
+   action.addEventListener('click',async()=>{
+     if(updating)return;updating=true;
+     action.disabled=true;action.textContent='Actualizando…';
+     try {
+       if(registration){await registration.update();
+         if(registration.waiting)registration.waiting.postMessage({type:'SKIP_WAITING'});
+       }
+       // La navegación solicita una URL nueva, evitando reutilizar la página HTML antigua.
+       const target=new URL('./',location.href);
+       target.searchParams.set('actualizacion',Date.now().toString());
+       location.replace(target.href);
+     }catch(e){action.disabled=false;action.textContent='Reintentar';updating=false;}
+   });
+   close.addEventListener('click',()=>banner.hidden=true);
+   window.addEventListener('load',async()=>{
+     if('serviceWorker' in navigator){
+       try{registration=await navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'});
+         navigator.serviceWorker.addEventListener('controllerchange',()=>{
+           // No recargar mientras el usuario esté rellenando formularios.
+           check();
+         });
+       }catch(e){console.warn('Service worker:',e)}
+     }
+     check();
+   });
+   document.addEventListener('visibilitychange',()=>{if(!document.hidden)check();});
+   window.addEventListener('online',check);
+   // Comprobación manual sin salir de la app.
+   const updateBtn=document.getElementById('cb-check-updates');
+   if(updateBtn)updateBtn.addEventListener('click',async()=>{
+     updateBtn.disabled=true;updateBtn.textContent='Buscando…';
+     await check();
+     if(banner.hidden){updateBtn.textContent='Ya tienes la última versión';}
+     else{updateBtn.textContent='Actualización encontrada';}
+     setTimeout(()=>{updateBtn.disabled=false;updateBtn.textContent='Buscar actualizaciones';},3000);
+   });
+ })();
+ </script></body>
+</html>
