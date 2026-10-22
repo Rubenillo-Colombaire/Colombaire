@@ -1,0 +1,60 @@
+name: COLOMBOMETEO V26.1 - Correccion lluvia ECMWF
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: pruebas-v19/V26-REJILLA-LAB/requirements.txt
+
+      - name: Instalar dependencias
+        run: pip install -r pruebas-v19/V26-REJILLA-LAB/requirements.txt
+
+      - name: Generar rejilla V26.1
+        working-directory: pruebas-v19/V26-1-CORRECCION-LLUVIA
+        run: python scripts/generate.py
+
+      - name: Verificar archivos V26.1
+        run: |
+          python - <<'PYVERIFY'
+          import json
+          from pathlib import Path
+          base = Path('pruebas-v19/V26-1-CORRECCION-LLUVIA/grid')
+          manifest = base / 'manifest.json'
+          assert manifest.is_file(), 'Falta manifest.json'
+          data = json.loads(manifest.read_text(encoding='utf-8'))
+          frames = data.get('frames', {})
+          assert len(frames) == 3, f'Se esperaban 3 fotogramas, hay {len(frames)}'
+          for frame in frames.values():
+              for variable in ('temperature_2m', 'wind_speed_10m', 'precipitation'):
+                  assert variable in frame, f'Falta {variable}'
+                  path = base.parent / frame[variable]['file']
+                  assert path.is_file(), f'Falta {path}'
+          print('Verificacion correcta: 3 fotogramas, 9 imagenes')
+          PYVERIFY
+
+      - name: Guardar solo rejilla V26.1
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pruebas-v19/V26-1-CORRECCION-LLUVIA/grid/
+          if ! git diff --cached --quiet; then
+            git commit -m 'V26.1 LAB: lluvia por intervalos de 3 horas'
+            git push
+          else
+            echo 'No hay cambios que publicar'
+          fi
