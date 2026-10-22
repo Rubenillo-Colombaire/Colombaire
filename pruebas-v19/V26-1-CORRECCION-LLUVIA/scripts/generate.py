@@ -123,6 +123,7 @@ def main():
             if np.any(diff < -0.05):
                 raise RuntimeError('Precipitación acumulada decreciente: comprobar semántica GRIB')
             rain=np.maximum(0,diff)
+                        print(f'LLUVIA +{previous_step} a +{step} h | minimo={np.min(rain):.3f} mm | maximo={np.max(rain):.3f} mm | media={np.mean(rain):.3f} mm | puntos_con_lluvia={np.count_nonzero(rain >= 0.1)}/{rain.size}')
             temp=fields['2t'][2]-273.15
             wind=np.hypot(fields['10u'][2],fields['10v'][2])*3.6
             valid=(cycle+timedelta(hours=step)).isoformat().replace('+00:00','Z')
