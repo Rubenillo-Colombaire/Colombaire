@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>COLOMBOMETEO V26.1 — Laboratorio lluvia</title>
+
+  <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101923;
+      color: white;
+    }
+
+    header {
+      padding: 14px 18px;
+      background: #172838;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+
+    .nota {
+      font-size: 12px;
+      color: #c2d3e2;
+    }
+
+    .controles {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 12px 18px;
+    }
+
+    select, button {
+      padding: 9px;
+      border-radius: 6px;
+      border: 1px solid #63778a;
+      background: #24384b;
+      color: white;
+    }
+
+    #map {
+      height: calc(100dvh - 150px);
+      min-height: 350px;
+    }
+
+    #estado {
+      padding: 8px 18px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>COLOMBOMETEO V26.1</h1>
+    <div class="nota">
+      Laboratorio independiente · Precipitación ECMWF
+      · Acumulación por intervalos de 3 horas
+    </div>
+  </header>
+
+  <div class="controles">
+    <label for="intervalo">Intervalo:</label>
+
+    <select id="intervalo">
+      <option value="018">+15 a +18 h</option>
+      <option value="021">+18 a +21 h</option>
+      <option value="024">+21 a +24 h</option>
+    </select>
+
+    <button id="ajustar">Ver cobertura completa</button>
+  </div>
+
+  <div id="map"></div>
+  <div id="estado">Cargando datos...</div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    const map = L.map("map").setView([40.3, -2.5], 6);
+
+    L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        attribution: "&copy; OpenStreetMap contributors",
+        maxZoom: 18
+      }
+    ).addTo(map);
+
+    const estado = document.getElementById("estado");
+    const selector = document.getElementById("intervalo");
+
+    let manifest;
+    let capaLluvia;
+    let cobertura;
+
+    function mostrarIntervalo() {
+      if (!manifest) return;
+
+      const paso = selector.value;
+      const frames = Object.values(manifest.frames || {});
+
+      const frame = frames.find(f =>
+        f.precipitation &&
+        f.precipitation.file &&
+        f.precipitation.file.endsWith(
+          "precipitation_" + paso + ".png"
+        )
+      );
+
+      if (!frame) {
+        estado.textContent = "Intervalo no disponible.";
+        if (capaLluvia) map.removeLayer(capaLluvia);
+        capaLluvia = null;
+        return;
+      }
+
+      const dato = frame.precipitation;
+
+      if (!Array.isArray(dato.bounds)) {
+        estado.textContent = "Coordenadas no disponibles.";
+        return;
+      }
+
+      if (capaLluvia) map.removeLayer(capaLluvia);
+
+      cobertura = dato.bounds;
+
+      capaLluvia = L.imageOverlay(
+        dato.file,
+        cobertura,
+        {
+          opacity: 0.85,
+          interactive: false
+        }
+      ).addTo(map);
+
+      estado.textContent =
+        "Intervalo +" + (Number(paso) - 3) +
+        " a +" + Number(paso) +
+        " h · Lluvia acumulada (mm) · " +
+        "Visualización experimental, pendiente de validación.";
+    }
+
+    async function iniciar() {
+      try {
+        const respuesta = await fetch(
+          "grid/manifest.json",
+          { cache: "no-store" }
+        );
+
+        if (!respuesta.ok) {
+          throw new Error("No se pudo cargar manifest.json");
+        }
+
+        manifest = await respuesta.json();
+
+        mostrarIntervalo();
+
+        if (cobertura) map.fitBounds(cobertura);
+
+      } catch (error) {
+        estado.textContent =
+          "Error al cargar datos: " + error.message;
+      }
+    }
+
+    selector.addEventListener("change", mostrarIntervalo);
+
+    document.getElementById("ajustar")
+      .addEventListener("click", () => {
+        if (cobertura) map.fitBounds(cobertura);
+      });
+
+    iniciar();
+  </script>
+</body>
+</html>
