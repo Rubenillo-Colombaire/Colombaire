@@ -94,7 +94,7 @@ $('play-hours').addEventListener('click',()=>{if(playTimer!==null){stopPlay();re
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPlay()});
 // V26: overlay from ORIGINAL ECMWF gridded forecast files, if generated and deployed.
 let gridManifest=null,gridImage=null,gridLoadMessage='Rejilla ECMWF no generada todavía';
-fetch('./grid/manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No hay manifiesto');return r.json()}).then(data=>{gridManifest=data;gridLoadMessage='Rejilla ECMWF disponible';scheduleHeat()}).catch(()=>{gridLoadMessage='Sin archivos de rejilla: se conserva la vista V25.2';});
+fetch('../V26-1-CORRECCION-LLUVIA/grid/manifest.json'',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No hay manifiesto');return r.json()}).then(data=>{gridManifest=data;gridLoadMessage='Rejilla ECMWF disponible';scheduleHeat()}).catch(()=>{gridLoadMessage='Sin archivos de rejilla: se conserva la vista V25.2';});
 function removeGrid(){if(gridImage){map.removeLayer(gridImage);gridImage=null}}
 function showGrid(){
  if(model!=='ECMWF'||!gridManifest||variable==='precipitation_probability'){removeGrid();return false}
@@ -107,7 +107,7 @@ function showGrid(){
  const frame=frames.find(t=>madridClock.format(new Date(t)).replace(' ','T')===selected.slice(0,16))
  if(!frame){removeGrid();return false}
  const item=gridManifest.frames[frame]?.[variable];if(!item){removeGrid();return false}
- const url='./'+item.file;
+ cconst url='../V26-1-CORRECCION-LLUVIA/'+item.file;
  if(gridImage){gridImage.setUrl(url);gridImage.setBounds(item.bounds)}
  else gridImage=L.imageOverlay(url,item.bounds,{opacity:.72,interactive:false,className:'weather-heat-image'}).addTo(map);
  const legend=$('heat-legend');legend.textContent='🧭 REJILLA ORIGINAL ECMWF IFS '+gridManifest.resolution+' · '+frame+' · '+(variable==='precipitation'?'Lluvia acumulada en 3 horas (mm), NO mm/h':variable==='temperature_2m'?'Temperatura (°C)':'Velocidad del viento (km/h)')+' · Fuente ECMWF Open Data CC BY 4.0';
