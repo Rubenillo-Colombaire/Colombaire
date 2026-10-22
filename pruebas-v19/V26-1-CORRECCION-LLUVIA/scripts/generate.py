@@ -50,6 +50,8 @@ def read_grib(path):
         while (gid := codes_grib_new_from_file(file)) is not None:
             try:
                 name = codes_get(gid,'shortName')
+                if name == 'tp':
+                    print('GRIB TP | stepType:', codes_get(gid, 'stepType'), '| stepRange:', codes_get(gid, 'stepRange'), '| units:', codes_get(gid, 'units'))
                 if name in fields:
                     raise RuntimeError(f'Campo GRIB duplicado: {name}')
                 lat = codes_get_array(gid,'latitudes')
