@@ -89,7 +89,43 @@ def save_image(var,lat,lon,values,step):
     name=f'{var}_{step:03d}.png'
     Image.fromarray(arr,'RGBA').save(OUT/name,optimize=True)
     return {'file':'grid/'+name,'bounds':[[float(lats[-1]-dy/2),float(lons[0]-dx/2)],[float(lats[0]+dy/2),float(lons[-1]+dx/2)]]}
+def save_data(lat, lon, temp, u, v, rain, step):
+    lats = np.unique(np.round(lat, 5))[::-1]
+    lons = np.unique(np.round(lon, 5))
 
+    rows = {round(float(x), 5): i for i, x in enumerate(lats)}
+    cols = {round(float(x), 5): i for i, x in enumerate(lons)}
+
+    shape = (len(lats), len(lons))
+
+    arrays = {
+        'temperature_2m': np.full(shape, np.nan, dtype=np.float32),
+        'wind_u_10m': np.full(shape, np.nan, dtype=np.float32),
+        'wind_v_10m': np.full(shape, np.nan, dtype=np.float32),
+        'precipitation': np.full(shape, np.nan, dtype=np.float32),
+    }
+
+    for name, values in [
+        ('temperature_2m', temp),
+        ('wind_u_10m', u),
+        ('wind_v_10m', v),
+        ('precipitation', rain),
+    ]:
+        for a, b, value in zip(lat, lon, values):
+            i = rows[round(float(a), 5)]
+            j = cols[round(float(b), 5)]
+            arrays[name][i, j] = value
+
+    filename = f'meteo_{step:03d}.npz'
+
+    np.savez_compressed(
+        DATA_OUT / filename,
+        latitudes=lats.astype(np.float32),
+        longitudes=lons.astype(np.float32),
+        **arrays
+    )
+
+    return 'grid/data/' + filename
 def main():
     client=Client(source='ecmwf',model='ifs',resol='0p25')
     result={'source':'ECMWF IFS open data','resolution':'0.25°',
@@ -138,6 +174,14 @@ def main():
             frame={}
             for var,values in [('temperature_2m',temp),('wind_speed_10m',wind),('precipitation',rain)]:
                 frame[var]=save_image(var,lat,lon,values,step)
+                frame['numerical_data'] = save_data(
+                lat, lon,
+                temp,
+                fields['10u'][2],
+                fields['10v'][2],
+                rain,
+                step
+            )
             frame['precipitation_interval_hours']=[previous_step,step]
             frame['precipitation_unit']='mm/3h'
             result['frames'][valid]=frame
