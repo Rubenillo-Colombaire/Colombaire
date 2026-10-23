@@ -40,13 +40,13 @@ jobs:
           assert manifest.is_file(), 'Falta manifest.json'
           data = json.loads(manifest.read_text(encoding='utf-8'))
           frames = data.get('frames', {})
-          assert len(frames) == 3, f'Se esperaban 3 fotogramas, hay {len(frames)}'
+          assert len(frames) == 8, f'Se esperaban 8 fotogramas, hay {len(frames)}'
           for frame in frames.values():
               for variable in ('temperature_2m', 'wind_speed_10m', 'precipitation'):
                   assert variable in frame, f'Falta {variable}'
                   path = base.parent / frame[variable]['file']
                   assert path.is_file(), f'Falta {path}'
-          print('Verificacion correcta: 3 fotogramas, 9 imagenes')
+          print('Verificacion correcta: 8 fotogramas, 24 imagenes')
           PYVERIFY
 
       - name: Guardar solo rejilla V26.1
