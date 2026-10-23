@@ -1,9 +1,9 @@
 {
   "source": "ECMWF IFS open data",
   "resolution": "0.25°",
-  "precipitation_note": "Milímetros acumulados en cada intervalo de 3 horas; no mm/h",
+  "precipitation_note": "Milímetros acumulados en el intervalo indicado en cada fotograma; no mm/h",
   "frames": {
-    "2026-10-23T09:00:00Z": {
+    "2026-10-23T03:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_003.png",
         "bounds": [
@@ -50,7 +50,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-23T12:00:00Z": {
+    "2026-10-23T06:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_006.png",
         "bounds": [
@@ -97,7 +97,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-23T15:00:00Z": {
+    "2026-10-23T09:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_009.png",
         "bounds": [
@@ -144,7 +144,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-23T18:00:00Z": {
+    "2026-10-23T12:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_012.png",
         "bounds": [
@@ -191,7 +191,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-23T21:00:00Z": {
+    "2026-10-23T15:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_015.png",
         "bounds": [
@@ -238,7 +238,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T00:00:00Z": {
+    "2026-10-23T18:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_018.png",
         "bounds": [
@@ -285,7 +285,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T03:00:00Z": {
+    "2026-10-23T21:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_021.png",
         "bounds": [
@@ -332,7 +332,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T06:00:00Z": {
+    "2026-10-24T00:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_024.png",
         "bounds": [
@@ -378,7 +378,2075 @@
         24
       ],
       "precipitation_unit": "mm/3h"
+    },
+    "2026-10-24T03:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_027.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_027.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_027.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_027.npz",
+      "precipitation_interval_hours": [
+        24,
+        27
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-24T06:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_030.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_030.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_030.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_030.npz",
+      "precipitation_interval_hours": [
+        27,
+        30
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-24T09:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_033.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_033.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_033.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_033.npz",
+      "precipitation_interval_hours": [
+        30,
+        33
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-24T12:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_036.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_036.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_036.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_036.npz",
+      "precipitation_interval_hours": [
+        33,
+        36
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-24T15:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_039.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_039.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_039.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_039.npz",
+      "precipitation_interval_hours": [
+        36,
+        39
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-24T18:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_042.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_042.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_042.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_042.npz",
+      "precipitation_interval_hours": [
+        39,
+        42
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-24T21:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_045.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_045.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_045.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_045.npz",
+      "precipitation_interval_hours": [
+        42,
+        45
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-25T00:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_048.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_048.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_048.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_048.npz",
+      "precipitation_interval_hours": [
+        45,
+        48
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-25T03:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_051.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_051.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_051.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_051.npz",
+      "precipitation_interval_hours": [
+        48,
+        51
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-25T06:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_054.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_054.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_054.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_054.npz",
+      "precipitation_interval_hours": [
+        51,
+        54
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-25T09:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_057.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_057.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_057.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_057.npz",
+      "precipitation_interval_hours": [
+        54,
+        57
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-25T12:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_060.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_060.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_060.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_060.npz",
+      "precipitation_interval_hours": [
+        57,
+        60
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-25T15:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_063.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_063.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_063.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_063.npz",
+      "precipitation_interval_hours": [
+        60,
+        63
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-25T18:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_066.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_066.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_066.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_066.npz",
+      "precipitation_interval_hours": [
+        63,
+        66
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-25T21:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_069.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_069.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_069.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_069.npz",
+      "precipitation_interval_hours": [
+        66,
+        69
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-26T00:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_072.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_072.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_072.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_072.npz",
+      "precipitation_interval_hours": [
+        69,
+        72
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-26T03:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_075.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_075.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_075.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_075.npz",
+      "precipitation_interval_hours": [
+        72,
+        75
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-26T06:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_078.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_078.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_078.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_078.npz",
+      "precipitation_interval_hours": [
+        75,
+        78
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-26T09:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_081.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_081.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_081.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_081.npz",
+      "precipitation_interval_hours": [
+        78,
+        81
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-26T12:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_084.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_084.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_084.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_084.npz",
+      "precipitation_interval_hours": [
+        81,
+        84
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-26T15:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_087.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_087.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_087.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_087.npz",
+      "precipitation_interval_hours": [
+        84,
+        87
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-26T18:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_090.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_090.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_090.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_090.npz",
+      "precipitation_interval_hours": [
+        87,
+        90
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-26T21:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_093.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_093.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_093.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_093.npz",
+      "precipitation_interval_hours": [
+        90,
+        93
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-27T00:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_096.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_096.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_096.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_096.npz",
+      "precipitation_interval_hours": [
+        93,
+        96
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-27T03:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_099.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_099.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_099.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_099.npz",
+      "precipitation_interval_hours": [
+        96,
+        99
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-27T06:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_102.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_102.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_102.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_102.npz",
+      "precipitation_interval_hours": [
+        99,
+        102
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-27T09:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_105.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_105.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_105.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_105.npz",
+      "precipitation_interval_hours": [
+        102,
+        105
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-27T12:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_108.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_108.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_108.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_108.npz",
+      "precipitation_interval_hours": [
+        105,
+        108
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-27T15:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_111.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_111.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_111.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_111.npz",
+      "precipitation_interval_hours": [
+        108,
+        111
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-27T18:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_114.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_114.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_114.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_114.npz",
+      "precipitation_interval_hours": [
+        111,
+        114
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-27T21:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_117.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_117.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_117.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_117.npz",
+      "precipitation_interval_hours": [
+        114,
+        117
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-28T00:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_120.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_120.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_120.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_120.npz",
+      "precipitation_interval_hours": [
+        117,
+        120
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-28T03:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_123.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_123.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_123.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_123.npz",
+      "precipitation_interval_hours": [
+        120,
+        123
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-28T06:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_126.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_126.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_126.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_126.npz",
+      "precipitation_interval_hours": [
+        123,
+        126
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-28T09:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_129.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_129.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_129.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_129.npz",
+      "precipitation_interval_hours": [
+        126,
+        129
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-28T12:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_132.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_132.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_132.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_132.npz",
+      "precipitation_interval_hours": [
+        129,
+        132
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-28T15:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_135.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_135.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_135.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_135.npz",
+      "precipitation_interval_hours": [
+        132,
+        135
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-28T18:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_138.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_138.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_138.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_138.npz",
+      "precipitation_interval_hours": [
+        135,
+        138
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-28T21:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_141.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_141.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_141.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_141.npz",
+      "precipitation_interval_hours": [
+        138,
+        141
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-29T00:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_144.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_144.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_144.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_144.npz",
+      "precipitation_interval_hours": [
+        141,
+        144
+      ],
+      "precipitation_unit": "mm/3h"
+    },
+    "2026-10-29T06:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_150.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_150.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_150.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_150.npz",
+      "precipitation_interval_hours": [
+        144,
+        150
+      ],
+      "precipitation_unit": "mm/6h"
+    },
+    "2026-10-29T12:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_156.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_156.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_156.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_156.npz",
+      "precipitation_interval_hours": [
+        150,
+        156
+      ],
+      "precipitation_unit": "mm/6h"
+    },
+    "2026-10-29T18:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_162.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_162.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_162.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_162.npz",
+      "precipitation_interval_hours": [
+        156,
+        162
+      ],
+      "precipitation_unit": "mm/6h"
+    },
+    "2026-10-30T00:00:00Z": {
+      "temperature_2m": {
+        "file": "grid/temperature_2m_168.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "wind_speed_10m": {
+        "file": "grid/wind_speed_10m_168.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "precipitation": {
+        "file": "grid/precipitation_168.png",
+        "bounds": [
+          [
+            33.875,
+            -12.125
+          ],
+          [
+            45.125,
+            7.125
+          ]
+        ]
+      },
+      "numerical_data": "grid/data/meteo_168.npz",
+      "precipitation_interval_hours": [
+        162,
+        168
+      ],
+      "precipitation_unit": "mm/6h"
     }
   },
-  "run_utc": "2026-10-23T06:00:00Z"
+  "run_utc": "2026-10-23T00:00:00Z"
 }
