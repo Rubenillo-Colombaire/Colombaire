@@ -20,8 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'grid'
 OUT.mkdir(exist_ok=True)
 WEST, EAST, SOUTH, NORTH = -12.0, 7.0, 34.0, 45.0
-STEPS = [15, 18, 21, 24]
-DISPLAY_STEPS = [18, 21, 24]
+STEPS = [0, 3, 6, 9, 12, 15, 18, 21, 24]
+DISPLAY_STEPS = [3, 6, 9, 12, 15, 18, 21, 24]
 COLORS = {
     'temperature_2m': [(0,(68,103,176)),(10,(79,177,229)),(20,(235,215,94)),(30,(215,71,68))],
     'wind_speed_10m': [(0,(157,214,189)),(20,(240,219,109)),(40,(243,162,82)),(70,(158,56,112))],
