@@ -111,9 +111,9 @@ def main():
                 run_utc=cycle
             elif cycle!=run_utc:
                 raise RuntimeError('Los plazos proceden de ciclos ECMWF diferentes; no se pueden restar')
-            if step==15:
+            if step==0:
                 previous_tp=fields['tp']
-                previous_step=15
+                previous_step=0
                 continue
             lat,lon=aligned(fields,['2t','10u','10v','tp'])
             p_lat,p_lon,p_total=previous_tp
