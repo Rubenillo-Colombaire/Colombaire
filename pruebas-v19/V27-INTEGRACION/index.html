@@ -107,7 +107,7 @@ function showGrid(){
  const frame=frames.find(t=>madridClock.format(new Date(t)).replace(' ','T')===selected.slice(0,16))
  if(!frame){removeGrid();return false}
  const item=gridManifest.frames[frame]?.[variable];if(!item){removeGrid();return false}
- cconst url='../V26-1-CORRECCION-LLUVIA/'+item.file;
+ const url='../V26-1-CORRECCION-LLUVIA/'+item.file;
  if(gridImage){gridImage.setUrl(url);gridImage.setBounds(item.bounds)}
  else gridImage=L.imageOverlay(url,item.bounds,{opacity:.72,interactive:false,className:'weather-heat-image'}).addTo(map);
  const legend=$('heat-legend');legend.textContent='🧭 REJILLA ORIGINAL ECMWF IFS '+gridManifest.resolution+' · '+frame+' · '+(variable==='precipitation'?'Lluvia acumulada en 3 horas (mm), NO mm/h':variable==='temperature_2m'?'Temperatura (°C)':'Velocidad del viento (km/h)')+' · Fuente ECMWF Open Data CC BY 4.0';
