@@ -19,6 +19,8 @@ from ecmwf.opendata import Client
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'grid'
 OUT.mkdir(exist_ok=True)
+DATA_OUT = OUT / 'data'
+DATA_OUT.mkdir(exist_ok=True)
 WEST, EAST, SOUTH, NORTH = -12.0, 7.0, 34.0, 45.0
 STEPS = [0, 3, 6, 9, 12, 15, 18, 21, 24]
 DISPLAY_STEPS = [3, 6, 9, 12, 15, 18, 21, 24]
