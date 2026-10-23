@@ -52,6 +52,7 @@ def read_grib(path):
                 name = codes_get(gid,'shortName')
                 if name == 'tp':
                     print('GRIB TP | stepType:', codes_get(gid, 'stepType'), '| stepRange:', codes_get(gid, 'stepRange'), '| units:', codes_get(gid, 'units'))
+                    print('PRECISION GRIB | bitsPerValue:', codes_get(gid, 'bitsPerValue'), '| binaryScaleFactor:', codes_get(gid, 'binaryScaleFactor'), '| decimalScaleFactor:', codes_get(gid, 'decimalScaleFactor'), flush=True)
                 if name in fields:
                     raise RuntimeError(f'Campo GRIB duplicado: {name}')
                 lat = codes_get_array(gid,'latitudes')
