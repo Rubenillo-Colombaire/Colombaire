@@ -100,7 +100,7 @@ def main():
         for step in STEPS:
             target=os.path.join(tmp,f'{step}.grib2')
             # +15 es un paso auxiliar necesario para el intervalo +15/+18.
-            params=['tp'] if step==15 else ['2t','10u','10v','tp']
+            params=['tp'] if step==0 else ['2t','10u','10v','tp']
             meta=client.retrieve(type='fc',stream='oper',levtype='sfc',step=step,param=params,target=target)
             fields=read_grib(target)
             for key in params:
