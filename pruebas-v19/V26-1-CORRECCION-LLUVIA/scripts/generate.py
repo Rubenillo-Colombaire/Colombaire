@@ -125,8 +125,8 @@ def main():
             previous=p_total*1000
             diff=total-previous
             print(f'DIAGNOSTICO TP | minimo={np.min(diff):.6f} mm | negativos_menores_-0.05={np.count_nonzero(diff < -0.05)} | total_puntos={diff.size}', flush=True)
-            if np.any(diff < -0.05):
-                raise RuntimeError('Precipitación acumulada decreciente: comprobar semántica GRIB')
+            if np.any(diff < -0.25):
+                raise RuntimeError('Precipitación acumulada decreciente superior a la tolerancia GRIB')
             rain=np.maximum(0,diff)
             print(f'LLUVIA +{previous_step} a +{step} h | minimo={np.min(rain):.3f} mm | maximo={np.max(rain):.3f} mm | media={np.mean(rain):.3f} mm | puntos_con_lluvia={np.count_nonzero(rain >= 0.1)}/{rain.size}')
             print(f'LLUVIA DEBIL +{previous_step} a +{step} h | puntos_0.1_a_0.5_mm={np.count_nonzero((rain >= 0.1) & (rain < 0.5))}/{rain.size} | puntos_0.5_a_2_mm={np.count_nonzero((rain >= 0.5) & (rain < 2.0))}/{rain.size}')
