@@ -174,7 +174,8 @@ def main():
             frame={}
             for var,values in [('temperature_2m',temp),('wind_speed_10m',wind),('precipitation',rain)]:
                 frame[var]=save_image(var,lat,lon,values,step)
-                frame['numerical_data'] = save_data(
+
+            frame['numerical_data'] = save_data(
                 lat, lon,
                 temp,
                 fields['10u'][2],
