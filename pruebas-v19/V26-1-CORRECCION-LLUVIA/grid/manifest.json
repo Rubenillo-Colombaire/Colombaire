@@ -3,7 +3,7 @@
   "resolution": "0.25°",
   "precipitation_note": "Milímetros acumulados en cada intervalo de 3 horas; no mm/h",
   "frames": {
-    "2026-10-23T00:00:00Z": {
+    "2026-10-23T18:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_018.png",
         "bounds": [
@@ -49,7 +49,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-23T03:00:00Z": {
+    "2026-10-23T21:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_021.png",
         "bounds": [
@@ -95,7 +95,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-23T06:00:00Z": {
+    "2026-10-24T00:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_024.png",
         "bounds": [
@@ -142,5 +142,5 @@
       "precipitation_unit": "mm/3h"
     }
   },
-  "run_utc": "2026-10-22T06:00:00Z"
+  "run_utc": "2026-10-23T00:00:00Z"
 }
