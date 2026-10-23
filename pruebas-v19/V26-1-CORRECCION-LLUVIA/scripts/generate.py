@@ -135,11 +135,20 @@ def main():
     previous_step=None
     run_utc=None
     with tempfile.TemporaryDirectory() as tmp:
+        # Seleccionar una ejecucion que ya tenga disponible el plazo mas lejano.
+        # Asi evitamos que 'latest' cambie de ciclo entre descargas.
+        probe = os.path.join(tmp, 'cycle_probe.grib2')
+        probe_meta = client.retrieve(type='fc', stream='oper', levtype='sfc',
+                                     step=STEPS[-1], param=['2t'], target=probe)
+        fixed_cycle = probe_meta.datetime.replace(tzinfo=timezone.utc)
+        fixed_date = fixed_cycle.strftime('%Y%m%d')
+        fixed_time = fixed_cycle.strftime('%H%M')
+        print(f'CICLO ECMWF FIJADO: {fixed_cycle.isoformat()}', flush=True)
         for step in STEPS:
             target=os.path.join(tmp,f'{step}.grib2')
             # El paso 0 permite obtener la primera acumulación; los demás forman intervalos consecutivos.
             params=['tp'] if step==0 else ['2t','10u','10v','tp']
-            meta=client.retrieve(type='fc',stream='oper',levtype='sfc',step=step,param=params,target=target)
+            meta=client.retrieve(type='fc',stream='oper',levtype='sfc',date=fixed_date,time=fixed_time,step=step,param=params,target=target)
             fields=read_grib(target)
             for key in params:
                 if key not in fields:
