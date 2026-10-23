@@ -34,7 +34,7 @@ header h1{font-size:clamp(27px,4.3vw,43px);letter-spacing:.65px;font-weight:780}
 @media(max-width:500px){header h1{font-size:27px}.variables button{min-height:58px;padding-top:14px;padding-bottom:14px}.weatherpin .ico{font-size:35px}.extra-town .ico{font-size:30px}.map-search .locate-btn{padding:7px 9px;min-width:46px}}
 .daily-track{padding-left:9px;padding-right:9px;scroll-padding-left:9px}
 .daily-availability{font-size:12px;color:#506d82;margin:5px 2px 8px;line-height:1.4}
-</style></head><body><header><h1><span class="brand-icon" aria-hidden="true">☁</span> COLOMBOMETEO <span class="version-label">V26 REJILLA LAB</span></h1><p>Compara. Observa. Decide. · Laboratorio de la Comunidad Valenciana</p></header><div class="wrap"><div class="top"><strong>🗺️ Mapa valenciano · relieve, municipios e iconos libres</strong><span class="tag">V26 REJILLA LAB · V25.2 CONSERVADA</span></div><div class="layout"><section class="panel"><h2>Comunitat Valenciana · toca cualquier punto del territorio</h2><div class="models variables" id="variables"><button data-variable="temperature_2m" class="active">🌡️ Temperatura</button><button data-variable="wind_speed_10m">💨 Viento</button><button data-variable="precipitation">🌧️ Lluvia mm</button><button data-variable="precipitation_probability">☔ Lluvia %</button></div><div class="variable-note" id="variable-note">🌡️ Temperatura seleccionada. Los símbolos meteorológicos se muestran solo en las vistas de lluvia.</div><div class="controls"><label for="hour">Hora:</label><input id="hour" type="range" min="0" max="47" value="0"><strong id="hourlabel">—</strong><button id="play-hours" type="button" aria-label="Reproducir evolución horaria">▶ Animar</button><button id="refresh" type="button">↻ Actualizar</button></div><div id="heat-legend" class="heat-legend">Esperando datos reales para colorear el mapa…</div><section class="daily-section" aria-label="Pronóstico de siete días"><div class="daily-head"><div><strong>📅 Pronóstico de 7 días</strong><div class="daily-place" id="daily-place">📍 Sollana</div></div><label>Modelo <select id="daily-model" aria-label="Modelo del pronóstico diario"><option>ECMWF</option><option>GFS</option><option>ICON</option><option>ARPEGE</option></select></label></div><div class="daily-track" id="daily-track" aria-live="polite"><div class="daily-loading">Cargando previsión diaria…</div></div><div class="daily-hint" id="daily-hint">← Desliza para consultar los siete días. Cada tarjeta corresponde al modelo seleccionado.</div></section><div class="quick-compare"><div class="quick-head"><strong id="quick-label">Comparación de cuatro modelos</strong><span id="quick-time"></span></div><div id="quick-values" class="quick-values">Esperando datos de los modelos…</div></div><div class="map-frame"><div class="map-search" id="map-search"><div class="map-search-line"><input id="town-search" type="search" autocomplete="off" placeholder="🔎 Buscar población…" aria-label="Buscar población en el mapa"><button id="town-search-go" type="button" aria-label="Buscar">Buscar</button><button id="my-location" type="button" class="locate-btn" title="Mi ubicación" aria-label="Centrar en mi ubicación"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button></div><div class="map-search-results" id="town-search-results" hidden></div></div><div id="map" aria-label="Mapa interactivo de la Comunidad Valenciana"></div></div><div id="zoom-indicator" class="zoom-indicator" aria-live="polite">🔎 Amplía el mapa y toca cualquier punto de la Comunitat para consultar su previsión.</div><button type="button" class="info-toggle" id="info-toggle">ℹ️ Información del mapa ▾</button><p class="mapnote" id="mapnote">☝️ El mapa muestra el relieve físico de España alrededor, atenuado fuera del contorno autonómico real obtenido de OpenStreetMap. El mapa físico oficial del ICV sirve como referencia cartográfica autorizada, pero esta prueba no incorpora directamente su PDF. Si falla la consulta de límites, se mostrará un aviso. Toca un icono o cualquier punto dentro de la Comunitat Valenciana para seleccionar esa ubicación y consultar los cuatro modelos. La identificación municipal se realiza mediante OpenStreetMap.  Los iconos no llevan fondos ni cifras sobre el mapa. En V24 experimental, las zonas de lluvia transparentes y animadas siguen siendo una interpolación orientativa entre 18 municipios; NO representan la resolución espacial real del modelo ni un radar de lluvia. En móvil, mueve el mapa con un dedo y haz zoom con dos dedos.</p></section><aside><section class="panel"><h2 id="town-title">📍 Sollana</h2><div class="status" id="status" role="status">Preparando consultas meteorológicas…</div><div class="controls"><label for="town-select">Municipio</label><select id="town-select"></select></div><div class="detail" id="detail"><div class="metric"><small>🌡 Temperatura</small><strong>—</strong></div><div class="metric"><small>☔ Lluvia prevista</small><strong>—</strong></div><div class="metric"><small>☁ Nubosidad</small><strong>—</strong></div><div class="metric"><small>💨 Viento</small><strong>—</strong></div></div><h2 style="margin-top:20px">Comparación de cuatro modelos</h2><div class="four" id="compare"></div><div class="legend" id="legend">Los iconos meteorológicos aparecen en Lluvia mm y Lluvia %. En Temperatura y Viento se ocultan para despejar el mapa. Toca un punto para consultar sus valores. Elige un modelo en el panel comparativo; la probabilidad (%) se consulta por separado y solo se muestra si el modelo la proporciona.</div></section></aside></div><p class="footer">Referencia cartográfica oficial: <a href="https://descargas.icv.gva.es/dcd/01_cartografia/tematica/CA350/castellano/CA350_Fisico.pdf" target="_blank" rel="noopener">Institut Cartogràfic Valencià, mapa físico CC BY 4.0</a> (no usado como capa interactiva). Límite autonómico © OpenStreetMap contributors (ODbL). Fuente meteorológica: Open-Meteo · Modelos ECMWF IFS, NOAA GFS, DWD ICON-EU y Météo-France ARPEGE-Europa. Relieve sombreado © Esri y colaboradores. Contorno y geocodificación © OpenStreetMap contributors. Pronósticos sujetos a cambios; no son observaciones en tiempo real. Consulta AEMET y Protección Civil para avisos oficiales. Si un modelo no devuelve datos, aparece «—».</p></div><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>
+</style></head><body><header><h1><span class="brand-icon" aria-hidden="true">☁</span> COLOMBOMETEO <span class="version-label">V26 REJILLA LAB</span></h1><p>Compara. Observa. Decide. · Laboratorio de la Comunidad Valenciana</p></header><div class="wrap"><div class="top"><strong>🗺️ Mapa valenciano · relieve, municipios e iconos libres</strong><span class="tag">V26 REJILLA LAB · V25.2 CONSERVADA</span></div><div class="layout"><section class="panel"><h2>Comunitat Valenciana · toca cualquier punto del territorio</h2><div class="models variables" id="variables"><button data-variable="temperature_2m" class="active">🌡️ Temperatura</button><button data-variable="wind_speed_10m">💨 Viento</button><button data-variable="precipitation">🌧️ Lluvia mm</button><button data-variable="precipitation_probability">☔ Lluvia %</button></div><div class="variable-note" id="variable-note">🌡️ Temperatura seleccionada. Los símbolos meteorológicos se muestran solo en las vistas de lluvia.</div><div class="controls"><label for="hour">Hora:</label><input id="hour" type="range" min="0" max="47" value="0"><strong id="hourlabel">—</strong><button id="play-hours" type="button" aria-label="Reproducir evolución horaria">▶ Animar</button><button id="refresh" type="button">↻ Actualizar</button></div><div id="heat-legend" class="heat-legend">Esperando datos reales para colorear el mapa…</div><section class="daily-section" aria-label="Pronóstico de siete días"><div class="daily-head"><div><strong>📅 Pronóstico de 7 días</strong><div class="daily-place" id="daily-place">📍 Sollana</div></div><label>Modelo <select id="daily-model" aria-label="Modelo del pronóstico diario"><option>ECMWF</option><option>GFS</option><option>ICON</option><option>ARPEGE</option></select></label></div><div class="daily-track" id="daily-track" aria-live="polite"><div class="daily-loading">Cargando previsión diaria…</div></div><div class="daily-hint" id="daily-hint">← Desliza para consultar los siete días. Cada tarjeta corresponde al modelo seleccionado.</div></section><div class="quick-compare"><div class="quick-head"><strong id="quick-label">Comparación de cuatro modelos</strong><span id="quick-time"></span></div><div id="quick-values" class="quick-values">Esperando datos de los modelos…</div></div><div class="map-frame"><div class="map-search" id="map-search"><div class="map-search-line"><input id="town-search" type="search" autocomplete="off" placeholder="🔎 Buscar población…" aria-label="Buscar población en el mapa"><button id="town-search-go" type="button" aria-label="Buscar">Buscar</button><button id="my-location" type="button" class="locate-btn" title="Mi ubicación" aria-label="Centrar en mi ubicación"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button></div><div class="map-search-results" id="town-search-results" hidden></div></div><div id="map" aria-label="Mapa interactivo de la Comunidad Valenciana"></div></div><div id="zoom-indicator" class="zoom-indicator" aria-live="polite">🔎 Amplía el mapa y toca cualquier punto de la Comunitat para consultar su previsión.</div><button type="button" class="info-toggle" id="info-toggle">ℹ️ Información del mapa ▾</button><p class="mapnote" id="mapnote">☝️ El mapa muestra el relieve físico de España alrededor, atenuado fuera del contorno autonómico real obtenido de OpenStreetMap. El mapa físico oficial del ICV sirve como referencia cartográfica autorizada, pero esta prueba no incorpora directamente su PDF. Si falla la consulta de límites, se mostrará un aviso. Toca un icono o cualquier punto dentro de la Comunitat Valenciana para seleccionar esa ubicación y consultar los cuatro modelos. La identificación municipal se realiza mediante OpenStreetMap.  Los iconos no llevan fondos ni cifras sobre el mapa. En V24 experimental, las zonas de lluvia transparentes y animadas siguen siendo una interpolación orientativa entre 18 municipios; NO representan la resolución espacial real del modelo ni un radar de lluvia. En móvil, mueve el mapa con un dedo y haz zoom con dos dedos.</p></section><aside><section class="panel"><h2 id="town-title">📍 Sollana</h2><div class="status" id="status" role="status">Preparando consultas meteorológicas…</div><div class="controls"><label for="town-select">Municipio</label><select id="town-select"></select></div><div class="detail" id="detail"><div class="metric"><small>🌡 Temperatura</small><strong>—</strong></div><div class="metric"><small>☔ Lluvia prevista</small><strong>—</strong></div><div class="metric"><small>☁ Nubosidad</small><strong>—</strong></div><div class="metric"><small>💨 Viento</small><strong>—</strong></div></div><h2 style="margin-top:20px">Comparación de cuatro modelos</h2><div class="four" id="compare"></div><div class="legend" id="legend">Los iconos meteorológicos aparecen en Lluvia mm y Lluvia %. En Temperatura y Viento se ocultan para despejar el mapa. Toca un punto para consultar sus valores. Elige un modelo en el panel comparativo; la probabilidad (%) se consulta por separado y solo se muestra si el modelo la proporciona.</div></section></aside></div><p class="footer">Referencia cartográfica oficial: <a href="https://descargas.icv.gva.es/dcd/01_cartografia/tematica/CA350/castellano/CA350_Fisico.pdf" target="_blank" rel="noopener">Institut Cartogràfic Valencià, mapa físico CC BY 4.0</a> (no usado como capa interactiva). Límite autonómico © OpenStreetMap contributors (ODbL). Fuente meteorológica: Open-Meteo · Modelos ECMWF IFS, NOAA GFS, DWD ICON-EU y Météo-France ARPEGE-Europa. Relieve sombreado © Esri y colaboradores. Contorno y geocodificación © OpenStreetMap contributors. Pronósticos sujetos a cambios; no son observaciones en tiempo real. Consulta AEMET y Protección Civil para avisos oficiales. Si un modelo no devuelve datos, aparece «—».</p></div><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/fflate@0.8.2/umd/index.js"></script><script>
 (()=>{'use strict';
 const towns=[['Morella',40.6196,-0.0989],['Vinaròs',40.4703,0.4756],['Castelló',39.9864,-0.0513],['Vila-real',39.9383,-0.1005],['Segorbe',39.8524,-0.4893],['Sagunt',39.6798,-0.2786],['València',39.4699,-0.3763],['Llíria',39.6259,-0.5963],['Sollana',39.2786,-0.3826],['Sueca',39.2026,-0.3111],['Gandia',38.9685,-0.1810],['Xàtiva',38.9904,-0.5185],['Alcoi',38.6986,-0.4735],['Dénia',38.8408,0.1057],['Benidorm',38.5411,-0.1225],['Alacant',38.3452,-0.4810],['Elx',38.2655,-0.6988],['Orihuela',38.0848,-0.9440]];
 const specs={ECMWF:'ecmwf_ifs',GFS:'ncep_gfs_global',ICON:'icon_eu',ARPEGE:'meteofrance_arpege_europe'};
@@ -92,26 +92,117 @@ let playTimer=null;
 function stopPlay(){if(playTimer!==null){clearInterval(playTimer);playTimer=null;}const b=$('play-hours');if(b){b.textContent='▶ Animar';b.setAttribute('aria-label','Reproducir evolución horaria')}}
 $('play-hours').addEventListener('click',()=>{if(playTimer!==null){stopPlay();return;}if(times.length<2){$('status').textContent='Esperando las previsiones horarias…';return;}const b=$('play-hours');b.textContent='⏸ Pausar';b.setAttribute('aria-label','Pausar evolución horaria');playTimer=setInterval(()=>{if(document.hidden){stopPlay();return;}hour=(hour+1)%times.length;render();scheduleHeat();},950);});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPlay()});
-// V26: overlay from ORIGINAL ECMWF gridded forecast files, if generated and deployed.
+// V27 LAB: original ECMWF grids + explicitly labelled temporal estimates.
+// NPZ is NumPy's zipped NPY format; fflate only decompresses, not forecasts.
 let gridManifest=null,gridImage=null,gridLoadMessage='Rejilla ECMWF no generada todavía';
-fetch('../V26-1-CORRECCION-LLUVIA/grid/manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No hay manifiesto');return r.json()}).then(data=>{gridManifest=data;gridLoadMessage='Rejilla ECMWF disponible';scheduleHeat()}).catch(()=>{gridLoadMessage='Sin archivos de rejilla: se conserva la vista V25.2';});
-function removeGrid(){if(gridImage){map.removeLayer(gridImage);gridImage=null}}
-function showGrid(){
+const gridDataCache=new Map();let gridDrawSequence=0;
+const gridBase='../V26-1-CORRECCION-LLUVIA/';
+const madridClock=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+const madridKey=utc=>madridClock.format(new Date(utc)).replace(' ','T');
+fetch(gridBase+'grid/manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No hay manifiesto');return r.json()}).then(data=>{gridManifest=data;gridLoadMessage='Rejilla ECMWF disponible';scheduleHeat()}).catch(()=>{gridLoadMessage='Sin archivos de rejilla: se conserva la vista V25.2';});
+function removeGrid(){++gridDrawSequence;if(gridImage){map.removeLayer(gridImage);gridImage=null}}
+function readNpy(bytes){
+ const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
+ if(bytes[0]!==147||String.fromCharCode(...bytes.slice(1,6))!=='NUMPY')throw Error('Archivo NPY no válido');
+ const major=bytes[6],start=major===1?10:12;
+ const size=major===1?v.getUint16(8,true):v.getUint32(8,true);
+ const header=new TextDecoder().decode(bytes.subarray(start,start+size));
+ if(!/['"]descr['"]\s*:\s*['"](?:<|\|)f4['"]/.test(header))throw Error('Formato NPY distinto de float32');
+ if(/['"]fortran_order['"]\s*:\s*True/.test(header))throw Error('Orden Fortran no admitido');
+ const shapeText=header.match(/['"]shape['"]\s*:\s*\(([^)]*)\)/)?.[1];
+ if(!shapeText)throw Error('Dimensiones NPY ausentes');
+ const shape=shapeText.split(',').map(x=>Number(x.trim())).filter(x=>Number.isInteger(x)&&x>0);
+ const count=shape.reduce((a,b)=>a*b,1),offset=start+size;
+ if(offset+count*4>bytes.byteLength)throw Error('NPY incompleto');
+ const values=new Float32Array(count);
+ for(let i=0;i<count;i++)values[i]=v.getFloat32(offset+i*4,true);
+ return {values,shape};
+}
+async function getGridData(frameKey){
+ if(gridDataCache.has(frameKey))return gridDataCache.get(frameKey);
+ const path=gridManifest.frames[frameKey]?.numerical_data;
+ if(!path)throw Error('Falta numerical_data en '+frameKey);
+ const task=(async()=>{
+  if(!window.fflate?.unzipSync)throw Error('No se pudo cargar el lector NPZ');
+  const r=await fetch(gridBase+path);if(!r.ok)throw Error('NPZ HTTP '+r.status);
+  const archive=window.fflate.unzipSync(new Uint8Array(await r.arrayBuffer()));
+  const names=['temperature_2m','wind_u_10m','wind_v_10m','precipitation','latitudes','longitudes'];
+  const data={};for(const name of names){const entry=archive[name+'.npy'];if(!entry)throw Error('Falta '+name+'.npy');data[name]=readNpy(entry)}
+  const shape=data.temperature_2m.shape;
+  if(shape.length!==2||shape[0]!==data.latitudes.values.length||shape[1]!==data.longitudes.values.length)throw Error('Dimensiones incoherentes');
+  for(const name of ['wind_u_10m','wind_v_10m','precipitation'])if(data[name].values.length!==shape[0]*shape[1])throw Error('Rejillas incompatibles');
+  return data;
+ })();
+ gridDataCache.set(frameKey,task);
+ try{return await task}catch(e){gridDataCache.delete(frameKey);throw e}
+}
+function gridRgba(kind,value){
+ if(!Number.isFinite(value)||(kind==='precipitation'&&value<.1))return [0,0,0,0];
+ const ramps={temperature_2m:[[0,[68,103,176]],[10,[79,177,229]],[20,[235,215,94]],[30,[215,71,68]]],wind_speed_10m:[[0,[157,214,189]],[20,[240,219,109]],[40,[243,162,82]],[70,[158,56,112]]],precipitation:[[0,[199,241,255]],[.5,[134,215,255]],[2,[22,123,229]],[5,[133,57,201]],[15,[255,72,169]]]};
+ const ramp=ramps[kind];let rgb=ramp[0][1];
+ if(value>=ramp[ramp.length-1][0])rgb=ramp[ramp.length-1][1];
+ else for(let i=0;i<ramp.length-1;i++)if(value>=ramp[i][0]&&value<=ramp[i+1][0]){
+  const f=(value-ramp[i][0])/(ramp[i+1][0]-ramp[i][0]);rgb=ramp[i][1].map((x,j)=>Math.round(x+(ramp[i+1][1][j]-x)*f));break;
+ }
+ return [...rgb,kind==='precipitation'?200:175];
+}
+function gridLabel(frame,estimated){
+ const unit=variable==='precipitation'?'Lluvia acumulada en intervalos de 3 h (mm), NO lluvia horaria':variable==='temperature_2m'?'Temperatura (°C)':'Velocidad del viento (km/h)';
+ $('heat-legend').textContent='🧭 ECMWF IFS '+gridManifest.resolution+' · '+(estimated?'ESTIMACIÓN TEMPORAL entre rejillas originales':'DATO ORIGINAL del modelo')+' · '+frame+' · '+unit+' · Fuente ECMWF Open Data CC BY 4.0';
+}
+async function showGrid(){
+ const seq=++gridDrawSequence;
  if(model!=='ECMWF'||!gridManifest||variable==='precipitation_probability'){removeGrid();return false}
- const selected=times[hour];if(!selected){removeGrid();return false}
- // Open-Meteo time is local ISO; match ECMWF UTC frame via epoch.
- // Open-Meteo delivers Europe/Madrid wall-clock strings without a UTC offset.
- // Convert each UTC ECMWF frame to Madrid wall-clock before comparing.
- const madridClock=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
- const frames=Object.keys(gridManifest.frames||{});
- const frame=frames.find(t=>madridClock.format(new Date(t)).replace(' ','T')===selected.slice(0,16))
- if(!frame){removeGrid();return false}
- const item=gridManifest.frames[frame]?.[variable];if(!item){removeGrid();return false}
- const url='../V26-1-CORRECCION-LLUVIA/'+item.file;
- if(gridImage){gridImage.setUrl(url);gridImage.setBounds(item.bounds)}
- else gridImage=L.imageOverlay(url,item.bounds,{opacity:.72,interactive:false,className:'weather-heat-image'}).addTo(map);
- const legend=$('heat-legend');legend.textContent='🧭 REJILLA ORIGINAL ECMWF IFS '+gridManifest.resolution+' · '+frame+' · '+(variable==='precipitation'?'Lluvia acumulada en 3 horas (mm), NO mm/h':variable==='temperature_2m'?'Temperatura (°C)':'Velocidad del viento (km/h)')+' · Fuente ECMWF Open Data CC BY 4.0';
- return true
+ const selected=times[hour]?.slice(0,16);if(!selected){removeGrid();return false}
+ const frames=Object.keys(gridManifest.frames||{}).sort();
+ const original=frames.find(t=>madridKey(t)===selected);
+ if(original){
+  const item=gridManifest.frames[original]?.[variable];if(!item){removeGrid();return false}
+  const url=gridBase+item.file;
+  if(gridImage){gridImage.setUrl(url);gridImage.setBounds(item.bounds)}
+  else gridImage=L.imageOverlay(url,item.bounds,{opacity:.72,interactive:false,className:'weather-heat-image'}).addTo(map);
+  gridLabel(original,false);return true;
+ }
+ // Compare local ISO clock keys: hourly Open-Meteo and UTC ECMWF rendered in Madrid.
+ // Only interpolate between adjacent three-hour frames; never extrapolate.
+ const entries=frames.map(t=>({utc:t,local:madridKey(t)}));
+ const after=entries.findIndex(e=>e.local>selected);
+ if(after<1){removeGrid();return false}
+ const left=entries[after-1],right=entries[after];
+ const t0=Date.parse(left.local+':00Z'),t1=Date.parse(right.local+':00Z'),t=Date.parse(selected+':00Z');
+ if(t1-t0!==3*3600000||t<=t0||t>=t1){removeGrid();return false}
+ const fraction=(t-t0)/(t1-t0);
+ try{
+  const [a,b]=await Promise.all([getGridData(left.utc),getGridData(right.utc)]);
+  if(seq!==gridDrawSequence||model!=='ECMWF')return true;
+  const rows=a.temperature_2m.shape[0],cols=a.temperature_2m.shape[1];
+  if(rows!==b.temperature_2m.shape[0]||cols!==b.temperature_2m.shape[1])throw Error('Tamaños distintos');
+  if(a.latitudes.values.some((v,i)=>Math.abs(v-b.latitudes.values[i])>1e-4)||a.longitudes.values.some((v,i)=>Math.abs(v-b.longitudes.values[i])>1e-4))throw Error('Coordenadas distintas');
+  const canvas=document.createElement('canvas');canvas.width=cols;canvas.height=rows;
+  const ctx=canvas.getContext('2d'),im=ctx.createImageData(cols,rows);
+  for(let i=0;i<rows*cols;i++){
+   let value;
+   if(variable==='wind_speed_10m'){
+    const u=a.wind_u_10m.values[i]*(1-fraction)+b.wind_u_10m.values[i]*fraction;
+    const v=a.wind_v_10m.values[i]*(1-fraction)+b.wind_v_10m.values[i]*fraction;
+    value=Math.hypot(u,v)*3.6;
+   }else{
+    const x=a[variable].values[i],y=b[variable].values[i];value=x*(1-fraction)+y*fraction;
+   }
+   const rgba=gridRgba(variable,value);im.data.set(rgba,i*4);
+  }
+  ctx.putImageData(im,0,0);
+  if(seq!==gridDrawSequence)return true;
+  const bounds=gridManifest.frames[left.utc][variable].bounds;
+  const url=canvas.toDataURL('image/png');
+  if(gridImage){gridImage.setUrl(url);gridImage.setBounds(bounds)}
+  else gridImage=L.imageOverlay(url,bounds,{opacity:.72,interactive:false,className:'weather-heat-image'}).addTo(map);
+  gridLabel(selected,true);
+  return true;
+ }catch(e){
+  if(seq===gridDrawSequence){console.warn('Interpolación ECMWF:',e);removeGrid();$('heat-legend').textContent='⚠ No se pudo interpolar la rejilla ECMWF: '+e.message}
+  return false;
+ }
 }
 let heatOverlay=null;
 let heatBounds=null;
