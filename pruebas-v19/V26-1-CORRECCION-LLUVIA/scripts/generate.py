@@ -122,6 +122,7 @@ def main():
             total=fields['tp'][2]*1000
             previous=p_total*1000
             diff=total-previous
+            print(f'DIAGNOSTICO TP | minimo={np.min(diff):.6f} mm | negativos_menores_-0.05={np.count_nonzero(diff < -0.05)} | total_puntos={diff.size}', flush=True)
             if np.any(diff < -0.05):
                 raise RuntimeError('Precipitación acumulada decreciente: comprobar semántica GRIB')
             rain=np.maximum(0,diff)
