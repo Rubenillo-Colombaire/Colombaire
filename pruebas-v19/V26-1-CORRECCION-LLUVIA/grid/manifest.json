@@ -3,7 +3,7 @@
   "resolution": "0.25°",
   "precipitation_note": "Milímetros acumulados en el intervalo indicado en cada fotograma; no mm/h",
   "frames": {
-    "2026-10-23T15:00:00Z": {
+    "2026-10-24T03:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_003.png",
         "bounds": [
@@ -50,7 +50,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-23T18:00:00Z": {
+    "2026-10-24T06:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_006.png",
         "bounds": [
@@ -97,7 +97,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-23T21:00:00Z": {
+    "2026-10-24T09:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_009.png",
         "bounds": [
@@ -144,7 +144,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T00:00:00Z": {
+    "2026-10-24T12:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_012.png",
         "bounds": [
@@ -191,7 +191,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T03:00:00Z": {
+    "2026-10-24T15:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_015.png",
         "bounds": [
@@ -238,7 +238,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T06:00:00Z": {
+    "2026-10-24T18:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_018.png",
         "bounds": [
@@ -285,7 +285,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T09:00:00Z": {
+    "2026-10-24T21:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_021.png",
         "bounds": [
@@ -332,7 +332,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T12:00:00Z": {
+    "2026-10-25T00:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_024.png",
         "bounds": [
@@ -379,7 +379,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T15:00:00Z": {
+    "2026-10-25T03:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_027.png",
         "bounds": [
@@ -426,7 +426,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T18:00:00Z": {
+    "2026-10-25T06:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_030.png",
         "bounds": [
@@ -473,7 +473,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-24T21:00:00Z": {
+    "2026-10-25T09:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_033.png",
         "bounds": [
@@ -520,7 +520,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-25T00:00:00Z": {
+    "2026-10-25T12:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_036.png",
         "bounds": [
@@ -567,7 +567,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-25T03:00:00Z": {
+    "2026-10-25T15:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_039.png",
         "bounds": [
@@ -614,7 +614,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-25T06:00:00Z": {
+    "2026-10-25T18:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_042.png",
         "bounds": [
@@ -661,7 +661,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-25T09:00:00Z": {
+    "2026-10-25T21:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_045.png",
         "bounds": [
@@ -708,7 +708,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-25T12:00:00Z": {
+    "2026-10-26T00:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_048.png",
         "bounds": [
@@ -755,7 +755,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-25T15:00:00Z": {
+    "2026-10-26T03:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_051.png",
         "bounds": [
@@ -802,7 +802,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-25T18:00:00Z": {
+    "2026-10-26T06:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_054.png",
         "bounds": [
@@ -849,7 +849,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-25T21:00:00Z": {
+    "2026-10-26T09:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_057.png",
         "bounds": [
@@ -896,7 +896,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-26T00:00:00Z": {
+    "2026-10-26T12:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_060.png",
         "bounds": [
@@ -943,7 +943,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-26T03:00:00Z": {
+    "2026-10-26T15:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_063.png",
         "bounds": [
@@ -990,7 +990,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-26T06:00:00Z": {
+    "2026-10-26T18:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_066.png",
         "bounds": [
@@ -1037,7 +1037,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-26T09:00:00Z": {
+    "2026-10-26T21:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_069.png",
         "bounds": [
@@ -1084,7 +1084,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-26T12:00:00Z": {
+    "2026-10-27T00:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_072.png",
         "bounds": [
@@ -1131,7 +1131,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-26T15:00:00Z": {
+    "2026-10-27T03:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_075.png",
         "bounds": [
@@ -1178,7 +1178,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-26T18:00:00Z": {
+    "2026-10-27T06:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_078.png",
         "bounds": [
@@ -1225,7 +1225,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-26T21:00:00Z": {
+    "2026-10-27T09:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_081.png",
         "bounds": [
@@ -1272,7 +1272,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-27T00:00:00Z": {
+    "2026-10-27T12:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_084.png",
         "bounds": [
@@ -1319,7 +1319,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-27T03:00:00Z": {
+    "2026-10-27T15:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_087.png",
         "bounds": [
@@ -1366,7 +1366,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-27T06:00:00Z": {
+    "2026-10-27T18:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_090.png",
         "bounds": [
@@ -1413,7 +1413,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-27T09:00:00Z": {
+    "2026-10-27T21:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_093.png",
         "bounds": [
@@ -1460,7 +1460,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-27T12:00:00Z": {
+    "2026-10-28T00:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_096.png",
         "bounds": [
@@ -1507,7 +1507,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-27T15:00:00Z": {
+    "2026-10-28T03:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_099.png",
         "bounds": [
@@ -1554,7 +1554,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-27T18:00:00Z": {
+    "2026-10-28T06:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_102.png",
         "bounds": [
@@ -1601,7 +1601,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-27T21:00:00Z": {
+    "2026-10-28T09:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_105.png",
         "bounds": [
@@ -1648,7 +1648,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-28T00:00:00Z": {
+    "2026-10-28T12:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_108.png",
         "bounds": [
@@ -1695,7 +1695,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-28T03:00:00Z": {
+    "2026-10-28T15:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_111.png",
         "bounds": [
@@ -1742,7 +1742,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-28T06:00:00Z": {
+    "2026-10-28T18:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_114.png",
         "bounds": [
@@ -1789,7 +1789,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-28T09:00:00Z": {
+    "2026-10-28T21:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_117.png",
         "bounds": [
@@ -1836,7 +1836,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-28T12:00:00Z": {
+    "2026-10-29T00:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_120.png",
         "bounds": [
@@ -1883,7 +1883,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-28T15:00:00Z": {
+    "2026-10-29T03:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_123.png",
         "bounds": [
@@ -1930,7 +1930,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-28T18:00:00Z": {
+    "2026-10-29T06:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_126.png",
         "bounds": [
@@ -1977,7 +1977,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-28T21:00:00Z": {
+    "2026-10-29T09:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_129.png",
         "bounds": [
@@ -2024,7 +2024,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-29T00:00:00Z": {
+    "2026-10-29T12:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_132.png",
         "bounds": [
@@ -2071,7 +2071,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-29T03:00:00Z": {
+    "2026-10-29T15:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_135.png",
         "bounds": [
@@ -2118,7 +2118,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-29T06:00:00Z": {
+    "2026-10-29T18:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_138.png",
         "bounds": [
@@ -2165,7 +2165,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-29T09:00:00Z": {
+    "2026-10-29T21:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_141.png",
         "bounds": [
@@ -2212,7 +2212,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-29T12:00:00Z": {
+    "2026-10-30T00:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_144.png",
         "bounds": [
@@ -2259,7 +2259,7 @@
       ],
       "precipitation_unit": "mm/3h"
     },
-    "2026-10-29T18:00:00Z": {
+    "2026-10-30T06:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_150.png",
         "bounds": [
@@ -2306,7 +2306,7 @@
       ],
       "precipitation_unit": "mm/6h"
     },
-    "2026-10-30T00:00:00Z": {
+    "2026-10-30T12:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_156.png",
         "bounds": [
@@ -2353,7 +2353,7 @@
       ],
       "precipitation_unit": "mm/6h"
     },
-    "2026-10-30T06:00:00Z": {
+    "2026-10-30T18:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_162.png",
         "bounds": [
@@ -2400,7 +2400,7 @@
       ],
       "precipitation_unit": "mm/6h"
     },
-    "2026-10-30T12:00:00Z": {
+    "2026-10-31T00:00:00Z": {
       "temperature_2m": {
         "file": "grid/temperature_2m_168.png",
         "bounds": [
@@ -2448,5 +2448,5 @@
       "precipitation_unit": "mm/6h"
     }
   },
-  "run_utc": "2026-10-23T12:00:00Z"
+  "run_utc": "2026-10-24T00:00:00Z"
 }
