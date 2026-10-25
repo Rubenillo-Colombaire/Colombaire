@@ -38,11 +38,13 @@
 #cb-profile-dialog [hidden]{display:none!important}
 @media(max-width:700px){.app > header.cb-banner-header #cb-profile-button{right:8px!important;width:39px!important;height:39px!important;min-width:39px!important;min-height:39px!important}}
 </style>
+<style id="cb-v5-cover">#cb-welcome-gate{position:fixed;inset:0;z-index:2147483000;background:#eee4d0;display:grid;place-items:center;overflow:auto}#cb-welcome-gate[hidden]{display:none!important}.cb-cover-frame{position:relative;width:min(100vw,calc(100dvh * 1024 / 1536));aspect-ratio:1024/1536;margin:auto;background:#eee4d0 url("bienvenida-v3.png") center/100% 100% no-repeat}.cb-cover-hit{position:absolute;left:17%;width:66%;height:5.15%;border:0;border-radius:14px;background:transparent;cursor:pointer}.cb-cover-hit:focus-visible{outline:3px solid #d5a348}.cb-cover-hit:hover{box-shadow:inset 0 0 0 2px #c5a35b}#cb-cover-login{top:80.7%}#cb-cover-register{top:86.3%}#cb-cover-guide{top:92%}@media(max-aspect-ratio:2/3){.cb-cover-frame{width:100vw}}</style>
 </head>
 <body>
 <div id="cb-splash" class="cb-splash" aria-label="Bienvenido a COLOMBAIRE">
   <img class="cb-splash-logo" src="splash-bienvenida.jpg?v=0.9x" alt="Palomar valenciano histórico, COLOMBAIRE" width="1024" height="1536">
 </div>
+<div id="cb-welcome-gate" role="dialog" aria-modal="true" aria-label="Bienvenida a COLOMBAIRE"><div class="cb-cover-frame"><button type="button" class="cb-cover-hit" id="cb-cover-login" aria-label="Iniciar sesión"></button><button type="button" class="cb-cover-hit" id="cb-cover-register" aria-label="Crear cuenta"></button><button type="button" class="cb-cover-hit" id="cb-cover-guide" aria-label="Entrar a la guía sin registrarse"></button></div></div>
 <div class="app">
   <header class="cb-banner-header" aria-label="COLOMBAIRE, La Guía del Colombaire">
     <div class="cb-banner-brand" aria-hidden="true">COLOMBAIRE</div>
@@ -516,5 +518,6 @@ initialize();
      setTimeout(()=>{updateBtn.disabled=false;updateBtn.textContent='Buscar actualizaciones';},3000);
    });
  })();
- </script></body>
+ </script><script>window.addEventListener('DOMContentLoaded',()=>{const gate=document.getElementById('cb-welcome-gate');const splash=document.getElementById('cb-splash');if(splash)splash.style.display='none';const enter=()=>{gate.hidden=true};document.getElementById('cb-cover-guide').onclick=()=>{enter();document.querySelector('[data-go="guia"]')?.click()};document.getElementById('cb-cover-login').onclick=()=>{enter();document.getElementById('cb-profile-button')?.click()};document.getElementById('cb-cover-register').onclick=()=>{enter();document.getElementById('cb-profile-button')?.click();const status=document.getElementById('cb-profile-result');if(status)status.textContent='El registro de nuevas cuentas está pendiente de conectar con el formulario existente.'};});</script>
+</body>
 </html>
