@@ -1,0 +1,1 @@
+COLOMBOMETEO V9.9 PRUEBA: satélite cargado desde inicio, ficha lunar se cierra al cambiar pestaña, imagen de referencia NASA Apollo 17 (NO imagen del día), ubicación GPS con geocodificación inversa y respaldo de coordenadas. Subir carpeta V9-9-MOVIL dentro de pruebas-v19. V27 y otras versiones intactas.
