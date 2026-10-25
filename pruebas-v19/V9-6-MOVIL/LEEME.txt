@@ -1,0 +1,12 @@
+COLOMBOMETEO V9.6 — PRUEBA IPHONE
+
+1. En GitHub, entra en Rubenillo-Colombaire/Colombaire.
+2. Crea la carpeta pruebas-v19/V9-6-MOVIL/
+3. Sube SOLO el archivo index.html de esta carpeta.
+4. Confirma los cambios en la rama que usa GitHub Pages.
+5. Abre en Safari:
+https://rubenillo-colombaire.github.io/Colombaire/pruebas-v19/V9-6-MOVIL/
+
+No reemplaces ningún index.html existente fuera de V9-6-MOVIL.
+Esta copia usa recursos externos de Leaflet, Open-Meteo y mapas.
+Para cargar esos recursos, el iPhone debe tener conexión a Internet.
