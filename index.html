@@ -387,7 +387,12 @@
         <p class="cb-weather-footnote">Datos de Open-Meteo. La previsión es orientativa y puede cambiar. La ubicación se consulta solo cuando lo solicitas; no se almacena tu posición GPS. Requiere conexión a internet.</p>
       </div>
     </section>
-    <section id="calendario" class="page placeholder"></section>
+    <section id="calendario" class="page" aria-label="Calendario ColomboPicas">
+      <div style="max-width:1200px;margin:0 auto;padding:12px 12px 24px;">
+        <button type="button" class="app-back" style="margin:0 0 12px;cursor:pointer;">← Volver</button>
+        <iframe title="ColomboPicas — calendario de sueltas" src="./colombopicas/index.html?v=1.2" loading="lazy" style="display:block;width:100%;height:85vh;min-height:620px;border:0;border-radius:12px;background:#fff;" allow="fullscreen"></iframe>
+      </div>
+    </section>
   </main>
   <div id="deleteModal" class="modal" aria-hidden="true">
     <div class="modal-card">
