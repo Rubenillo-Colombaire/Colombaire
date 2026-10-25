@@ -1,0 +1,1 @@
+V10.1 PRUEBA de rediseño: siete días compactos y HOY detallado por 24 horas, basados en datos del modelo seleccionado. Comparación de cuatro modelos permanece desplegable. NO sobrescribir versiones previas. Subir carpeta V10-1-MOVIL dentro de pruebas-v19.
