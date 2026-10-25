@@ -1,0 +1,1 @@
+Prueba V9.8. Subir carpeta V9-8-MOVIL a pruebas-v19. Vista inicial ibérica responsive, tabla 24h en horario local Europe/Madrid, fichas lunares interactivas con enlaces externos NASA y Astro-Seek. No son fotografías lunares en directo. NO sobrescribir V27 ni V9.6/V9.7.
