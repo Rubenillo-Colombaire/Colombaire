@@ -1,0 +1,1 @@
+V10.2 prueba: simplificación de previsión. Sin cuatro botones redundantes. Calendario lunar independiente, comparación de cuatro modelos desplegable, capas del mapa sin cambios. Subir carpeta V10-2-MOVIL a pruebas-v19. NO sobrescribir versiones previas.
