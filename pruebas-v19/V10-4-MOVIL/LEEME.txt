@@ -1,0 +1,1 @@
+V10.4 experimental: modelos trasladados a zona de leyenda, gráfica con sensación térmica, rejilla y marcas horarias, color temperatura/sensación/viento/rachas con escalas internas. Subir carpeta V10-4-MOVIL a pruebas-v19. No modificar versiones anteriores.
