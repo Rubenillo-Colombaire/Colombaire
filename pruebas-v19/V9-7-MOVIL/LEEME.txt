@@ -1,0 +1,1 @@
+Subir la carpeta V9-7-MOVIL a pruebas-v19 en GitHub. NO sobrescribir V9-6-MOVIL ni V27. Abrir https://rubenillo-colombaire.github.io/Colombaire/pruebas-v19/V9-7-MOVIL/ . El satélite es cartografía real Esri; los datos meteorológicos son los disponibles en la app, no se generan rejillas ficticias. NASA: enlace a visualizaciones científicas, no foto en directo.
