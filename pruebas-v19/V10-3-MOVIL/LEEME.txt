@@ -1,0 +1,1 @@
+V10.3 experimental: pulsar día semanal actualiza las 24 horas de ese día; panel técnico desplegable con curva de temperatura y variables disponibles del modelo; iconos con fondo azul. Subir carpeta V10-3-MOVIL a pruebas-v19; no sustituir versiones previas.
