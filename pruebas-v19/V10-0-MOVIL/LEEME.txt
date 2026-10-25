@@ -1,0 +1,1 @@
+COLOMBOMETEO V10.0 PRUEBA: capa geográfica gris retirada al activar satélite; encabezados HOY y día de la semana al cruzar medianoche; ventana móvil de 24 horas que avanza automáticamente; foto NASA sin recorte circular. Mantener intactas V27 y versiones anteriores. Subir carpeta completa a pruebas-v19.
