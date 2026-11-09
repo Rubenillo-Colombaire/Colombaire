@@ -17,7 +17,7 @@ window.CBReverseMunicipio=async function(lat,lon){
    const response=await fetch(service.url,{signal:controller.signal,cache:'no-store'});
    if(!response.ok)continue;
    const name=service.parse(await response.json());
-   if(typeof name==='string'&&name.trim()&&!/^ubicaci[oó]n|^mi ubicaci[oó]n/i.test(name))return name.trim();
+   if(typeof name==='string'&&name.trim()&&!/^ubicaci[oó]n|^mi ubicaci[oó]n/i.test(name)){window.CBGPSLastDiagnostic={status:'correcto',provider:service.url.includes('bigdatacloud')?'BigDataCloud':'OpenStreetMap',at:Date.now()};return name.trim();}
   }catch(_error){/* Try the next provider. */}
   finally{clearTimeout(timer)}
  }

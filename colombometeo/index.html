@@ -1772,4 +1772,13 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
 <script>
 (()=>{const notice=document.createElement('div');notice.id='cb-forecast-refresh';notice.hidden=true;notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');const weekly=document.querySelector('#v41-technical')||document.querySelector('.forecast-week')||document.querySelector('#weekly-forecast');const hero=document.querySelector('.v40-current');if(hero)hero.insertAdjacentElement('afterend',notice);else document.body.prepend(notice);})();
 </script>
+
+<style id="cb-v710-mobile-gps-unified">
+/* V7.10: same readable GPS control on desktop and iPhone. */
+#v43-locate{width:auto!important;min-width:132px!important;height:44px!important;padding:8px 12px!important;gap:8px!important;border-radius:12px!important;background:#e9f1f7!important;color:#143c5e!important;border:1px solid #a6c4d6!important;display:flex!important;align-items:center!important;justify-content:center!important;white-space:nowrap!important;font-size:13px!important;font-weight:700!important}
+#v43-locate span{display:inline!important;visibility:visible!important}
+#v43-locate .cb-location-icon{width:22px!important;height:22px!important;flex:none!important}
+@media(max-width:600px){.v40-current{padding-top:68px!important}#v43-locate{right:10px!important;top:10px!important;min-width:126px!important;height:42px!important;padding:7px 9px!important}#v44-town-label{max-width:100%!important;overflow-wrap:break-word!important}}
+#v40-place{display:none!important}
+</style>
 </body></html>
