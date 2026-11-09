@@ -1338,14 +1338,15 @@ function renderMoonDays(){
    const activeAttempt=gpsAttempt;
    setLocationLabel('Ubicación GPS');
    townFeedback.textContent='Coordenadas GPS recibidas. Identificando municipio con el mismo sistema que COLOMBAIRE…';
-   let name=null;
+   let name=window.CBGPSMunicipioCache?.get(latitude,longitude)||null;
+   if(name){setLocationLabel(name);townFeedback.textContent='Municipio compartido con COLOMBAIRE: '+name;}
    try{
-    if(typeof window.CBReverseMunicipio==='function'){
+    if(!name&&typeof window.CBReverseMunicipio==='function'){
      name=await Promise.race([window.CBReverseMunicipio(latitude,longitude),new Promise(resolve=>setTimeout(()=>resolve(null),16500))]);
     }
    }catch(e){name=null;}
    if(activeAttempt!==gpsAttempt)return;
-   if(name){setLocationLabel(name);townFeedback.textContent='Municipio identificado por GPS: '+name;try{sessionStorage.setItem('cb_last_gps_municipio',JSON.stringify({name,latitude,longitude,at:Date.now()}));}catch(_e){}}
+   if(name){setLocationLabel(name);window.CBGPSMunicipioCache?.save(name,latitude,longitude);townFeedback.textContent='Municipio identificado por GPS: '+name;try{sessionStorage.setItem('cb_last_gps_municipio',JSON.stringify({name,latitude,longitude,at:Date.now()}));}catch(_e){}}
    else {setLocationLabel('Ubicación GPS');townFeedback.textContent='GPS correcto, pero los servicios externos no han identificado el municipio. La previsión usa las coordenadas GPS, no Sollana. Puedes seleccionar una localidad manualmente.';}
   },err=>{
    if(attempt!==gpsAttempt)return;

@@ -23,3 +23,20 @@ window.CBReverseMunicipio=async function(lat,lon){
  }
  return null;
 };
+
+/* V7.8: shared, coordinate-verified municipality cache on the same HTTPS origin. */
+window.CBGPSMunicipioCache={
+ save(name,lat,lon){
+  if(!name||!/^[\p{L}\s.'’\-]+$/u.test(name)||!Number.isFinite(lat)||!Number.isFinite(lon))return;
+  try{localStorage.setItem('cb_gps_municipio_shared_v1',JSON.stringify({name,lat,lon,at:Date.now()}));}catch(_e){}
+ },
+ get(lat,lon){
+  try{
+   const v=JSON.parse(localStorage.getItem('cb_gps_municipio_shared_v1')||'null');
+   if(!v||Date.now()-v.at>24*3600000||!Number.isFinite(v.lat)||!Number.isFinite(v.lon))return null;
+   // Within approximately 250 metres: never reuse a town name for a different location.
+   const metres=Math.hypot((lat-v.lat)*111000,(lon-v.lon)*111000*Math.cos(lat*Math.PI/180));
+   return metres<=250&&typeof v.name==='string'?v.name:null;
+  }catch(_e){return null;}
+ }
+};

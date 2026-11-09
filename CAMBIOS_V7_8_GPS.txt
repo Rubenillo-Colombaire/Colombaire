@@ -1,0 +1,1 @@
+V7.8 GPS: cache compartida entre COLOMBAIRE y COLOMBOMETEO por origen HTTPS, con caducidad de 24 horas y coincidencia de coordenadas a 250 m. Se guarda solo cuando un proveedor devuelve municipio real. Se mantiene la consulta de pronósticos por coordenadas GPS. Sin cambios en registros de palomos ni en los efectos meteorológicos.
