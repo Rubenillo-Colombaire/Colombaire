@@ -1,0 +1,8 @@
+COLOMBOMETEO V31 — LABORATORIO / NO PUBLICAR
+Base: V30, sin modificar los archivos originales.
+- Gráfica térmica con curva fina, suavizada y gradiente térmico por hora.
+- Fondo horario noche/día y transición amanecer/atardecer según datos solares disponibles.
+- Iconos de cielo sobre la curva térmica (cada dos horas), según código meteorológico horario.
+- Iconos de lluvia con gotas azules en vez de trazos.
+- Conservadas las tablas, paneles y modelos originales.
+- Pendiente: validación visual en navegador y ajustes con capturas del usuario.

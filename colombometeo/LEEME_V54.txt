@@ -1,0 +1,1 @@
+V54 laboratorio: basada en V53 con reintentos de API; nubes segun pronostico y sin capas V51/V52 duplicadas. Abrir index.html dentro de esta carpeta. No publicar sin validar modelos, ubicacion y movil.

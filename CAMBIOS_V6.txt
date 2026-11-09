@@ -1,0 +1,1 @@
+COLOMBAIRE V6 - prueba. Restaurado el botón COLOMBOMETEO como tarjeta grande crema, icono dorado centrado, título y subtítulo «Previsiones de 7 días», igual a la referencia. Se mantienen ventana azul del tiempo y botón Descendencia V5. No sustituir instalación ni datos sin respaldo.

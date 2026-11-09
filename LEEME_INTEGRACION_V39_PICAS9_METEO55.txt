@@ -1,0 +1,4 @@
+COLOMBAIRE V39 + COLOMBOPICAS V9 + COLOMBOMETEO V55.
+VERSIÓN DE PRUEBAS, NO PUBLICAR.
+Abrir Colombaire-main/index.html y comprobar navegación, ColomboPicas, ColomboMeteo, datos y animaciones.
+No se han alterado los módulos aprobados; solo se han sustituido las carpetas de ColomboPicas y ColomboMeteo.

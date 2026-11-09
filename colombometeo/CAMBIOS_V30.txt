@@ -1,0 +1,7 @@
+V30 LAB NO PUBLICAR
+- Iconos en etiquetas del análisis técnico.
+- Curva de temperatura suavizada y de mayor grosor.
+- Amanecer y atardecer con símbolos vectoriales y hora local.
+- Gotas en vez de líneas bajo las nubes.
+- Conserva V29 y los modelos de datos.
+- Validación de sintaxis JavaScript realizada; revisar visualmente en navegador.

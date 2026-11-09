@@ -1,0 +1,9 @@
+COLOMBAIRE INTEGRACION V1 - SOLO PRUEBAS
+
+Base: Colombaire FINAL 2-11-2026(1).zip
+Actualizacion COLOMBAIRE: Descendientes V3 (incluye mejoras previas de PRUEBA B)
+Se conservan carpetas colombometeo y colombopicas de la base.
+
+IMPORTANTE: No sustituir la instalacion actual en iPhone sin exportar y verificar una copia de seguridad de los datos. Esta version no ha sido probada funcionalmente en Safari iOS ni publicada.
+
+Para probar localmente en PC, servir esta carpeta mediante un servidor HTTP local (no abrir con file://).

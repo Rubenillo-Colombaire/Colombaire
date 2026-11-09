@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>COLOMBOMETEO V9.0 · Modelos reales V8.8 · Interfaz profesional</title>
+<title>COLOMBOMETEO V53 · Laboratorio</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--navy:#102b45;--blue:#0875b8;--pale:#edf4f8;--line:#dce7ef;--ink:#18354b}
@@ -455,11 +455,257 @@ body.mobile-nav-open .sidebar{transform:translateX(0)!important}
 #nav-backdrop{display:none;position:fixed;inset:0;background:rgba(4,20,33,.48);z-index:5001}
 body.mobile-nav-open #nav-backdrop{display:block}
 @media(min-width:751px){.main{padding-left:16px!important;padding-right:16px!important}.sidebar .nav{flex-direction:row!important;text-align:left!important;justify-content:flex-start!important;padding:12px!important}.sidebar .nav .name{font-size:12px!important}.sidebar .brand .word{font-size:13px!important}.sidebar .brand .word:before{content:none!important}.sidebar .brand small{display:block!important}}
+</style>
+<style id="v40-first-screen">
+/* V40: interfaz meteorológica de entrada, conservando las previsiones y datos existentes */
+.hero{display:none!important}
+#demo-message{display:none!important}
+.v40-current{position:relative;isolation:isolate;overflow:hidden;border-radius:23px;color:white;text-align:center;min-height:300px;margin:10px 0 16px;padding:32px 18px 28px;background:linear-gradient(160deg,#498ac2,#8bc4e8 72%,#bdd9ed);box-shadow:0 8px 25px #12385425}
+.v40-current[data-sky="sun"]{background:linear-gradient(155deg,#367fbe 0%,#77b5e3 63%,#c7e9f8 100%)}
+.v40-current[data-sky="mixed"]{background:linear-gradient(155deg,#427eaf,#7eb3d7 70%,#b6d2e4)}
+.v40-current[data-sky="cloud"]{background:linear-gradient(150deg,#4d708c,#8ba8ba 75%,#c6d5db)}
+.v40-current[data-sky="rain"]{background:linear-gradient(150deg,#264968,#547c9c 70%,#8aacc0)}
+.v40-current[data-sky="storm"]{background:linear-gradient(150deg,#182e4d,#435b7c 75%,#6d8198)}
+.v40-current[data-sky="night"]{background:linear-gradient(155deg,#102d50,#27527a 70%,#466e94)}
+.v40-sun{position:absolute;z-index:-1;right:13%;top:22px;width:135px;height:135px;border-radius:50%;background:radial-gradient(circle at 42% 37%,#fffdeb 0%,#ffe69a 24%,#ffd05c 52%,#f6b746 72%,#f6b74600 74%);box-shadow:0 0 28px 12px #ffe69b99,0 0 90px 45px #fff1ae77,0 0 150px 80px #fff1b84a}
+.v40-sun:after{content:"";position:absolute;inset:-68px;border-radius:50%;background:repeating-conic-gradient(from 0deg,#fff3bb5c 0deg 2deg,transparent 2deg 25deg);mask:radial-gradient(circle,transparent 0 32%,#000 39%,transparent 73%)}
+.v40-cloud{position:absolute;z-index:-1;bottom:15%;left:-8%;width:55%;height:80px;border-radius:80px;background:#fff9;filter:blur(14px);box-shadow:80px -20px 25px #ffffff66,140px 12px 25px #ffffff55}
+.v40-current[data-sky="sun"] .v40-cloud{opacity:.2}
+.v40-current[data-sky="cloud"] .v40-sun,.v40-current[data-sky="rain"] .v40-sun,.v40-current[data-sky="storm"] .v40-sun,.v40-current[data-sky="night"] .v40-sun{display:none}
+.v40-current[data-sky="rain"] .v40-cloud,.v40-current[data-sky="storm"] .v40-cloud{background:#d4e2edaa}
+.v40-place{font:600 clamp(14px,3vw,19px) system-ui,sans-serif;opacity:.95;letter-spacing:.04em}
+.v40-degrees{font:200 clamp(88px,21vw,148px)/1.15 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.085em;margin:12px 0 2px;text-shadow:0 3px 12px #153d5430}
+.v40-desc{font:400 clamp(22px,4vw,32px)/1.3 system-ui,sans-serif;margin:0}
+.v40-rain{font:400 clamp(16px,3vw,20px)/1.5 system-ui,sans-serif;margin:12px 0 0}
+.v40-caption{font:400 12px system-ui,sans-serif;opacity:.8;margin-top:10px}
+.v40-hourly-note{font:600 12px system-ui,sans-serif;color:#35546d;margin:8px 0}
+.today-hour.v40-past{display:none!important}
+.today-hour.v40-now{outline:3px solid #edb94a;outline-offset:-3px;position:relative}
+.today-hour.v40-now:before{content:"AHORA";position:absolute;z-index:3;top:0;left:0;right:0;background:#e7ad38;color:#122f44;font:bold 10px system-ui;padding:2px}
+.today-hour.v40-now .today-hour-time{padding-top:17px!important}
+.v40-extra{margin:16px 0;border:1px solid #c6d8e5;border-radius:12px;background:#f8fbfd;color:#23445c}
+.v40-extra summary{cursor:pointer;padding:13px 16px;font-weight:700}
+.v40-extra>div{padding:0 16px 16px;font-size:13px;line-height:1.6}
+@media(min-width:900px){.v40-current{min-height:320px}.v40-degrees{font-size:128px}}
+@media(max-width:600px){.v40-current{min-height:345px;margin:0 0 12px;border-radius:0 0 20px 20px;padding-top:28px}.v40-sun{right:5%;top:35px;width:120px;height:120px}}
+</style>
+
+<style id="v41-layout">
+/* V41: orden visual en columna, pensado para el móvil */
+main.main{display:flex;flex-direction:column;gap:13px}
+main.main>.grid{display:contents}
+#comparison-panel{display:contents}
+#map-panel{order:80}
+.lab-map-toggle-row{order:79;margin-top:8px!important}
+.v40-current{order:0;margin-top:0!important}
+#v41-weekly{order:10}
+#v41-hourly{order:20}
+#v41-models{order:30}
+#v41-technical{order:40}
+#v41-comparison{order:50}
+#v41-lunar{order:60}
+#v41-location{order:90}
+main.main>.bottom{order:95}
+main.main>.note{order:96}
+.v41-block{background:#fff;border:1px solid #d1e1ed;border-radius:15px;padding:16px;margin:0;min-width:0;box-shadow:0 3px 12px #1238540b}
+.v41-block>h2{font:700 clamp(18px,3.4vw,24px) system-ui,sans-serif;color:#153d56;margin:0 0 13px}
+.v41-block .forecast-redesign{margin:0}
+.v41-block .today-scroll{overflow-x:auto}
+.v41-block .model-picks{margin:0}
+#v41-technical .technical-forecast{display:block!important}
+#v41-lunar .lunar-calendar-panel{display:block!important;position:static!important;visibility:visible!important;max-height:none!important}
+#v41-lunar .lunar-calendar-header button{display:none}
+#v41-location .location-search{margin:0}
+#v41-comparison .legacy-comparison{display:block!important}
+#v41-comparison .legacy-comparison>summary{cursor:pointer}
+#v41-hourly .table-key{margin-top:12px}
+#v41-technical .technical-toggle{display:none!important}
+#v41-models .model-picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#v41-lunar .lab-daylight{margin-bottom:12px}
+@media(max-width:600px){.v41-block{padding:12px;border-radius:12px}#v41-models .model-picks{gap:7px}}
+</style>
+<script id="v41-layout-js">
+document.addEventListener('DOMContentLoaded',()=>{
+ const main=document.querySelector('main.main');
+ const forecast=document.getElementById('forecast-redesign');
+ const comparison=document.getElementById('comparison-panel');
+ if(!main||!forecast||!comparison)return;
+ function block(id,title){
+  const section=document.createElement('section');
+  section.id=id;section.className='v41-block';
+  if(title){const h=document.createElement('h2');h.textContent=title;section.append(h)}
+  main.append(section);return section;
+ }
+ const weekly=block('v41-weekly','Previsión semanal');
+ const hourly=block('v41-hourly','Previsión por horas');
+ const models=block('v41-models','Modelos meteorológicos');
+ const technical=block('v41-technical','Análisis técnico');
+ const compare=block('v41-comparison','Comparación de modelos');
+ const lunar=block('v41-lunar','Calendario lunar');
+ const location=block('v41-location','Pronóstico de una localización');
+ const weeklyTitle=forecast.querySelector('.forecast-heading');
+ const week=forecast.querySelector('#weekly-forecast');
+ const hourlyTitle=forecast.querySelector('.today-title');
+ const scroll=forecast.querySelector('.today-scroll');
+ const technicalSection=document.getElementById('technical-forecast');
+ const tableKey=document.querySelector('.hourly-relocated .table-key');
+ const modelPicks=comparison.querySelector('.model-picks');
+ const lunarPanel=document.getElementById('lunar-calendar-panel');
+ const daylight=document.querySelector('.hourly-relocated .lab-daylight');
+ const town=comparison.querySelector('.location-search');
+ const metrics=comparison.querySelector('.metrics');
+ const consensus=comparison.querySelector('.consensus');
+ const legacy=forecast.querySelector('.legacy-comparison');
+ const forecastNote=forecast.querySelector('.forecast-note');
+ [weeklyTitle,week].forEach(el=>el&&weekly.append(el));
+ [hourlyTitle,scroll,tableKey].forEach(el=>el&&hourly.append(el));
+ if(modelPicks)models.append(modelPicks);
+ [technicalSection,forecastNote].forEach(el=>el&&technical.append(el));
+ [consensus,metrics,legacy].forEach(el=>el&&compare.append(el));
+ [daylight,lunarPanel].forEach(el=>el&&lunar.append(el));
+ if(town)location.append(town);
+ const toggle=document.getElementById('technical-toggle');
+ if(toggle)toggle.style.display='none';
+ const old=comparison.querySelector('.hourly-relocated');
+ if(old)old.style.display='none';
+ // Keep original comparison model status and sources accessible but unobtrusive.
+ const oldTitle=comparison.querySelector('h2');
+ if(oldTitle)oldTitle.style.display='none';
+ // Move the map immediately below its button while preserving existing map controls.
+ const map=document.getElementById('map-panel');
+ const mapButton=main.querySelector('.lab-map-toggle-row');
+ if(map&&mapButton)mapButton.after(map);
+ // The original map grid becomes display:contents, so its position is determined by order.
+});
+</script>
+
+<style id="v42-layout">
+/* La comparación horaria antigua se elimina: la comparación principal permanece. */
+.legacy-comparison{display:none!important}
+.v40-current{padding-top:24px}
+.v42-location-btn{display:inline-flex;align-items:center;gap:7px;justify-content:center;margin:0 auto 6px;padding:10px 16px;border:1px solid #ffffffa6;border-radius:999px;background:#103f6594;color:white;font:700 15px system-ui;cursor:pointer;backdrop-filter:blur(9px)}
+.v42-location-btn:hover{background:#0d385bc9}
+.v42-location-feedback{font:12px system-ui;color:#fff;opacity:.88;min-height:16px}
+#v42-info{order:110;background:transparent;border:0;box-shadow:none;padding:0}
+#v42-info>summary{font-size:12px;font-weight:650;color:#42647a;cursor:pointer;padding:10px}
+#v42-info>div{padding:12px;background:white;border:1px solid #d5e0e7;border-radius:10px}
+#v42-info details{margin:8px 0}
+#v41-comparison .v40-extra{display:none}
+#v41-location{order:90}
+</style>
+<script id="v42-layout-js">
+document.addEventListener('DOMContentLoaded',()=>{
+ const hero=document.querySelector('.v40-current');
+ const place=document.getElementById('v40-place');
+ if(hero&&place){
+  const btn=document.createElement('button');btn.type='button';btn.className='v42-location-btn';
+  btn.innerHTML='📍 <span id="v42-location-label">Elegir mi ubicación</span>';
+  const feedback=document.createElement('div');feedback.className='v42-location-feedback';feedback.setAttribute('role','status');
+  place.replaceWith(btn,feedback,place);
+  const locationLabel=document.getElementById('v42-location-label');
+  const updateLabel=()=>{
+    const town=document.getElementById('hourly-town')?.textContent?.trim();
+    if(town)locationLabel.textContent=town+' · Cambiar';
+  };
+  updateLabel();
+  btn.addEventListener('click',()=>{
+    const locate=document.getElementById('town-locate');
+    if(!locate){feedback.textContent='Busca una localidad en el apartado inferior.';return}
+    feedback.textContent='Solicitando ubicación…';
+    locate.click();
+    setTimeout(()=>{feedback.textContent='Si no se puede obtener tu posición, selecciona una localidad abajo.';updateLabel()},3500);
+  });
+  const town=document.getElementById('hourly-town');
+  if(town)new MutationObserver(updateLabel).observe(town,{childList:true,characterData:true,subtree:true});
+  place.style.display='none';
+ }
+ // Estado de los modelos y fuentes al final, en un único desplegable.
+ const main=document.querySelector('main.main');
+ const info=document.createElement('details');info.id='v42-info';info.className='v41-block';
+ info.innerHTML='<summary>ⓘ Información técnica y estado de los modelos</summary><div></div>';
+ main?.append(info);
+ const inner=info.querySelector('div');
+ const sourceDetails=[...document.querySelectorAll('.v40-extra')];
+ for(const d of sourceDetails){d.style.display='block';inner.append(d)}
+ // Retirar tabla horaria clásica: el panel de comparación de modelos se conserva.
+ document.querySelectorAll('.legacy-comparison').forEach(el=>el.remove());
+});
+</script>
+
+<style id="v45-professional-dark">
+/* V45: sky states with visibly different clouds and weather effects */
+.v40-current{overflow:hidden;isolation:isolate}
+.v40-current .v40-cloud{opacity:0;transition:opacity .45s ease}
+.v40-current[data-sky="sun"] .v40-cloud{display:none!important}
+.v40-current[data-sky="mixed"] .v40-cloud{opacity:1!important;display:block!important;left:43%;bottom:40%;width:35%;height:49px;background:#f6faffee;filter:blur(6px);box-shadow:-60px 14px 7px #f4faffcc,45px -14px 11px #fffdf5ee,95px 18px 10px #d7e6f5cc}
+.v40-current[data-sky="mixed"] .v40-sun{opacity:1!important;display:block!important}
+.v40-current[data-sky="cloud"] .v40-cloud{opacity:1!important}
+.v40-current[data-sky="rain"] .v40-cloud,.v40-current[data-sky="storm"] .v40-cloud{opacity:1!important}
+.v45-rain{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;background-image:repeating-linear-gradient(108deg,transparent 0 31px,#d9eeff7c 32px 33px,transparent 34px 75px);background-size:180px 140px;animation:v45-rainfall 1.4s linear infinite}
+.v40-current[data-sky="rain"] .v45-rain,.v40-current[data-sky="storm"][data-precip="yes"] .v45-rain{opacity:.65}
+@keyframes v45-rainfall{to{background-position:-130px 260px}}
+.v45-lightning{position:absolute;z-index:-1;top:13%;right:17%;width:100px;height:190px;opacity:0;background:linear-gradient(#e5f4ff,#fff);clip-path:polygon(52% 0,24% 48%,48% 47%,19% 100%,83% 39%,57% 42%,80% 0);filter:drop-shadow(0 0 14px #e7f6ff);animation:v45-flash 8s infinite}
+.v40-current[data-sky="storm"] .v45-lightning{animation-play-state:running}
+@keyframes v45-flash{0%,85%,87%,90%,100%{opacity:0}86%,89%{opacity:.8}}
+#v44-town-label{font-size:clamp(21px,3.8vw,30px)!important;font-weight:750!important;letter-spacing:.01em}
+#v41-technical .technical-forecast{background:#f7f9fb;border-color:#b8cedb}
+#v41-technical .technical-chart{background:#102d48!important;border:1px solid #294d69!important;min-height:285px}
+#v41-technical .tech-label{background:#14364f!important;color:#f4f7f9!important;border-bottom:1px solid #32516a!important;letter-spacing:.01em}
+#v41-technical .tech-label-icon{display:inline-flex!important;align-items:center;justify-content:center;flex:none;color:#e1eaf0!important;width:24px;height:24px;font-size:0!important}
+#v41-technical .tech-label-icon svg{display:block}
+#v41-technical .tech-row:nth-child(even){background:#eaf2f6}
+#v41-technical .tech-row:nth-child(odd){background:#f5f9fb}
+#v41-technical .tech-cell{border-left:1px solid #d4e2e9}
+@media(prefers-reduced-motion:reduce){.v45-rain,.v45-lightning{animation:none!important}.v45-lightning{opacity:0!important}}
+</style>
+<script id="v45-weather-effects">
+document.addEventListener('DOMContentLoaded',()=>{const hero=document.querySelector('.v40-current');if(!hero)return;for(const cls of ['v45-rain','v45-lightning']){const el=document.createElement('div');el.className=cls;el.setAttribute('aria-hidden','true');hero.prepend(el)}});
+</script>
+
+<style id="v46-clouds-icons">
+/* V46: iconos técnicos SVG nítidos, con contraste y sin depender de fuentes emoji */
+#v41-technical .tech-label-icon{background:#244c67!important;border:1px solid #5c8198!important;color:#fff!important;min-width:27px!important;width:27px!important;height:27px!important;opacity:1!important;visibility:visible!important}
+#v41-technical .tech-label-icon svg{width:20px!important;height:20px!important;display:block!important;visibility:visible!important;opacity:1!important;fill:none!important;stroke:#fff!important;stroke-width:2.1!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#v41-technical .tech-label-icon svg path,#v41-technical .tech-label-icon svg circle,#v41-technical .tech-label-icon svg line{stroke:#fff!important;fill:none!important;opacity:1!important}
+/* Nubes con volumen: múltiples capas, luz difusa y sombra, en vez de una barra borrosa */
+.v40-current .v40-cloud{width:52%!important;height:115px!important;left:-6%!important;bottom:19%!important;border-radius:55% 60% 40% 40%!important;background:radial-gradient(ellipse at 40% 23%,#ffffffeb 0%,#f2f6fbd9 38%,#c8d8e9ac 73%,#a6bed366 100%)!important;box-shadow:65px -32px 23px -15px #f8fbffe0,160px 2px 35px -10px #d8e4f2b5,270px -45px 42px -16px #f8fbffb5,350px 15px 50px -10px #c7d9e8a0!important;filter:blur(11px)!important;transform:translateZ(0);pointer-events:none}
+.v40-current .v40-cloud::before{content:"";position:absolute;left:15%;bottom:23%;width:54%;height:130%;border-radius:50%;background:radial-gradient(ellipse at 35% 20%,#fff 0%,#f4f8fce8 46%,#c2d5e8aa 85%);box-shadow:115px -20px 35px -18px #f7faffd9,235px 20px 40px -20px #e1eaf6b8}
+.v40-current .v40-cloud::after{content:"";position:absolute;left:62%;bottom:12%;width:65%;height:95%;border-radius:50%;background:radial-gradient(ellipse at 40% 25%,#fcfdfff2 0%,#e7f0f9dd 60%,#aebfd48c 100%)}
+.v40-current[data-sky="mixed"] .v40-cloud{left:38%!important;bottom:29%!important;width:39%!important;height:85px!important;opacity:.91!important;filter:blur(9px)!important;box-shadow:35px -12px 25px -12px #fff9,135px 14px 30px -10px #d8e6f6b8!important}
+.v40-current[data-sky="cloud"] .v40-cloud{opacity:1!important;filter:blur(12px)!important}
+.v40-current[data-sky="rain"] .v40-cloud,.v40-current[data-sky="storm"] .v40-cloud{filter:blur(12px) brightness(.78)!important}
+.v40-current[data-sky="sun"] .v40-cloud{display:none!important}
+@media(prefers-reduced-motion:reduce){.v40-current .v40-cloud{transition:none!important}}
+</style>
+
+
+
+
+<style id="v54-nubes-estables">
+/* Nubes por estado, repeticion continua, por debajo del contenido. */
+.v40-current{isolation:isolate;overflow:hidden}
+.v40-current::before,.v40-current::after{content:""!important;position:absolute!important;inset:0!important;pointer-events:none!important;z-index:0!important;background-image:url("nubes-caricatura-v49.svg")!important;background-repeat:repeat-x!important;transform:none!important;transition:opacity .8s ease,filter .8s ease!important;animation:v54-drift 120s linear infinite!important;will-change:background-position}
+.v40-current::before{background-size:50% 100%!important}
+.v40-current::after{background-size:65% 85%!important;animation-duration:180s!important;animation-direction:reverse!important}
+@keyframes v54-drift{from{background-position-x:0}to{background-position-x:100%}}
+.v40-current[data-sky="sun"]::before,.v40-current[data-sky="sun"]::after{opacity:0!important}
+.v40-current[data-sky="mixed"]::before{opacity:.58!important;filter:brightness(1.13)!important}
+.v40-current[data-sky="mixed"]::after{opacity:0!important}
+.v40-current[data-sky="cloud"]::before{opacity:1!important;filter:brightness(.72)!important}
+.v40-current[data-sky="cloud"]::after{opacity:.92!important;filter:brightness(.58)!important}
+.v40-current[data-sky="rain"]::before,.v40-current[data-sky="storm"]::before{opacity:1!important;filter:brightness(.48)!important}
+.v40-current[data-sky="rain"]::after,.v40-current[data-sky="storm"]::after{opacity:.96!important;filter:brightness(.36)!important}
+.v40-current[data-sky="night"]::before,.v40-current[data-sky="night"]::after{opacity:.2!important;filter:brightness(.45)!important}
+.v40-current .v40-cloud{display:none!important}
+.v40-current[data-sky="mixed"] .v40-sun{display:block!important;opacity:1!important}
+.v40-current[data-sky="mixed"] .v40-sun::after{content:"";position:absolute;top:58%;left:-38%;width:170%;height:80%;background:url("nube-bajo-sol-v54.svg") center/contain no-repeat;pointer-events:none;z-index:2}
+.v40-current .v40-place,.v40-current .v40-degrees,.v40-current .v40-desc,.v40-current .v40-rain,.v40-current .v40-caption,#v44-town-label,#v44-day-label{position:relative!important;z-index:8!important;color:white!important;text-shadow:0 2px 7px #102c46,0 0 12px #102c46bb!important}
+@media(prefers-reduced-motion:reduce){.v40-current::before,.v40-current::after{animation:none!important}}
 </style></head><body>
 <div id="nav-backdrop" aria-hidden="true"></div><div class="app"><div class="mobile-menu"><span>☁ COLOMBOMETEO</span><button id="mobile-menu-button" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">☰</button></div>
 <aside class="sidebar" id="menu-principal" aria-label="Menú principal">
 <div class="brand"><span class="bird">☁</span><span class="word">COLOMBOMETEO<small>Laboratorio meteorológico</small></span></div>
-<a class="nav back" href="https://rubenillo-colombaire.github.io/Colombaire/" title="Volver a COLOMBAIRE"><span class="ico"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-2"/></svg></span><span class="name">Volver a COLOMBAIRE</span></a>
+<a class="nav back" href="../index.html" title="Volver a COLOMBAIRE"><span class="ico"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-2"/></svg></span><span class="name">Volver a COLOMBAIRE</span></a>
 <button class="nav active" data-target="map-panel"><span class="ico"><svg viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6m6-3v15m6-12v15"/></svg></span><span class="name">Mapa meteorológico</span></button>
 <button class="nav" data-target="comparison-panel"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 9h8M8 13h8M8 17h5"/></svg></span><span class="name">Comparar modelos</span></button>
 <button class="nav" data-target="hourly-panel"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/></svg></span><span class="name">Previsión de 7 días</span></button>
@@ -949,7 +1195,7 @@ function renderMoonDays(){
   const chartY=v=>142-(v-low)/range*96;
   const smoothSegments=arr=>{let groups=[],g=[];arr.forEach((v,i)=>{if(Number.isFinite(v))g.push([chartX(i),chartY(v)]);else if(g.length){groups.push(g);g=[]}});if(g.length)groups.push(g);return groups.map(points=>{if(points.length===1)return 'M'+points[0].join(' ');let d='M'+points[0].join(' ');for(let i=0;i<points.length-1;i++){const a=points[i],b=points[i+1],mx=(a[0]+b[0])/2;d+=' C'+mx+' '+a[1]+' '+mx+' '+b[1]+' '+b[0]+' '+b[1]}return d}).join(' ')};
   const paths=smoothSegments(temp),feelPaths=smoothSegments(feel);
-  const solarMark=(stamp,label,isRise)=>{if(!stamp)return '';const hh=Number(stamp.slice(11,13))+Number(stamp.slice(14,16))/60;const x=chartX(hh);const color=isRise?'#ffdb7e':'#ffb58b';const icon='<path d="M-15 5H15" stroke-width="2.3"/><path d="M-10 5 A10 10 0 0 1 10 5" fill="'+(isRise?'#ffdc55':'#ff9d52')+'" stroke="'+color+'" stroke-width="1.5"/><path d="M-15 9H15" stroke-width="1.4" opacity=".7"/><path d="M-18 13H18" stroke-width="1" opacity=".45"/><path d="M0 -11V-7 M-13 -6L-10 -3 M13 -6L10 -3" stroke-width="2"/>' ;return '<g><line x1="'+x+'" x2="'+x+'" y1="31" y2="148" stroke="'+color+'" stroke-width="1.5" stroke-dasharray="4 5" opacity=".8"/><g transform="translate('+x+' 16)" fill="none" stroke="'+color+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+icon+'</g><text x="'+x+'" y="39" text-anchor="middle" font-size="9" font-weight="750" fill="'+color+'">'+stamp.slice(11,16)+'</text><title>'+label+' · '+stamp.slice(11,16)+' (hora local)</title></g>'};
+  const solarMark=(stamp,label,isRise)=>{if(!stamp)return '';const hh=Number(stamp.slice(11,13))+Number(stamp.slice(14,16))/60;const x=chartX(hh);const color=isRise?'#f4d38a':'#e8b79e';return '<g><line x1="'+x+'" x2="'+x+'" y1="16" y2="156" stroke="'+color+'" stroke-width="1" stroke-dasharray="3 5" opacity=".65"/><circle cx="'+x+'" cy="13" r="3" fill="'+color+'"/><text x="'+x+'" y="28" text-anchor="middle" font-size="8" font-weight="600" fill="'+color+'">'+stamp.slice(11,16)+'</text><title>'+label+' · '+stamp.slice(11,16)+'</title></g>'};
   const solarMarkers=solarMark(sunRise,'Amanecer',true)+solarMark(sunSet,'Atardecer',false);
   const chartGuides=[0,.25,.5,.75,1].map(f=>{const y=142-f*96,n=Math.round(low+f*range);return '<line x1="20" x2="602" y1="'+y+'" y2="'+y+'" stroke="#d5efff" stroke-opacity=".17" stroke-dasharray="3 6"/><text x="3" y="'+(y+3)+'" font-size="9" fill="#e8f5ff">'+n+'°</text>'}).join('');
   const chartHours=[0,3,6,9,12,15,18,21,23].map(h=>'<text x="'+chartX(h)+'" y="178" font-size="10" text-anchor="middle" fill="#e6f4ff">'+String(h).padStart(2,'0')+'h</text>').join('');
@@ -980,12 +1226,12 @@ function renderMoonDays(){
    return '<svg x="-18" y="-19" width="36" height="40" viewBox="-23 -20 46 52" overflow="visible" aria-hidden="true">'+body+'</svg>';
   };
   const forecastIcons=temp.map((v,i)=>{if(!Number.isFinite(v)||i%2!==0)return '';const hour=i;const night=rise!==null&&set!==null?(hour<rise||hour>=set):(hour<7||hour>=20);return '<g transform="translate('+chartX(i)+' '+Math.max(31,chartY(v)-29)+')">'+skyIcon(cloudCode[i],night)+'</g>'}).join('');
-  const dynamicSky='<defs><linearGradient id="v35-sky" x1="0" y1="0" x2="1" y2="0">'+Array.from({length:49},(_,j)=>{const h=j/2,code=cloudCode[Math.min(23,Math.floor(h))];const night=v35Night(h,rise,set);const dawn=rise!==null&&Math.abs(h-rise)<.55,dusk=set!==null&&Math.abs(h-set)<.55;const color=dawn?'#b78b83':dusk?'#a47b83':v35SkyColor(code,night);return '<stop offset="'+(j/48*100).toFixed(2)+'%" stop-color="'+color+'"/>';}).join('')+'</linearGradient></defs><rect width="610" height="185" fill="url(#v35-sky)"/>';
+  const unusedSky='<defs><linearGradient id="v35-sky" x1="0" y1="0" x2="1" y2="0">'+Array.from({length:49},(_,j)=>{const h=j/2,code=cloudCode[Math.min(23,Math.floor(h))];const night=v35Night(h,rise,set);const dawn=rise!==null&&Math.abs(h-rise)<.55,dusk=set!==null&&Math.abs(h-set)<.55;const color=dawn?'#b78b83':dusk?'#a47b83':v35SkyColor(code,night);return '<stop offset="'+(j/48*100).toFixed(2)+'%" stop-color="'+color+'"/>';}).join('')+'</linearGradient></defs><rect width="610" height="185" fill="url(#v35-sky)"/>';
   const bandStops=temp.map((v,i)=>Number.isFinite(v)?'<stop offset="'+(i/23*100).toFixed(1)+'%" stop-color="'+(v<10?'#58b9ed':v<17?'#6dd99b':v<24?'#ffdb54':v<30?'#ff9d42':'#ee5d48')+'"/>':'').join('');
   const area=paths&&numeric.length===24?paths+' L'+chartX(23)+' 156 L'+chartX(0)+' 156 Z':'';
-  if(chart)chart.innerHTML=numeric.length?'<svg viewBox="0 0 610 185" role="img" aria-label="Evolución térmica horaria con iconos del pronóstico, amanecer y atardecer" preserveAspectRatio="none"><defs><linearGradient id="v31-thermal" x1="0" y1="0" x2="1" y2="0">'+bandStops+'</linearGradient><linearGradient id="v31-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity=".20"/><stop offset="1" stop-color="#ffffff" stop-opacity=".02"/></linearGradient><filter id="v31-shadow"><feGaussianBlur stdDeviation="2"/></filter></defs><rect width="610" height="185" fill="#183b5b"/>'+dynamicSky+'<rect width="610" height="185" fill="#14324e" opacity=".08"/>'+chartGuides+(area?'<path d="'+area+'" fill="url(#v31-fill)"/>':'')+'<path d="'+feelPaths+'" fill="none" stroke="#e4f6ff" stroke-width="1.6" stroke-dasharray="5 5" opacity=".65"/><path d="'+paths+'" fill="none" stroke="#082f48" stroke-width="13" opacity=".30" filter="url(#v31-shadow)"/><path d="'+paths+'" fill="none" stroke="url(#v31-thermal)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>'+forecastIcons+solarMarkers+chartHours+temp.map((v,i)=>Number.isFinite(v)&&i%3===0?'<text x="'+chartX(i)+'" y="'+Math.min(150,chartY(v)+20)+'" fill="#fff" font-weight="800" font-size="12" text-anchor="middle" stroke="#173951" stroke-width="2.5" paint-order="stroke">'+Math.round(v)+'°</text>':'').join('')+'</svg>':'<p>Temperatura no disponible para este día.</p>';
+  if(chart)chart.innerHTML=numeric.length?'<svg viewBox="0 0 610 185" role="img" aria-label="Evolución térmica horaria con iconos del pronóstico, amanecer y atardecer" preserveAspectRatio="none"><defs><linearGradient id="v31-thermal" x1="0" y1="0" x2="1" y2="0">'+bandStops+'</linearGradient><linearGradient id="v45-chart-bg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#102d48"/><stop offset="1" stop-color="#1b4261"/></linearGradient><linearGradient id="v31-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity=".20"/><stop offset="1" stop-color="#ffffff" stop-opacity=".02"/></linearGradient><filter id="v31-shadow"><feGaussianBlur stdDeviation="2"/></filter></defs><rect width="610" height="185" fill="#183b5b"/><rect width="610" height="185" fill="url(#v45-chart-bg)"/>'+solarMarkers+chartGuides+(area?'<path d="'+area+'" fill="url(#v31-fill)"/>':'')+'<path d="'+feelPaths+'" fill="none" stroke="#e4f6ff" stroke-width="2.4" stroke-dasharray="5 5" opacity=".65"/><path d="'+paths+'" fill="none" stroke="#082f48" stroke-width="6" opacity=".17" filter="url(#v31-shadow)"/><path d="'+paths+'" fill="none" stroke="url(#v31-thermal)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>'+chartHours+temp.map((v,i)=>Number.isFinite(v)&&i%3===0?'<text x="'+chartX(i)+'" y="'+Math.min(150,chartY(v)+20)+'" fill="#fff" font-weight="800" font-size="12" text-anchor="middle" stroke="#102d48" stroke-width=".7" paint-order="stroke">'+Math.round(v)+'°</text>':'').join('')+'</svg>':'<p>Temperatura no disponible para este día.</p>';
   const rows=[['Hora',hours.map(t=>t.slice(11,13)+':00')],['Temperatura',temp.map(v=>fmtTech(v,'°'))],['Sensación',feel.map(v=>fmtTech(v,'°'))],['Humedad',hum.map(v=>fmtTech(v,'%'))],['Lluvia',rain.map(v=>Number.isFinite(v)?v.toFixed(1)+' mm':'—')],['Prob. lluvia',prob.map(v=>fmtTech(v,'%'))],['Viento',wind.map(v=>fmtTech(v,' km/h'))],['Rachas',gust.map(v=>fmtTech(v,' km/h'))],['Dirección',dir.map(v=>Number.isFinite(v)?Math.round(v)+'°':'—')]];
-  const grid=document.getElementById('technical-grid');if(grid)grid.innerHTML=rows.map((row,ri)=>'<div class="tech-row"><div class="tech-label">'+'<span class="tech-label-icon" aria-hidden="true">'+(['◷','🌡','♨','💧','💦','☔','➤','≋','🧭'][ri])+'</span>'+row[0]+'</div>'+row[1].map((x,i)=>'<div class="tech-cell '+(ri===1&&Number.isFinite(temp[i])?'tech-temperature':'')+'"'+([1,2,6,7].includes(ri)&&Number.isFinite([null,temp,feel,null,null,null,wind,gust][ri]?.[i])?' style="background:'+heatColor([null,temp,feel,null,null,null,wind,gust][ri][i],ri<=2?'temp':'wind')+';color:#173046;font-weight:750"':'')+'>'+x+'</div>').join('')+'</div>').join('');
+  const grid=document.getElementById('technical-grid');if(grid)grid.innerHTML=rows.map((row,ri)=>'<div class="tech-row"><div class="tech-label">'+'<span class="tech-label-icon" aria-hidden="true">'+('<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+(['<circle cx="12" cy="12" r="8"/><path d="M12 7v5l4 2"/>','<path d="M10 4v11a4 4 0 1 0 4 0V4a2 2 0 0 0-4 0Z"/>','<path d="M8 5v10a4 4 0 1 0 8 0V5M8 9h8"/>','<path d="M12 3C9 8 5 12 5 16a7 7 0 0 0 14 0c0-4-4-8-7-13Z"/>','<path d="M4 9c3-5 12-5 15 0M6 13l-1 3m7-3-1 3m7-3-1 3"/>','<path d="M12 3v18M4 11c0-10 16-10 16 0M4 11c3-2 5-2 8 0 3-2 5-2 8 0"/>','<path d="M3 12h16m-5-5 5 5-5 5"/>','<path d="M3 8h14m-9 4h13m-18 4h14"/>','<circle cx="12" cy="12" r="8"/><path d="m9 15 3-8 3 8-3-2Z"/>'][ri])+'</svg>')+'</span>'+row[0]+'</div>'+row[1].map((x,i)=>'<div class="tech-cell '+(ri===1&&Number.isFinite(temp[i])?'tech-temperature':'')+'"'+([1,2,6,7].includes(ri)&&Number.isFinite([null,temp,feel,null,null,null,wind,gust][ri]?.[i])?' style="background:'+heatColor([null,temp,feel,null,null,null,wind,gust][ri][i],ri<=2?'temp':'wind')+';color:#173046;font-weight:750"':'')+'>'+x+'</div>').join('')+'</div>').join('');
  }
  function render(){
   renderForecastRedesign();
@@ -1041,8 +1287,26 @@ function renderMoonDays(){
   const qs=new URLSearchParams({latitude:String(currentPlace.latitude),longitude:String(currentPlace.longitude),models:models[id],hourly:'temperature_2m,precipitation,wind_speed_10m,precipitation_probability,weather_code,relative_humidity_2m,apparent_temperature,wind_gusts_10m,wind_direction_10m',timezone:'Europe/Madrid',daily:'sunrise,sunset',forecast_days:'7'});
   const url='https://api.open-meteo.com/v1/forecast?'+qs;
   try{
-   const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);
-   const data=await response.json();if(data.error||!data.hourly?.time?.length)throw Error(data.reason||'Respuesta sin datos');
+   // V53: reintentos limitados para errores transitorios del proveedor, sin cambiar de modelo.
+   let data;
+   for(let attempt=0;attempt<3;attempt++){
+    if(version!==requestVersion)return;
+    try{
+     const response=await fetch(url,{cache:'no-store'});
+     if(!response.ok){
+      const detail=await response.text().catch(()=> '');
+      const err=new Error('HTTP '+response.status+(detail ? ': '+detail.slice(0,100) : ''));
+      err.retryable=[429,500,502,503,504].includes(response.status);
+      throw err;
+     }
+     data=await response.json();
+     if(data.error||!data.hourly?.time?.length)throw Error(data.reason||'Respuesta sin datos');
+     break;
+    }catch(err){
+     if(attempt===2||err.retryable===false||(/HTTP 4(?!29)/).test(err.message))throw err;
+     await new Promise(resolve=>setTimeout(resolve,1200*(attempt+1)));
+    }
+   }
    if(version!==requestVersion)return;results[id]=data;
   }catch(e){if(version!==requestVersion)return;errors[id]=String(e.message||e).slice(0,85)}
   if(version===requestVersion)render();
@@ -1056,22 +1320,19 @@ function renderMoonDays(){
   navigator.geolocation.getCurrentPosition(
    async p=>{
     const latitude=p.coords.latitude,longitude=p.coords.longitude;
-    const fallback='Ubicación ('+latitude.toFixed(3)+'°, '+longitude.toFixed(3)+'°)';
+    const fallback='Mi ubicación';
     // Forecast by GPS coordinates is valid even when reverse geocoding is unavailable.
     chooseTown({name:fallback,latitude,longitude});
     townFeedback.textContent='Coordenadas GPS obtenidas. Identificando localidad…';
-    try{
-     const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),6500);
-     const u='https://api.bigdatacloud.net/data/reverse-geocode-client?'+new URLSearchParams({latitude:String(latitude),longitude:String(longitude),localityLanguage:'es'});
-     let response;try{response=await fetch(u,{signal:controller.signal});}finally{clearTimeout(timer);}
-     if(!response.ok)throw Error('Sin servicio de geocodificación');
-     const place=await response.json();
-     const name=place.locality||place.city||place.principalSubdivision||'Mi ubicación';
-     // Do not reload models; they are already using the exact GPS coordinates.
+    const name=await window.CBReverseMunicipio(latitude,longitude);
+    if(name){
      currentPlace.name=name;townInput.value=name;document.getElementById('hourly-town').textContent=name;
-     townFeedback.textContent='Ubicación GPS: '+name+' · '+latitude.toFixed(4)+', '+longitude.toFixed(4);
-    }catch(_){
-     townFeedback.textContent='Previsión GPS activa ('+latitude.toFixed(4)+', '+longitude.toFixed(4)+'). No se pudo identificar el municipio.';
+     const heroPlace=document.getElementById('v40-place');if(heroPlace)heroPlace.textContent=name;
+     townFeedback.textContent='Municipio identificado: '+name;
+    }else{
+     townFeedback.textContent='GPS obtenido, pero no se pudo consultar el municipio desde este archivo. Selecciona la localidad en el buscador inferior o prueba desde HTTPS.';
+     const heroPlace=document.getElementById('v40-place');if(heroPlace)heroPlace.textContent='Municipio no identificado';
+     currentPlace.name='Municipio no identificado';townInput.value='';document.getElementById('hourly-town').textContent='Municipio no identificado';
     }
    },
    e=>{townFeedback.textContent='No se pudo obtener la ubicación: '+e.message;},
@@ -1136,4 +1397,333 @@ document.addEventListener('DOMContentLoaded',()=>{
  update(false);
  btn.addEventListener('click',()=>update(panel.hidden));
 });
-</script></body></html>
+</script>
+<style id="v39-weather-polish">
+/* Forecast is the primary content of Modelos meteorológicos. */
+#comparison-panel{max-width:none!important;width:100%!important;box-sizing:border-box}
+#comparison-panel .hourly-relocated{width:100%!important;max-width:none!important}
+#comparison-panel #forecast-redesign{width:100%!important;max-width:none!important}
+#comparison-panel .forecast-heading,#comparison-panel .today-title{background:#153e5d;color:#fff;border-radius:11px;padding:12px 15px;margin:12px 0 10px}
+#comparison-panel .forecast-heading strong,#comparison-panel .today-title strong{color:#fff!important}
+#comparison-panel .forecast-heading span,#comparison-panel .today-title span{color:#d9e8f3!important}
+#comparison-panel .weekly-forecast{margin-bottom:16px}
+#comparison-panel .today-scroll{scrollbar-color:#1c638c #dbe9f2;scrollbar-width:thin}
+#today-forecast .v39-current-hour{position:relative!important;outline:2px solid #e3a72b!important;outline-offset:-2px;background:#fff0c5!important;z-index:2}
+#today-forecast .v39-current-hour:before{content:'AHORA';position:absolute;top:0;left:50%;transform:translate(-50%,-85%);background:#ffc83c;color:#17324b;font-size:10px;font-weight:900;padding:3px 8px;border-radius:7px;z-index:4;white-space:nowrap}
+#technical-chart{border-radius:14px;overflow:hidden;border:1px solid #8ab5d2;background:#173b5b}
+#technical-chart svg{display:block;width:100%;height:auto;max-height:340px}
+.v39-solar-times{display:flex;justify-content:space-between;gap:10px;padding:10px 13px;background:#e6f2f8;border:1px solid #b6d5e8;border-radius:0 0 12px 12px;color:#194761;font-size:13px;font-weight:700}
+.v39-now-note{font-size:12px;color:#275574;padding:6px 3px 9px}
+@media(max-width:650px){#comparison-panel .forecast-heading,#comparison-panel .today-title{padding:10px} .v39-solar-times{font-size:11px}}
+</style>
+<script id="v39-weather-layout">
+(function(){
+ const setup=()=>{
+  const panel=document.getElementById('comparison-panel');const forecast=document.getElementById('forecast-redesign');
+  if(!panel||!forecast)return;
+  // Bring weekly and hourly forecasts immediately below the model selector.
+  const picks=panel.querySelector('.model-picks');
+  if(picks&&forecast.previousElementSibling!==picks)picks.insertAdjacentElement('afterend',forecast);
+  // Keep existing technical chart and forecast renderers, but hide redundant old intro.
+  const old=panel.querySelector('.hourly-relocated');
+  if(old){old.querySelectorAll('.lab-daylight,.forecast-toolbar,.panel-title').forEach(el=>el.style.display='none')}
+  const today=document.getElementById('today-forecast');
+  const scroll=today?.parentElement;
+  const markNow=()=>{
+   if(!today||!scroll)return;
+   const cards=[...today.children];if(!cards.length)return;
+   cards.forEach(el=>{el.classList.remove('v39-current-hour');el.removeAttribute('aria-current')});
+   const now=new Date();const hour=String(now.getHours()).padStart(2,'0');
+   const found=cards.find(el=>el.textContent?.includes(hour+':00')||el.textContent?.includes(hour+'h'));
+   if(!found)return;
+   found.classList.add('v39-current-hour');found.setAttribute('aria-current','time');
+   const left=found.offsetLeft-scroll.clientWidth/2+found.offsetWidth/2;
+   scroll.scrollTo({left:Math.max(0,left),behavior:'instant'});
+  };
+  let last='';const observer=new MutationObserver(()=>{
+   const sig=today.children.length+'|'+today.textContent.slice(0,80);
+   if(sig!==last){last=sig;requestAnimationFrame(markNow)}
+  });
+  observer.observe(today,{childList:true,subtree:false});
+  setTimeout(markNow,900);setInterval(markNow,60000);
+  const chart=document.getElementById('technical-chart');
+  if(chart){
+   const times=document.createElement('div');times.className='v39-solar-times';times.id='v39-solar-times';
+   chart.insertAdjacentElement('afterend',times);
+   const updateSolar=()=>{
+    const text=chart.innerHTML;
+    // Values are taken from the rendered chart's solar labels when present, not invented.
+    const matches=[...text.matchAll(/(?:0?[0-9]|1[0-9]|2[0-3]):[0-5][0-9]/g)].map(x=>x[0]);
+    const rise=matches[0]||'—',set=matches[1]||'—';
+    times.innerHTML='<span>🌅 Amanecer: '+rise+'</span><span>🌇 Atardecer: '+set+'</span>';
+   };
+   new MutationObserver(updateSolar).observe(chart,{childList:true});updateSolar();
+  }
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+})();
+</script>
+
+<script id="v40-first-screen-js">
+document.addEventListener('DOMContentLoaded',()=>{
+ const main=document.querySelector('main.main'),banner=main?.querySelector('.hero');
+ if(!main)return;
+ const box=document.createElement('section');box.className='v40-current';box.dataset.sky='mixed';
+ box.setAttribute('aria-label','Condiciones previstas para la hora actual');
+ box.innerHTML='<div class="v40-sun" aria-hidden="true"></div><div class="v40-cloud" aria-hidden="true"></div><div class="v40-place" id="v40-place">Previsión actual</div><div class="v40-degrees" id="v40-degrees">—°</div><p class="v40-desc" id="v40-desc">Consultando modelo meteorológico…</p><p class="v40-rain" id="v40-rain">Probabilidad de lluvia: —</p><div class="v40-caption" id="v40-caption">Pronóstico del modelo seleccionado · no es una medición en directo</div>';
+ main.insertBefore(box,banner||main.firstChild);
+ const demo=document.getElementById('demo-message');
+ if(demo){
+   const info=document.createElement('details');info.className='v40-extra';
+   info.innerHTML='<summary>Información técnica sobre modelos, mapas y fuentes</summary><div></div>';
+   info.querySelector('div').textContent=demo.textContent;
+   document.getElementById('comparison-panel')?.append(info);
+ }
+ const modelPanel=document.getElementById('comparison-panel');
+ const status=modelPanel?.querySelector('#real-model-status');
+ if(status){status.style.display='none';const details=document.createElement('details');details.className='v40-extra';details.innerHTML='<summary>Estado de los modelos y datos disponibles</summary><div></div>';status.after(details);details.querySelector('div').append(status);status.style.display='block'}
+ const hourly=document.getElementById('today-forecast');
+ const clock=()=>{
+   const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));
+   return {date:parts.year+'-'+parts.month+'-'+parts.day,hour:Number(parts.hour),minute:parts.minute};
+ };
+ let busy=false;
+ function update(){
+  if(busy)return;busy=true;
+  try{
+   const now=clock(),chosen=document.querySelector('[data-forecast-day][aria-pressed="true"]')?.dataset.forecastDay;
+   const today=chosen===now.date;
+   const cards=[...(hourly?.querySelectorAll('.today-hour')||[])];
+   let selected=null;
+   for(const c of cards){
+     const h=Number(c.querySelector('.today-hour-time')?.textContent?.trim()?.slice(0,2));
+     c.classList.toggle('v40-past',today&&h<now.hour);
+     c.classList.toggle('v40-now',today&&h===now.hour);
+     if(today&&h===now.hour)selected=c;
+   }
+   // If user selected another day, the top panel still needs today's forecast:
+   // restore today's selection only for the first screen, not during user interaction.
+   if(!today){
+     document.getElementById('v40-desc').textContent='Selecciona HOY para consultar la hora actual';
+     return;
+   }
+   if(!selected){
+     document.getElementById('v40-desc').textContent='Esperando datos del modelo seleccionado';
+     document.getElementById('v40-degrees').textContent='—°';
+     document.getElementById('v40-rain').textContent='Probabilidad de lluvia: —';
+     return;
+   }
+   const temperature=selected.querySelector('.today-hour-temp')?.textContent?.trim()||'—°';
+   const lines=[...selected.querySelectorAll('.today-hour-line')].map(x=>x.textContent.trim());
+   const prob=lines.find(x=>x.includes('☂'))?.replace('☂','').trim()||'—';
+   const color=selected.querySelector('.today-hour-time')?.style.background?.toLowerCase()||'';
+   const isNight=selected.classList.contains('is-night');
+   const kinds={'rgb(157, 220, 255)':'sun','rgb(133, 203, 237)':'sun','rgb(87, 153, 194)':'mixed','rgb(52, 91, 128)':'cloud','rgb(64, 95, 128)':'rain','rgb(37, 62, 98)':'storm','rgb(25, 60, 98)':'night'};
+   const sky=isNight?'night':kinds[color]||'mixed';
+   const descriptions={sun:'Soleado',mixed:'Parcialmente nuboso',cloud:'Nublado',rain:'Lluvias previstas',storm:'Tormentas previstas',night:'Previsión nocturna'};
+   box.dataset.sky=sky;
+   document.getElementById('v40-degrees').textContent=temperature;
+   document.getElementById('v40-desc').textContent=descriptions[sky];
+   document.getElementById('v40-rain').textContent='Probabilidad de lluvia: '+prob;
+   const place=document.getElementById('hourly-town')?.textContent?.trim()||'Previsión actual';
+   document.getElementById('v40-place').textContent=place;
+   const model=document.querySelector('.modelpick.active')?.dataset.model||'ECMWF';
+   document.getElementById('v40-caption').textContent='Hoy '+String(now.hour).padStart(2,'0')+':00 · Modelo '+model+' · Previsión, no observación en directo';
+   if(!hourly.dataset.v40Centered || hourly.dataset.v40Centered!==now.date+now.hour){
+     const scroll=hourly.closest('.today-scroll');
+     if(scroll)scroll.scrollLeft=0;
+     hourly.dataset.v40Centered=now.date+now.hour;
+   }
+  }finally{busy=false}
+ }
+ if(hourly){
+   const observer=new MutationObserver(()=>{if(!busy)requestAnimationFrame(update)});
+   observer.observe(hourly,{childList:true});
+ }
+ document.querySelector('.model-picks')?.addEventListener('click',()=>setTimeout(update,200));
+ setInterval(update,60000);
+ setTimeout(update,250);
+});
+</script>
+
+<style id="v43-corrections">
+/* Prioridad: portada, previsiones, modelos, análisis, comparativa, luna, mapa, localización e información */
+#v42-info{order:120!important;display:block!important}
+#v42-info>summary{display:list-item!important}
+#comparison-panel{display:none!important}
+#v41-lunar #lunar-calendar-panel{display:block!important;visibility:visible!important}
+#v41-lunar #lunar-calendar-panel[hidden]{display:block!important}
+#v41-technical #technical-forecast{display:block!important;min-width:0;width:100%}
+#v41-technical .technical-chart{width:100%!important;max-width:none!important;min-height:290px}
+#v41-technical .technical-chart svg{width:100%!important;height:auto!important;min-height:285px!important;max-height:none!important;display:block!important}
+#v41-technical .technical-chart svg[viewBox]{aspect-ratio:600/210}
+#v41-technical .technical-scroll{width:100%;overflow-x:auto}
+#v41-technical .technical-grid{min-width:720px}
+.v43-place{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin:0 auto 8px}
+.v43-place button{background:#113c619e;color:white;border:1px solid #ffffffb8;border-radius:999px;padding:9px 15px;font:600 15px system-ui;cursor:pointer}
+.v43-place button:focus-visible{outline:3px solid #fff}
+.v43-place small{display:block;width:100%;font:12px system-ui;color:#fff;opacity:.92}
+@media(max-width:600px){#v41-technical .technical-chart{min-height:210px}#v41-technical .technical-chart svg{min-height:205px!important}}
+</style>
+<script id="v43-corrections-js">
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
+ const main=document.querySelector('main.main'),hero=document.querySelector('.v40-current');
+ if(!main)return;
+ // Ubicación: ejecutarse DESPUÉS de la construcción de la portada V40.
+ if(hero){
+  const prior=hero.querySelector('.v42-location-btn');if(prior)prior.remove();
+  const label=document.getElementById('v40-place');if(label)label.style.display='none';
+  let row=hero.querySelector('.v43-place');if(!row){
+   row=document.createElement('div');row.className='v43-place';
+   row.innerHTML='<button type="button" id="v43-locate">📍 <span id="v43-town">Mi ubicación</span></button><small id="v43-locate-status" role="status"></small>';
+   const temp=hero.querySelector('.v40-degrees');hero.insertBefore(row,temp||hero.firstChild);
+  }
+  const update=()=>{const town=document.getElementById('hourly-town')?.textContent?.trim();if(town)document.getElementById('v43-town').textContent=town+' · Cambiar';};
+  update();const town=document.getElementById('hourly-town');if(town)new MutationObserver(update).observe(town,{subtree:true,childList:true,characterData:true});
+  document.getElementById('v43-locate').onclick=()=>{
+   const status=document.getElementById('v43-locate-status');status.textContent='Solicitando permiso para localizarte…';
+   const original=document.getElementById('town-locate');
+   if(original){original.click();setTimeout(()=>{status.textContent='Si no se actualiza, selecciona una localidad en el buscador inferior.';update()},2800)}
+   else status.textContent='Selecciona tu localidad en el buscador inferior.';
+  };
+ }
+ // Trasladar todas las notas técnicas restantes a un único desplegable inferior.
+ let info=document.getElementById('v42-info');
+ if(!info){info=document.createElement('details');info.id='v42-info';info.innerHTML='<summary>ⓘ Información técnica y estado de los modelos</summary><div></div>';main.append(info)}
+ const inner=info.querySelector('div');
+ const panel=document.getElementById('comparison-panel');
+ if(panel){
+  [...panel.children].forEach(node=>{if(node.classList.contains('model-picks'))return;if(node.classList.contains('hourly-relocated'))return;inner.append(node)});
+  panel.style.display='none';
+ }
+ // El panel lunar estaba oculto y su contenido solo se construía al pulsar un botón que se había desplazado.
+ const lunar=document.getElementById('lunar-calendar-panel');
+ if(lunar){lunar.hidden=false;const open=document.getElementById('open-lunar-calendar');if(open){open.click();if(lunar.hidden)open.click()}lunar.hidden=false;}
+ const close=document.getElementById('close-lunar-calendar');if(close)close.style.display='none';
+ // La comparativa horaria clásica no vuelve a aparecer.
+ document.querySelectorAll('.legacy-comparison').forEach(x=>x.remove());
+ // El análisis técnico debe estar abierto sin que el botón antiguo lo cierre.
+ const tech=document.getElementById('technical-forecast');if(tech)tech.hidden=false;
+},100));
+</script>
+
+<style id="v44-day-sky">
+.v40-current{position:relative;padding-top:38px!important;transition:background .55s ease}
+.v43-place{position:static!important;margin:0!important;display:block!important}
+#v43-locate{position:absolute;right:13px;top:12px;z-index:5;width:39px;height:39px;display:flex;align-items:center;justify-content:center;border:1px solid #ffffffb0;border-radius:12px;background:#123c629e;color:white;cursor:pointer;font-size:20px;box-shadow:0 2px 8px #183a5540}
+#v43-locate:hover{background:#123c62df}
+#v43-town{display:none!important}
+#v43-locate-status{position:absolute;top:55px;right:10px;max-width:220px;font-size:11px;text-align:right;z-index:5;pointer-events:none}
+#v44-town-label{display:block;margin:2px auto 0;font:600 clamp(16px,3vw,21px) system-ui;color:#fff;text-shadow:0 1px 6px #123b6277}
+#v44-day-label{font:500 13px system-ui;color:#fff;opacity:.92;margin:7px auto 0}
+.v40-current[data-sky="sun"] .v40-sun{display:block;opacity:1}
+.v40-current[data-sky="mixed"] .v40-sun{display:block;opacity:.9}
+.v40-current[data-sky="cloud"] .v40-cloud{opacity:1}
+.v40-current[data-sky="rain"] .v40-cloud{opacity:.85}
+.v40-current[data-sky="storm"] .v40-cloud{opacity:1}
+.v40-current[data-sky="night"] .v40-cloud{opacity:.3}
+@media(max-width:600px){.v40-current{padding-top:46px!important}#v43-locate{top:10px;right:10px}}
+</style>
+<script id="v44-day-sky-js">
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
+ const hero=document.querySelector('.v40-current');if(!hero)return;
+ const button=document.getElementById('v43-locate');
+ if(button){button.textContent='📍';button.setAttribute('aria-label','Localizarme o cambiar población');button.title='Localizarme o cambiar población'}
+ const town=document.createElement('div');town.id='v44-town-label';town.textContent='Localidad seleccionada';
+ const day=document.createElement('div');day.id='v44-day-label';
+ const degrees=hero.querySelector('.v40-degrees');if(degrees){degrees.before(town,day)}
+ const format=new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
+ const timeNow=()=>Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
+ const skyMap={'#9ddcff':['sun','Soleado'],'#85cbed':['sun','Mayormente soleado'],'#5799c2':['mixed','Parcialmente nuboso'],'#345b80':['cloud','Nublado'],'#253e62':['storm','Tormentas previstas'],'#405f80':['rain','Lluvias previstas'],'#527d9e':['mixed','Intervalos nubosos'],'#193c62':['night','Cielo nocturno'],'#648ca9':['mixed','Previsión meteorológica']};
+ function update(){
+  const chosen=document.querySelector('#weekly-forecast [data-forecast-day][aria-pressed="true"]');if(!chosen)return;
+  const iso=chosen.dataset.forecastDay;const current=timeNow();const today=current.year+'-'+current.month+'-'+current.day===iso;
+  const cards=[...document.querySelectorAll('#today-forecast .today-hour')];
+  let card=cards.find(el=>el.querySelector('.today-hour-time')?.textContent?.trim().startsWith(today?current.hour+':':'12:'));
+  if(!card){card=cards[today?Math.min(Number(current.hour),23):12]||cards[0]}
+  if(!card)return;
+  const clockHour=Number(card.querySelector('.today-hour-time')?.textContent?.trim().slice(0,2));
+  const raw=card.querySelector('.today-hour-time')?.style.backgroundColor||'';
+  let hex=raw.toLowerCase();if(hex.startsWith('rgb')){const a=hex.match(/\d+/g)?.slice(0,3).map(Number);if(a?.length===3)hex='#'+a.map(x=>x.toString(16).padStart(2,'0')).join('')}
+  let [sky,desc]=skyMap[hex]||['mixed','Previsión meteorológica'];
+  // For a future day the background represents the daytime forecast, not the current night.
+  if(!today&&sky==='night'){sky='mixed';desc='Previsión del día'}
+  hero.dataset.sky=sky;const rainLine=[...card.querySelectorAll('.today-hour-line')].find(x=>/mm/i.test(x.textContent));hero.dataset.precip=Number((rainLine?.textContent||'0').replace(',','.').match(/[0-9]+(?:\.[0-9]+)?/)?.[0]||0)>0?'yes':'no';
+  document.getElementById('v40-desc').textContent=desc;
+  document.getElementById('v40-degrees').textContent=card.querySelector('.today-hour-temp')?.textContent?.trim()||'—°';
+  const prob=[...card.querySelectorAll('.today-hour-line')].find(x=>x.textContent.includes('☂'))?.textContent.replace('☂','').trim()||'—';
+  document.getElementById('v40-rain').textContent='Probabilidad de lluvia: '+prob;
+  const locality=document.getElementById('hourly-town')?.textContent?.trim();if(locality)town.textContent=locality;
+  day.textContent=today?'Hoy · '+String(clockHour).padStart(2,'0')+':00':format.format(new Date(iso+'T12:00:00Z'));
+  const model=document.querySelector('.modelpick.active')?.dataset.model||'modelo seleccionado';
+  document.getElementById('v40-caption').textContent='Modelo '+model+' · Previsión, no observación en directo';
+ }
+ // The V40 handler also observes this list and may update the banner. Run after its callbacks.
+ const hourly=document.getElementById('today-forecast');
+ if(hourly)new MutationObserver(()=>setTimeout(update,30)).observe(hourly,{childList:true});
+ document.getElementById('weekly-forecast')?.addEventListener('click',()=>setTimeout(update,100));
+ document.querySelector('.model-picks')?.addEventListener('click',()=>setTimeout(update,300));
+ const locality=document.getElementById('hourly-town');if(locality)new MutationObserver(()=>setTimeout(update,80)).observe(locality,{childList:true,subtree:true,characterData:true});
+ setInterval(update,60000);setTimeout(update,500);
+},200));
+</script>
+
+<!-- V55: lluvia decorativa animada en el panel meteorológico; sin alterar datos -->
+<style id="v55-rain-particles-css">
+.v40-current{isolation:isolate;overflow:hidden}
+.v55-rain-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2;display:none}
+.v40-current[data-sky="rain"] .v55-rain-particles,
+.v40-current[data-sky="storm"] .v55-rain-particles,
+.v40-current[data-precip="yes"] .v55-rain-particles{display:block}
+.v55-rain-drop{position:absolute;top:-22%;left:var(--x);height:var(--h);width:var(--w);border-radius:100% 100% 75% 75%;background:linear-gradient(180deg,rgba(222,247,255,.10),rgba(194,235,255,.80));box-shadow:0 0 2px rgba(211,239,255,.22);opacity:var(--o);transform:rotate(12deg);animation:v55-rain-fall var(--duration) linear var(--delay) infinite;will-change:transform}
+@keyframes v55-rain-fall{from{transform:translate3d(0,-12vh,0) rotate(12deg)}to{transform:translate3d(-45px,105vh,0) rotate(12deg)}}
+.v40-current[data-sky="storm"] .v55-rain-drop{opacity:.95}
+.v40-current .v40-place,.v40-current .v40-degrees,.v40-current .v40-desc,.v40-current .v40-rain,.v40-current .v40-caption,#v44-town-label,#v44-day-label{position:relative;z-index:3}
+@media(prefers-reduced-motion:reduce){.v55-rain-drop{animation:none!important;display:none}}
+</style>
+<script id="v55-rain-particles-js">
+document.addEventListener('DOMContentLoaded',()=>{
+ const hero=document.querySelector('.v40-current');if(!hero)return;
+ const layer=document.createElement('div');layer.className='v55-rain-particles';layer.setAttribute('aria-hidden','true');
+ // Deterministic placement keeps the animation stable on rerenders.
+ for(let i=0;i<82;i++){
+  const drop=document.createElement('i');drop.className='v55-rain-drop';
+  const rand=n=>{const v=Math.sin((i+1)*n)*43758.5453;return v-Math.floor(v)};
+  drop.style.setProperty('--x',(rand(12.9898)*108-4).toFixed(2)+'%');
+  drop.style.setProperty('--h',(10+rand(78.233)*16).toFixed(1)+'px');
+  drop.style.setProperty('--w',(1+rand(37.719)*1.1).toFixed(1)+'px');
+  drop.style.setProperty('--o',(0.38+rand(22.314)*.54).toFixed(2));
+  drop.style.setProperty('--duration',(0.65+rand(41.567)*.8).toFixed(2)+'s');
+  drop.style.setProperty('--delay',(-rand(93.451)*2.2).toFixed(2)+'s');
+  layer.append(drop);
+ }
+ hero.prepend(layer);
+});
+</script>
+
+<style id="cb-final-meteo-ui">#v43-locate{background:#b71f31!important;border:2px solid #fff!important;border-radius:999px!important;box-shadow:0 3px 10px #071c304d!important;padding:11px 18px!important;font-weight:800!important}#v43-locate:hover{background:#d42c40!important}.cb-hero-wind{font:700 17px system-ui;color:#fff;text-shadow:0 2px 5px #1237;margin:12px auto;padding:8px 15px;border:1px solid #ffffff70;border-radius:999px;background:#123c6199;width:max-content;max-width:90%}</style>
+
+<style id="cb-v3-icons">
+#v43-locate{background:#143c5e!important;border:1px solid #ffffffb0!important;width:46px!important;height:46px!important;padding:8px!important;border-radius:12px!important}
+#v43-locate:hover{background:#235c83!important}
+#v43-locate .cb-location-icon{display:block;width:29px;height:29px;object-fit:contain}
+.cb-hero-wind{display:flex!important;align-items:center;gap:9px;justify-content:center}
+.cb-wind-icon{width:30px;height:24px;object-fit:contain;flex:none}
+</style>
+<script src="municipio-gps.js"></script>
+<script id="cb-v3-location-wind">
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
+ const hero=document.querySelector('.v40-current');if(!hero)return;
+ const btn=document.getElementById('v43-locate');
+ if(btn){btn.innerHTML='<img class="cb-location-icon" src="icono-ubicacion-negro.png" alt="">';btn.setAttribute('aria-label','Mi ubicación');btn.title='Mi ubicación';}
+ const town=document.getElementById('hourly-town'),title=document.getElementById('v44-town-label');
+ const clean=s=>/^(Ubicación\s*\(|\s*\d{1,3}\.\d+°?\s*[,;]\s*-?\d)/i.test(s||'')?'Mi ubicación':(s||'');
+ if(town){const sync=()=>{const value=clean(town.textContent.trim());if(title&&title.textContent!==value)title.textContent=value||'Selecciona una localidad';};new MutationObserver(sync).observe(town,{childList:true,characterData:true,subtree:true});sync();}
+ let wind=hero.querySelector('.cb-hero-wind');if(!wind){wind=document.createElement('div');wind.className='cb-hero-wind';hero.append(wind)}
+ wind.innerHTML='<img class="cb-wind-icon" src="icono-viento.png" alt=""><span>Viento: consultando…</span>';
+ const windText=wind.querySelector('span');
+ const metrics=[...document.querySelectorAll('.metric')];const source=metrics.find(el=>el.textContent.includes('Viento'));
+ if(source){const sync=()=>{const value=source.querySelector('strong')?.textContent?.trim();if(value)windText.textContent='Viento: '+value};new MutationObserver(sync).observe(source,{childList:true,subtree:true,characterData:true});sync();}
+},400));
+</script>
+</body></html>

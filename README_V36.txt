@@ -1,0 +1,1 @@
+V36 LABORATORIO - NO PUBLICAR. Cabecera restaurada desde cabecera-colombaire.png. Inicio de sesión: la bienvenida se oculta si Supabase valida la sesión existente. Si no hay sesión, se muestra la bienvenida. Pruebas necesarias en navegador real. No se cambia la base de datos.

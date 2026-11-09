@@ -1,0 +1,1 @@
+V4 PRUEBA: icono ubicación negro; portada sin tarjeta ColomboMeteo duplicada; botón localización coherente; doble geocodificación inversa para municipio; GPS por HTTPS recomendado. Si los servicios no responden, no se inventa localidad. No publicar ni sustituir datos reales sin copia de seguridad.

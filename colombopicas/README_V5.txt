@@ -1,0 +1,1 @@
+COLOMBOPICAS V5 · Laboratorio. Abrir index.html. Cabecera sepia y panel de inicio adaptados al diseño aprobado. Se conserva calendario y lógica V4. Datos locales del navegador. No publicar sin pruebas.

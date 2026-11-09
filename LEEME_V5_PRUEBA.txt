@@ -1,0 +1,5 @@
+COLOMBAIRE V5 PRUEBA — 2026-11-08
+- Botón Descendencia: imagen aprobada, manteniendo id y evento de acceso originales.
+- Tarjeta COLOMBOMETEO restaurada en Inicio, a ancho completo.
+- Ventana del tiempo y su enlace a análisis completos conservados.
+- No modifica datos ni almacenamiento. No publicar sin probar en móvil.

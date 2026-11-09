@@ -13,7 +13,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=1.0c">
+  <link rel="stylesheet" href="style.css?v=casi-definitiva-v2">
 <style>
 /* Perfil autocontenido: no depende de style.css actualizado */
 .app > header.cb-banner-header {position:relative!important;}
@@ -39,18 +39,45 @@
 @media(max-width:700px){.app > header.cb-banner-header #cb-profile-button{right:8px!important;width:39px!important;height:39px!important;min-width:39px!important;min-height:39px!important}}
 </style>
 <style id="cb-v5-cover">#cb-welcome-gate{position:fixed;inset:0;z-index:2147483000;background:#eee4d0;display:grid;place-items:center;overflow:auto}#cb-welcome-gate[hidden]{display:none!important}.cb-cover-frame{position:relative;width:min(100vw,calc(100dvh * 1024 / 1536));aspect-ratio:1024/1536;margin:auto;background:#eee4d0 url("bienvenida-v3.png") center/100% 100% no-repeat}.cb-cover-hit{position:absolute;left:17%;width:66%;height:5.15%;border:0;border-radius:14px;background:transparent;cursor:pointer}.cb-cover-hit:focus-visible{outline:3px solid #d5a348}.cb-cover-hit:hover{box-shadow:inset 0 0 0 2px #c5a35b}#cb-cover-login{top:80.7%}#cb-cover-register{top:86.3%}#cb-cover-guide{top:92%}@media(max-aspect-ratio:2/3){.cb-cover-frame{width:100vw}}</style>
+<style id="cb-v36-banner-restore">
+.app>header.cb-banner-header{
+  background:#123c2e url('cabecera-sollana-oficial.jpg') center center/contain no-repeat!important;
+  aspect-ratio:1672/604!important;height:auto!important;min-height:0!important;
+  padding:0!important;border:0!important;border-radius:0!important;display:block!important;
+}
+.app>header.cb-banner-header .cb-banner-brand{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important}
+.app>header.cb-banner-header .cb-banner-menu{position:absolute!important;left:0!important;top:0!important;transform:none!important;width:38px!important;height:38px!important;background:#174b3b!important;opacity:1!important;border-radius:9px!important;top:8px!important;left:8px!important}
+.app>header.cb-banner-header .cb-banner-menu::before{content:none!important}
+.app>header.cb-banner-header #cb-profile-button{position:absolute!important;right:0!important;top:0!important;transform:none!important;width:38px!important;height:38px!important;background:#174b3b!important;opacity:1!important;border-radius:9px!important;top:8px!important;right:8px!important}
+.app>header.cb-banner-header #cb-profile-button svg{opacity:1!important}
+.app>header.cb-banner-header button:focus-visible{outline:3px solid #e7c16c!important;opacity:1!important}
+</style>
+<style id="cb-v38-meteo-wide">
+/* COLOMBOMETEO abarca las dos columnas del inicio, sin afectar otras tarjetas. */
+#inicio .hero-grid > .cb-meteo-wide {
+  grid-column: 1 / -1 !important;
+  width: 100%;
+  min-width: 0;
+}
+</style>
 </head>
 <body>
 <div id="cb-splash" class="cb-splash" aria-label="Bienvenido a COLOMBAIRE">
   <img class="cb-splash-logo" src="splash-bienvenida.jpg?v=0.9x" alt="Palomar valenciano histórico, COLOMBAIRE" width="1024" height="1536">
 </div>
-<div id="cb-welcome-gate" role="dialog" aria-modal="true" aria-label="Bienvenida a COLOMBAIRE"><div class="cb-cover-frame"><button type="button" class="cb-cover-hit" id="cb-cover-login" aria-label="Iniciar sesión"></button><button type="button" class="cb-cover-hit" id="cb-cover-register" aria-label="Crear cuenta"></button><button type="button" class="cb-cover-hit" id="cb-cover-guide" aria-label="Entrar a la guía sin registrarse"></button></div></div>
+<div id="cb-welcome-gate" hidden role="dialog" aria-modal="true" aria-label="Bienvenida a COLOMBAIRE"><div class="cb-cover-frame"><button type="button" class="cb-cover-hit" id="cb-cover-login" aria-label="Iniciar sesión"></button><button type="button" class="cb-cover-hit" id="cb-cover-register" aria-label="Crear cuenta"></button><button type="button" class="cb-cover-hit" id="cb-cover-guide" aria-label="Entrar a la guía sin registrarse"></button></div></div>
 <div class="app">
   <header class="cb-banner-header" aria-label="COLOMBAIRE, La Guía del Colombaire">
     <div class="cb-banner-brand" aria-hidden="true">COLOMBAIRE</div>
-    <button type="button" class="cb-banner-menu" aria-label="Ir a las secciones principales" title="Ir a las secciones principales" onclick="document.querySelector('#inicio .hero-grid')?.scrollIntoView({behavior:'smooth',block:'start'})"></button>
+    <button type="button" class="cb-banner-menu" aria-label="Ir a las secciones principales" title="Ir a las secciones principales" aria-expanded="false" aria-controls="cb-quick-menu">☰</button>
     <button type="button" class="cb-banner-bell" id="cb-profile-button" aria-label="Abrir mi cuenta" title="Mi cuenta"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20c.5-4.3 3.2-6.5 7.5-6.5s7 2.2 7.5 6.5"/></svg></button>
   </header>
+  <div id="cb-quick-menu" class="cb-quick-menu" hidden>
+    <button type="button" data-cb-home>⌂ &nbsp; Inicio</button>
+    <a href="./colombometeo/index.html">☀ &nbsp; COLOMBOMETEO</a>
+    <a href="./colombopicas/index.html">▦ &nbsp; COLOMBOPICAS</a>
+    <span class="cb-quick-disabled" aria-disabled="true">◇ &nbsp; COLOMBOMAP · Próximamente</span>
+  </div>
 
   <dialog id="cb-profile-dialog" aria-label="Mi cuenta COLOMBAIRE">
     <div class="cb-profile-head"><strong>MI CUENTA</strong><button type="button" id="cb-profile-close" aria-label="Cerrar">×</button></div>
@@ -86,11 +113,21 @@
         <button class="module" data-go="salud"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/><path d="M3.5 12h4l2-3 3 6 2-3h6"/></svg></span><b>SALUD</b><small>Control y enfermedades</small></button>
         <button class="module" data-go="concursos"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v7a5 5 0 0 1-10 0z"/><path d="M7 6H4v3a4 4 0 0 0 4 4M17 6h3v3a4 4 0 0 1-4 4"/></svg></span><b>CONCURSOS</b><small>Calendario y resultados</small></button>
         <button class="module" data-go="guia"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V5c-4-1-7-1-10 1z"/><path d="M12 6v15"/></svg></span><b>LA GUÍA</b><small>Todo sobre colombicultura</small></button>
-        <button class="module" data-go="calendario"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/></svg></span><b>CALENDARIO</b><small>Fechas y recordatorios</small></button>
-        <a class="module" href="./colombometeo/" aria-label="Abrir COLOMBOMETEO, previsiones de siete días" style="text-decoration:none;color:inherit"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17a4 4 0 0 1 1-7.87A7 7 0 0 1 18.5 11 3.5 3.5 0 0 1 19 18H6"/><path d="M8 4V2M3 6 1.5 4.5M13 4l1.5-1.5"/></svg></span><b>COLOMBOMETEO</b><small>Previsiones de 7 días</small></a>
+        <button class="module" onclick="window.location.href='./colombopicas/index.html'"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/></svg></span><b>CALENDARIO</b><small>Fechas y recordatorios</small></button>
+        <button type="button" class="module cb-weather-tile cb-meteo-wide cb-meteo-restored" onclick="window.location.href='./colombometeo/index.html'" aria-label="Abrir COLOMBOMETEO, comparación de modelos meteorológicos">
+          <span class="cb-module-icon" aria-hidden="true"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17.5a5 5 0 0 1 .5-9.9 7 7 0 0 1 13.3 2.1 4 4 0 0 1-.8 7.8"/><path d="M12.2 3.2V1.7M17.9 5.3l1.2-1.2M9.3 5.5l-1-1"/><path d="M4 20h16"/></svg></span><b>COLOMBOMETEO</b><small>Previsiones de 7 días</small>
+        </button>
       </div>
 
-      <section class="cb-forecast" aria-label="Previsión meteorológica de siete días">
+      <section class="cb-mobile-weather" aria-label="Tiempo actual del palomar">
+       <div class="cb-sky-cloud" aria-hidden="true"></div>
+       <div class="cb-sky-head"><div><small>EL TIEMPO EN TU PALOMAR</small><h3 id="cb-sky-city">Consultando localidad…</h3></div><button type="button" id="cb-sky-locate" title="Mi ubicación" aria-label="Mi ubicación"><img src="icono-ubicacion-negro.png" alt="" class="cb-location-icon"/><span>Mi ubicación</span></button></div>
+       <div class="cb-sky-main"><div id="cb-sky-icon" class="cb-animated-weather" role="img" aria-label="Estado del cielo"><span class="cb-weather-sun"></span><span class="cb-weather-cloud cloud-a"></span><span class="cb-weather-cloud cloud-b"></span><span class="cb-weather-rain"></span><span class="cb-weather-snow"></span><span class="cb-weather-lightning"></span></div><div><strong id="cb-sky-temp">—</strong><span id="cb-sky-desc">Consultando el cielo…</span></div></div>
+       <div class="cb-sky-stats"><span id="cb-sky-range">🌡️ —</span><span id="cb-sky-wind">💨 — km/h</span><span id="cb-sky-rain">💧 —</span></div>
+       <a class="cb-sky-link" href="./colombometeo/index.html">Ver análisis completos en COLOMBOMETEO <span class="cb-ui-chevron cb-ui-chevron-right" aria-hidden="true"></span></a>
+       <p id="cb-sky-feedback" role="status"></p>
+      </section>
+      <div class="cb-legacy-weather" aria-hidden="true">      <section class="cb-forecast" aria-label="Previsión meteorológica de siete días">
         <div class="cb-forecast-head"><div><small>☀️ PREVISIÓN METEOROLÓGICA</small><h3 id="hw-city">Cargando municipio…</h3></div><button id="hw-refresh" type="button" title="Actualizar previsión" aria-label="Actualizar previsión">↻</button></div>
         <p id="hw-status" class="hw-status" role="status" aria-live="polite">Consultando datos reales…</p>
         <div id="hw-data" hidden>
@@ -110,33 +147,23 @@
         <button type="button" class="hw-more" id="hw-more" aria-expanded="false">Ver previsión de 16 días ▾</button>
         <div id="hw-extra-days" class="cb-extra-days"></div>
         <small id="hw-updated" class="hw-updated"></small>
-      </details>
-      <button class="ask" data-go="guia"><span>🔎</span><div><b>Pregúntale a la Guía</b><small>¿Qué quieres consultar?</small></div><strong>›</strong></button>
+      </details></div>
+      <button class="ask" data-go="guia"><span>🔎</span><div><b>Pregúntale a la Guía</b><small>¿Qué quieres consultar?</small></div><strong class="cb-ui-chevron cb-ui-chevron-right" aria-hidden="true"></strong></button>
 
-      <h2>HOY EN TU PALOMAR <span>5 avisos</span></h2>
-      <div class="today">
-        <button><span>🥚</span><b>2</b><small>Huevos próximos<br>a eclosionar</small></button>
-        <button><span>🐣</span><b>3</b><small>Pichones próximos<br>a anillar</small></button>
-        <button><span>💊</span><b>1</b><small>Tratamiento<br>pendiente</small></button>
-        <button><span>🕊️</span><b>4</b><small>Parejas<br>criando</small></button>
-        <button><span>🏆</span><b>1</b><small>Próximo<br>concurso</small></button>
+      <h2>HOY EN TU PALOMAR <span id="cb-home-alert-count">Sin datos conectados</span></h2>
+      <div class="today" id="cb-home-today">
+        <button type="button"><span>🥚</span><b>—</b><small>Huevos próximos<br>a eclosionar</small></button>
+        <button type="button"><span>🐣</span><b>—</b><small>Pichones próximos<br>a anillar</small></button>
+        <button type="button"><span>💊</span><b>—</b><small>Tratamiento<br>pendiente</small></button>
+        <button type="button"><span>🕊️</span><b>—</b><small>Parejas<br>criando</small></button>
+        <button type="button"><span>🏆</span><b>—</b><small>Próximo<br>concurso</small></button>
       </div>
-
-      <div class="columns">
-        <section class="panel cb-home-panel">
-          <h3 class="cb-panel-heading">PALOMOS DESTACADOS</h3>
-          <div class="pigeon-row"><div class="avatar">T</div><div><b>Toretto</b><small>Rojo · Macho</small></div><span>Competidor</span></div>
-          <div class="pigeon-row"><div class="avatar">B</div><div><b>Bumblebee</b><small>Mascarado Plomes · Macho</small></div><span>Reproductor</span></div>
-        </section>
-        <section class="panel cb-home-panel cb-updates-panel">
-          <h3 class="cb-panel-heading">ÚLTIMAS ACTUALIZACIONES</h3>
-          <p>🐣 <b>Nacimiento registrado</b><br><small>Pichón de Toretto × Brisa</small></p>
-          <p>🏆 <b>Resultado de concurso</b><br><small>Toretto · 2.º clasificado</small></p>
-          <p>🩺 <b>Control sanitario</b><br><small>Revisión completada</small></p>
-        </section>
-      </div>
+      <p class="cb-home-explainer">Los avisos automáticos se activarán cuando conectemos los registros correspondientes. El guion (—) no significa cero.</p>
+      <section class="panel cb-home-panel cb-home-diary" aria-label="Actividad reciente del palomar">
+        <h3 class="cb-panel-heading">📖 ACTIVIDAD RECIENTE DEL PALOMAR</h3>
+        <div id="cb-home-diary-items"><p class="cb-diary-empty">Todavía no hay actividad conectada a este diario. Aquí aparecerán únicamente acontecimientos registrados de verdad.</p></div>
+      </section>
     </section>
-
     <section id="palomar" class="page">
       <div class="title-row"><button class="back app-back" data-go="inicio">‹</button><div><h2>MI PALOMAR</h2><small id="pigeonCount">3 palomos registrados</small></div><button class="plus" id="addPigeon">＋</button></div>
       <div class="loft-tabs">
@@ -145,12 +172,12 @@
       </div>
       <input id="search" class="search" placeholder="🔎 Buscar por nombre, anilla o pelaje...">
       <div class="filters"><button class="selected">Todos</button><button>Machos</button><button>Hembras</button><button>Activos</button></div>
-      <div class="coloms-import-panel"><strong>📁 Importar palomos históricos (archivo privado)</strong><p>Selecciona el archivo JSON de tu tabla Coloms. Se añadirá a este dispositivo, sin subirlo a internet y sin sustituir tus palomos actuales. Las anillas repetidas se conservan como registros distintos.</p><input id="colomsFile" type="file" accept=".json,application/json"><div id="colomsStatus" role="status" aria-live="polite">Sin importaciones pendientes.</div></div><div id="pigeonList"></div><div class="cb-backup-tools"><button type="button" id="cb-backup-export">⬇ Descargar copia de seguridad</button><small>Guarda este archivo antes de actualizar o cambiar de dispositivo.</small></div>
+      <div class="coloms-import-panel"><strong>📁 Importar palomos históricos (archivo privado)</strong><p>Selecciona el archivo JSON de tu tabla Coloms. Se añadirá a este dispositivo, sin subirlo a internet y sin sustituir tus palomos actuales. Las anillas repetidas se conservan como registros distintos.</p><input id="colomsFile" type="file" accept=".json,application/json"><div id="colomsStatus" role="status" aria-live="polite">Sin importaciones pendientes.</div></div><details id="cb-pigeons-fold" class="cb-pigeons-fold" open><summary><span>🕊 Mis palomos <small id="cb-pigeons-fold-count"></small></span><span class="cb-fold-chevron cb-ui-chevron" aria-hidden="true"></span></summary><div id="pigeonList"></div></details><div class="cb-backup-tools"><button type="button" id="cb-backup-export">⬇ Descargar copia de seguridad</button><small>Guarda este archivo antes de actualizar o cambiar de dispositivo.</small><label class="cb-restore-button" for="cb-restore-palomar">↑ Restaurar copia completa (solo pruebas)</label><input type="file" id="cb-restore-palomar" accept=".json,application/json" hidden><small id="cb-restore-status">La restauración sustituye los datos COLOMBAIRE de este navegador. Haz una copia antes.</small></div>
     </section>
 
     <section id="ficha" class="page">
       <div class="title-row"><button class="back app-back" data-go="palomar">‹</button><div><h2 id="f-name">Toretto</h2><small id="f-ring">ESP-2024-01587</small></div><button id="editPigeon" type="button" aria-label="Editar palomo">✎ Editar</button></div>
-      <div class="tabs"><button class="selected">Información</button><button data-go="cria">Cría</button><button data-go="salud">Salud</button><button data-go="concursos">Concursos</button><button id="observationsTab">Observaciones</button><button>Genealogía</button></div>
+      <div class="tabs"><button class="selected">Información</button><button data-go="cria">Cría</button><button data-go="salud">Salud</button><button data-go="concursos">Concursos</button><button id="observationsTab">Observaciones</button><button id="cb-desc-tab" type="button">🌿 Descendientes</button></div>
       <section class="detail-card cb-ficha-card">
         <div class="cb-ficha-band">🕊️ IDENTIFICACIÓN</div>
         <div class="detail-grid cb-ficha-fields">
@@ -164,10 +191,17 @@
           <div><small>Reproducción</small><b id="d-breeder"></b></div>
         </div>
         <div class="cb-ficha-band">🌿 GENEALOGÍA</div>
-        <div class="parents cb-ficha-parents"><button><small>♂ PADRE</small><b id="d-father"></b></button><button><small>♀ MADRE</small><b id="d-mother"></b></button></div>
+        <div class="parents cb-ficha-parents"><button><small>♂ PADRE</small><b id="d-father"></b></button><button><small>♀ MADRE</small><b id="d-mother"></b></button></div><button type="button" class="cb-desc-entry cb-desc-entry-approved" id="cb-desc-entry" aria-label="Descendencia: ver hijos, nietos y generaciones"><span class="cb-desc-sr">Descendencia: hijos, nietos y generaciones. <span id="cb-desc-count">Consultar crías y parejas reproductoras</span></span></button>
       </section>
     </section>
 
+
+    <section id="descendientes" class="page cb-lineage-page">
+      <div class="cb-lineage-top"><button class="back app-back" type="button" aria-label="Volver a la ficha">‹</button><div><span class="cb-lineage-kicker">MI PALOMAR / FICHA / DESCENDIENTES</span><h2>Descendientes</h2><p>Crías registradas, agrupadas por pareja reproductora.</p></div></div>
+      <div class="cb-lineage-profile"><button class="cb-lineage-avatar cb-photo-button" id="cb-photo-button" type="button" title="Añadir o cambiar fotografía del palomo" aria-label="Añadir o cambiar fotografía del palomo"><img id="cb-lineage-photo" alt="Fotografía del ejemplar" hidden><span id="cb-lineage-photo-placeholder">📷</span></button><input id="cb-photo-input" type="file" accept="image/*" hidden><div class="cb-lineage-identity"><span class="cb-lineage-kicker">EJEMPLAR SELECCIONADO</span><h3 id="cb-lineage-name"></h3><p id="cb-lineage-ring"></p><div id="cb-lineage-meta" class="cb-lineage-meta"></div></div><button id="cb-lineage-edit" class="cb-lineage-edit" type="button">✎ Editar ficha</button></div>
+      <div class="cb-lineage-summary" id="cb-lineage-summary"></div>
+      <div class="cb-lineage-layout"><div class="cb-lineage-main"><div class="cb-lineage-heading"><div><h3>✦ Descendencia</h3><p>Selecciona una cría para consultar su ficha.</p></div></div><div id="cb-desc-body"></div></div><aside class="cb-lineage-aside"><div class="cb-lineage-panel"><h3>◈ Resumen de descendencia</h3><div id="cb-lineage-stats"></div></div><div class="cb-lineage-panel"><h3>ⓘ Información</h3><p>Solo se consideran confirmados los vínculos guardados con el identificador del progenitor.</p><p>Los históricos se muestran por separado y nunca se vinculan automáticamente.</p></div></aside></div>
+    </section>
 
     <section id="observations" class="page">
       <div class="title-row"><button class="back app-back">‹</button><div><h2 id="obsPigeonName">OBSERVACIONES</h2><small>Características y notas del ejemplar</small></div></div>
@@ -195,8 +229,8 @@
           <label><span>Pelaje</span><input id="p-color" list="cb-colors" placeholder="Ej. Azul, Rojo, Bayo..."><datalist id="cb-colors"></datalist></label>
           <label><span>Sexo</span><select id="p-sex" required><option value="">Seleccionar</option><option>Macho</option><option>Hembra</option><option>Sin determinar</option></select></label>
           <label><span>Fecha de nacimiento</span><input id="p-birth" type="date"></label>
-          <label><span>Padre</span><select id="p-father"><option value="">Desconocido / no registrado</option></select><input id="p-father-text" placeholder="O escribe un padre no registrado"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
-          <label><span>Madre</span><select id="p-mother"><option value="">Desconocida / no registrada</option></select><input id="p-mother-text" placeholder="O escribe una madre no registrada"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Padre</span><select id="p-father"><option value="">Desconocido / no registrado</option></select><input id="p-father-text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cb-father-suggestions" placeholder="O escribe un padre no registrado"><div class="cb-parent-suggestions" id="cb-father-suggestions" role="listbox" hidden></div><div class="cb-parent-suggestions" id="cb-mother-suggestions" role="listbox" hidden></div><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Madre</span><select id="p-mother"><option value="">Desconocida / no registrada</option></select><input id="p-mother-text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cb-mother-suggestions" placeholder="O escribe una madre no registrada"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
           <label><span>Estado del palomo</span><select id="p-status"><option>Activo</option><option>Cedido</option><option>Baja</option><option>Fallecido</option></select></label><label><span>Etapa deportiva</span><select id="p-sport"><option value="Sin indicar">Sin indicar</option><option value="En competición">En competición</option><option value="En preparación">En preparación</option><option value="Retirado">Retirado</option><option value="No compite">No compite</option></select></label><label><span>Actividad reproductora</span><select id="p-breeder"><option value="Sin indicar">Sin indicar</option><option value="Reproductor">Reproductor</option><option value="No reproductor">No reproductor</option></select><small class="field-help">Puede competir y criar a la vez</small></label>
         </div>
         <div class="form-actions">
@@ -315,7 +349,7 @@
     <section id="genetica" class="page placeholder"></section>
     <section id="salud" class="page">
       <div class="title-row"><button class="back app-back">‹</button><div><h2>SALUD</h2><small>Enfermedades y orientación sanitaria del palomar</small></div></div>
-      <div class="health-hero"><div><b>GUÍA DE ENFERMEDADES</b><small>Consulta fichas estructuradas por agente, transmisión, órganos, signos y diagnóstico.</small></div><span>🩺</span></div>
+      <div class="health-hero cb-health-banner-b" aria-label="Guía de enfermedades · Salud del palomar"><img src="guia-enfermedades-B.jpg" alt="Guía de enfermedades. Salud del palomar: palomo deportivo, cruz sanitaria, microscopio y material de revisión veterinaria." loading="lazy"></div>
       <input id="healthSearch" class="search" placeholder="Buscar enfermedad, agente, signo...">
       <div class="health-actions"><button class="selected">Todas</button><button>Protozoos</button><button>Bacterianas</button><button>Víricas</button></div>
       <div id="diseaseList" class="disease-list"></div>
@@ -327,6 +361,7 @@
       <div id="diseaseDetailBody" class="disease-sheet"></div>
     </section>
     <section id="concursos" class="page cb-contests">
+<div style="margin:12px 0;padding:16px;background:#eaf1e8;border:1px solid #acc5b6;border-radius:14px"><b>🏆 Sistema nuevo de concursos · laboratorio V5</b><p style="margin:8px 0">Accede al prototipo de seguimiento de concursos. Funciona como laboratorio separado; la conexión federativa queda pendiente de autorización.</p><a href="./concursos-laboratorio-v5.html" style="display:inline-block;background:#174d3a;color:#fff;padding:12px 16px;border-radius:10px;text-decoration:none;font-weight:bold">Abrir nuevo sistema de Concursos <span class="cb-ui-chevron cb-ui-chevron-right" aria-hidden="true"></span></a></div>
   <div class="title-row"><button class="back app-back">‹</button><div><h2>CONCURSOS</h2><small>Clasificaciones · Colombicultura deportiva</small></div></div>
   <div class="cb-contest-hero"><span class="cb-eyebrow">MIS CONCURSOS</span><h3>Clasificaciones oficiales, a tu alcance</h3><p>Consulta una clasificación completa y destaca los palomos que quieras, sin ocultar a los demás.</p></div>
   <div class="cb-contest-controls"><label for="cb-competition">Concurso</label><select id="cb-competition"><option value="demo">Clasificación de ejemplo · captura FCCV</option></select><div class="cb-contest-actions"><a href="https://colombiculturacv.es/?p=1" target="_blank" rel="noopener noreferrer" class="cb-official-link">↗ Abrir clasificación FCCV</a><button type="button" id="cb-reset-stars" class="cb-clear-stars">Quitar destacados</button></div></div>
@@ -392,7 +427,9 @@
     <section id="calendario" class="page" aria-label="Calendario ColomboPicas">
       <div style="max-width:1200px;margin:0 auto;padding:12px 12px 24px;">
         <button type="button" class="app-back" style="margin:0 0 12px;cursor:pointer;">← Volver</button>
-        <iframe title="ColomboPicas — calendario de sueltas" src="./colombopicas/index.html?v=1.2" loading="lazy" style="display:block;width:100%;height:85vh;min-height:620px;border:0;border-radius:12px;background:#fff;" allow="fullscreen"></iframe>
+<a href="./colombopicas/index.html" style="display:block;text-align:center;padding:24px;background:#164b3a;color:white;border-radius:12px;font-size:20px;text-decoration:none;font-weight:bold;">
+  🐦 Abrir COLOMBOPICAS
+</a>
       </div>
     </section>
   </main>
@@ -427,7 +464,7 @@
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&closed)splash.remove();});
 })();
 </script>
-<script src="app.js?v=1.0b"></script>
+<script src="app.js?v=integracion-v1"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
 <script>document.addEventListener("DOMContentLoaded",function(){
 (()=>{'use strict';
@@ -440,7 +477,11 @@ function safeName(user){const n=user?.user_metadata?.colombaire_name;return type
 function display(user){currentUser=user||null;const connected=!!user;status.textContent=connected?'✓ Cuenta conectada':'Cuenta no conectada';email.textContent=connected?(user.email||'Usuario autenticado'):'';form.hidden=connected;out.hidden=!connected;identity.hidden=!connected;nameForm.hidden=true;if(connected){const n=safeName(user);nameText.textContent=n||'Nombre pendiente de configurar';editName.textContent=n?'Editar nombre':'Añadir nombre';}open.title=connected?'Mi cuenta · Conectado':'Mi cuenta · Sin conectar';open.setAttribute('aria-label',open.title)}
 function initialize(){if(!window.supabase?.createClient){status.textContent='Acceso no disponible sin conexión a Internet.';form.hidden=true;return;}
 client=window.supabase.createClient('https://mjbamwhnalljvmnogqzi.supabase.co','sb_publishable_pLmcbeWD6LGbT1MC2bUMxw_8Ng80tY6',{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
-client.auth.onAuthStateChange((_event,session)=>{display(session?.user||null)});
+client.auth.onAuthStateChange((_event,session)=>{
+  display(session?.user||null);
+  if(session?.user){document.getElementById('cb-welcome-gate').hidden=true;}
+  else if(_event==='SIGNED_OUT'){document.getElementById('cb-welcome-gate').hidden=false;}
+});
 client.auth.getUser().then(({data,error})=>{if(error){client.auth.getSession().then(({data:d})=>display(d?.session?.user||null))}else display(data.user)}).catch(()=>{status.textContent='No se pudo comprobar la sesión';form.hidden=false});
 }
 open.addEventListener('click',()=>{if(!dialog.open)dialog.showModal()});close.addEventListener('click',()=>dialog.close());
@@ -462,7 +503,7 @@ initialize();
  </div>
  <script>
  (() => {
-   const CURRENT='1.0b';
+   const CURRENT='1.0c';
    const banner=document.getElementById('cb-update-banner');
    const message=document.getElementById('cb-update-message');
    const action=document.getElementById('cb-update-action');
@@ -518,6 +559,45 @@ initialize();
      setTimeout(()=>{updateBtn.disabled=false;updateBtn.textContent='Buscar actualizaciones';},3000);
    });
  })();
- </script><script>window.addEventListener('DOMContentLoaded',()=>{const gate=document.getElementById('cb-welcome-gate');const splash=document.getElementById('cb-splash');if(splash)splash.style.display='none';const enter=()=>{gate.hidden=true};document.getElementById('cb-cover-guide').onclick=()=>{enter();document.querySelector('[data-go="guia"]')?.click()};document.getElementById('cb-cover-login').onclick=()=>{enter();document.getElementById('cb-profile-button')?.click()};document.getElementById('cb-cover-register').onclick=()=>{enter();document.getElementById('cb-profile-button')?.click();const status=document.getElementById('cb-profile-result');if(status)status.textContent='El registro de nuevas cuentas está pendiente de conectar con el formulario existente.'};});</script>
+ </script><script>
+window.addEventListener('DOMContentLoaded',async()=>{
+  const gate=document.getElementById('cb-welcome-gate');
+  const splash=document.getElementById('cb-splash');
+  if(splash)splash.style.display='none';
+  const enter=()=>{gate.hidden=true};
+  document.getElementById('cb-cover-guide').onclick=()=>{enter();document.querySelector('[data-go="guia"]')?.click()};
+  document.getElementById('cb-cover-login').onclick=()=>{enter();document.getElementById('cb-profile-button')?.click()};
+  document.getElementById('cb-cover-register').onclick=()=>{enter();document.getElementById('cb-profile-button')?.click();const status=document.getElementById('cb-profile-result');if(status)status.textContent='El registro de nuevas cuentas está pendiente de conectar con el formulario existente.'};
+  // Use the same Supabase persisted auth session; never treat a local flag as proof of login.
+  try{
+    let waited=0;
+    while(!window.supabase?.createClient && waited<5000){await new Promise(r=>setTimeout(r,100));waited+=100}
+    if(!window.supabase?.createClient){gate.hidden=false;return}
+    const client=window.supabase.createClient(
+      'https://mjbamwhnalljvmnogqzi.supabase.co',
+      'sb_publishable_pLmcbeWD6LGbT1MC2bUMxw_8Ng80tY6',
+      {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}}
+    );
+    const {data,error}=await client.auth.getUser();
+    if(data?.user){gate.hidden=true;return}
+    // No validated session: show welcome; profile auth still handles sign-in.
+    gate.hidden=false;
+  }catch(e){gate.hidden=false}
+});
+</script>
+<script>
+(function(){
+  const trigger=document.querySelector('.cb-banner-menu');
+  const menu=document.getElementById('cb-quick-menu');
+  if(!trigger||!menu)return;
+  function close(){menu.hidden=true;trigger.setAttribute('aria-expanded','false')}
+  trigger.addEventListener('click',function(event){event.stopPropagation();const opening=menu.hidden;menu.hidden=!opening;trigger.setAttribute('aria-expanded',String(opening))});
+  menu.querySelector('[data-cb-home]').addEventListener('click',function(){close();const nav=document.querySelector('nav button[data-go="inicio"]');if(nav)nav.click();else document.getElementById('inicio')?.scrollIntoView()});
+  document.addEventListener('click',function(event){if(!menu.contains(event.target)&&event.target!==trigger)close()});
+  document.addEventListener('keydown',function(event){if(event.key==='Escape')close()});
+})();
+</script>
+<script src="municipio-gps.js"></script>
+<script src="weather-mobile-v2.js?v=2" defer></script>
 </body>
 </html>

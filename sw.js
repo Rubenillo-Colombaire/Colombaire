@@ -1,5 +1,5 @@
-// COLOMBAIRE v1.0b — actualización fiable para iOS/iPhone.
-const CACHE='colombaire-shell-v1.0b';
+// COLOMBAIRE v1.0c — actualización fiable para iOS/iPhone.
+const CACHE='colombaire-shell-v1.0c';
 const CORE=['./index.html','./style.css?v=1.0b','./app.js?v=1.0b','./weather.js?v=0.9z','./home-weather.js?v=1.0b','./manifest.webmanifest','./version.json','./splash-bienvenida.jpg','./cabecera-colombaire.png','./palomar.jpg','./genetica.jpg','./salud.jpg','./concursos.jpg','./guia.jpg','./calendario.jpg','./NotoSans-Regular.ttf','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('message',event=>{if(event.data&&event.data.type==='SKIP_WAITING')self.skipWaiting();});
 self.addEventListener('install',event=>{

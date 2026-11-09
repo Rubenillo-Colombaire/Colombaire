@@ -1,0 +1,1 @@
+V34: menú lateral oculto inicialmente y desplegable mediante botón superior en ordenador y móvil. Se amplía el contenido al ancho disponible. Cierre mediante botón, selección de sección, fondo o Escape. Se mantienen los demás componentes de V33. NO PUBLICAR.

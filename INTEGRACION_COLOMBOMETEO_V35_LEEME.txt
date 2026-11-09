@@ -1,0 +1,9 @@
+COLOMBAIRE + COLOMBOMETEO V35 — COPIA DE PRUEBAS, NO PUBLICAR
+
+Se sustituyó únicamente el contenido de la carpeta colombometeo/ por la versión V35 aprobada.
+El acceso desde la portada ./colombometeo/ ya existía y se ha conservado.
+No se han modificado index.html, app.js ni sw.js de COLOMBAIRE.
+
+PRUEBAS: abrir la portada en servidor local o entorno de pruebas, entrar en COLOMBOMETEO, comprobar navegación, modelos, mapa, iconos, fondos y datos.
+No subir a producción ni reemplazar la PWA instalada sin pruebas en iPhone y ordenador.
+Si se ve versión antigua, revisar caché de Service Worker antes de publicar.

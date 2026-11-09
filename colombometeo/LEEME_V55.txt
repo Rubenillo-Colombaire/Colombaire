@@ -1,0 +1,1 @@
+V55 — Añadidas partículas de lluvia animadas en la cabecera cuando el cielo indique lluvia, tormenta o precipitación prevista. La animación es decorativa, no una medición en directo. Mantiene los datos y las nubes de V54. NO PUBLICAR sin probar.

@@ -571,3 +571,178 @@ nav .cb-line-icon{width:22px;height:22px;margin:0 auto 3px;color:inherit}
 #d-status.status-pill{display:inline-block!important;width:max-content;max-width:100%;font-weight:800}
 .cb-backup-tools{padding:14px;margin:20px 0;border:1px solid #d3c29e;border-radius:12px;background:#f9f5e9}.cb-backup-tools button{background:#164b3a;color:white;border:0;border-radius:9px;padding:12px 14px;font-weight:700}.cb-backup-tools small{display:block;margin-top:9px;color:#57685b}
 @media(max-width:700px){.app>header.cb-banner-header{height:95px!important;min-height:95px!important;padding:12px 54px!important}.app>header.cb-banner-header .cb-banner-brand{font-size:clamp(19px,5.6vw,30px)!important;letter-spacing:.07em!important}#palomoForm .form-grid{grid-template-columns:minmax(0,1fr)}#ficha .title-row #editPigeon{min-width:78px}.page>.title-row{gap:7px}}
+
+/* Mejoras seguras de portada, salud y genealogía */
+.cb-home-explainer{font-size:12px;color:var(--muted);line-height:1.5;margin:12px 0 18px}
+.cb-home-diary{margin-top:18px}.cb-diary-empty{color:var(--muted);font-size:14px;line-height:1.6}
+.cb-health-symbol{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:76px;font-size:42px;flex-shrink:0}
+.cb-health-symbol i{position:absolute;right:0;bottom:-4px;background:#fff;color:#164b3a;border-radius:50%;width:27px;height:27px;font:900 20px/27px system-ui;text-align:center;font-style:normal}
+.cb-parent-suggestions{margin-top:4px;border:1px solid #b7d2c2;border-radius:9px;background:#fff;box-shadow:0 5px 16px #0001;max-height:230px;overflow:auto}
+.cb-parent-suggestions[hidden]{display:none!important}.cb-parent-suggestions button{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid #e7eee9;padding:11px 13px;background:#fff;color:#16352c;font:inherit;cursor:pointer}.cb-parent-suggestions button:hover,.cb-parent-suggestions button:focus{background:#e9f3eb;outline:2px solid #9abca5}
+
+/* PRUEBA: cabecera visible sin depender de imagen externa y menú rápido */
+.app>header.cb-banner-header{height:112px!important;min-height:112px!important;aspect-ratio:auto!important;background:linear-gradient(125deg,#0e352a,#19533d)!important;border-bottom:3px solid #c6a461!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:14px 62px!important;overflow:visible!important}
+.app>header.cb-banner-header .cb-banner-brand{position:static!important;display:block!important;width:auto!important;height:auto!important;overflow:visible!important;clip-path:none!important;font:600 clamp(20px,4.4vw,42px) Georgia,serif!important;letter-spacing:.08em!important;color:#f6f0dd!important;text-align:center!important;white-space:nowrap!important}
+.app>header.cb-banner-header .cb-banner-menu{position:absolute!important;top:50%!important;left:12px!important;transform:translateY(-50%)!important;width:45px!important;height:45px!important;background:#ffffff18!important;border:1px solid #ffffff50!important;border-radius:10px!important;color:#f6f0dd!important;font:700 26px system-ui!important;display:grid!important;place-items:center!important;opacity:1!important}
+.app>header.cb-banner-header .cb-banner-menu::before{content:none!important}
+.app>header.cb-banner-header #cb-profile-button{position:absolute!important;top:50%!important;right:12px!important;left:auto!important;transform:translateY(-50%)!important;width:45px!important;height:45px!important;background:#ffffff18!important;border:1px solid #ffffff50!important;border-radius:10px!important;color:#f6f0dd!important;display:grid!important;place-items:center!important}
+.app>header.cb-banner-header #cb-profile-button::before{content:none!important}
+.cb-quick-menu[hidden]{display:none!important}
+.cb-quick-menu{position:absolute;z-index:99;top:112px;left:max(12px,calc((100vw - 1180px)/2 + 12px));width:min(320px,calc(100vw - 24px));padding:9px;background:#fffdf8;border:1px solid #c6a461;border-radius:0 0 13px 13px;box-shadow:0 15px 32px #142b2240}
+.cb-quick-menu a,.cb-quick-menu button,.cb-quick-menu span{display:block;width:100%;text-align:left;text-decoration:none;padding:13px 14px;border:0;border-radius:8px;background:transparent;color:#164b3a;font:700 14px system-ui;box-sizing:border-box}
+.cb-quick-menu a:hover,.cb-quick-menu button:hover{background:#e8f0e8;cursor:pointer}
+.cb-quick-menu .cb-quick-disabled{color:#78847b;opacity:.8}
+.cb-health-symbol .cb-health-pigeon{width:78px;height:62px;display:block}
+.cb-health-symbol{font-size:initial!important}
+@media(max-width:700px){.app>header.cb-banner-header{height:95px!important;min-height:95px!important;padding:12px 54px!important}.app>header.cb-banner-header .cb-banner-brand{font-size:clamp(17px,5vw,27px)!important}.app>header.cb-banner-header .cb-banner-menu,.app>header.cb-banner-header #cb-profile-button{width:39px!important;height:39px!important}.cb-quick-menu{top:95px}}
+
+/* Boceto B aprobado · solo cabecera de la guía sanitaria */
+.health-hero.cb-health-banner-b{display:block!important;padding:0!important;overflow:hidden!important;background:#103b2b!important;border:1px solid #bfa66c!important;border-radius:14px!important;margin-bottom:16px!important;line-height:0!important;}
+.health-hero.cb-health-banner-b img{display:block!important;width:100%!important;height:auto!important;max-width:100%!important;object-fit:contain!important;}
+
+.cb-desc{margin-top:18px;padding:14px;border:1px solid #b7cbbd;border-radius:12px;background:#f5f9f5}.cb-desc summary{cursor:pointer;font-weight:700;color:#174b39}.cb-desc h4{margin:16px 0 8px;font-size:14px}.cb-desc-note{font-size:13px;color:#52635a;line-height:1.45}.cb-desc-child{display:block;width:100%;margin:5px 0;padding:10px;text-align:left;background:#fff;border:1px solid #d3dfd5;border-radius:8px;cursor:pointer;color:#183c30}.cb-desc-child:hover{background:#eaf3ed}.cb-restore-button{display:inline-block;margin-top:10px;padding:10px 14px;background:#175443;color:white;border-radius:8px;cursor:pointer;font-weight:600}.cb-backup-tools small{display:block;margin-top:8px}
+/* DESCENDIENTES V2 — pantalla real integrada en Mi Palomar */
+.cb-desc-entry{display:flex;align-items:center;gap:12px;width:100%;margin-top:16px;padding:17px 19px;border:1px solid #b9cbb7;border-radius:13px;background:linear-gradient(115deg,#edf3e8,#f8f5ec);color:#154331;text-align:left;cursor:pointer;font-size:23px}
+.cb-desc-entry>span:nth-child(2){display:grid;gap:4px;flex:1}.cb-desc-entry strong{font-size:17px}.cb-desc-entry small{font-size:12px;color:#567163}.cb-desc-entry>span:last-child{font-size:30px}
+.cb-lineage-page{color:#153b2d}.cb-lineage-top{display:flex;align-items:center;gap:15px;margin-bottom:16px}.cb-lineage-top .back{flex-shrink:0}.cb-lineage-top h2{font-size:clamp(24px,3vw,34px);margin:3px 0}.cb-lineage-top p{margin:0;color:#6c766c}.cb-lineage-kicker{font-size:10px;letter-spacing:1.6px;font-weight:800;color:#6b846d}
+.cb-lineage-profile{display:flex;align-items:center;gap:18px;background:linear-gradient(110deg,#fffef8,#edf2e8);border:1px solid #d4dfd1;border-radius:17px;padding:22px;box-shadow:0 4px 15px #203b2710;margin-bottom:16px}.cb-lineage-avatar{width:90px;height:90px;flex-shrink:0;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#194d38,#477c58);font-size:43px}.cb-lineage-identity{flex:1;min-width:0}.cb-lineage-identity h3{font-size:clamp(25px,3.2vw,37px);margin:3px 0;color:#123f2c}.cb-lineage-identity p{font-weight:700;margin:0 0 9px}.cb-lineage-meta{color:#4f6757;font-size:13px}.cb-lineage-edit{border:1px solid #bfd0c0;background:#fff;border-radius:9px;padding:10px 13px;color:#12442f;cursor:pointer;font-weight:700}
+.cb-lineage-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:0 0 19px}.cb-lineage-metric{background:#fffdf7;border:1px solid #d9e1d6;border-radius:12px;padding:14px 18px;display:grid;gap:2px}.cb-lineage-metric strong{font-size:27px;color:#164c37}.cb-lineage-metric span{font-size:12px;color:#66776a}
+.cb-lineage-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,290px);gap:17px;align-items:start}.cb-lineage-main,.cb-lineage-panel{background:#fffdf8;border:1px solid #dbe2d8;border-radius:16px;padding:17px;box-shadow:0 3px 12px #152e1c0c}.cb-lineage-heading h3{margin:0 0 4px;font-size:23px;color:#143f2b}.cb-lineage-heading p{margin:0 0 18px;color:#68766c;font-size:13px}.cb-lineage-group{border:1px solid #d5e0d2;border-radius:12px;margin-bottom:11px;overflow:hidden;background:#fff}.cb-lineage-group-title{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 15px;background:linear-gradient(90deg,#eaf1e7,#dfeadd);font-weight:800;cursor:pointer;color:#183f2c;list-style:none}.cb-lineage-group-title::-webkit-details-marker{display:none}.cb-lineage-group-count{font-size:12px;font-weight:700;white-space:nowrap;color:#38644a}.cb-lineage-children{padding:7px;display:grid;gap:6px}.cb-lineage-child{display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;border:1px solid #e4e8e1;border-radius:9px;background:#fffefa;text-align:left;cursor:pointer;color:#223c2d}.cb-lineage-child:hover{border-color:#93b09b;background:#f5faf2}.cb-lineage-sex{width:37px;height:37px;border-radius:50%;display:grid;place-items:center;font-size:24px;flex-shrink:0}.cb-lineage-sex.male{background:#e3efff;color:#1c72cf}.cb-lineage-sex.female{background:#ffe6f0;color:#d83b85}.cb-lineage-sex.unknown{background:#eaeae5;color:#777}.cb-lineage-child-info{flex:1;min-width:0;display:grid;gap:3px}.cb-lineage-child-info strong{font-size:14px;overflow-wrap:anywhere}.cb-lineage-child-info small{font-size:12px;color:#6a786b}.cb-lineage-child-end{font-size:12px;color:#47705a;white-space:nowrap}.cb-lineage-empty{padding:18px;color:#6b766d;background:#f6f7f1;border-radius:10px}.cb-lineage-pending{background:#f8f1df;border:1px solid #e4d7b9;border-radius:12px;margin-top:14px;overflow:hidden}.cb-lineage-pending>summary{padding:15px;display:flex;justify-content:space-between;cursor:pointer;font-weight:800;color:#67502c}.cb-lineage-pending-count{background:#eee0bb;padding:2px 9px;border-radius:20px}.cb-lineage-pending-note{font-size:12px;line-height:1.5;margin:0;padding:0 15px 9px;color:#715f40}.cb-lineage-pending .cb-lineage-children{padding:7px}.cb-lineage-panel{margin-bottom:12px}.cb-lineage-panel h3{font-size:16px;margin:0 0 13px;color:#164330}.cb-lineage-panel p{font-size:12px;line-height:1.6;color:#5d6c5f}.cb-lineage-stat{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #e5e8e0;font-size:13px}.cb-lineage-stat:last-child{border:0}.cb-lineage-stat strong{color:#164b36}
+@media(max-width:750px){.cb-lineage-layout{grid-template-columns:1fr}.cb-lineage-aside{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cb-lineage-profile{padding:14px;gap:11px}.cb-lineage-avatar{width:62px;height:62px;font-size:31px}.cb-lineage-edit{font-size:11px;padding:9px}.cb-lineage-summary{gap:7px}.cb-lineage-metric{padding:11px}.cb-lineage-metric strong{font-size:23px}.cb-lineage-metric span{font-size:10px}}
+@media(max-width:470px){.cb-lineage-aside{grid-template-columns:1fr}.cb-lineage-profile{flex-wrap:wrap}.cb-lineage-edit{margin-left:auto}.cb-lineage-child-end{font-size:11px}.cb-lineage-main{padding:11px}.cb-lineage-top p{font-size:12px}.cb-lineage-kicker{font-size:9px}}
+
+/* COLOMBAIRE · Descendientes V3 · acabado visual, sin cambiar datos */
+.cb-lineage-page{padding-bottom:105px}
+.cb-lineage-top{margin-bottom:21px}
+.cb-lineage-top h2{font-family:Georgia,serif;font-weight:800;letter-spacing:.2px}
+.cb-lineage-top .cb-lineage-kicker{color:#64826b}
+.cb-lineage-profile{position:relative;overflow:hidden;min-height:155px;padding:24px 27px;background:linear-gradient(112deg,#fffdf6 0%,#f4f7ef 58%,#e1ebdf 100%);border-color:#cbdcc9;box-shadow:0 8px 25px #214a3020}
+.cb-lineage-profile:after{content:"";position:absolute;width:225px;height:225px;right:9%;top:-140px;border:1px solid #bad0bd;border-radius:50%;box-shadow:0 0 0 25px #c2d5c31e,0 0 0 55px #c2d5c318;pointer-events:none}
+.cb-lineage-avatar{position:relative;width:100px;height:100px;border-radius:18px;background:linear-gradient(145deg,#174934,#367b54);box-shadow:0 8px 17px #133d2930;border:2px solid #e4e9d6;color:#f4eacb}
+.cb-lineage-avatar span{filter:grayscale(1) brightness(0) invert(1);font-size:43px;opacity:.92}
+.cb-lineage-identity{position:relative;z-index:1}
+.cb-lineage-identity h3{font-family:Georgia,serif;font-size:clamp(30px,3.3vw,41px);letter-spacing:.1px}
+.cb-lineage-identity>p{font-size:15px;color:#164631}
+.cb-lineage-meta{display:inline-flex;align-items:center;gap:5px;background:#e5eee1;padding:6px 10px;border-radius:50px;color:#466b4e;font-size:12px}
+.cb-lineage-edit{position:relative;z-index:1;border-radius:10px;box-shadow:0 2px 6px #0000000c}
+.cb-lineage-edit:hover{background:#e9f2e8}
+.cb-lineage-summary{gap:13px;margin-bottom:20px}
+.cb-lineage-metric{position:relative;grid-template-columns:43px auto;grid-template-rows:auto auto;column-gap:10px;align-items:center;padding:17px 18px;background:linear-gradient(130deg,#fffef9,#f8faf5);box-shadow:0 3px 12px #17432b0d;border-color:#d6e3d4}
+.cb-lineage-metric-icon{grid-row:1/3;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#e4efe2;color:#24613f;font-size:25px!important}
+.cb-lineage-metric strong{font-size:28px;line-height:1.15}
+.cb-lineage-metric-label{font-size:12px!important;color:#657768}
+.cb-lineage-metric:nth-child(3) .cb-lineage-metric-icon{background:#f5ecd5;color:#866d35}
+.cb-lineage-main,.cb-lineage-panel{box-shadow:0 5px 18px #173b2710}
+.cb-lineage-main{padding:20px}
+.cb-lineage-heading h3{font-family:Georgia,serif;font-size:25px}
+.cb-lineage-group{border-color:#cadbc9;box-shadow:0 2px 8px #1239220a;margin-bottom:13px}
+.cb-lineage-group-title{min-height:58px;justify-content:initial;gap:11px;background:linear-gradient(105deg,#e6f0e3,#dce9da);padding:13px 16px}
+.cb-lineage-pair-symbol{display:grid;place-items:center;flex:0 0 auto;width:33px;height:33px;border-radius:10px;background:#cfe1ce;color:#236345;font-size:22px}
+.cb-lineage-pair-name{flex:1;min-width:0;overflow-wrap:anywhere;font-size:14px}
+.cb-lineage-group-count{background:#f7fbf4;border:1px solid #cbdcc9;border-radius:25px;padding:6px 10px;color:#326343}
+.cb-lineage-chevron{font-size:22px;line-height:1;color:#4d7053;transition:transform .15s}
+.cb-lineage-group:not([open]) .cb-lineage-chevron{transform:rotate(-90deg)}
+.cb-lineage-children{padding:9px;gap:7px}
+.cb-lineage-child{min-height:67px;border-color:#e1e9dd;padding:10px 13px;transition:background .15s,border-color .15s,transform .15s}
+.cb-lineage-child:hover{transform:translateX(2px);background:#f2f8ee;border-color:#9cbaa2}
+.cb-lineage-child:focus-visible,.cb-lineage-group-title:focus-visible,.cb-lineage-pending>summary:focus-visible{outline:3px solid #79a988;outline-offset:2px}
+.cb-lineage-sex{width:43px;height:43px;font-size:25px;border:1px solid #ffffff}
+.cb-lineage-child-info strong{font-size:15px}
+.cb-lineage-child-info small{font-size:12px}
+.cb-lineage-child-end{color:#376c4b;font-weight:700}
+.cb-lineage-pending{margin-top:20px;background:#faf3e5;border-color:#e4d6b5}
+.cb-lineage-pending>summary{padding:17px}
+.cb-lineage-panel h3{font-family:Georgia,serif;font-size:17px}
+.cb-lineage-stat:nth-child(2) span{color:#246fba}.cb-lineage-stat:nth-child(3) span{color:#c14385}
+.cb-lineage-stat:nth-child(4) span{color:#747b76}
+.cb-lineage-panel:last-child{background:linear-gradient(145deg,#fffdf8,#f1f6ec)}
+@media(max-width:750px){.cb-lineage-page{padding-bottom:115px}.cb-lineage-profile{min-height:unset;padding:16px}.cb-lineage-avatar{width:70px;height:70px}.cb-lineage-avatar span{font-size:32px}.cb-lineage-metric{grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:3px;padding:12px}.cb-lineage-metric-icon{grid-row:auto;width:31px;height:31px;font-size:19px!important}.cb-lineage-metric strong{font-size:25px}.cb-lineage-metric-label{font-size:10px!important}.cb-lineage-main{padding:13px}}
+@media(max-width:470px){.cb-lineage-profile{gap:10px}.cb-lineage-identity h3{font-size:27px}.cb-lineage-meta{font-size:10px}.cb-lineage-metric{padding:10px 8px}.cb-lineage-group-title{padding:11px 9px;gap:6px}.cb-lineage-pair-name{font-size:12px}.cb-lineage-group-count{font-size:10px;padding:5px}.cb-lineage-child{gap:8px;padding:9px 8px}.cb-lineage-child-end{font-size:10px}.cb-lineage-sex{width:36px;height:36px;font-size:22px}}
+
+/* CASI DEFINITIVA V2: portada meteorológica unificada */
+.cb-legacy-weather{display:none!important}
+.cb-mobile-weather{position:relative;grid-column:1/-1;overflow:hidden;border-radius:20px;color:#fff;padding:22px 24px;background:linear-gradient(135deg,#17375a,#3c719b 63%,#6c93b2);box-shadow:0 8px 22px #153e4933;isolation:isolate}
+.cb-sky-cloud{position:absolute;right:7%;top:12%;font-size:clamp(65px,13vw,135px);opacity:.22;pointer-events:none;z-index:-1}
+.cb-sky-head,.cb-sky-main,.cb-sky-stats{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.cb-sky-head small{font-size:11px;font-weight:700;letter-spacing:.12em;color:#d8e7f2}.cb-sky-head h3{font-size:clamp(18px,3vw,24px);margin:5px 0}
+#cb-sky-locate{background:#b71f31;border:2px solid #fff;color:white;border-radius:999px;padding:11px 16px;font-weight:800;cursor:pointer;box-shadow:0 3px 8px #0004}
+.cb-sky-main{justify-content:center;padding:7px 0 16px}.cb-sky-main>div:first-child{font-size:65px}.cb-sky-main>div:last-child{display:flex;flex-direction:column}.cb-sky-main strong{font-size:clamp(52px,10vw,80px);line-height:1.1;font-weight:300}.cb-sky-main span{font-size:18px}
+.cb-sky-stats{justify-content:center;border-top:1px solid #ffffff55;padding:14px 0;font-size:14px;font-weight:650}.cb-sky-stats span{padding:5px}
+.cb-sky-link{display:block;text-align:center;background:#0a4637;color:#fff!important;border:1px solid #c7ddcf;border-radius:999px;padding:12px;text-decoration:none;font-weight:750}
+#cb-sky-feedback{font-size:12px;margin:8px 0 0;text-align:center;color:#e3edf5}
+.cb-desc-entry{position:relative!important;min-height:115px!important;overflow:hidden;background:linear-gradient(110deg,#093b2c,#116046 65%,#093b2c)!important;color:#fff!important;border:3px solid #b99c55!important;border-radius:20px!important;padding:19px 22px 19px 105px!important;box-shadow:0 5px 15px #0d39252c,inset 0 0 0 2px #e7d19b!important}
+.cb-desc-entry::before{content:'';position:absolute;left:10px;top:8px;bottom:8px;width:88px;background:url('palomo-deportivo-descendientes.png') center/contain no-repeat;opacity:.97}
+.cb-desc-entry::after{content:'♧';position:absolute;right:45px;top:10px;font-size:64px;color:#d9c28a;opacity:.28;pointer-events:none}
+.cb-desc-entry strong{font:700 clamp(19px,3.5vw,28px) Georgia,serif!important;color:#fff4d8!important}.cb-desc-entry small{color:#e0e9dc!important;font-size:12px!important}.cb-desc-entry>span:last-child{color:#f4dc99!important;z-index:1}
+@media(max-width:600px){.cb-mobile-weather{padding:17px 14px}.cb-sky-head{align-items:flex-start}.cb-sky-head h3{font-size:18px}#cb-sky-locate{font-size:12px;padding:10px}.cb-sky-main>div:first-child{font-size:52px}.cb-sky-stats{font-size:12px;gap:3px}.cb-desc-entry{padding-left:82px!important;min-height:95px!important}.cb-desc-entry::before{width:70px}.cb-desc-entry strong{font-size:19px!important}}
+
+/* V4: meteorología de portada sin solapamiento y localización consistente */
+.cb-mobile-weather{clear:both!important;margin:22px 0 24px!important;position:relative!important;z-index:0!important;box-sizing:border-box!important}
+.hero-grid{margin-bottom:0!important}
+#cb-sky-locate{display:inline-flex!important;align-items:center;justify-content:center;gap:8px;background:#e9f1f7!important;border:1px solid #a6c4d6!important;color:#153a55!important;border-radius:12px!important;padding:9px 12px!important;min-height:42px!important}
+#cb-sky-locate .cb-location-icon{height:24px;width:24px;object-fit:contain;display:block}
+#cb-sky-locate:hover{background:#fff!important}
+.cb-sky-head{position:relative;z-index:1}
+@media(max-width:600px){.cb-mobile-weather{margin-top:16px!important}.cb-sky-head{gap:10px}.cb-sky-head>div{min-width:0;flex:1}#cb-sky-locate{padding:9px!important}#cb-sky-locate span{font-size:11px}}
+
+/* V5 — botón DESCENDENCIA aprobado y acceso COLOMBOMETEO restaurado */
+.cb-desc-entry-approved{display:block!important;width:100%!important;min-height:unset!important;aspect-ratio:3.95/1!important;padding:0!important;margin-top:14px!important;border:0!important;border-radius:18px!important;background:#00472e url('boton-descendencia-aprobado.png') center/100% 100% no-repeat!important;box-shadow:0 5px 13px #082e2029!important;cursor:pointer!important;overflow:hidden!important}
+.cb-desc-entry-approved::before,.cb-desc-entry-approved::after{display:none!important;content:none!important}
+.cb-desc-sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.cb-desc-entry-approved:focus-visible{outline:3px solid #1d7e60!important;outline-offset:3px!important}
+#inicio .hero-grid>.cb-meteo-restored{grid-column:1/-1!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:14px!important;width:100%!important;min-height:82px!important;height:auto!important;padding:13px 18px!important;background:linear-gradient(115deg,#fdfaf1,#f3f6ef)!important;border:1px solid #d8c69f!important;border-radius:14px!important;color:#064332!important;box-shadow:0 3px 9px #0d392510!important}
+#inicio .hero-grid>.cb-meteo-restored .cb-module-icon{font-size:33px!important;color:#a27b32!important;margin:0!important;width:auto!important;height:auto!important}
+#inicio .hero-grid>.cb-meteo-restored .cb-meteo-tile-copy{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+#inicio .hero-grid>.cb-meteo-restored b{font:700 16px Georgia,serif!important;color:#064332!important;text-shadow:none!important}
+#inicio .hero-grid>.cb-meteo-restored small{font-size:11px!important;color:#6e796f!important;text-shadow:none!important}
+#inicio .hero-grid>.cb-meteo-restored .cb-meteo-arrow{font-size:28px;color:#a27b32;margin-left:auto}
+@media(max-width:600px){.cb-desc-entry-approved{border-radius:12px!important;min-height:0!important;aspect-ratio:3.95/1!important}#inicio .hero-grid>.cb-meteo-restored{min-height:75px!important;padding:12px!important}}
+
+/* V6: recuperar exactamente la disposición de tarjeta protagonista de COLOMBOMETEO. */
+#inicio .hero-grid > .cb-meteo-restored {
+  grid-column:1/-1!important;display:flex!important;flex-direction:column!important;
+  align-items:center!important;justify-content:center!important;text-align:center!important;
+  gap:5px!important;min-height:125px!important;height:125px!important;
+  padding:12px 10px!important;background:#faf7ed!important;
+  border:1px solid #d9c9a9!important;border-radius:14px!important;
+  box-shadow:0 3px 12px #1a382012!important;color:#164b3a!important;
+}
+#inicio .hero-grid > .cb-meteo-restored .cb-module-icon {
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:45px!important;height:45px!important;margin:0!important;color:#a17c38!important;
+}
+#inicio .hero-grid > .cb-meteo-restored .cb-line-icon {width:41px!important;height:41px!important;color:#a17c38!important;filter:none!important;}
+#inicio .hero-grid > .cb-meteo-restored b {font:800 14px Manrope,system-ui,sans-serif!important;color:#164b3a!important;letter-spacing:.02em!important;text-shadow:none!important;}
+#inicio .hero-grid > .cb-meteo-restored small {font:400 10px Manrope,system-ui,sans-serif!important;color:#687a6e!important;text-shadow:none!important;margin:0!important;}
+#inicio .hero-grid > .cb-meteo-restored .cb-meteo-arrow {display:none!important;}
+@media(max-width:600px){#inicio .hero-grid > .cb-meteo-restored{min-height:115px!important;height:115px!important;padding:10px!important;}}
+
+/* V7: desplegable de palomos, fotografía y cielo animado. */
+.cb-pigeons-fold{border:1px solid #d9d1ba;border-radius:15px;background:#faf8f0;margin:14px 0;overflow:hidden}
+.cb-pigeons-fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;min-height:65px;padding:16px 20px;color:#0d4836;font-weight:800;font-size:18px}
+.cb-pigeons-fold>summary::-webkit-details-marker{display:none}.cb-pigeons-fold>summary small{font-weight:500;color:#687b70;font-size:13px}.cb-fold-chevron{transition:transform .25s}.cb-pigeons-fold:not([open]) .cb-fold-chevron{transform:rotate(-90deg)}.cb-pigeons-fold #pigeonList{padding:0 12px 12px}
+.cb-photo-button{cursor:pointer;display:grid!important;place-items:center;overflow:hidden;padding:0!important;border:2px solid #d3ba7d!important;flex-shrink:0}.cb-photo-button img{width:100%;height:100%;object-fit:cover;display:block}.cb-photo-button img[hidden],.cb-photo-button span[hidden]{display:none!important}.cb-photo-button span{font-size:30px!important}
+#cb-sky-icon.cb-animated-weather{width:118px;height:95px;position:relative;flex:0 0 118px;display:block;font-size:initial;overflow:visible;filter:drop-shadow(0 8px 9px #102a3d35)}
+.cb-weather-sun{position:absolute;width:58px;height:58px;left:20px;top:5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff9b1 0%,#ffdc56 42%,#ffa622 82%);box-shadow:0 0 22px 6px #ffe4848a;animation:cb-sun-glow 3.8s ease-in-out infinite}
+.cb-weather-cloud{position:absolute;width:83px;height:37px;left:28px;top:45px;border-radius:30px;background:linear-gradient(155deg,#fff 5%,#e3ecf3 52%,#b7ccdb 100%);box-shadow:0 5px 9px #173c5a33;animation:cb-cloud-drift 6s ease-in-out infinite alternate}
+.cb-weather-cloud:before,.cb-weather-cloud:after{content:'';position:absolute;background:inherit;border-radius:50%}.cb-weather-cloud:before{width:47px;height:47px;left:13px;bottom:11px}.cb-weather-cloud:after{width:37px;height:37px;left:41px;bottom:8px}.cb-weather-cloud.cloud-b{left:6px;top:33px;transform:scale(.65);opacity:.75;animation-delay:-2s}
+.cb-weather-rain,.cb-weather-snow{position:absolute;inset:72px 15px 0 30px;opacity:0;background:repeating-linear-gradient(110deg,transparent 0 12px,#a4dfff 12px 15px,transparent 15px 23px);background-size:27px 27px;animation:cb-precip .6s linear infinite}.cb-weather-snow{background:radial-gradient(circle,#fff 2px,transparent 3px) 0 0/19px 19px;animation-duration:2.5s}
+.cb-weather-lightning{position:absolute;left:67px;top:62px;width:22px;height:36px;background:#ffe15b;clip-path:polygon(48% 0,10% 55%,45% 55%,29% 100%,100% 35%,62% 35%,79% 0);opacity:0;animation:cb-flash 5s infinite}
+.weather-sun .cb-weather-cloud,.weather-sun .cloud-b{opacity:0}.weather-cloud .cb-weather-sun,.weather-fog .cb-weather-sun,.weather-rain .cb-weather-sun,.weather-storm .cb-weather-sun,.weather-snow .cb-weather-sun{opacity:0}.weather-cloud .cb-weather-cloud,.weather-rain .cb-weather-cloud,.weather-storm .cb-weather-cloud,.weather-snow .cb-weather-cloud{background:linear-gradient(155deg,#f5f7fa,#c0d1df 60%,#829bb0)}.weather-rain .cb-weather-rain,.weather-storm .cb-weather-rain,.weather-snow .cb-weather-snow{opacity:1}.weather-storm .cb-weather-lightning{animation-name:cb-flash}
+.weather-fog{opacity:.72}.weather-fog .cb-weather-cloud{filter:blur(3px)}
+@keyframes cb-sun-glow{50%{filter:brightness(1.15);box-shadow:0 0 28px 12px #ffe484aa}}@keyframes cb-cloud-drift{to{translate:9px 0}}@keyframes cb-precip{to{background-position:0 27px}}@keyframes cb-flash{0%,88%,92%,96%,100%{opacity:0}89%,94%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.cb-animated-weather *{animation:none!important}.weather-storm .cb-weather-lightning{opacity:.7}}
+@media(max-width:600px){#cb-sky-icon.cb-animated-weather{transform:scale(.8);margin-right:-15px;margin-left:-10px}.cb-pigeons-fold>summary{font-size:16px}}
+
+/* V7.1 — Iconografía uniforme de navegación: sin glifos de texto. */
+.cb-ui-chevron{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto;width:32px;height:32px;border:1px solid #b8cdbf;border-radius:10px;background:linear-gradient(145deg,#fff,#edf4ee);box-shadow:0 2px 5px #103c2812;color:#16503c;font-size:0!important;line-height:1!important;vertical-align:middle;transition:transform .2s ease,background .2s ease;}
+.cb-ui-chevron::before{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);border-radius:1px;}
+.cb-ui-chevron-right::before{transform:translateX(-2px) rotate(-45deg);}
+.cb-pigeons-fold:not([open]) .cb-fold-chevron{transform:none!important;}
+.cb-pigeons-fold:not([open]) .cb-fold-chevron::before{transform:translateY(2px) rotate(225deg);}
+.cb-lineage-group:not([open]) .cb-lineage-chevron{transform:none!important;}
+.cb-lineage-group:not([open]) .cb-lineage-chevron::before{transform:translateY(2px) rotate(225deg);}
+.cb-pigeons-fold>summary:hover .cb-ui-chevron,.cb-lineage-group>summary:hover .cb-ui-chevron{background:#e1eee4;border-color:#7da58c;}
+.cb-pigeons-fold>summary:focus-visible{outline:3px solid #b68b3d;outline-offset:-3px;}
+.cb-lineage-child-end::after{content:"";display:inline-block;width:7px;height:7px;margin-left:8px;border-right:2px solid currentColor;border-top:2px solid currentColor;transform:rotate(45deg);}
+.cb-sky-link .cb-ui-chevron,.ask .cb-ui-chevron{width:26px;height:26px;border-color:#ffffff75;background:#ffffff20;color:inherit;box-shadow:none;}
+@media(max-width:600px){.cb-ui-chevron{width:30px;height:30px;}}

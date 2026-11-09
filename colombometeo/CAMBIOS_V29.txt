@@ -1,0 +1,8 @@
+COLOMBOMETEO LAB V29 — PRUEBA NO PUBLICAR
+Base: V28 original, conservada sin modificar.
+- Lluvia: gotas más limpias y uniformes en iconos meteorológicos.
+- Análisis técnico: iconos por variable, tamaño de letra y celdas ampliados.
+- Gráfica: línea de temperatura más gruesa con efecto de relieve.
+- Gráfica: marcas de amanecer y atardecer, usando datos diarios sunrise/sunset del modelo y localidad seleccionados, si están disponibles.
+- Se mantienen navegación, estética general y cuatro modelos.
+Requiere conexión a Internet para datos meteorológicos. No sustituye avisos oficiales.

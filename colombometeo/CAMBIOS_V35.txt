@@ -1,0 +1,6 @@
+V35 - FONDOS DINÁMICOS (LABORATORIO / NO PUBLICAR)
+- Previsión semanal: fondo de iconos según código WMO al mediodía.
+- Previsión por horas: fondo por hora y código WMO; noche determinada por salida/puesta del sol.
+- Análisis técnico: gradiente horizontal continuo de nubosidad, noche y transiciones solares.
+- Datos sin cambios, menú desplegable V34 conservado.
+- Cuando falta el código meteorológico, color neutro sin inventar condiciones.

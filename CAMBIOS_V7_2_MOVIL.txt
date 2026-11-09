@@ -1,0 +1,9 @@
+COLOMBAIRE V7.2 — ICONO DEFINITIVO PARA MOVIL
+
+Base: V7.1 aprobada.
+Icono aprobado: COLOMBAIRE arriba, palomar valenciano de madera, atardecer, sin palomo ni bandera.
+Actualizados: icons/icon-192.png, icons/icon-512.png, icons/apple-touch-icon.png y copias de raiz.
+Manifest y apple-touch-icon existentes siguen apuntando a los iconos actualizados.
+Version de comprobacion: 1.0c. Caché offline: colombaire-shell-v1.0c.
+
+IMPORTANTE: guardar JSON en el iPhone antes de actualizar GitHub. No borrar la app instalada ni limpiar Safari. GitHub Pages: main / (root). Subir EL CONTENIDO de Colombaire-main a la raiz del repositorio, no la carpeta contenedora. La copia JSON es una salvaguarda, no una garantia de persistencia de otros datos locales.

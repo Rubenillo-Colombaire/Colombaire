@@ -1,0 +1,8 @@
+COLOMBAIRE V7 · PRUEBA PC · NO PUBLICAR TODAVÍA
+- Mi Palomar: listado plegable, abierto inicialmente.
+- Descendientes: foto editable del ejemplar, comprimida y guardada en la ficha; incluida en exportación completa JSON.
+- Ficha: eliminada la pestaña redundante Genealogía (datos de progenitores intactos).
+- Tiempo en portada: sol, nubes, lluvia, nieve y tormenta animados según descripción meteorológica real.
+- Iconos PWA nuevos en raíz e icons/.
+- NO se han modificado claves de almacenamiento existentes ni funciones de restauración.
+- Verificar en PC antes de publicar; NO sustituir la versión del iPhone todavía.

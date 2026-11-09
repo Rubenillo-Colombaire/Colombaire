@@ -1,0 +1,1 @@
+V39 LABORATORIO. COLOMBOMETEO: entrada directa a index.html; previsión semanal y horaria al principio de Modelos meteorológicos; hora actual resaltada y centrada cuando está visible; gráfica térmica simplificada. Revisar en navegador antes de publicar.

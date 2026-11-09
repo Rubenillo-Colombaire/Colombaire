@@ -54,9 +54,119 @@ document.addEventListener("click",e=>{
 document.querySelectorAll("nav [data-go]").forEach(btn=>btn.addEventListener("click",()=>{navigationHistory=[];}));
 
 // MI PALOMAR
-function render(list=pigeons){const box=$("#pigeonList");$("#pigeonCount").textContent=`${pigeons.length} palomo${pigeons.length===1?"":"s"} registrado${pigeons.length===1?"":"s"}`;box.innerHTML=list.map(p=>{const sx=p.sex==="Macho"?"♂":p.sex==="Hembra"?"♀":"?";const sexClass=p.sex==="Macho"?"cb-sex-male":p.sex==="Hembra"?"cb-sex-female":"cb-sex-unknown";return`<div class="list-card" data-id="${p.id}"><div><b>${p.name||"Sin nombre"}</b><small>${p.ring||"Sin anilla"} · ${p.color||"Sin pelaje"}</small><small>Padre: ${parentName(p,"father")} · Madre: ${parentName(p,"mother")}</small><span class="status-pill ${cbStatusClass(p.status)}">${p.status||"Activo"}</span></div><div class="sex ${sexClass}">${sx}</div></div>`}).join("");box.querySelectorAll(".list-card").forEach(c=>c.onclick=()=>openPigeon(c.dataset.id))}
-function openPigeon(id){currentId=id;const p=byId(id);if(!p)return;$("#f-name").textContent=p.name||"Sin nombre";$("#f-ring").textContent=p.ring||"Sin anilla";["ring","owner","color","sex"].forEach(k=>$("#d-"+k).textContent=p[k]||"Sin registrar");$("#d-birth").textContent=fmtDate(p.birth);$("#d-father").textContent=parentName(p,"father");$("#d-mother").textContent=parentName(p,"mother");const status=document.getElementById('d-status');status.textContent=p.status||'Activo';status.className='status-pill '+cbStatusClass(p.status);document.getElementById('d-sport').textContent=p.sport||'Sin indicar';document.getElementById('d-breeder').textContent=p.breeder||'Sin indicar';go("ficha")}
+function render(list=pigeons){const box=$("#pigeonList");$("#pigeonCount").textContent=`${pigeons.length} palomo${pigeons.length===1?"":"s"} registrado${pigeons.length===1?"":"s"}`;document.getElementById("cb-pigeons-fold-count")?.replaceChildren(document.createTextNode(`(${list.length})`));box.innerHTML=list.map(p=>{const sx=p.sex==="Macho"?"♂":p.sex==="Hembra"?"♀":"?";const sexClass=p.sex==="Macho"?"cb-sex-male":p.sex==="Hembra"?"cb-sex-female":"cb-sex-unknown";return`<div class="list-card" data-id="${p.id}"><div><b>${p.name||"Sin nombre"}</b><small>${p.ring||"Sin anilla"} · ${p.color||"Sin pelaje"}</small><small>Padre: ${parentName(p,"father")} · Madre: ${parentName(p,"mother")}</small><span class="status-pill ${cbStatusClass(p.status)}">${p.status||"Activo"}</span></div><div class="sex ${sexClass}">${sx}</div></div>`}).join("");box.querySelectorAll(".list-card").forEach(c=>c.onclick=()=>openPigeon(c.dataset.id))}
+function openPigeon(id){currentId=id;const p=byId(id);if(!p)return;$("#f-name").textContent=p.name||"Sin nombre";$("#f-ring").textContent=p.ring||"Sin anilla";["ring","owner","color","sex"].forEach(k=>$("#d-"+k).textContent=p[k]||"Sin registrar");$("#d-birth").textContent=fmtDate(p.birth);$("#d-father").textContent=parentName(p,"father");$("#d-mother").textContent=parentName(p,"mother");const status=document.getElementById('d-status');status.textContent=p.status||'Activo';status.className='status-pill '+cbStatusClass(p.status);document.getElementById('d-sport').textContent=p.sport||'Sin indicar';document.getElementById('d-breeder').textContent=p.breeder||'Sin indicar';cbRenderDesc(p);go("ficha")}
+
+// DESCENDENCIA: los vínculos confirmados dependen exclusivamente de IDs.
+function cbRenderDesc(parent){
+ const container=document.getElementById('cb-desc-body'),counter=document.getElementById('cb-desc-count');
+ if(!container||!parent)return;
+ container.replaceChildren();
+ const children=pigeons.filter(c=>c.id!==parent.id&&(c.fatherId===parent.id||c.motherId===parent.id));
+ counter.textContent=children.length+' cría'+(children.length===1?'':'s')+' vinculada'+(children.length===1?'':'s')+' · Ver descendientes';
+ const groups=new Map();
+ for(const c of children){
+  const isFather=c.fatherId===parent.id,otherId=isFather?c.motherId:c.fatherId;
+  const other=otherId?byId(otherId):null;
+  const label=other?(other.name||other.ring||'Sin nombre')+' · '+(other.ring||'Sin anilla'):(isFather?c.mother:c.father)||'Pareja sin registrar';
+  const key=otherId||'texto:'+label;
+  if(!groups.has(key))groups.set(key,{label,items:[],other});
+  groups.get(key).items.push(c);
+ }
+ const norm=t=>String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').replace(/[^a-z0-9]/g,'');
+ const aliases=[parent.name,parent.ring];if(norm(parent.ring)==='al461755')aliases.push('Bumblebee','Bulblebee');
+ const candidates=pigeons.filter(c=>{
+  if(c.id===parent.id||children.includes(c))return false;
+  const field=parent.sex==='Hembra'?c.mother:parent.sex==='Macho'?c.father:'';
+  const n=norm(field);
+  return aliases.some(alias=>{const a=norm(alias);return a.length>=6&&n.includes(a)});
+ });
+ const mk=(tag,cl,txt)=>{const e=document.createElement(tag);if(cl)e.className=cl;if(txt!==undefined)e.textContent=txt;return e};
+ const sexClass=p=>p.sex==='Macho'?'male':p.sex==='Hembra'?'female':'unknown';
+ const sexIcon=p=>p.sex==='Macho'?'♂':p.sex==='Hembra'?'♀':'?';
+ const card=(c,pending)=>{
+  const btn=mk('button','cb-lineage-child '+(pending?'is-pending':''));btn.type='button';
+  const symbol=mk('span','cb-lineage-sex '+sexClass(c),sexIcon(c));
+  const details=mk('span','cb-lineage-child-info');
+  details.append(mk('strong','',c.name||'Sin nombre'),mk('small','',(c.ring||'Sin anilla')+' · '+(c.color||'Pelaje sin registrar')));
+  const end=mk('span','cb-lineage-child-end',pending?'Revisar':'Ver ficha');
+  btn.append(symbol,details,end);
+  btn.addEventListener('click',()=>pending?openForm(c.id):openPigeon(c.id));
+  return btn;
+ };
+ if(!groups.size)container.append(mk('p','cb-lineage-empty','Todavía no hay crías vinculadas a este ejemplar.'));
+ for(const group of groups.values()){
+  const wrap=mk('details','cb-lineage-group');wrap.open=true;
+  const summary=mk('summary','cb-lineage-group-title');
+  const icon=mk('span','cb-lineage-pair-symbol','♡');
+  const title=mk('span','cb-lineage-pair-name','Con '+group.label);
+  const count=mk('span','cb-lineage-group-count',group.items.length+' cría'+(group.items.length===1?'':'s'));
+  const chevron=mk('span','cb-lineage-chevron cb-ui-chevron','');
+  summary.append(icon,title,count,chevron);wrap.append(summary);
+  const body=mk('div','cb-lineage-children');
+  group.items.forEach(c=>body.append(card(c,false)));wrap.append(body);container.append(wrap);
+ }
+ if(candidates.length){
+  const wrap=mk('details','cb-lineage-pending');
+  const sum=mk('summary','');
+  sum.append(mk('span','','◷  Históricos por revisar'),mk('span','cb-lineage-pending-count',String(candidates.length)));
+  wrap.append(sum,mk('p','cb-lineage-pending-note','Coincidencias de texto, NO parentescos confirmados. Revisa los progenitores en la ficha. Nada se modifica hasta guardar.'));
+  const body=mk('div','cb-lineage-children');candidates.forEach(c=>body.append(card(c,true)));wrap.append(body);container.append(wrap);
+ }
+ const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
+ set('cb-lineage-name',parent.name||'Sin nombre');set('cb-lineage-ring',parent.ring||'Sin anilla');
+ set('cb-lineage-meta',(parent.sex||'Sexo sin determinar')+' · '+(parent.color||'Pelaje sin registrar')+' · '+(parent.status||'Activo'));
+ const photo=document.getElementById('cb-lineage-photo'),placeholder=document.getElementById('cb-lineage-photo-placeholder');if(photo&&placeholder){photo.hidden=!parent.photo;photo.removeAttribute('src');if(parent.photo)photo.src=parent.photo;placeholder.hidden=!!parent.photo;}
+
+ const profile=document.querySelector('.cb-lineage-profile');
+ if(profile){profile.classList.toggle('is-female',parent.sex==='Hembra');profile.classList.toggle('is-male',parent.sex==='Macho')}
+ const summary=document.getElementById('cb-lineage-summary');summary.replaceChildren();
+ for(const [symbol,num,label] of [['◈',children.length,'Crías confirmadas'],['♡',groups.size,'Parejas registradas'],['◷',candidates.length,'Históricos por revisar']]){
+  const b=mk('div','cb-lineage-metric');
+  b.append(mk('span','cb-lineage-metric-icon',symbol),mk('strong','',String(num)),mk('span','cb-lineage-metric-label',label));
+  summary.append(b);
+ }
+ const males=children.filter(c=>c.sex==='Macho').length;
+ const females=children.filter(c=>c.sex==='Hembra').length;
+ const unknown=children.length-males-females;
+ const stats=document.getElementById('cb-lineage-stats');stats.replaceChildren();
+ const rows=[['Crías totales',children.length],['♂ Machos',males],['♀ Hembras',females],['? Sexo sin indicar',unknown],['Parejas',groups.size]];
+ for(const [label,value] of rows){const r=mk('div','cb-lineage-stat');r.append(mk('span','',label),mk('strong','',String(value)));stats.append(r)}
+}
+
+function cbOpenLineage(){const p=byId(currentId);if(!p)return;cbRenderDesc(p);go('descendientes')}
+document.getElementById('cb-desc-entry')?.addEventListener('click',cbOpenLineage);
+document.getElementById('cb-desc-tab')?.addEventListener('click',cbOpenLineage);
+document.getElementById('cb-lineage-edit')?.addEventListener('click',()=>{if(currentId)openForm(currentId)});
+// V7: fotografía local asociada al registro; incluida en la exportación JSON de palomos.
+document.getElementById('cb-photo-button')?.addEventListener('click',()=>document.getElementById('cb-photo-input')?.click());
+document.getElementById('cb-photo-input')?.addEventListener('change',async function(){
+ const file=this.files?.[0],p=byId(currentId);if(!file||!p)return;
+ if(!file.type.startsWith('image/')){alert('Selecciona una imagen.');return}
+ try{const bitmap=await createImageBitmap(file),canvas=document.createElement('canvas');const side=320;canvas.width=canvas.height=side;const ctx=canvas.getContext('2d');const crop=Math.min(bitmap.width,bitmap.height);ctx.drawImage(bitmap,(bitmap.width-crop)/2,(bitmap.height-crop)/2,crop,crop,0,0,side,side);bitmap.close();const old=p.photo;p.photo=canvas.toDataURL('image/jpeg',.76);try{save()}catch(err){p.photo=old;alert('No queda espacio para guardar esta foto. Conserva tu copia JSON y utiliza una imagen más pequeña.');return}cbRenderDesc(p)}catch(err){alert('No se pudo procesar la fotografía: '+err.message)}finally{this.value=''}
+});
+
 function fillParentSelects(editId){const f=$("#p-father"),m=$("#p-mother");f.innerHTML='<option value="">Desconocido / no registrado</option>';m.innerHTML='<option value="">Desconocida / no registrada</option>';pigeons.filter(p=>p.id!==editId&&p.sex==="Macho").forEach(p=>f.add(new Option(`${p.name} · ${p.ring||"sin anilla"}`,p.id)));pigeons.filter(p=>p.id!==editId&&p.sex==="Hembra").forEach(p=>m.add(new Option(`${p.name} · ${p.ring||"sin anilla"}`,p.id)))}
+// Sugerencias de progenitores: sin alterar el guardado de identificadores existente.
+function cbInitParentAutocomplete(){
+ for(const [type,sex] of [['father','Macho'],['mother','Hembra']]){
+  const input=document.getElementById('p-'+type+'-text'),select=document.getElementById('p-'+type),box=document.getElementById('cb-'+type+'-suggestions');
+  if(!input||!select||!box)return;
+  const close=()=>{box.hidden=true;input.setAttribute('aria-expanded','false')};
+  const update=()=>{
+   const q=input.value.trim().toLocaleLowerCase('es');box.replaceChildren();
+   if(!q){close();return}
+   const matches=pigeons.filter(p=>p.id!==document.getElementById('p-index').value&&p.sex===sex&&(p.name||'').toLocaleLowerCase('es').startsWith(q)).slice(0,8);
+   for(const p of matches){const b=document.createElement('button');b.type='button';b.setAttribute('role','option');b.textContent=(p.name||'Sin nombre')+' · '+(p.ring||'sin anilla');b.addEventListener('mousedown',e=>e.preventDefault());b.addEventListener('click',()=>{select.value=p.id;input.value='';close();select.dispatchEvent(new Event('change'))});box.append(b)}
+   box.hidden=!matches.length;input.setAttribute('aria-expanded',String(!!matches.length));
+  };
+  input.addEventListener('input',()=>{select.value='';update()});input.addEventListener('focus',update);
+  input.addEventListener('keydown',e=>{if(e.key==='Escape')close();if(e.key==='ArrowDown'&&!box.hidden){e.preventDefault();box.querySelector('button')?.focus()}});
+  select.addEventListener('change',()=>{if(select.value)input.value='';close()});
+  input.addEventListener('blur',()=>setTimeout(close,160));
+ }
+}
+cbInitParentAutocomplete();
 function openForm(id=null){cbSuggestions();currentId=id;const p=id?byId(id):{name:"",ring:"",owner:"",color:"",sex:"",birth:"",father:"",mother:"",fatherId:"",motherId:"",status:"Activo"};$("#formTitle").textContent=id?"EDITAR PALOMO":"NUEVO PALOMO";$("#p-index").value=id||"";["name","ring","owner","color","sex","birth","status"].forEach(k=>$("#p-"+k).value=p[k]||"");$('#p-sport').value=p.sport||'Sin indicar';$('#p-breeder').value=p.breeder||'Sin indicar';$('#p-father-text').value=p.fatherId?'':(p.father&&p.father!=='Desconocido'?p.father:'');$('#p-mother-text').value=p.motherId?'':(p.mother&&p.mother!=='Desconocida'?p.mother:'');fillParentSelects(id);$("#p-father").value=p.fatherId||"";$("#p-mother").value=p.motherId||"";$("#deletePigeon").style.display=id?"inline-block":"none";$("#pigeonForm button[type=submit]").textContent=id?"Guardar cambios":"Guardar palomo";go("palomoForm")}
 for(const role of ["father","mother"]){document.getElementById("p-"+role).addEventListener("change",e=>{if(e.target.value)document.getElementById("p-"+role+"-text").value="";});document.getElementById("p-"+role+"-text").addEventListener("input",e=>{if(e.target.value.trim())document.getElementById("p-"+role).value="";});}
 $("#addPigeon").onclick=()=>openForm();$("#editPigeon").onclick=()=>openForm(currentId);
@@ -530,4 +640,24 @@ document.getElementById('cb-backup-export')?.addEventListener('click',()=>{
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
   a.href=url;a.download='COLOMBAIRE_copia_'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
  }catch(err){alert('No se pudo crear la copia: '+err.message)}
+});
+
+// Restauración explícita de copias colombaire-backup-v1 en el navegador de pruebas.
+document.getElementById('cb-restore-palomar')?.addEventListener('change',async function(e){
+ const file=e.target.files?.[0];if(!file)return;
+ const status=document.getElementById('cb-restore-status');
+ try{
+  const data=JSON.parse(await file.text());
+  if(data?.format!=='colombaire-backup-v1'||!data.storage||typeof data.storage!=='object'||Array.isArray(data.storage))throw Error('El archivo no es una copia completa de COLOMBAIRE.');
+  const entries=Object.entries(data.storage);
+  if(!entries.length||entries.some(([key,val])=>!key.startsWith('colombaire_')||typeof val!=='string'))throw Error('Estructura de copia no válida.');
+  const list=JSON.parse(data.storage.colombaire_pigeons||'null');
+  if(!Array.isArray(list)||list.some(x=>!x||typeof x!=='object'||typeof x.id!=='string'))throw Error('La copia no contiene fichas de palomos válidas.');
+  if(!confirm('ATENCIÓN: se sustituirán los datos COLOMBAIRE de ESTE navegador ('+list.length+' fichas en la copia). ¿Has descargado primero una copia de seguridad de los datos actuales?'))return;
+  // Prevalidación y rollback si falla la escritura.
+  const old={};for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key?.startsWith('colombaire_'))old[key]=localStorage.getItem(key)}
+  try{for(const key of Object.keys(old))localStorage.removeItem(key);for(const [key,val] of entries)localStorage.setItem(key,val)}catch(err){for(const key of Object.keys(localStorage)){if(key.startsWith('colombaire_'))localStorage.removeItem(key)}for(const [key,val] of Object.entries(old))localStorage.setItem(key,val);throw err}
+  location.reload();
+ }catch(err){status.textContent='⚠ No se restauró: '+err.message}
+ finally{e.target.value=''}
 });

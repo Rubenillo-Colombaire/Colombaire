@@ -1,0 +1,7 @@
+COLOMBAIRE CASI DEFINITIVA V2 - PRUEBA MOVIL
+
+Se conserva la integración original y sus datos. Cambios: banner Salud con palomo deportivo suministrado; portada meteorológica compacta con datos Open-Meteo, viento y botón GPS rojo; botón Descendientes visual; COLOMBOMETEO con botón GPS rojo y viento en cabecera; enlace al laboratorio de Concursos V5.
+
+IMPORTANTE: Concursos V5 es laboratorio separado y no sustituye el módulo anterior. No se conectan automáticamente fuentes federativas.
+GPS requiere HTTPS y permiso del usuario. Para iPhone, publicar en HTTPS antes de instalar como PWA. No sobrescribir una instalación con datos sin exportar antes copia de seguridad.
+No se ha efectuado prueba real en iPhone ni se ha validado la integración en navegador.

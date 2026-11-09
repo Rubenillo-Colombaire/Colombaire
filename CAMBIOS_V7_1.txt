@@ -1,0 +1,1 @@
+V7.1: flechas de texto sustituidas por controles chevron elegantes en desplegable Mis palomos, parejas de descendientes y accesos de navegación principales. Sin modificaciones de almacenamiento ni de datos. Mantiene V7. Preparada para revisar en PC antes de GitHub.
