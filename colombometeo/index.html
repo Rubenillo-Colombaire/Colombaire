@@ -1312,12 +1312,21 @@ function renderMoonDays(){
      await new Promise(resolve=>setTimeout(resolve,1200*(attempt+1)));
     }
    }
-   if(version!==requestVersion)return;results[id]=data;
-  }catch(e){if(version!==requestVersion)return;errors[id]=String(e.message||e).slice(0,85)}
+   if(version!==requestVersion)return;results[id]=data;delete errors[id];
+   const notice=document.getElementById('cb-forecast-refresh');
+   if(id===selected&&notice){notice.hidden=true;notice.textContent='';}
+  }catch(e){if(version!==requestVersion)return;errors[id]=String(e.message||e).slice(0,85);
+   if(id===selected){const notice=document.getElementById('cb-forecast-refresh');if(notice){notice.hidden=false;notice.textContent='No se ha podido actualizar la previsión para '+currentPlace.name+'. Se mantienen los datos anteriores. Prueba de nuevo o selecciona otra localidad.';}}
+  }
   if(version===requestVersion)render();
  }
  const townForm=document.getElementById('town-form'),townInput=document.getElementById('town-query'),townResults=document.getElementById('town-results'),townFeedback=document.getElementById('town-feedback');
- function chooseTown(place){gpsAttempt++;currentPlace={name:place.name,latitude:place.latitude,longitude:place.longitude};townInput.value=place.name;townFeedback.textContent='Localidad seleccionada: '+place.name+(place.admin2?' ('+place.admin2+')':'');document.getElementById('hourly-town').textContent=place.name;townResults.replaceChildren();requestVersion++;Object.keys(results).forEach(k=>delete results[k]);Object.keys(errors).forEach(k=>delete errors[k]);render();Object.keys(models).forEach(id=>load(id,requestVersion));window.colomboMap?.flyTo([place.latitude,place.longitude],11,{duration:1});window.refreshSkyMap?.();}
+ function chooseTown(place){gpsAttempt++;currentPlace={name:place.name,latitude:place.latitude,longitude:place.longitude};townInput.value=place.name;townFeedback.textContent='Localidad seleccionada: '+place.name+(place.admin2?' ('+place.admin2+')':'');document.getElementById('hourly-town').textContent=place.name;townResults.replaceChildren();requestVersion++;Object.keys(errors).forEach(k=>delete errors[k]);
+ // Keep the last successful forecast visible until a new location returns usable data.
+ // The banner explicitly marks the data as belonging to the previous location.
+ const notice=document.getElementById('cb-forecast-refresh');
+ if(notice){notice.hidden=false;notice.textContent='Actualizando previsión para '+place.name+'… Los datos visibles pertenecen a la ubicación anterior hasta completar la descarga.';}
+ Object.keys(models).forEach(id=>load(id,requestVersion));window.colomboMap?.flyTo([place.latitude,place.longitude],11,{duration:1});window.refreshSkyMap?.();}
  townForm?.addEventListener('submit',async e=>{e.preventDefault();const q=townInput.value.trim();if(q===currentPlace.name&&q.startsWith('Ubicación (')){townFeedback.textContent='La previsión ya está usando tus coordenadas GPS.';return;}if(q.length<2){townFeedback.textContent='Escribe al menos dos letras.';return;}townFeedback.textContent='Buscando localidades…';townResults.replaceChildren();try{const r=await fetch('https://geocoding-api.open-meteo.com/v1/search?'+new URLSearchParams({name:q,count:'8',language:'es',format:'json',countryCode:'ES'}));if(!r.ok)throw Error('HTTP '+r.status);const d=await r.json();if(!d.results?.length){townFeedback.textContent='No se encontraron localidades. Prueba con otro nombre.';return;}townFeedback.textContent='Selecciona la localidad correcta:';d.results.forEach(place=>{const b=document.createElement('button');b.type='button';b.textContent=place.name+' · '+[place.admin2,place.admin1].filter(Boolean).join(', ');b.addEventListener('click',()=>chooseTown(place));townResults.append(b)});}catch(e){townFeedback.textContent='No se pudo consultar el buscador: '+e.message;}});
  let gpsAttempt=0;
  function setLocationLabel(name){
@@ -1744,7 +1753,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
 #v43-locate-status{display:none!important}
 #v40-place{margin-top:8px!important;min-height:1.3em!important}
 .v40-current .v43-place{height:0!important;margin:0!important;padding:0!important}
-</style></body></html>
+</style>
 <style id="cb-v73-mobile-location-fix">
 .v40-current{position:relative!important}
 .v43-place{position:static!important;display:contents!important}
@@ -1753,3 +1762,14 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
 #v43-locate-status{position:static!important;display:block!important;max-width:100%!important;text-align:center!important;line-height:1.4!important;margin:5px auto!important;padding:0 14px!important;font-size:12px!important;pointer-events:none!important}
 @media(max-width:600px){.v40-current{padding-top:60px!important}#v40-place{font-size:clamp(22px,7vw,32px)!important}}
 </style>
+<style id="cb-v79-cleanup">
+/* Keep one accessible location heading; the forecast title remains the canonical label. */
+#v40-place{display:none!important}
+#v43-locate-status{display:none!important}
+#cb-forecast-refresh{display:block;margin:10px 16px;padding:12px 16px;border:1px solid #b4cfe0;border-radius:12px;background:#edf5fb;color:#173c58;font:600 14px/1.45 system-ui,sans-serif}
+#cb-forecast-refresh[hidden]{display:none!important}
+</style>
+<script>
+(()=>{const notice=document.createElement('div');notice.id='cb-forecast-refresh';notice.hidden=true;notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');const weekly=document.querySelector('#v41-technical')||document.querySelector('.forecast-week')||document.querySelector('#weekly-forecast');const hero=document.querySelector('.v40-current');if(hero)hero.insertAdjacentElement('afterend',notice);else document.body.prepend(notice);})();
+</script>
+</body></html>

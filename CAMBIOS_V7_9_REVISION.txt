@@ -1,0 +1,4 @@
+V7.9 PRUEBA LOCAL - NO PUBLICAR SIN VALIDAR
+Corrección de estructura HTML (cierre único), ocultación de título GPS duplicado y mantenimiento de previsión anterior mientras se descargan nuevos datos.
+En caso de error de descarga se informa y se conserva la previsión anterior.
+Pendiente: validar GPS municipal real en iPhone, respuesta de proveedores y cambio de modelos.
