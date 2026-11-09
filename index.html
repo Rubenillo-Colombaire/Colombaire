@@ -72,11 +72,12 @@
     <button type="button" class="cb-banner-menu" aria-label="Ir a las secciones principales" title="Ir a las secciones principales" aria-expanded="false" aria-controls="cb-quick-menu">☰</button>
     <button type="button" class="cb-banner-bell" id="cb-profile-button" aria-label="Abrir mi cuenta" title="Mi cuenta"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20c.5-4.3 3.2-6.5 7.5-6.5s7 2.2 7.5 6.5"/></svg></button>
   </header>
-  <div id="cb-quick-menu" class="cb-quick-menu" hidden>
-    <button type="button" data-cb-home>⌂ &nbsp; Inicio</button>
-    <a href="./colombometeo/index.html">☀ &nbsp; COLOMBOMETEO</a>
-    <a href="./colombopicas/index.html">▦ &nbsp; COLOMBOPICAS</a>
-    <span class="cb-quick-disabled" aria-disabled="true">◇ &nbsp; COLOMBOMAP · Próximamente</span>
+  <div id="cb-quick-menu" class="cb-quick-menu cb-v74-menu" hidden role="navigation" aria-label="Menú principal">
+    <div class="cb-menu-heading"><span>EXPLORAR COLOMBAIRE</span><button type="button" class="cb-menu-close" aria-label="Cerrar menú">×</button></div>
+    <button type="button" data-cb-home><span class="cb-menu-ico">⌂</span><span><strong>Inicio</strong><small>Portada y resumen</small></span></button>
+    <a href="./colombometeo/index.html"><span class="cb-menu-ico">☀</span><span><strong>COLOMBOMETEO</strong><small>Previsiones y modelos</small></span></a>
+    <a href="./colombopicas/index.html"><span class="cb-menu-ico">▦</span><span><strong>COLOMBOPICAS</strong><small>Seguimiento deportivo</small></span></a>
+    <span class="cb-quick-disabled" aria-disabled="true"><span class="cb-menu-ico">◇</span><span><strong>COLOMBOMAP</strong><small>Próximamente</small></span></span>
   </div>
 
   <dialog id="cb-profile-dialog" aria-label="Mi cuenta COLOMBAIRE">
@@ -229,8 +230,8 @@
           <label><span>Pelaje</span><input id="p-color" list="cb-colors" placeholder="Ej. Azul, Rojo, Bayo..."><datalist id="cb-colors"></datalist></label>
           <label><span>Sexo</span><select id="p-sex" required><option value="">Seleccionar</option><option>Macho</option><option>Hembra</option><option>Sin determinar</option></select></label>
           <label><span>Fecha de nacimiento</span><input id="p-birth" type="date"></label>
-          <label><span>Padre</span><select id="p-father"><option value="">Desconocido / no registrado</option></select><input id="p-father-text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cb-father-suggestions" placeholder="O escribe un padre no registrado"><div class="cb-parent-suggestions" id="cb-father-suggestions" role="listbox" hidden></div><div class="cb-parent-suggestions" id="cb-mother-suggestions" role="listbox" hidden></div><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
-          <label><span>Madre</span><select id="p-mother"><option value="">Desconocida / no registrada</option></select><input id="p-mother-text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cb-mother-suggestions" placeholder="O escribe una madre no registrada"><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Padre</span><select id="p-father"><option value="">Desconocido / no registrado</option></select><input id="p-father-text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cb-father-suggestions" placeholder="O escribe un padre no registrado"><div class="cb-parent-suggestions" id="cb-father-suggestions" role="listbox" hidden></div><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
+          <label><span>Madre</span><select id="p-mother"><option value="">Desconocida / no registrada</option></select><input id="p-mother-text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cb-mother-suggestions" placeholder="O escribe una madre no registrada"><div class="cb-parent-suggestions" id="cb-mother-suggestions" role="listbox" hidden></div><small class="field-help">Selecciona del palomar o escribe su nombre</small></label>
           <label><span>Estado del palomo</span><select id="p-status"><option>Activo</option><option>Cedido</option><option>Baja</option><option>Fallecido</option></select></label><label><span>Etapa deportiva</span><select id="p-sport"><option value="Sin indicar">Sin indicar</option><option value="En competición">En competición</option><option value="En preparación">En preparación</option><option value="Retirado">Retirado</option><option value="No compite">No compite</option></select></label><label><span>Actividad reproductora</span><select id="p-breeder"><option value="Sin indicar">Sin indicar</option><option value="Reproductor">Reproductor</option><option value="No reproductor">No reproductor</option></select><small class="field-help">Puede competir y criar a la vez</small></label>
         </div>
         <div class="form-actions">
@@ -592,6 +593,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
   if(!trigger||!menu)return;
   function close(){menu.hidden=true;trigger.setAttribute('aria-expanded','false')}
   trigger.addEventListener('click',function(event){event.stopPropagation();const opening=menu.hidden;menu.hidden=!opening;trigger.setAttribute('aria-expanded',String(opening))});
+  menu.querySelector('.cb-menu-close')?.addEventListener('click',close);
   menu.querySelector('[data-cb-home]').addEventListener('click',function(){close();const nav=document.querySelector('nav button[data-go="inicio"]');if(nav)nav.click();else document.getElementById('inicio')?.scrollIntoView()});
   document.addEventListener('click',function(event){if(!menu.contains(event.target)&&event.target!==trigger)close()});
   document.addEventListener('keydown',function(event){if(event.key==='Escape')close()});

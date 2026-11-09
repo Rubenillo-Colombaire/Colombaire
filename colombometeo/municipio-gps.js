@@ -1,14 +1,25 @@
+/* COLOMBAIRE V7.7: resolución GPS compartida por portada y COLOMBOMETEO. */
 window.CBReverseMunicipio=async function(lat,lon){
- const timeoutFetch=async url=>{const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),7000);try{const r=await fetch(url,{signal:ctrl.signal});if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}finally{clearTimeout(timer)}};
- const urls=[
-  'https://nominatim.openstreetmap.org/reverse?'+new URLSearchParams({lat,lon,format:'json',zoom:'10',addressdetails:'1',accept_language:'es'}),
-  'https://api.bigdatacloud.net/data/reverse-geocode-client?'+new URLSearchParams({latitude:lat,longitude:lon,localityLanguage:'es'})
+ if(!Number.isFinite(Number(lat))||!Number.isFinite(Number(lon)))return null;
+ const query=new URLSearchParams({latitude:String(lat),longitude:String(lon),localityLanguage:'es'});
+ const services=[
+  {url:'https://api.bigdatacloud.net/data/reverse-geocode-client?'+query,parse:d=>{
+   const a=d.localityInfo?.administrative||[];
+   return a.find(x=>Number(x.adminLevel)===8)?.name||d.city||d.locality||a.find(x=>Number(x.adminLevel)===7)?.name||'';
+  }},
+  {url:'https://nominatim.openstreetmap.org/reverse?'+new URLSearchParams({lat:String(lat),lon:String(lon),format:'json',zoom:'10',addressdetails:'1',accept_language:'es'}),parse:d=>{
+   const a=d.address||{};return a.municipality||a.city||a.town||a.village||a.city_district||'';
+  }}
  ];
- for(let i=0;i<urls.length;i++)try{
-  const d=await timeoutFetch(urls[i]);let name='';
-  if(i===0){const a=d.address||{};name=a.municipality||a.city||a.town||a.village||a.city_district||'';}
-  else {const admin=d.localityInfo?.administrative||[];name=admin.find(a=>a.adminLevel===8)?.name||d.city||d.locality||'';}
-  if(name&&typeof name==='string'&&!/^ubicaci[oó]n/i.test(name))return name.trim();
- }catch(e){/* Try alternate service */}
+ for(const service of services){
+  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),6500);
+  try{
+   const response=await fetch(service.url,{signal:controller.signal,cache:'no-store'});
+   if(!response.ok)continue;
+   const name=service.parse(await response.json());
+   if(typeof name==='string'&&name.trim()&&!/^ubicaci[oó]n|^mi ubicaci[oó]n/i.test(name))return name.trim();
+  }catch(_error){/* Try the next provider. */}
+  finally{clearTimeout(timer)}
+ }
  return null;
 };

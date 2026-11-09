@@ -701,6 +701,11 @@ document.addEventListener('DOMContentLoaded',()=>{const hero=document.querySelec
 .v40-current[data-sky="mixed"] .v40-sun::after{content:"";position:absolute;top:58%;left:-38%;width:170%;height:80%;background:url("nube-bajo-sol-v54.svg") center/contain no-repeat;pointer-events:none;z-index:2}
 .v40-current .v40-place,.v40-current .v40-degrees,.v40-current .v40-desc,.v40-current .v40-rain,.v40-current .v40-caption,#v44-town-label,#v44-day-label{position:relative!important;z-index:8!important;color:white!important;text-shadow:0 2px 7px #102c46,0 0 12px #102c46bb!important}
 @media(prefers-reduced-motion:reduce){.v40-current::before,.v40-current::after{animation:none!important}}
+</style><style id="cb-v75-location-unified">
+#v43-locate{width:auto!important;min-width:132px!important;height:44px!important;padding:8px 12px!important;gap:8px!important;border-radius:12px!important;background:#e9f1f7!important;border:1px solid #a6c4d6!important;color:#153a55!important;box-shadow:0 3px 9px #102b3a30!important;font:600 14px system-ui,-apple-system,sans-serif!important;white-space:nowrap!important}
+#v43-locate .cb-location-icon{width:24px!important;height:24px!important;object-fit:contain!important;display:block!important}
+#v40-place{max-width:calc(100% - 170px)!important;min-height:1.3em!important}
+@media(max-width:440px){#v43-locate{min-width:44px!important;width:44px!important;padding:8px!important}#v43-locate span{display:none!important}#v40-place{max-width:calc(100% - 105px)!important}}
 </style></head><body>
 <div id="nav-backdrop" aria-hidden="true"></div><div class="app"><div class="mobile-menu"><span>☁ COLOMBOMETEO</span><button id="mobile-menu-button" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">☰</button></div>
 <aside class="sidebar" id="menu-principal" aria-label="Menú principal">
@@ -731,7 +736,7 @@ document.addEventListener('DOMContentLoaded',()=>{const hero=document.querySelec
 <button class="modelpick" data-model="GFS"><b>MODELO ESTADOUNIDENSE</b><small>GFS</small></button>
 <button class="modelpick" data-model="ICON"><b>MODELO ALEMÁN</b><small>ICON</small></button>
 <button class="modelpick" data-model="ARPEGE"><b>MODELO FRANCÉS</b><small>ARPEGE</small></button></div><section class="hourly-relocated" aria-label="Previsión por horas de todos los modelos">
-<div id="hourly-panel" class="panel-title" style="margin-top:17px"><h2>Previsión meteorológica</h2><span id="hourly-town">Sollana</span></div>
+<div id="hourly-panel" class="panel-title" style="margin-top:17px"><h2>Previsión meteorológica</h2><span id="hourly-town">Valencia</span></div>
 <section class="lab-daylight" aria-label="Propuesta de franja de luz solar">
 <div class="lab-daylight-heading"><strong>🌅 Luz del día</strong><span>Diseño de prueba · horas astronómicas por conectar</span></div>
 <div class="lab-daylight-sky"><span>☾</span><span>☀</span><span>☾</span></div>
@@ -758,7 +763,7 @@ document.addEventListener('DOMContentLoaded',()=>{const hero=document.querySelec
 <div class="table-key"><span>↔ Desliza para ver las siguientes horas</span><span>Meteorología: 24 horas consecutivas · Luna: próximos 7 días · — indica sin datos</span></div>
 
 </section>
-<div class="location-search"><label for="town-query">📍 Pronóstico de una localidad</label><button id="town-locate" class="town-locate" type="button">⌖ Usar mi ubicación</button><form id="town-form"><input id="town-query" type="search" placeholder="Buscar pueblo o ciudad…" value="Sollana" autocomplete="off" aria-label="Buscar localidad"><button type="submit">Buscar</button></form><div id="town-feedback" role="status">Localidad: Sollana (Valencia)</div><div id="town-results" aria-label="Resultados de localidades"></div></div>
+<div class="location-search"><label for="town-query">📍 Pronóstico de una localidad</label><button id="town-locate" class="town-locate" type="button">⌖ Usar mi ubicación</button><form id="town-form"><input id="town-query" type="search" placeholder="Buscar pueblo o ciudad…" autocomplete="off" aria-label="Buscar localidad"><button type="submit">Buscar</button></form><div id="town-feedback" role="status">Selecciona una localidad o utiliza el GPS.</div><div id="town-results" aria-label="Resultados de localidades"></div></div>
 <div class="metrics"><div class="metric"><b>🌡️ Temperatura</b><strong>— °C</strong></div><div class="metric"><b>☂ Precipitación</b><strong>— mm</strong></div><div class="metric"><b>💨 Viento</b><strong>— km/h</strong></div><div class="metric"><b>☔ Probabilidad</b><strong>— %</strong></div></div>
 <div class="consensus"><b>🤝 Coincidencia entre modelos</b><div class="bar"><span></span></div><strong>Por calcular</strong><p class="small">Se calculará con datos reales y una metodología transparente.</p></div>
 </section></div>
@@ -974,7 +979,7 @@ function renderMoonDays(){
   tile.append(label,disk,desc,percent);target.append(tile);
  }
 }
- const results={};const errors={};let selected='ECMWF';let currentPlace={name:'Sollana',latitude:39.278,longitude:-0.382};let requestVersion=0;
+ const results={};const errors={};let selected='ECMWF';let currentPlace={name:'Valencia',latitude:39.4699,longitude:-0.3763};let requestVersion=0;
  const metric=panel.querySelectorAll('.metrics .metric strong');
  const hourTable=panel.querySelector('.hourtable');
  const cells=hourTable?.querySelectorAll('tbody tr');
@@ -1312,32 +1317,40 @@ function renderMoonDays(){
   if(version===requestVersion)render();
  }
  const townForm=document.getElementById('town-form'),townInput=document.getElementById('town-query'),townResults=document.getElementById('town-results'),townFeedback=document.getElementById('town-feedback');
- function chooseTown(place){currentPlace={name:place.name,latitude:place.latitude,longitude:place.longitude};townInput.value=place.name;townFeedback.textContent='Localidad seleccionada: '+place.name+(place.admin2?' ('+place.admin2+')':'');document.getElementById('hourly-town').textContent=place.name;townResults.replaceChildren();requestVersion++;Object.keys(results).forEach(k=>delete results[k]);Object.keys(errors).forEach(k=>delete errors[k]);render();Object.keys(models).forEach(id=>load(id,requestVersion));window.colomboMap?.flyTo([place.latitude,place.longitude],11,{duration:1});window.refreshSkyMap?.();}
+ function chooseTown(place){gpsAttempt++;currentPlace={name:place.name,latitude:place.latitude,longitude:place.longitude};townInput.value=place.name;townFeedback.textContent='Localidad seleccionada: '+place.name+(place.admin2?' ('+place.admin2+')':'');document.getElementById('hourly-town').textContent=place.name;townResults.replaceChildren();requestVersion++;Object.keys(results).forEach(k=>delete results[k]);Object.keys(errors).forEach(k=>delete errors[k]);render();Object.keys(models).forEach(id=>load(id,requestVersion));window.colomboMap?.flyTo([place.latitude,place.longitude],11,{duration:1});window.refreshSkyMap?.();}
  townForm?.addEventListener('submit',async e=>{e.preventDefault();const q=townInput.value.trim();if(q===currentPlace.name&&q.startsWith('Ubicación (')){townFeedback.textContent='La previsión ya está usando tus coordenadas GPS.';return;}if(q.length<2){townFeedback.textContent='Escribe al menos dos letras.';return;}townFeedback.textContent='Buscando localidades…';townResults.replaceChildren();try{const r=await fetch('https://geocoding-api.open-meteo.com/v1/search?'+new URLSearchParams({name:q,count:'8',language:'es',format:'json',countryCode:'ES'}));if(!r.ok)throw Error('HTTP '+r.status);const d=await r.json();if(!d.results?.length){townFeedback.textContent='No se encontraron localidades. Prueba con otro nombre.';return;}townFeedback.textContent='Selecciona la localidad correcta:';d.results.forEach(place=>{const b=document.createElement('button');b.type='button';b.textContent=place.name+' · '+[place.admin2,place.admin1].filter(Boolean).join(', ');b.addEventListener('click',()=>chooseTown(place));townResults.append(b)});}catch(e){townFeedback.textContent='No se pudo consultar el buscador: '+e.message;}});
+ let gpsAttempt=0;
+ function setLocationLabel(name){
+  currentPlace.name=name;
+  townInput.value=name==='Ubicación GPS'?'':name;
+  const hourly=document.getElementById('hourly-town');if(hourly)hourly.textContent=name;
+  for(const id of ['v40-place','v44-town-label']){const el=document.getElementById(id);if(el)el.textContent=name;}
+ }
  document.getElementById('town-locate')?.addEventListener('click',()=>{
-  if(!navigator.geolocation){townFeedback.textContent='La geolocalización no está disponible.';return;}
-  townFeedback.textContent='Solicitando permiso de ubicación al iPhone…';
-  navigator.geolocation.getCurrentPosition(
-   async p=>{
-    const latitude=p.coords.latitude,longitude=p.coords.longitude;
-    const fallback='Mi ubicación';
-    // Forecast by GPS coordinates is valid even when reverse geocoding is unavailable.
-    chooseTown({name:fallback,latitude,longitude});
-    townFeedback.textContent='Coordenadas GPS obtenidas. Identificando localidad…';
-    const name=await window.CBReverseMunicipio(latitude,longitude);
-    if(name){
-     currentPlace.name=name;townInput.value=name;document.getElementById('hourly-town').textContent=name;
-     const heroPlace=document.getElementById('v40-place');if(heroPlace)heroPlace.textContent=name;
-     townFeedback.textContent='Municipio identificado: '+name;
-    }else{
-     townFeedback.textContent='GPS obtenido, pero no se pudo consultar el municipio desde este archivo. Selecciona la localidad en el buscador inferior o prueba desde HTTPS.';
-     const heroPlace=document.getElementById('v40-place');if(heroPlace)heroPlace.textContent='Municipio no identificado';
-     currentPlace.name='Municipio no identificado';townInput.value='';document.getElementById('hourly-town').textContent='Municipio no identificado';
+  const attempt=++gpsAttempt;
+  if(!navigator.geolocation){townFeedback.textContent='Este navegador no permite utilizar el GPS.';return;}
+  townFeedback.textContent='Solicitando permiso de ubicación…';
+  navigator.geolocation.getCurrentPosition(async pos=>{
+   if(attempt!==gpsAttempt)return;
+   const latitude=pos.coords.latitude,longitude=pos.coords.longitude;
+   // Never reuse the previously selected town as a GPS result.
+   chooseTown({name:'Ubicación GPS',latitude,longitude});
+   const activeAttempt=gpsAttempt;
+   setLocationLabel('Ubicación GPS');
+   townFeedback.textContent='Coordenadas GPS recibidas. Identificando municipio con el mismo sistema que COLOMBAIRE…';
+   let name=null;
+   try{
+    if(typeof window.CBReverseMunicipio==='function'){
+     name=await Promise.race([window.CBReverseMunicipio(latitude,longitude),new Promise(resolve=>setTimeout(()=>resolve(null),16500))]);
     }
-   },
-   e=>{townFeedback.textContent='No se pudo obtener la ubicación: '+e.message;},
-   {enableHighAccuracy:false,timeout:15000,maximumAge:120000}
-  );
+   }catch(e){name=null;}
+   if(activeAttempt!==gpsAttempt)return;
+   if(name){setLocationLabel(name);townFeedback.textContent='Municipio identificado por GPS: '+name;try{sessionStorage.setItem('cb_last_gps_municipio',JSON.stringify({name,latitude,longitude,at:Date.now()}));}catch(_e){}}
+   else {setLocationLabel('Ubicación GPS');townFeedback.textContent='GPS correcto, pero los servicios externos no han identificado el municipio. La previsión usa las coordenadas GPS, no Sollana. Puedes seleccionar una localidad manualmente.';}
+  },err=>{
+   if(attempt!==gpsAttempt)return;
+   townFeedback.textContent='No se pudo obtener la ubicación ('+err.message+'). Comprueba los permisos o prueba desde HTTPS.';
+  },{enableHighAccuracy:false,timeout:15000,maximumAge:0});
  });
  document.getElementById('locate-me')?.addEventListener('click',()=>{const hint=document.getElementById('zoom-hint');if(!navigator.geolocation){hint.textContent='Geolocalización no disponible en este navegador';return;}hint.textContent='Solicitando permiso de ubicación…';navigator.geolocation.getCurrentPosition(pos=>{const lat=pos.coords.latitude,lon=pos.coords.longitude;window.colomboMap?.flyTo([lat,lon],12,{duration:1.2});hint.textContent='Mi ubicación · aproximada';},err=>{hint.textContent='Ubicación no disponible ('+err.message+'). Si abres el archivo local, prueba desde HTTPS.';},{enableHighAccuracy:false,timeout:12000});});
  render();Object.keys(models).forEach(id=>load(id,requestVersion));
@@ -1572,19 +1585,19 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
  // Ubicación: ejecutarse DESPUÉS de la construcción de la portada V40.
  if(hero){
   const prior=hero.querySelector('.v42-location-btn');if(prior)prior.remove();
-  const label=document.getElementById('v40-place');if(label)label.style.display='none';
+  const label=document.getElementById('v40-place');if(label)label.style.display='block';
   let row=hero.querySelector('.v43-place');if(!row){
    row=document.createElement('div');row.className='v43-place';
-   row.innerHTML='<button type="button" id="v43-locate">📍 <span id="v43-town">Mi ubicación</span></button><small id="v43-locate-status" role="status"></small>';
+   row.innerHTML='<button type="button" id="v43-locate" aria-label="Mi ubicación">⌖</button>';
    const temp=hero.querySelector('.v40-degrees');hero.insertBefore(row,temp||hero.firstChild);
   }
-  const update=()=>{const town=document.getElementById('hourly-town')?.textContent?.trim();if(town)document.getElementById('v43-town').textContent=town+' · Cambiar';};
+  const update=()=>{const town=document.getElementById('hourly-town')?.textContent?.trim();if(town){const label=document.getElementById('v40-place');if(label){label.style.display='block';label.textContent=town;}}};
   update();const town=document.getElementById('hourly-town');if(town)new MutationObserver(update).observe(town,{subtree:true,childList:true,characterData:true});
   document.getElementById('v43-locate').onclick=()=>{
-   const status=document.getElementById('v43-locate-status');status.textContent='Solicitando permiso para localizarte…';
+   const status=document.getElementById('town-feedback');if(status)status.textContent='Solicitando permiso para localizarte…';
    const original=document.getElementById('town-locate');
-   if(original){original.click();setTimeout(()=>{status.textContent='Si no se actualiza, selecciona una localidad en el buscador inferior.';update()},2800)}
-   else status.textContent='Selecciona tu localidad en el buscador inferior.';
+   if(original){original.click();setTimeout(update,2800)}
+   else if(status)status.textContent='Selecciona tu localidad en el buscador inferior.';
   };
  }
  // Trasladar todas las notas técnicas restantes a un único desplegable inferior.
@@ -1715,7 +1728,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
  const hero=document.querySelector('.v40-current');if(!hero)return;
  const btn=document.getElementById('v43-locate');
- if(btn){btn.innerHTML='<img class="cb-location-icon" src="icono-ubicacion-negro.png" alt="">';btn.setAttribute('aria-label','Mi ubicación');btn.title='Mi ubicación';}
+ if(btn){btn.innerHTML='<img class="cb-location-icon" src="../icono-ubicacion-negro.png" alt=""><span>Mi ubicación</span>';btn.setAttribute('aria-label','Mi ubicación');btn.title='Mi ubicación';}
  const town=document.getElementById('hourly-town'),title=document.getElementById('v44-town-label');
  const clean=s=>/^(Ubicación\s*\(|\s*\d{1,3}\.\d+°?\s*[,;]\s*-?\d)/i.test(s||'')?'Mi ubicación':(s||'');
  if(town){const sync=()=>{const value=clean(town.textContent.trim());if(title&&title.textContent!==value)title.textContent=value||'Selecciona una localidad';};new MutationObserver(sync).observe(town,{childList:true,characterData:true,subtree:true});sync();}
@@ -1726,4 +1739,16 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
  if(source){const sync=()=>{const value=source.querySelector('strong')?.textContent?.trim();if(value)windText.textContent='Viento: '+value};new MutationObserver(sync).observe(source,{childList:true,subtree:true,characterData:true});sync();}
 },400));
 </script>
-</body></html>
+<style id="cb-v74-geo">
+#v43-locate-status{display:none!important}
+#v40-place{margin-top:8px!important;min-height:1.3em!important}
+.v40-current .v43-place{height:0!important;margin:0!important;padding:0!important}
+</style></body></html>
+<style id="cb-v73-mobile-location-fix">
+.v40-current{position:relative!important}
+.v43-place{position:static!important;display:contents!important}
+#v40-place{display:block!important;position:relative!important;max-width:calc(100% - 115px)!important;margin:0 auto 8px!important;overflow-wrap:break-word!important;text-align:center!important;line-height:1.2!important}
+#v43-locate{position:absolute!important;right:14px!important;top:14px!important;z-index:12!important;width:48px!important;height:48px!important;border-radius:12px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#e9f1f7!important;border:1px solid #a6c4d6!important;box-shadow:0 3px 9px #102b3a44!important;color:#143c5e!important}
+#v43-locate-status{position:static!important;display:block!important;max-width:100%!important;text-align:center!important;line-height:1.4!important;margin:5px auto!important;padding:0 14px!important;font-size:12px!important;pointer-events:none!important}
+@media(max-width:600px){.v40-current{padding-top:60px!important}#v40-place{font-size:clamp(22px,7vw,32px)!important}}
+</style>

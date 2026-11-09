@@ -1,0 +1,1 @@
+V7.5 PRUEBA: botón Mi ubicación de COLOMBOMETEO armonizado con COLOMBAIRE (texto + icono, responsive); laboratorio independiente con nubes más grandes y rayos visibles sincronizados con flash. No publicado ni probado en iPhone. No se modifica almacenamiento de palomos.

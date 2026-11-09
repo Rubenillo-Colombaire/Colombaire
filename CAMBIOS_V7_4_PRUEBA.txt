@@ -1,0 +1,1 @@
+V7.4 PRUEBA - No publicar en GitHub todavía. Menú renovado, títulos sanitarios con cabecera, ubicación GPS sin texto de localización perpetua, laboratorio de lluvia con gotas individuales y mayor nubosidad. GPS desde file:// puede no permitir geocodificación: probar por HTTPS. No se ha verificado en iPhone real.

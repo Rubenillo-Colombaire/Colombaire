@@ -1,0 +1,7 @@
+COLOMBAIRE V7.3 - PRUEBA LOCAL / NO PUBLICAR TODAVIA
+
+Correcciones aplicadas: desplegable Madre anclado a su campo; flechas de retorno centradas; tarjetas de enfermedades más legibles; menú principal refinado; ubicación COLOMBOMETEO sin título duplicado, botón visual unificado y ajustes de solapamiento.
+
+Pendiente de validar en iPhone y completar: recarga de datos horarios/modelos y animaciones meteorológicas realistas en producción. El laboratorio meteorológico es una prueba visual independiente, NO usa datos de predicción reales.
+
+No se ha modificado el formato ni las claves de almacenamiento de los palomos. Conservar siempre copia JSON.

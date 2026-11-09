@@ -746,3 +746,36 @@ nav .cb-line-icon{width:22px;height:22px;margin:0 auto 3px;color:inherit}
 .cb-lineage-child-end::after{content:"";display:inline-block;width:7px;height:7px;margin-left:8px;border-right:2px solid currentColor;border-top:2px solid currentColor;transform:rotate(45deg);}
 .cb-sky-link .cb-ui-chevron,.ask .cb-ui-chevron{width:26px;height:26px;border-color:#ffffff75;background:#ffffff20;color:inherit;box-shadow:none;}
 @media(max-width:600px){.cb-ui-chevron{width:30px;height:30px;}}
+
+/* COLOMBAIRE V7.3: correcciones de ergonomía iPhone */
+.back.app-back{display:inline-flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;line-height:1!important;padding:0!important;font-family:Arial,sans-serif!important;font-weight:500!important;font-size:36px!important;flex-shrink:0!important}
+.cb-parent-suggestions{position:relative!important;z-index:12!important;width:100%;box-sizing:border-box}
+.disease-card{border-left:5px solid #b69a58!important;box-shadow:0 4px 13px #163c2910;gap:10px!important}
+.disease-card b{font-size:clamp(20px,4.8vw,26px)!important;font-weight:800!important;color:#0e4635!important;line-height:1.15!important;letter-spacing:.015em!important;margin-bottom:9px!important}
+.disease-card small{font-size:clamp(13px,3.3vw,15px)!important;line-height:1.5!important}
+.disease-card:focus-visible{outline:3px solid #b69a58}
+.cb-quick-menu{border:1px solid #bca36b!important;border-radius:16px!important;top:calc(112px + 8px)!important;padding:12px!important;background:#faf7ef!important;box-shadow:0 16px 38px #0e342a55!important;overflow:hidden}
+.cb-quick-menu a,.cb-quick-menu button,.cb-quick-menu span{font-size:15px!important;font-weight:650!important;padding:15px 16px!important;border-bottom:1px solid #e7e1d4!important;border-radius:8px!important;line-height:1.4!important}
+.cb-quick-menu a:hover,.cb-quick-menu button:hover,.cb-quick-menu a:focus-visible,.cb-quick-menu button:focus-visible{background:#e5eee5!important}
+.cb-quick-menu .cb-quick-disabled{border-bottom:0!important}
+@media(max-width:700px){.cb-quick-menu{top:calc(95px + 7px)!important;left:12px!important;right:12px!important;width:calc(100vw - 24px)!important;max-width:360px!important}}
+
+/* V7.4: menú premium y jerarquía de fichas sanitarias */
+.cb-quick-menu.cb-v74-menu{position:absolute!important;z-index:999!important;left:14px!important;right:auto!important;top:clamp(58px,10vw,98px)!important;width:min(370px,calc(100% - 28px))!important;max-width:none!important;background:#f9f6ec!important;border:1px solid #bda46d!important;border-radius:17px!important;padding:10px!important;box-shadow:0 20px 45px #102f2760!important}
+.cb-v74-menu[hidden]{display:none!important}
+.cb-v74-menu .cb-menu-heading{display:flex;justify-content:space-between;align-items:center;padding:7px 10px 11px;color:#94763c;font-size:11px;font-weight:850;letter-spacing:.15em}
+.cb-v74-menu .cb-menu-close{width:30px!important;height:30px!important;min-height:30px!important;padding:0!important;border:0!important;border-radius:8px!important;background:#e9e3d5!important;color:#174735!important;font-size:22px!important;line-height:1!important}
+.cb-v74-menu>a,.cb-v74-menu>button:not(.cb-menu-close),.cb-v74-menu>.cb-quick-disabled{display:flex!important;align-items:center!important;text-align:left!important;gap:13px!important;padding:12px!important;margin:3px 0!important;min-height:64px!important;width:100%!important;background:transparent!important;border:0!important;border-bottom:1px solid #e5decd!important;border-radius:10px!important;color:#174735!important;text-decoration:none!important;box-sizing:border-box!important}
+.cb-v74-menu>a:hover,.cb-v74-menu>button:hover{background:#e7eee7!important}
+.cb-v74-menu .cb-menu-ico{display:flex!important;align-items:center!important;justify-content:center!important;width:40px!important;height:40px!important;flex:none!important;background:#154a39!important;border-radius:11px!important;color:#f4e5b7!important;font-size:25px!important;font-weight:500!important}
+.cb-v74-menu strong{display:block!important;font-size:14px!important;letter-spacing:.025em!important;line-height:1.3!important}
+.cb-v74-menu small{display:block!important;font-size:12px!important;color:#718179!important;font-weight:450!important;margin-top:3px!important}
+.cb-v74-menu>.cb-quick-disabled{opacity:.56!important}
+.disease-card{position:relative!important;display:flex!important;align-items:center!important;border:1px solid #ded7c6!important;border-left:0!important;border-radius:14px!important;overflow:hidden!important;padding:0!important;background:#fffdfa!important;box-shadow:0 4px 14px #163c2912!important}
+.disease-card>div{flex:1!important;min-width:0!important;padding:0 15px 15px!important}
+.disease-card b{display:block!important;margin:0 -15px 12px!important;padding:12px 15px!important;background:linear-gradient(110deg,#124b3a,#286b50)!important;color:#fffaf0!important;font:700 clamp(19px,4.8vw,25px)/1.25 Georgia,serif!important;letter-spacing:.025em!important}
+.disease-card:nth-child(3n+2) b{background:linear-gradient(110deg,#17415a,#32748a)!important}
+.disease-card:nth-child(3n+3) b{background:linear-gradient(110deg,#65412f,#9a6b42)!important}
+.disease-card small{display:block!important;margin:5px 0!important;color:#65766f!important;font-size:clamp(13px,3.3vw,15px)!important;line-height:1.4!important}
+.disease-card .disease-type{align-self:flex-end!important;margin:0 12px 13px 0!important;white-space:nowrap!important}
+@media(max-width:700px){.cb-quick-menu.cb-v74-menu{top:58px!important;left:10px!important;right:10px!important;width:calc(100% - 20px)!important}}
