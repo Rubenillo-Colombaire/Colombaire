@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>COLOMBOMETEO V53 · Laboratorio</title>
+<title>COLOMBOMETEO V7.11 · Laboratorio</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--navy:#102b45;--blue:#0875b8;--pale:#edf4f8;--line:#dce7ef;--ink:#18354b}
@@ -1342,25 +1342,34 @@ function renderMoonDays(){
   navigator.geolocation.getCurrentPosition(async pos=>{
    if(attempt!==gpsAttempt)return;
    const latitude=pos.coords.latitude,longitude=pos.coords.longitude;
-   // Never reuse the previously selected town as a GPS result.
-   chooseTown({name:'Ubicación GPS',latitude,longitude});
-   const activeAttempt=gpsAttempt;
-   setLocationLabel('Ubicación GPS');
-   townFeedback.textContent='Coordenadas GPS recibidas. Identificando municipio con el mismo sistema que COLOMBAIRE…';
+   townFeedback.textContent='Coordenadas recibidas. Identificando municipio…';
+   // V7.11: resolve the municipality BEFORE chooseTown; chooseTown invalidates gpsAttempt.
+   // A fallback forecast still uses the exact GPS coordinates if reverse geocoding fails.
    let name=window.CBGPSMunicipioCache?.get(latitude,longitude)||null;
-   if(name){setLocationLabel(name);townFeedback.textContent='Municipio compartido con COLOMBAIRE: '+name;}
-   try{
-    if(!name&&typeof window.CBReverseMunicipio==='function'){
-     name=await Promise.race([window.CBReverseMunicipio(latitude,longitude),new Promise(resolve=>setTimeout(()=>resolve(null),16500))]);
-    }
-   }catch(e){name=null;}
-   if(activeAttempt!==gpsAttempt)return;
-   if(name){setLocationLabel(name);window.CBGPSMunicipioCache?.save(name,latitude,longitude);townFeedback.textContent='Municipio identificado por GPS: '+name;try{sessionStorage.setItem('cb_last_gps_municipio',JSON.stringify({name,latitude,longitude,at:Date.now()}));}catch(_e){}}
-   else {setLocationLabel('Ubicación GPS');townFeedback.textContent='GPS correcto, pero los servicios externos no han identificado el municipio. La previsión usa las coordenadas GPS, no Sollana. Puedes seleccionar una localidad manualmente.';}
+   let origin=name?'caché compartida':'servicio de municipios';
+   if(!name){
+    try{
+     if(typeof window.CBReverseMunicipio==='function'){
+      name=await Promise.race([window.CBReverseMunicipio(latitude,longitude),new Promise(resolve=>setTimeout(()=>resolve(null),16500))]);
+     }else{origin='módulo de municipios no cargado';}
+    }catch(_e){name=null;origin='consulta no disponible';}
+   }
+   if(attempt!==gpsAttempt)return; // A different town was selected while resolving GPS.
+   const finalName=(typeof name==='string'&&name.trim())?name.trim():'Ubicación GPS';
+   chooseTown({name:finalName,latitude,longitude});
+   // chooseTown has now invalidated the previous GPS token intentionally.
+   setLocationLabel(finalName);
+   if(name){
+    window.CBGPSMunicipioCache?.save(finalName,latitude,longitude);
+    townFeedback.textContent='Municipio identificado por GPS: '+finalName+' ('+origin+').';
+    try{sessionStorage.setItem('cb_last_gps_municipio',JSON.stringify({name:finalName,latitude,longitude,at:Date.now()}));}catch(_e){}
+   }else{
+    townFeedback.textContent='GPS correcto y previsión por coordenadas. No se pudo identificar el municipio ('+origin+').';
+   }
   },err=>{
    if(attempt!==gpsAttempt)return;
    townFeedback.textContent='No se pudo obtener la ubicación ('+err.message+'). Comprueba los permisos o prueba desde HTTPS.';
-  },{enableHighAccuracy:false,timeout:15000,maximumAge:0});
+  },{enableHighAccuracy:false,timeout:15000,maximumAge:300000});
  });
  document.getElementById('locate-me')?.addEventListener('click',()=>{const hint=document.getElementById('zoom-hint');if(!navigator.geolocation){hint.textContent='Geolocalización no disponible en este navegador';return;}hint.textContent='Solicitando permiso de ubicación…';navigator.geolocation.getCurrentPosition(pos=>{const lat=pos.coords.latitude,lon=pos.coords.longitude;window.colomboMap?.flyTo([lat,lon],12,{duration:1.2});hint.textContent='Mi ubicación · aproximada';},err=>{hint.textContent='Ubicación no disponible ('+err.message+'). Si abres el archivo local, prueba desde HTTPS.';},{enableHighAccuracy:false,timeout:12000});});
  render();Object.keys(models).forEach(id=>load(id,requestVersion));
@@ -1733,7 +1742,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 .cb-hero-wind{display:flex!important;align-items:center;gap:9px;justify-content:center}
 .cb-wind-icon{width:30px;height:24px;object-fit:contain;flex:none}
 </style>
-<script src="municipio-gps.js"></script>
+<script src="municipio-gps.js?v=711"></script>
 <script id="cb-v3-location-wind">
 document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
  const hero=document.querySelector('.v40-current');if(!hero)return;
