@@ -5,7 +5,7 @@ const seedPigeons=[
 ];
 const makeId=(prefix="x")=>prefix+"-"+Date.now()+"-"+Math.random().toString(36).slice(2,7);
 const defaultTraits=["Perseguidor","Constante","Fuerte","Ágil","Inteligente","Buen cierre","Buen reproductor"];
-let pigeons=JSON.parse(localStorage.getItem("colombaire_pigeons")||"null")||seedPigeons;
+let pigeons=JSON.parse(localStorage.getItem("colombaire_pigeons")||"null")||[];
 pigeons=pigeons.map(p=>({...p,id:p.id||makeId("p"),fatherId:p.fatherId||"",motherId:p.motherId||""}));
 let pairs=JSON.parse(localStorage.getItem("colombaire_pairs")||"[]");
 let currentId=null,currentPairId=null,currentClutchId=null,currentChickId=null;
