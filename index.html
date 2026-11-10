@@ -99,7 +99,12 @@
       <input id="cb-profile-login-email" type="email" autocomplete="email" required>
       <label for="cb-profile-login-password">Contraseña</label>
       <input id="cb-profile-login-password" type="password" autocomplete="current-password" required>
-      <button type="submit">Iniciar sesión</button>
+      <label id="cb-register-name-label" for="cb-register-name" hidden>Nombre o apodo de colombaire</label>
+      <input id="cb-register-name" type="text" minlength="2" maxlength="60" autocomplete="nickname" placeholder="Tu nombre o apodo" hidden>
+      <label id="cb-register-confirm-label" for="cb-register-confirm" hidden>Repite la contraseña</label>
+      <input id="cb-register-confirm" type="password" autocomplete="new-password" minlength="6" hidden>
+      <button type="submit" id="cb-auth-submit">Iniciar sesión</button>
+      <button type="button" id="cb-auth-switch" style="background:#eee7d7;color:#194b37">¿No tienes cuenta? Crear cuenta</button>
     </form>
     <button type="button" id="cb-profile-logout" hidden>Cerrar sesión</button>
     <p id="cb-profile-result" role="status" aria-live="polite"></p>
@@ -472,7 +477,12 @@
 const $=id=>document.getElementById(id),dialog=$('cb-profile-dialog'),open=$('cb-profile-button'),close=$('cb-profile-close'),form=$('cb-profile-form'),out=$('cb-profile-logout'),status=$('cb-profile-state'),email=$('cb-profile-email'),result=$('cb-profile-result');
 const identity=$('cb-profile-identity'),nameText=$('cb-profile-display-name'),nameForm=$('cb-profile-name-form'),nameInput=$('cb-profile-name-input'),editName=$('cb-profile-edit-name'),cancelName=$('cb-profile-name-cancel');
 if(!dialog||!open)return;
-let client=null,busy=false,currentUser=null;
+let client=null,busy=false,currentUser=null,registerMode=false;
+const authSubmit=$('cb-auth-submit'),authSwitch=$('cb-auth-switch'),registerName=$('cb-register-name'),registerNameLabel=$('cb-register-name-label'),registerConfirm=$('cb-register-confirm'),registerConfirmLabel=$('cb-register-confirm-label'),password=$('cb-profile-login-password');
+function setAuthMode(register){registerMode=!!register;registerName.hidden=!register;registerNameLabel.hidden=!register;registerConfirm.hidden=!register;registerConfirmLabel.hidden=!register;registerName.required=register;registerConfirm.required=register;password.autocomplete=register?'new-password':'current-password';authSubmit.textContent=register?'Crear cuenta':'Iniciar sesión';authSwitch.textContent=register?'¿Ya tienes cuenta? Iniciar sesión':'¿No tienes cuenta? Crear cuenta';message('');}
+authSwitch.addEventListener('click',()=>setAuthMode(!registerMode));
+document.addEventListener('cb-open-register',()=>setAuthMode(true));
+document.addEventListener('cb-open-login',()=>setAuthMode(false));
 const message=s=>{result.textContent=s};
 function safeName(user){const n=user?.user_metadata?.colombaire_name;return typeof n==='string'?n.trim():''}
 function display(user){currentUser=user||null;const connected=!!user;status.textContent=connected?'✓ Cuenta conectada':'Cuenta no conectada';email.textContent=connected?(user.email||'Usuario autenticado'):'';form.hidden=connected;out.hidden=!connected;identity.hidden=!connected;nameForm.hidden=true;if(connected){const n=safeName(user);nameText.textContent=n||'Nombre pendiente de configurar';editName.textContent=n?'Editar nombre':'Añadir nombre';}open.title=connected?'Mi cuenta · Conectado':'Mi cuenta · Sin conectar';open.setAttribute('aria-label',open.title)}
@@ -489,7 +499,22 @@ open.addEventListener('click',()=>{if(!dialog.open)dialog.showModal()});close.ad
 editName.addEventListener('click',()=>{if(!currentUser)return;nameInput.value=safeName(currentUser);nameForm.hidden=false;nameInput.focus();});
 cancelName.addEventListener('click',()=>{nameForm.hidden=true;message('')});
 nameForm.addEventListener('submit',async e=>{e.preventDefault();if(busy||!client||!currentUser)return;const n=nameInput.value.trim().replace(/\s+/g,' ');if(n.length<2||n.length>60){message('El nombre debe tener entre 2 y 60 caracteres.');return;}busy=true;const btn=nameForm.querySelector('button[type="submit"]');btn.disabled=true;message('Guardando nombre en tu cuenta…');try{const {data,error}=await client.auth.updateUser({data:{colombaire_name:n}});if(error)throw error;display(data.user);message('Nombre guardado en tu cuenta de Supabase. No se han modificado datos de palomos.')}catch(err){message('No se pudo guardar el nombre: '+(err.message||'Error de conexión'))}finally{busy=false;btn.disabled=false}});
-form.addEventListener('submit',async e=>{e.preventDefault();if(busy||!client)return;busy=true;const btn=form.querySelector('button');btn.disabled=true;message('Comprobando credenciales…');try{const {data,error}=await client.auth.signInWithPassword({email:$('cb-profile-login-email').value.trim(),password:$('cb-profile-login-password').value});if(error)throw error;$('cb-profile-login-password').value='';display(data.user);message('Sesión iniciada correctamente. La sincronización de palomos sigue desactivada.')}catch(err){message('No se pudo iniciar sesión: '+(err.message||'Error de conexión'))}finally{busy=false;btn.disabled=false}});
+form.addEventListener('submit',async e=>{e.preventDefault();if(busy||!client)return;busy=true;authSubmit.disabled=true;authSwitch.disabled=true;const userEmail=$('cb-profile-login-email').value.trim(),userPassword=password.value;try{
+if(registerMode){
+ const n=registerName.value.trim().replace(/\s+/g,' ');
+ if(n.length<2||n.length>60)throw new Error('Escribe un nombre o apodo de 2 a 60 caracteres.');
+ if(userPassword.length<6)throw new Error('La contraseña debe tener al menos 6 caracteres.');
+ if(userPassword!==registerConfirm.value)throw new Error('Las contraseñas no coinciden.');
+ message('Creando cuenta…');
+ const {data,error}=await client.auth.signUp({email:userEmail,password:userPassword,options:{data:{colombaire_name:n},emailRedirectTo:new URL('./',location.href).href}});
+ if(error)throw error;
+ password.value='';registerConfirm.value='';
+ if(data.session?.user){display(data.session.user);message('Cuenta creada y sesión iniciada. Los datos de Mi Palomar siguen siendo locales.');}
+ else{setAuthMode(false);message('Solicitud de registro enviada. Si tu proyecto requiere confirmación por correo, revisa tu bandeja de entrada y spam antes de iniciar sesión.');}
+}else{
+ message('Comprobando credenciales…');const {data,error}=await client.auth.signInWithPassword({email:userEmail,password:userPassword});if(error)throw error;password.value='';display(data.user);message('Sesión iniciada correctamente. La sincronización de palomos sigue desactivada.');
+}
+}catch(err){message((registerMode?'No se pudo crear la cuenta: ':'No se pudo iniciar sesión: ')+(err.message||'Error de conexión'));}finally{busy=false;authSubmit.disabled=false;authSwitch.disabled=false;}});
 out.addEventListener('click',async()=>{if(busy||!client)return;busy=true;out.disabled=true;try{const {error}=await client.auth.signOut();if(error)throw error;display(null);message('Sesión cerrada. Tus palomos locales no se han modificado.')}catch(err){message('No se pudo cerrar sesión: '+err.message)}finally{busy=false;out.disabled=false}});
 initialize();
 })();
@@ -567,8 +592,8 @@ window.addEventListener('DOMContentLoaded',async()=>{
   if(splash)splash.style.display='none';
   const enter=()=>{gate.hidden=true};
   document.getElementById('cb-cover-guide').onclick=()=>{enter();document.querySelector('[data-go="guia"]')?.click()};
-  document.getElementById('cb-cover-login').onclick=()=>{enter();document.getElementById('cb-profile-button')?.click()};
-  document.getElementById('cb-cover-register').onclick=()=>{enter();document.getElementById('cb-profile-button')?.click();const status=document.getElementById('cb-profile-result');if(status)status.textContent='El registro de nuevas cuentas está pendiente de conectar con el formulario existente.'};
+  document.getElementById('cb-cover-login').onclick=()=>{enter();document.dispatchEvent(new Event('cb-open-login'));document.getElementById('cb-profile-button')?.click()};
+  document.getElementById('cb-cover-register').onclick=()=>{enter();document.dispatchEvent(new Event('cb-open-register'));document.getElementById('cb-profile-button')?.click()};
   // Use the same Supabase persisted auth session; never treat a local flag as proof of login.
   try{
     let waited=0;
