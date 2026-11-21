@@ -60,6 +60,7 @@
   min-width: 0;
 }
 </style>
+<style>#inicio .hero-grid > .cb-luna-wide{grid-column:1/-1!important;width:100%;min-width:0}</style>
 </head>
 <body>
 <div id="cb-splash" class="cb-splash" aria-label="Bienvenido a COLOMBAIRE">
@@ -76,6 +77,7 @@
     <div class="cb-menu-heading"><span>EXPLORAR COLOMBAIRE</span><button type="button" class="cb-menu-close" aria-label="Cerrar menú">×</button></div>
     <button type="button" data-cb-home><span class="cb-menu-ico">⌂</span><span><strong>Inicio</strong><small>Portada y resumen</small></span></button>
     <a href="./colombometeo/index.html"><span class="cb-menu-ico">☀</span><span><strong>COLOMBOMETEO</strong><small>Previsiones y modelos</small></span></a>
+    <a href="./colomboluna/index.html"><span class="cb-menu-ico">☾</span><span><strong>COLOMBOLUNA</strong><small>Observatorio lunar</small></span></a>
     <a href="./colombopicas/index.html"><span class="cb-menu-ico">▦</span><span><strong>COLOMBOPICAS</strong><small>Seguimiento deportivo</small></span></a>
     <span class="cb-quick-disabled" aria-disabled="true"><span class="cb-menu-ico">◇</span><span><strong>COLOMBOMAP</strong><small>Próximamente</small></span></span>
   </div>
@@ -123,6 +125,7 @@
         <button type="button" class="module cb-weather-tile cb-meteo-wide cb-meteo-restored" onclick="window.location.href='./colombometeo/index.html'" aria-label="Abrir COLOMBOMETEO, comparación de modelos meteorológicos">
           <span class="cb-module-icon" aria-hidden="true"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17.5a5 5 0 0 1 .5-9.9 7 7 0 0 1 13.3 2.1 4 4 0 0 1-.8 7.8"/><path d="M12.2 3.2V1.7M17.9 5.3l1.2-1.2M9.3 5.5l-1-1"/><path d="M4 20h16"/></svg></span><b>COLOMBOMETEO</b><small>Previsiones de 7 días</small>
         </button>
+        <button type="button" class="module cb-luna-wide" onclick="window.location.href='./colomboluna/index.html'"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 14.5A9 9 0 0 1 9.5 3.2 9 9 0 1 0 20.8 14.5Z"/><path d="M17 3v4M15 5h4"/></svg></span><b>COLOMBOLUNA</b><small>Calendario y observatorio lunar</small></button>
       </div>
 
       <section class="cb-mobile-weather" aria-label="Tiempo actual del palomar">
@@ -529,7 +532,7 @@ initialize();
  </div>
  <script>
  (() => {
-   const CURRENT='1.0c';
+   const CURRENT='1.0d';
    const banner=document.getElementById('cb-update-banner');
    const message=document.getElementById('cb-update-message');
    const action=document.getElementById('cb-update-action');

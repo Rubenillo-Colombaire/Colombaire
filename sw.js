@@ -1,5 +1,5 @@
 // COLOMBAIRE v1.0c — actualización fiable para iOS/iPhone.
-const CACHE='colombaire-shell-v1.0c';
+const CACHE='colombaire-shell-v1.0d';
 const CORE=['./index.html','./style.css?v=1.0b','./app.js?v=1.0b','./weather.js?v=0.9z','./home-weather.js?v=1.0b','./manifest.webmanifest','./version.json','./splash-bienvenida.jpg','./cabecera-colombaire.png','./palomar.jpg','./genetica.jpg','./salud.jpg','./concursos.jpg','./guia.jpg','./calendario.jpg','./NotoSans-Regular.ttf','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('message',event=>{if(event.data&&event.data.type==='SKIP_WAITING')self.skipWaiting();});
 self.addEventListener('install',event=>{
@@ -17,9 +17,9 @@ self.addEventListener('fetch',event=>{
   if(url.pathname.endsWith('/version.json')){event.respondWith(fetch(request,{cache:'no-store'}));return;}
   if(request.mode==='navigate'){
     event.respondWith(fetch(request,{cache:'no-store'}).then(response=>{
-      if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(c=>c.put('./index.html',copy)));}
+      if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(c=>c.put(url.pathname === new URL(self.registration.scope).pathname ? './index.html' : url.pathname,copy)));}
       return response;
-    }).catch(()=>caches.match('./index.html')));
+    }).catch(()=>caches.match(url.pathname === new URL(self.registration.scope).pathname ? './index.html' : url.pathname).then(cached=>cached||Response.error())));
     return;
   }
   // Recursos propios: red primero, con copia offline.
