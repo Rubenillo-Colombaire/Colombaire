@@ -27,7 +27,9 @@ function pairById(id){return pairs.find(p=>p.id===id)}
 function fmtDate(v){if(!v)return"Sin registrar";if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return v;const[y,m,d]=v.split("-");return`${d}/${m}/${y}`}
 function addDays(v,n){const d=new Date(v+"T12:00:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
 function ageDays(v){if(!v)return null;return Math.floor((Date.now()-new Date(v+"T12:00:00"))/86400000)}
-function parentName(p,type){const id=p[type+"Id"];if(id&&byId(id))return byId(id).name;return p[type]||(type==="father"?"Desconocido":"Desconocida")}
+function displayPigeonName(p){const n=String(p.name||'').trim();return (!n||/^(sin|sin nombre)$/i.test(n))?(p.ring||'Sin nombre'):n;}
+function parentDisplay(p,type){const linked=byId(p[type+'Id']);if(linked){const n=displayPigeonName(linked);return n===linked.ring?n:n+' · '+(linked.ring||'Anilla no registrada');}return parentName(p,type);}
+function parentName(p,type){const id=p[type+"Id"];if(id&&byId(id))return displayPigeonName(byId(id));return p[type]||(type==="father"?"Desconocido":"Desconocida")}
 function showPage(id){
  pages.forEach(p=>p.classList.toggle("active",p.id===id));
  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("selected",b.dataset.go===id));
@@ -54,8 +56,8 @@ document.addEventListener("click",e=>{
 document.querySelectorAll("nav [data-go]").forEach(btn=>btn.addEventListener("click",()=>{navigationHistory=[];}));
 
 // MI PALOMAR
-function render(list=pigeons){const box=$("#pigeonList");$("#pigeonCount").textContent=`${pigeons.length} palomo${pigeons.length===1?"":"s"} registrado${pigeons.length===1?"":"s"}`;document.getElementById("cb-pigeons-fold-count")?.replaceChildren(document.createTextNode(`(${list.length})`));box.innerHTML=list.map(p=>{const sx=p.sex==="Macho"?"♂":p.sex==="Hembra"?"♀":"?";const sexClass=p.sex==="Macho"?"cb-sex-male":p.sex==="Hembra"?"cb-sex-female":"cb-sex-unknown";return`<div class="list-card" data-id="${p.id}"><div><b>${p.name||"Sin nombre"}</b><small>${p.ring||"Sin anilla"} · ${p.color||"Sin pelaje"}</small><small>Padre: ${parentName(p,"father")} · Madre: ${parentName(p,"mother")}</small><span class="status-pill ${cbStatusClass(p.status)}">${p.status||"Activo"}</span></div><div class="sex ${sexClass}">${sx}</div></div>`}).join("");box.querySelectorAll(".list-card").forEach(c=>c.onclick=()=>openPigeon(c.dataset.id))}
-function openPigeon(id){currentId=id;const p=byId(id);if(!p)return;$("#f-name").textContent=p.name||"Sin nombre";$("#f-ring").textContent=p.ring||"Sin anilla";["ring","owner","color","sex"].forEach(k=>$("#d-"+k).textContent=p[k]||"Sin registrar");$("#d-birth").textContent=fmtDate(p.birth);$("#d-father").textContent=parentName(p,"father");$("#d-mother").textContent=parentName(p,"mother");const status=document.getElementById('d-status');status.textContent=p.status||'Activo';status.className='status-pill '+cbStatusClass(p.status);document.getElementById('d-sport').textContent=p.sport||'Sin indicar';document.getElementById('d-breeder').textContent=p.breeder||'Sin indicar';cbRenderDesc(p);go("ficha")}
+function render(list=pigeons){const box=$("#pigeonList");$("#pigeonCount").textContent=`${pigeons.length} palomo${pigeons.length===1?"":"s"} registrado${pigeons.length===1?"":"s"}`;document.getElementById("cb-pigeons-fold-count")?.replaceChildren(document.createTextNode(`(${list.length})`));box.innerHTML=list.map(p=>{const sx=p.sex==="Macho"?"♂":p.sex==="Hembra"?"♀":"?";const sexClass=p.sex==="Macho"?"cb-sex-male":p.sex==="Hembra"?"cb-sex-female":"cb-sex-unknown";return`<div class="list-card" data-id="${p.id}"><div><b>${cbEscape(displayPigeonName(p))}</b><small>${p.ring||"Sin anilla"} · ${p.color||"Sin pelaje"}</small><small>Padre: ${cbEscape(parentDisplay(p,"father"))} · Madre: ${cbEscape(parentDisplay(p,"mother"))}</small><span class="status-pill ${cbStatusClass(p.status)}">${p.status||"Activo"}</span></div><div class="sex ${sexClass}">${sx}</div></div>`}).join("");box.querySelectorAll(".list-card").forEach(c=>c.onclick=()=>openPigeon(c.dataset.id))}
+function openPigeon(id){currentId=id;const p=byId(id);if(!p)return;$("#f-name").textContent=displayPigeonName(p);$("#f-ring").textContent=p.ring||"Sin anilla";["ring","owner","color","sex"].forEach(k=>$("#d-"+k).textContent=p[k]||"Sin registrar");$("#d-birth").textContent=fmtDate(p.birth);$("#d-father").textContent=parentDisplay(p,"father");$("#d-mother").textContent=parentDisplay(p,"mother");const status=document.getElementById('d-status');status.textContent=p.status||'Activo';status.className='status-pill '+cbStatusClass(p.status);document.getElementById('d-sport').textContent=p.sport||'Sin indicar';document.getElementById('d-breeder').textContent=p.breeder||'Sin indicar';cbRenderDesc(p);go("ficha")}
 
 // DESCENDENCIA: los vínculos confirmados dependen exclusivamente de IDs.
 function cbRenderDesc(parent){
@@ -146,7 +148,7 @@ document.getElementById('cb-photo-input')?.addEventListener('change',async funct
  try{const bitmap=await createImageBitmap(file),canvas=document.createElement('canvas');const side=320;canvas.width=canvas.height=side;const ctx=canvas.getContext('2d');const crop=Math.min(bitmap.width,bitmap.height);ctx.drawImage(bitmap,(bitmap.width-crop)/2,(bitmap.height-crop)/2,crop,crop,0,0,side,side);bitmap.close();const old=p.photo;p.photo=canvas.toDataURL('image/jpeg',.76);try{save()}catch(err){p.photo=old;alert('No queda espacio para guardar esta foto. Conserva tu copia JSON y utiliza una imagen más pequeña.');return}cbRenderDesc(p)}catch(err){alert('No se pudo procesar la fotografía: '+err.message)}finally{this.value=''}
 });
 
-function fillParentSelects(editId){const f=$("#p-father"),m=$("#p-mother");f.innerHTML='<option value="">Desconocido / no registrado</option>';m.innerHTML='<option value="">Desconocida / no registrada</option>';pigeons.filter(p=>p.id!==editId&&p.sex==="Macho").forEach(p=>f.add(new Option(`${p.name} · ${p.ring||"sin anilla"}`,p.id)));pigeons.filter(p=>p.id!==editId&&p.sex==="Hembra").forEach(p=>m.add(new Option(`${p.name} · ${p.ring||"sin anilla"}`,p.id)))}
+function fillParentSelects(editId){const f=$("#p-father"),m=$("#p-mother");f.innerHTML='<option value="">Desconocido / no registrado</option>';m.innerHTML='<option value="">Desconocida / no registrada</option>';pigeons.filter(p=>p.id!==editId&&p.sex==="Macho").forEach(p=>f.add(new Option(`${displayPigeonName(p)} · ${p.ring||"sin anilla"}`,p.id)));pigeons.filter(p=>p.id!==editId&&p.sex==="Hembra").forEach(p=>m.add(new Option(`${displayPigeonName(p)} · ${p.ring||"sin anilla"}`,p.id)))}
 // Sugerencias de progenitores: sin alterar el guardado de identificadores existente.
 function cbInitParentAutocomplete(){
  for(const [type,sex] of [['father','Macho'],['mother','Hembra']]){
@@ -156,7 +158,7 @@ function cbInitParentAutocomplete(){
   const update=()=>{
    const q=input.value.trim().toLocaleLowerCase('es');box.replaceChildren();
    if(!q){close();return}
-   const matches=pigeons.filter(p=>p.id!==document.getElementById('p-index').value&&p.sex===sex&&(p.name||'').toLocaleLowerCase('es').startsWith(q)).slice(0,8);
+   const matches=pigeons.filter(p=>p.id!==document.getElementById('p-index').value&&p.sex===sex&&([p.name,p.ring].some(v=>String(v||'').toLocaleLowerCase('es').includes(q)))).slice(0,8);
    for(const p of matches){const b=document.createElement('button');b.type='button';b.setAttribute('role','option');b.textContent=(p.name||'Sin nombre')+' · '+(p.ring||'sin anilla');b.addEventListener('mousedown',e=>e.preventDefault());b.addEventListener('click',()=>{select.value=p.id;input.value='';close();select.dispatchEvent(new Event('change'))});box.append(b)}
    box.hidden=!matches.length;input.setAttribute('aria-expanded',String(!!matches.length));
   };
@@ -195,8 +197,8 @@ function renderBreeding(){
 }
 function openPairForm(){
  const m=$("#pairMale"),f=$("#pairFemale");m.innerHTML='<option value="">Seleccionar macho</option>';f.innerHTML='<option value="">Seleccionar hembra</option>';
- pigeons.filter(p=>p.sex==="Macho"&&(p.status||"Activo")==="Activo").forEach(p=>m.add(new Option(`${p.name} · ${p.ring||"sin anilla"}`,p.id)));
- pigeons.filter(p=>p.sex==="Hembra"&&(p.status||"Activo")==="Activo").forEach(p=>f.add(new Option(`${p.name} · ${p.ring||"sin anilla"}`,p.id)));
+ pigeons.filter(p=>p.sex==="Macho"&&(p.status||"Activo")==="Activo").forEach(p=>m.add(new Option(`${displayPigeonName(p)} · ${p.ring||"sin anilla"}`,p.id)));
+ pigeons.filter(p=>p.sex==="Hembra"&&(p.status||"Activo")==="Activo").forEach(p=>f.add(new Option(`${displayPigeonName(p)} · ${p.ring||"sin anilla"}`,p.id)));
  $("#pairDate").value=new Date().toISOString().slice(0,10);go("pairForm");
 }
 $("#addPair").onclick=openPairForm;
