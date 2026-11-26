@@ -70,7 +70,7 @@ function cbRenderDesc(parent){
  for(const c of children){
   const isFather=c.fatherId===parent.id,otherId=isFather?c.motherId:c.fatherId;
   const other=otherId?byId(otherId):null;
-  const label=other?(other.name||other.ring||'Sin nombre')+' · '+(other.ring||'Sin anilla'):(isFather?c.mother:c.father)||'Pareja sin registrar';
+  const label=other?(displayPigeonName(other))+' · '+(other.ring||'Sin anilla'):(isFather?c.mother:c.father)||'Pareja sin registrar';
   const key=otherId||'texto:'+label;
   if(!groups.has(key))groups.set(key,{label,items:[],other});
   groups.get(key).items.push(c);
@@ -90,7 +90,7 @@ function cbRenderDesc(parent){
   const btn=mk('button','cb-lineage-child '+(pending?'is-pending':''));btn.type='button';
   const symbol=mk('span','cb-lineage-sex '+sexClass(c),sexIcon(c));
   const details=mk('span','cb-lineage-child-info');
-  details.append(mk('strong','',c.name||'Sin nombre'),mk('small','',(c.ring||'Sin anilla')+' · '+(c.color||'Pelaje sin registrar')));
+  details.append(mk('strong','',displayPigeonName(c)),mk('small','',(c.ring||'Sin anilla')+' · '+(c.color||'Pelaje sin registrar')));
   const end=mk('span','cb-lineage-child-end',pending?'Revisar':'Ver ficha');
   btn.append(symbol,details,end);
   btn.addEventListener('click',()=>pending?openForm(c.id):openPigeon(c.id));
@@ -116,7 +116,7 @@ function cbRenderDesc(parent){
   const body=mk('div','cb-lineage-children');candidates.forEach(c=>body.append(card(c,true)));wrap.append(body);container.append(wrap);
  }
  const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
- set('cb-lineage-name',parent.name||'Sin nombre');set('cb-lineage-ring',parent.ring||'Sin anilla');
+ set('cb-lineage-name',displayPigeonName(parent));set('cb-lineage-ring',parent.ring||'Sin anilla');
  set('cb-lineage-meta',(parent.sex||'Sexo sin determinar')+' · '+(parent.color||'Pelaje sin registrar')+' · '+(parent.status||'Activo'));
  const photo=document.getElementById('cb-lineage-photo'),placeholder=document.getElementById('cb-lineage-photo-placeholder');if(photo&&placeholder){photo.hidden=!parent.photo;photo.removeAttribute('src');if(parent.photo)photo.src=parent.photo;placeholder.hidden=!!parent.photo;}
 
@@ -159,7 +159,7 @@ function cbInitParentAutocomplete(){
    const q=input.value.trim().toLocaleLowerCase('es');box.replaceChildren();
    if(!q){close();return}
    const matches=pigeons.filter(p=>p.id!==document.getElementById('p-index').value&&p.sex===sex&&([p.name,p.ring].some(v=>String(v||'').toLocaleLowerCase('es').includes(q)))).slice(0,8);
-   for(const p of matches){const b=document.createElement('button');b.type='button';b.setAttribute('role','option');b.textContent=(p.name||'Sin nombre')+' · '+(p.ring||'sin anilla');b.addEventListener('mousedown',e=>e.preventDefault());b.addEventListener('click',()=>{select.value=p.id;input.value='';close();select.dispatchEvent(new Event('change'))});box.append(b)}
+   for(const p of matches){const b=document.createElement('button');b.type='button';b.setAttribute('role','option');b.textContent=displayPigeonName(p)+' · '+(p.ring||'sin anilla');b.addEventListener('mousedown',e=>e.preventDefault());b.addEventListener('click',()=>{select.value=p.id;input.value='';close();select.dispatchEvent(new Event('change'))});box.append(b)}
    box.hidden=!matches.length;input.setAttribute('aria-expanded',String(!!matches.length));
   };
   input.addEventListener('input',()=>{select.value='';update()});input.addEventListener('focus',update);

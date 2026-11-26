@@ -13,7 +13,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=casi-definitiva-v2">
+  <link rel="stylesheet" href="style.css?v=3.5">
 <style>
 /* Perfil autocontenido: no depende de style.css actualizado */
 .app > header.cb-banner-header {position:relative!important;}
@@ -152,7 +152,7 @@
         </button>
         <button type="button" class="module cb-luna-wide" onclick="window.location.href='./colomboluna/index.html'"><span class="cb-module-icon"><svg class="cb-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 14.5A9 9 0 0 1 9.5 3.2 9 9 0 1 0 20.8 14.5Z"/><path d="M17 3v4M15 5h4"/></svg></span><b>COLOMBOLUNA</b><small>Calendario y observatorio lunar</small></button>
       </div>
-<section class="cb-v21-integrated cb-v12-integrated" aria-label="Paneles meteorológicos aprobados"><iframe id="cb-v21-frame" src="paneles-v12/index.html" title="Previsión fotográfica, semanal y por horas" loading="eager" scrolling="no"></iframe><div class="cb-v46-toggle-bar"><button type="button" id="cb-v46-switch">Previsión por horas</button></div></section><a class="cb-luna-feature" href="./colomboluna/index.html"><span class="cb-luna-disc"><img alt="Fase lunar estimada" hidden></span><span class="cb-luna-copy"><small>OBSERVATORIO LUNAR</small><strong>ColomboLuna</strong><span>Explora nuestra Luna</span><small>Calendario · Fases · Efemérides</small></span><span class="cb-luna-chevron">›</span></a>
+<section class="cb-v21-integrated cb-v12-integrated" aria-label="Paneles meteorológicos aprobados"><iframe id="cb-v21-frame" src="paneles-v12/index.html?v=352" title="Previsión fotográfica, semanal y por horas" loading="eager" scrolling="no"></iframe></section><a class="cb-luna-feature" href="./colomboluna/index.html"><span class="cb-luna-disc"><img alt="Fase lunar estimada" hidden></span><span class="cb-luna-copy"><small>OBSERVATORIO LUNAR</small><strong>ColomboLuna</strong><span>Explora nuestra Luna</span><small>Calendario · Fases · Efemérides</small></span><span class="cb-luna-chevron">›</span></a>
 
       <section class="cb-mobile-weather" aria-label="Tiempo actual del palomar">
        <div class="cb-sky-cloud" aria-hidden="true"></div>
@@ -499,7 +499,7 @@
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&closed)splash.remove();});
 })();
 </script>
-<script src="app.js?v=integracion-v1"></script>
+<script src="app.js?v=3.5"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
 <script>document.addEventListener("DOMContentLoaded",function(){
 (()=>{'use strict';
@@ -655,40 +655,17 @@ window.addEventListener('DOMContentLoaded',async()=>{
 </script>
 <script src="municipio-gps.js"></script>
 <script src="weather-mobile-v2.js?v=2" defer></script>
-<script id="cb-v39-frame-fit">(function(){
- function fit(frame){try{const doc=frame.contentDocument;if(!doc)return;const main=doc.querySelector('main');if(!main)return;const visible=[...main.querySelectorAll(':scope > section.panel')].filter(el=>getComputedStyle(el).display!=='none'&&!el.hidden);const last=visible[visible.length-1];if(!last)return;const toggle=doc.querySelector('.cb-forecast-toggle');const lastBottom=last.getBoundingClientRect().bottom;const toggleBottom=(toggle&&getComputedStyle(toggle).display!=='none')?toggle.getBoundingClientRect().bottom:0;const h=Math.ceil(Math.max(lastBottom,toggleBottom,main.getBoundingClientRect().bottom,doc.documentElement.scrollHeight)+frame.contentWindow.scrollY+24);if(h>100&&h<10000)frame.style.height=h+'px';}catch(e){}}
- window.addEventListener('message',e=>{if(e.data?.type!=='cb-v39-fit')return;const f=[...document.querySelectorAll('iframe')].find(x=>x.contentWindow===e.source);if(f)fit(f)});
- window.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('iframe[src*="paneles-v12/"]').forEach(f=>{f.addEventListener('load',()=>{fit(f);setTimeout(()=>fit(f),300)});if(f.contentDocument?.readyState==='complete')fit(f)})});
-})();</script>
-<script id="cb-v46-external-toggle-script">(function(){function init(){const frame=document.getElementById('cb-v21-frame');const btn=document.getElementById('cb-v46-switch');if(!frame||!btn)return;btn.addEventListener('click',()=>{if(frame.contentWindow)frame.contentWindow.postMessage({type:'cb-v46-toggle'},'*')});window.addEventListener('message',e=>{if(e.source!==frame.contentWindow||e.data?.type!=='cb-v46-view')return;btn.textContent=e.data.hours?'Volver a previsión semanal':'Previsión por horas';btn.setAttribute('aria-label',btn.textContent)});frame.addEventListener('load',()=>{frame.contentWindow?.postMessage({type:'cb-v46-state-request'},'*')})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();</script><script id="cb-v25-iframe-fit">(function(){
-const frame=document.getElementById('cb-v21-frame');if(!frame)return;
-let raf=0;function fit(){cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{
-try{const d=frame.contentDocument;if(!d)return;const main=d.querySelector('main');if(!main)return;
-const visible=[...main.querySelectorAll(':scope > section.panel')].filter(el=>!el.hidden&&getComputedStyle(el).display!=='none');
-const last=visible.at(-1);if(!last)return;
-const bottom=Math.max(main.scrollHeight,main.getBoundingClientRect().bottom+frame.contentWindow.scrollY,last.getBoundingClientRect().bottom+frame.contentWindow.scrollY);
-const h=Math.ceil(bottom+48);if(h>250&&h<15000&&Math.abs(frame.getBoundingClientRect().height-h)>2)frame.style.setProperty('height',h+'px','important');
-}catch(e){}
-})}
-function schedule(){fit();setTimeout(fit,120);setTimeout(fit,500);setTimeout(fit,1300)}
-frame.addEventListener('load',()=>{schedule();try{const d=frame.contentDocument;if(d&&window.ResizeObserver){const ro=new ResizeObserver(fit);ro.observe(d.querySelector('main')||d.body);d.querySelectorAll('.hourly-scroll,.forecast').forEach(el=>ro.observe(el));}}catch(e){}});
-window.addEventListener('message',e=>{if(e.source===frame.contentWindow&&['cb-v39-fit','cb-v46-view'].includes(e.data?.type))schedule()});
-window.addEventListener('resize',schedule);if(frame.contentDocument?.readyState==='complete')schedule();
-})();</script>
+
+
 <script id="cb-v25-account-click">(function(){const entry=document.querySelector('.cb-v23-account-entry');const btn=document.getElementById('cb-profile-button');const dlg=document.getElementById('cb-profile-dialog');if(!entry||!btn)return;entry.setAttribute('role','group');entry.addEventListener('click',e=>{if(e.target.closest('button'))return;btn.click()});btn.addEventListener('click',()=>entry.classList.add('cb-v25-active'));dlg?.addEventListener('close',()=>entry.classList.remove('cb-v25-active'));})();</script></body>
 </html>
 <style>.cb-luna-feature{display:flex;align-items:center;gap:18px;background:linear-gradient(110deg,#07101f,#172c47);color:#fff!important;text-decoration:none!important;border:1px solid #526b88;border-radius:18px;padding:16px 20px;margin:0 0 18px;font-family:"Segoe UI Light","Segoe UI",system-ui,sans-serif;box-sizing:border-box}.cb-luna-disc{width:94px;height:94px;flex:none;display:grid;place-items:center}.cb-luna-disc img{width:100%;height:100%;object-fit:contain}.cb-luna-copy{display:flex;flex:1;flex-direction:column;gap:3px}.cb-luna-copy strong{font-size:28px;font-weight:300}.cb-luna-copy small{font-size:11px;color:#abc9e5;letter-spacing:.04em}.cb-luna-copy span{font-size:14px}.cb-luna-chevron{font-size:32px;color:#b9d9ff}.cb-luna-feature:focus-visible{outline:3px solid #b5d9ff}@media(max-width:480px){.cb-luna-feature{gap:10px;padding:12px}.cb-luna-disc{width:68px;height:68px}.cb-luna-copy strong{font-size:24px}.cb-luna-copy small{font-size:10px}} </style><script>window.addEventListener('message',e=>{const f=document.getElementById('cb-v21-frame');if(e.source!==f?.contentWindow||e.data?.type!=='cb-luna-preview'||typeof e.data.image!=='string'||!e.data.image.startsWith('data:image/png;base64,'))return;const img=document.querySelector('.cb-luna-disc img');img.src=e.data.image;img.hidden=false;});</script>
 <style id="cb-v26-parent-fix">#cb-v21-frame{min-height:0!important;overflow:hidden!important}</style>
-<script id="cb-v26-parent-fit">(function(){const f=document.getElementById('cb-v21-frame');if(!f)return;let pending=false;function fit(){if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;try{const d=f.contentDocument;if(!d)return;const main=d.querySelector('main');if(!main)return;const panels=[...main.querySelectorAll(':scope > section.panel')].filter(x=>!x.hidden&&getComputedStyle(x).display!=='none');const last=panels.at(-1);if(!last)return;const win=f.contentWindow;const bottom=Math.max(last.getBoundingClientRect().bottom+win.scrollY,main.getBoundingClientRect().bottom+win.scrollY);const h=Math.ceil(bottom+65);if(h>250&&h<12000)f.style.setProperty('height',h+'px','important');}catch(e){}})}f.addEventListener('load',()=>{fit();[150,450,1000].forEach(t=>setTimeout(fit,t));try{const d=f.contentDocument;if(window.ResizeObserver){const ro=new ResizeObserver(fit);ro.observe(d.querySelector('main'));d.querySelectorAll('#cb-hourly-panel,.hourly-scroll').forEach(x=>ro.observe(x))}}catch(e){}});window.addEventListener('message',e=>{if(e.source===f.contentWindow&&['cb-v26-fit','cb-v39-fit','cb-v46-view'].includes(e.data?.type)){fit();setTimeout(fit,160)}});window.addEventListener('resize',fit);setTimeout(fit,250)})();</script>
+
 
 <style id="cb-v27-parent-rounded">.cb-v12-integrated{border-radius:20px!important;overflow:hidden!important}.cb-v12-integrated #cb-v21-frame{border:0!important;display:block!important;width:100%!important}.cb-v12-integrated .cb-v46-toggle-bar{border-radius:0 0 20px 20px!important}</style>
-<script id="cb-v27-parent-height">(function(){const f=document.getElementById('cb-v21-frame');if(!f)return;
-let last=0;function apply(h){h=Number(h);if(!Number.isFinite(h)||h<300||h>12000)return;last=h;f.style.setProperty('height',Math.ceil(h)+'px','important')}
-window.addEventListener('message',e=>{if(e.source===f.contentWindow&&e.data?.type==='cb-v27-height')apply(e.data.height)});
-function ask(){f.contentWindow?.postMessage({type:'cb-v27-measure'},'*')}
-f.addEventListener('load',()=>{ask();setTimeout(ask,200);setTimeout(ask,900)});
-window.addEventListener('message',e=>{if(e.source===f.contentWindow&&e.data?.type==='cb-v46-view'){setTimeout(ask,50);setTimeout(ask,300)}});
-window.addEventListener('resize',ask);setTimeout(ask,500);
-})();</script>
+
 
 <style id="v33-gps-only">#cb-sky-locate{background:linear-gradient(175deg,#376b55 0%,#24513f 49%,#153d31 50%,#153d31 100%)!important;color:#f4e4bf!important;border:1px solid #b6a477!important;gap:10px!important;}#cb-sky-locate::before{content:"";display:inline-block;width:24px;height:28px;flex:0 0 24px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23f4e4bf%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%201a9%209%200%200%200-9%209c0%205%209%2013%209%2013s9-8%209-13a9%209%200%200%200-9-9Zm0%205a4%204%200%201%200%200%208%204%204%200%200%200%200-8Z%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;}#cb-sky-locate img,#cb-sky-locate svg{display:none!important;}</style>
+
+<script id="v35-frame-fit">(()=>{const f=document.getElementById('cb-v21-frame');if(!f)return;let last=0;window.addEventListener('message',e=>{if(e.source!==f.contentWindow||e.data?.type!=='cb-v27-height'||(location.protocol!=='file:'&&e.origin!==location.origin))return;const h=Math.ceil(Number(e.data.height));if(h>=300&&h<=12000&&Math.abs(h-last)>2){last=h;f.style.setProperty('height',h+'px','important')}});f.addEventListener('load',()=>{last=0;f.contentWindow.postMessage({type:'cb-v27-measure'},location.protocol==='file:'?'*':location.origin)});})();</script>
